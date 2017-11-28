@@ -201,7 +201,7 @@ def visualize3d(func,**kwargs):
         pt2 = kwargs['pt2']
        
     # construct figure
-    fig = plt.figure(figsize = (10,5))
+    fig = plt.figure(figsize = (12,7))
           
     # remove whitespace from figure
     fig.subplots_adjust(left=0, right=1, bottom=0, top=1) # remove whitespace
