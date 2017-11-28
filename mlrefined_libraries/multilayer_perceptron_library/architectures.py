@@ -1,7 +1,6 @@
 # import autograd functionality
 from autograd import grad as compute_grad  
 import autograd.numpy as np
-from autograd.util import flatten_func
 import copy
 
 class Setup:
@@ -37,13 +36,13 @@ class Setup:
         return normalized_data
 
     ########## architectures ##########
-    def compute_general_network_features(self,x, inner_weights):
+    def compute_general_network_features(self,x, inner_weights):        
         # pad data with ones to deal with bias
         o = np.ones((np.shape(x)[0],1))
         a_padded = np.concatenate((o,x),axis = 1)
 
         # loop through weights and update each layer of the network
-        for W in inner_weights:
+        for W in inner_weights:            
             # output of layer activation
             a = self.activation(np.dot(a_padded,W))
 

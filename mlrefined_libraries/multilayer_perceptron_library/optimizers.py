@@ -7,7 +7,7 @@ import autograd.numpy as np
 import math
 import time
 import copy
-from autograd.util import flatten_func
+from autograd.misc.flatten import flatten_func
 
 class Setup:
     '''
@@ -20,7 +20,7 @@ class Setup:
         verbose = False
         if 'verbose' in kwargs:
             verbose = kwargs['verbose']
-            
+        
         # flatten the input function, create gradient based on flat function
         g_flat, unflatten, w = flatten_func(g, w)
         grad = compute_grad(g_flat)

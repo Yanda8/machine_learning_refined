@@ -6,7 +6,7 @@ from matplotlib.gridspec import GridSpec
 import matplotlib.cm as cm
 from matplotlib.colors import Normalize
 import matplotlib.patches as patches
-
+import copy
 
 # import other packages
 import numpy as np
@@ -314,8 +314,10 @@ def calc_conv_hist(image, kernels):
 def myConv(image, kernel):
     # flip kernel
     kernel = np.flipud(np.fliplr(kernel))
+    
     # compute convolution (more precisely: cross-crorrelation)
-    conv = sig.convolve2d(image, kernel, boundary='symm', mode='same')
+    conv = sig.convolve2d(image, kernel, boundary='fill',fillvalue = 0, mode='same')
+    
     return conv    
 
 
@@ -351,19 +353,29 @@ def make_feat(image, kernels, **kwargs):
     
     
     feat=[]
-    for ind, kernel in kernels.items():     
+
+    new_kernels = []
+    for ind, kernel in kernels.items():
+        new_kernels.append(kernel)
+    new_kernels = np.asarray(new_kernels)
+    kernels = copy.deepcopy(new_kernels)
+
+    for kernel in kernels:    
         
         # compute convolution (more precisely: cross-crorrelation)  
         conv = myConv(image, kernel)
+        
+        # shove result through relu - in place operation below
+        np.maximum(0,conv,conv)
         
         # pooling
         conv_feats=[]
         for window in sliding_window(conv, sliding_window_size, stride):
             conv_feats.append(pool(window))
-        
+    
         feat.append(conv_feats)
     
-    feat = normalize(feat, norm=norm, axis=0)
+    # feat = normalize(feat, norm=norm, axis=0)
         
     return np.reshape(feat, np.size(feat), 1)   
 

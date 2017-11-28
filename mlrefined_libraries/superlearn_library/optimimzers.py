@@ -8,7 +8,7 @@ from autograd import hessian as compute_hess
 import math
 import time
 import copy
-from autograd.util import flatten_func
+from autograd.misc.flatten import flatten_func
 
 class MyOptimizers:
     '''

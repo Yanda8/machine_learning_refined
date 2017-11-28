@@ -2,7 +2,6 @@
 from autograd import grad as compute_grad   # The only autograd function you may ever need
 import autograd.numpy as np
 import copy
-from autograd.util import flatten_func
 
 class Setup:
     '''
@@ -49,7 +48,7 @@ class Setup:
     ### misclassification counters ###
     # two-class
     def twoclass_counter(self,w):
-        misclassifications = 0.25*sum((np.sign(self.predict(self.x,w)) - self.y)**2)
+        misclassifications = 0.25*np.sum((np.sign(self.predict(self.x,w)) - self.y)**2)
         return misclassifications
 
     # multiclass
@@ -62,5 +61,5 @@ class Setup:
         y_predict = np.argmax(self.predict(self.x,W),axis = 1) 
 
         # compare to actual labels
-        misclassifications = int(sum([abs(np.sign(a - b)) for a,b in zip(self.y,y_predict)]))
+        misclassifications = int(np.sum([abs(np.sign(a - b)) for a,b in zip(self.y,y_predict)]))
         return misclassifications
