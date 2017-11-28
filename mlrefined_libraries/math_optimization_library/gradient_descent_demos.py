@@ -469,15 +469,15 @@ class visualizer:
             
         ##### construct figure with panels #####
         # construct figure
-        fig = plt.figure(figsize = (9,3))
+        fig = plt.figure(figsize = (11,3))
 
         # remove whitespace from figure
         fig.subplots_adjust(left=0, right=1, bottom=0, top=1) # remove whitespace
 
         # create subplot with 3 panels, plot input function in center plot
-        gs = gridspec.GridSpec(1, 2, width_ratios=[1,2]) 
-        ax = plt.subplot(gs[0],projection='3d'); 
-        ax2 = plt.subplot(gs[1],aspect='equal'); 
+        gs = gridspec.GridSpec(1, 3, width_ratios=[1,2,4]) 
+        ax = plt.subplot(gs[1],projection='3d'); 
+        ax2 = plt.subplot(gs[2],aspect='equal'); 
 
         #### define input space for function and evaluate ####
         w = np.linspace(-wmax,wmax,200)
@@ -605,11 +605,11 @@ class visualizer:
         fig = plt.figure(figsize = (12,6))
 
         # create subplot with 3 panels, plot input function in center plot
-        gs = gridspec.GridSpec(2, 2, width_ratios=[1,4]) 
-        ax3 = plt.subplot(gs[0],projection='3d'); 
-        ax4 = plt.subplot(gs[1],aspect='equal'); 
-        ax5 = plt.subplot(gs[2],projection='3d'); 
-        ax6 = plt.subplot(gs[3],aspect='equal'); 
+        gs = gridspec.GridSpec(2, 3, width_ratios=[1,2,4]) 
+        ax3 = plt.subplot(gs[1],projection='3d'); 
+        ax4 = plt.subplot(gs[2],aspect='equal'); 
+        ax5 = plt.subplot(gs[4],projection='3d'); 
+        ax6 = plt.subplot(gs[5],aspect='equal'); 
         
         # remove whitespace from figure
         fig.subplots_adjust(left=0, right=1, bottom=0, top=1) # remove whitespace
