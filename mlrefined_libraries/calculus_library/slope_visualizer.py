@@ -127,7 +127,7 @@ def animate_visualize3d(func,**kwargs):
         view = kwargs['view']
        
     # construct figure
-    fig = plt.figure(figsize = (5,5))
+    fig = plt.figure(figsize = (6,6))
     artist = fig
     
     # create subplot with 3 panels, plot input function in center plot
@@ -197,7 +197,7 @@ def animate_visualize3d(func,**kwargs):
             
             # label arrow
             q = func([1.3,0]) - func([0,0])
-            annotate3D(ax, s='$(b_1,0)$', xyz=[q,0,0], fontsize=11, xytext=(-3,3),
+            annotate3D(ax, s='$(b_1,0)$', xyz=[q,0,0], fontsize=13, xytext=(-3,3),
                textcoords='offset points', ha='center',va='center') 
 
         t = func([0,1]) - func([0,0])
@@ -209,7 +209,7 @@ def animate_visualize3d(func,**kwargs):
             
             # label arrow
             q = func([0,1.3]) - func([0,0])
-            annotate3D(ax, s='$(0,b_2)$', xyz=[0,q,0], fontsize=11, xytext=(-3,3),
+            annotate3D(ax, s='$(0,b_2)$', xyz=[0,q,0], fontsize=13, xytext=(-3,3),
                textcoords='offset points', ha='center',va='center') 
                 
         # full gradient
@@ -220,7 +220,7 @@ def animate_visualize3d(func,**kwargs):
             
             s = func([1.2,0]) - func([0,0])
             t = func([0,1.2]) - func([0,0])
-            annotate3D(ax, s='$(b_1,b_2)$', xyz=[s,t,0], fontsize=11, xytext=(-3,3),
+            annotate3D(ax, s='$(b_1,b_2)$', xyz=[s,t,0], fontsize=13, xytext=(-3,3),
                textcoords='offset points', ha='center',va='center') 
             
         # full negative gradient
@@ -232,7 +232,7 @@ def animate_visualize3d(func,**kwargs):
             s = - (func([an+0.2,0]) - func([0,0]))
             t = - (func([0,an+0.2]) - func([0,0]))
             name = '$-(b_1,b_2)$'
-            annotate3D(ax, s=name, xyz=[s,t,0], fontsize= 11, xytext=(-3,3),textcoords='offset points', ha='center',va='center') 
+            annotate3D(ax, s=name, xyz=[s,t,0], fontsize= 13, xytext=(-3,3),textcoords='offset points', ha='center',va='center') 
 
         # draw negative coordinate-wise slope vector        
         if abs(s) > 0.5 and abs(t) < 0.5:
@@ -243,7 +243,7 @@ def animate_visualize3d(func,**kwargs):
             s = - (func([an+0.2,0]) - func([0,0]))
             t = - (func([0,an+0.2]) - func([0,0]))
             name = '$-(b_1,0)$'
-            annotate3D(ax, s=name, xyz=[s,t,0], fontsize=11, xytext=(-3,3),textcoords='offset points', ha='center',va='center') 
+            annotate3D(ax, s=name, xyz=[s,t,0], fontsize=13, xytext=(-3,3),textcoords='offset points', ha='center',va='center') 
  
             
         # draw negative coordinate-wise slope vector        
@@ -255,7 +255,7 @@ def animate_visualize3d(func,**kwargs):
             s = - (func([an+0.2,0]) - func([0,0]))
             t = - (func([0,an+0.2]) - func([0,0]))
             name = '$-(0,b_2)$'
-            annotate3D(ax, s=name, xyz=[s,t,0], fontsize=11, xytext=(-3,3),textcoords='offset points', ha='center',va='center') 
+            annotate3D(ax, s=name, xyz=[s,t,0], fontsize=13, xytext=(-3,3),textcoords='offset points', ha='center',va='center') 
            
             
         ### clean up plot ###
@@ -316,7 +316,7 @@ def animate_visualize3d(func,**kwargs):
             part3 = ''
         
         
-        ax.set_title(r'$g(w_1,w_2) = ' + part1 + part2  + part3 + '$' ,fontsize = 13)
+        ax.set_title(r'$g(w_1,w_2) = ' + part1 + part2  + part3 + '$' ,fontsize = 15)
 
         return artist,
         

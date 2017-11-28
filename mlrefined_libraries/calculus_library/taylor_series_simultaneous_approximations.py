@@ -4,6 +4,7 @@ from mlrefined_libraries.JSAnimation_slider_only import IPython_display_slider_o
 # import standard plotting and animation
 import matplotlib.pyplot as plt
 import matplotlib.animation as animation
+from matplotlib import gridspec
 
 # import autograd functionality
 from autograd import grad as compute_grad   # The only autograd function you may ever need
@@ -36,8 +37,9 @@ class visualizer:
             num_frames = args['num_frames']
             
         # initialize figure
-        fig = plt.figure(figsize = (18,5))
+        fig = plt.figure(figsize = (10,3))
         artist = fig
+        gs = gridspec.GridSpec(1, 4) 
         ax1 = fig.add_subplot(141)
         ax2 = fig.add_subplot(142)
         ax3 = fig.add_subplot(143)
@@ -131,22 +133,22 @@ class visualizer:
             ax1.set_xlim([-3,3])
             ax1.set_ylim([min(g_plot) - ggap,max(g_plot) + ggap])
             ax1.set_yticks([],[])
-            ax1.set_title('first order approximation',fontsize = 15)
+            ax1.set_title('first order approximation',fontsize = 13)
             
             ax2.set_xlim([-3,3])
             ax2.set_ylim([min(g_plot) - ggap,max(g_plot) + ggap])
             ax2.set_yticks([],[])
-            ax2.set_title('second order approximation',fontsize = 15)
+            ax2.set_title('second order approximation',fontsize = 13)
     
             ax3.set_xlim([-3,3])
             ax3.set_ylim([min(g_plot) - ggap,max(g_plot) + ggap])
             ax3.set_yticks([],[])
-            ax3.set_title('third order approximation',fontsize = 15)
+            ax3.set_title('third order approximation',fontsize = 13)
         
             ax4.set_xlim([-3,3])
             ax4.set_ylim([min(g_plot) - ggap,max(g_plot) + ggap])
             ax4.set_yticks([],[])
-            ax4.set_title('fourth order approximation',fontsize = 15)
+            ax4.set_title('fourth order approximation',fontsize = 13)
               
             return artist,
 
