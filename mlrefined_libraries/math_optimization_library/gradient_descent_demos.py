@@ -471,13 +471,13 @@ class visualizer:
         # construct figure
         fig = plt.figure(figsize = (11,3))
 
-        # remove whitespace from figure
-        fig.subplots_adjust(left=0, right=1, bottom=0, top=1) # remove whitespace
-
         # create subplot with 3 panels, plot input function in center plot
-        gs = gridspec.GridSpec(1, 3, width_ratios=[1,2,4]) 
+        gs = gridspec.GridSpec(1, 3, width_ratios=[1,5,10]) 
         ax = plt.subplot(gs[1],projection='3d'); 
         ax2 = plt.subplot(gs[2],aspect='equal'); 
+        
+        # remove whitespace from figure
+        fig.subplots_adjust(left=0, right=1, bottom=0, top=1) # remove whitespace
 
         #### define input space for function and evaluate ####
         w = np.linspace(-wmax,wmax,200)
@@ -605,7 +605,7 @@ class visualizer:
         fig = plt.figure(figsize = (12,6))
 
         # create subplot with 3 panels, plot input function in center plot
-        gs = gridspec.GridSpec(2, 3, width_ratios=[1,2,4]) 
+        gs = gridspec.GridSpec(2, 3, width_ratios=[1,5,10]) 
         ax3 = plt.subplot(gs[1],projection='3d'); 
         ax4 = plt.subplot(gs[2],aspect='equal'); 
         ax5 = plt.subplot(gs[4],projection='3d'); 
