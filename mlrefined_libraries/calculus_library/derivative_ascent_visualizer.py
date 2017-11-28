@@ -23,17 +23,17 @@ def compare_2d3d(func1,func2,**kwargs):
         view = kwargs['view']
         
     # construct figure
-    fig = plt.figure(figsize = (9,4))
+    fig = plt.figure(figsize = (12,4))
           
     # remove whitespace from figure
     fig.subplots_adjust(left=0, right=1, bottom=0, top=1) # remove whitespace
     fig.subplots_adjust(wspace=0.01,hspace=0.01)
         
     # create subplot with 3 panels, plot input function in center plot
-    gs = gridspec.GridSpec(1, 2, width_ratios=[1,2]) 
+    gs = gridspec.GridSpec(1, 3, width_ratios=[1,2,4]) 
   
     ### draw 2d version ###
-    ax1 = plt.subplot(gs[0]); 
+    ax1 = plt.subplot(gs[1]); 
     grad = compute_grad(func1)
     
     # generate a range of values over which to plot input function, and derivatives
@@ -88,7 +88,7 @@ def compare_2d3d(func1,func2,**kwargs):
     ax1.spines['left'].set_visible(False)
     
     ### draw 3d version ###
-    ax2 = plt.subplot(gs[1],projection='3d'); 
+    ax2 = plt.subplot(gs[2],projection='3d'); 
     grad = compute_grad(func2)
     w_val = [float(0),float(0)]
     
@@ -201,7 +201,7 @@ def visualize3d(func,**kwargs):
         pt2 = kwargs['pt2']
        
     # construct figure
-    fig = plt.figure(figsize = (12,7))
+    fig = plt.figure(figsize = (12,6))
           
     # remove whitespace from figure
     fig.subplots_adjust(left=0, right=1, bottom=0, top=1) # remove whitespace
@@ -290,7 +290,7 @@ def visualize3d(func,**kwargs):
             # label arrow
             q = h([an,0]) - h([0,0])
             name = r'$\left(\frac{\mathrm{d}}{\mathrm{d}w_1}' + pname + r',0\right)$'
-            annotate3D(ax, s=name, xyz=[q,0,0], fontsize=9, xytext=(-3,3),textcoords='offset points', ha='center',va='center') 
+            annotate3D(ax, s=name, xyz=[q,0,0], fontsize=12, xytext=(-3,3),textcoords='offset points', ha='center',va='center') 
 
         t = h([0,1]) - h([0,0])
         if abs(t) > 0.5:
@@ -302,7 +302,7 @@ def visualize3d(func,**kwargs):
             # label arrow
             q = h([0,an]) - h([0,0])
             name = r'$\left(0,\frac{\mathrm{d}}{\mathrm{d}w_2}' + pname + r'\right)$'
-            annotate3D(ax, s=name, xyz=[0,q,0], fontsize=9, xytext=(-3,3),textcoords='offset points', ha='center',va='center') 
+            annotate3D(ax, s=name, xyz=[0,q,0], fontsize=12, xytext=(-3,3),textcoords='offset points', ha='center',va='center') 
 
         # full gradient
         if abs(s) > 0.5 and abs(t) > 0.5:
@@ -313,7 +313,7 @@ def visualize3d(func,**kwargs):
             s = h([an+0.2,0]) - h([0,0])
             t = h([0,an+0.2]) - h([0,0])
             name = r'$\left(\frac{\mathrm{d}}{\mathrm{d}w_1}' + pname + r',\frac{\mathrm{d}}{\mathrm{d}w_2}' + pname + r'\right)$'
-            annotate3D(ax, s=name, xyz=[s,t,0], fontsize=9, xytext=(-3,3),textcoords='offset points', ha='center',va='center') 
+            annotate3D(ax, s=name, xyz=[s,t,0], fontsize=12, xytext=(-3,3),textcoords='offset points', ha='center',va='center') 
 
         ###### add arrow and text for steepest descent direction #####
         if plot_descent == True:
@@ -326,7 +326,7 @@ def visualize3d(func,**kwargs):
                 s = - (h([an+0.2,0]) - h([0,0]))
                 t = - (h([0,an+0.2]) - h([0,0]))
                 name = r'$\left(-\frac{\mathrm{d}}{\mathrm{d}w_1}' + pname + r',-\frac{\mathrm{d}}{\mathrm{d}w_2}' + pname + r'\right)$'
-                annotate3D(ax, s=name, xyz=[s,t,0], fontsize=9, xytext=(-3,3),textcoords='offset points', ha='center',va='center') 
+                annotate3D(ax, s=name, xyz=[s,t,0], fontsize=12, xytext=(-3,3),textcoords='offset points', ha='center',va='center') 
 
             
         ### clean up plot ###
@@ -357,7 +357,7 @@ def visualize3d(func,**kwargs):
         ax.set_zlim([zmin,zmax])
 
         # label plot
-        fontsize = 12
+        fontsize = 14
         ax.set_xlabel(r'$w_1$',fontsize = fontsize,labelpad = -20)
         ax.set_ylabel(r'$w_2$',fontsize = fontsize,rotation = 0,labelpad=-30)
     # plot
