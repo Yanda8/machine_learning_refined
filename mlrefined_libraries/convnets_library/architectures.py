@@ -38,11 +38,12 @@ class Setup:
             for j in np.arange(0, np.shape(tensor)[2]-kernel_size[1]+1, stride):
                 sock = copy.deepcopy(tensor[:,i:i+kernel_size[0], j:j+kernel_size[1]])
                 windowed_tensor.append(sock)
-
-        # re-shape properly
-        windowed_tensor = np.asarray(windowed_tensor)
+        
+        # re-shape properly 
+        windowed_tensor = np.array(windowed_tensor)
         windowed_tensor = windowed_tensor.swapaxes(0,1)
-        windowed_tensor = windowed_tensor.reshape(np.shape(windowed_tensor)[0]*np.shape(windowed_tensor)[1],np.shape(windowed_tensor)[2]*np.shape(windowed_tensor)[3])    
+        windowed_tensor = np.reshape(windowed_tensor,(np.shape(windowed_tensor)[0]*np.shape(windowed_tensor)[1],np.shape(windowed_tensor)[2]*np.shape(windowed_tensor)[3])) 
+        
         return windowed_tensor
 
     # pad image with appropriate number of zeros for convolution
@@ -57,7 +58,7 @@ class Setup:
 
     def conv_layer(self,tensor,kernels):
         # square up tensor into tensor of patches
-        tensor = tensor.reshape(np.shape(tensor)[0],int((np.shape(tensor)[1])**(0.5)),int( (np.shape(tensor)[1])**(0.5)),order = 'F')
+        tensor = np.reshape(tensor,(np.shape(tensor)[0],int((np.shape(tensor)[1])**(0.5)),int( (np.shape(tensor)[1])**(0.5))),order = 'F')
 
         # pad tensor
         kernel = kernels[0]
@@ -79,30 +80,33 @@ class Setup:
         for kernel in kernels:
             #### make convolution feature map - via matrix multiplication over windowed tensor 
             feature_map = np.dot(wind_tensor,kernel.flatten()[:,np.newaxis])
-            print (feature_map.shape)
-            print (np.prod(feature_map.shape))
-            print (type(feature_map))
-
+            
             # reshape convolution feature map into array
             feature_map = np.reshape(feature_map,np.shape(tensor))
-
+            
             # now shove result through nonlinear activation
             feature_map = self.activation(feature_map)
-
+            
             #### now pool / downsample feature map, first window then pool on each window
             wind_featmap = self.sliding_window_tensor(feature_map,kernel2.shape,stride = stride)
+            
 
+            
             # max pool on each collected patch
             max_pool = np.max(wind_featmap,axis = 1)
-
+            #print (np.shape(max_pool))
+            
             # reshape into new tensor
-            max_pool.shape = (np.shape(tensor)[0],int((np.shape(max_pool)[0]/float(np.shape(tensor)[0]))**(0.5)),int((np.shape(max_pool)[0]/float(np.shape(tensor)[0]))**(0.5)))
+            max_pool = np.reshape(max_pool,(np.shape(tensor)[0],int((np.shape(max_pool)[0]/float(np.shape(tensor)[0]))**(0.5)),int((np.shape(max_pool)[0]/float(np.shape(tensor)[0]))**(0.5))))
+            
+            #print (np.shape(max_pool))
 
+            #print (max_pool[0][0])
             # reshape into new downsampled pooled feature map
             new_tensors.append(max_pool)
 
         # turn into array
-        new_tensors = np.asarray(new_tensors)
+        new_tensors = np.array(new_tensors)
 
         # reshape into final feature vector to touch fully connected layer(s), otherwise keep as is in terms of shape
         new_tensors = new_tensors.swapaxes(0,1)
