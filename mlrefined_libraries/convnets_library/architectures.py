@@ -69,9 +69,9 @@ class Setup:
         wind_tensor = self.sliding_window_tensor(padded_tensor,kernel_size,stride = 1)
 
         # normalize windows since they touch weights
-        a_means = np.mean(wind_tensor,axis = 0)
-        a_stds = np.std(wind_tensor,axis = 0)
-        wind_tensor = self.normalize(wind_tensor,a_means,a_stds)
+       # a_means = np.mean(wind_tensor,axis = 0)
+       # a_stds = np.std(wind_tensor,axis = 0)
+       # wind_tensor = self.normalize(wind_tensor,a_means,a_stds)
 
         #### compute convolution feature maps / downsample via pooling one map at a time over entire tensor #####
         kernel2 = np.ones((6,6))
@@ -90,18 +90,13 @@ class Setup:
             #### now pool / downsample feature map, first window then pool on each window
             wind_featmap = self.sliding_window_tensor(feature_map,kernel2.shape,stride = stride)
             
-
-            
             # max pool on each collected patch
+            ### mean or max on each dude
             max_pool = np.max(wind_featmap,axis = 1)
-            #print (np.shape(max_pool))
             
             # reshape into new tensor
             max_pool = np.reshape(max_pool,(np.shape(tensor)[0],int((np.shape(max_pool)[0]/float(np.shape(tensor)[0]))**(0.5)),int((np.shape(max_pool)[0]/float(np.shape(tensor)[0]))**(0.5))))
-            
-            #print (np.shape(max_pool))
 
-            #print (max_pool[0][0])
             # reshape into new downsampled pooled feature map
             new_tensors.append(max_pool)
 
@@ -112,7 +107,6 @@ class Setup:
         new_tensors = new_tensors.swapaxes(0,1)
         new_tensors = np.reshape(new_tensors, (np.shape(new_tensors)[0],np.shape(new_tensors)[1],np.shape(new_tensors)[2]*np.shape(new_tensors)[3]))
         new_tensors = np.reshape(new_tensors, (np.shape(new_tensors)[0],np.shape(new_tensors)[1]*np.shape(new_tensors)[2]),order = 'F')
-
         return new_tensors
     
     # our normalization function
@@ -124,27 +118,36 @@ class Setup:
     def compute_general_network_features(self,x,inner_weights,kernels):
         # pass input through convolution layers
         x_conv = self.conv_layer(x,kernels)
-        
+
         # pad data with ones to deal with bias
         o = np.ones((np.shape(x_conv)[0],1))
         a_padded = np.concatenate((o,x_conv),axis = 1)
 
         # loop through weights and update each layer of the network
         for W in inner_weights:            
+            print (np.shape(a_padded))
+            print (np.shape(W))
+
+            
+            
             # output of layer activation
             a = self.activation(np.dot(a_padded,W))
 
             ### normalize output of activation
             # compute the mean and standard deviation of the activation output distributions
-            a_means = np.mean(a,axis = 0)
-            a_stds = np.std(a,axis = 0)
+            #a_means = np.mean(a,axis = 0)
+            #a_stds = np.std(a,axis = 0)
 
             # normalize the activation outputs
-            a_normed = self.normalize(a,a_means,a_stds)
+            #a_normed = self.normalize(a,a_means,a_stds)
 
+            a_normed = a
+            
             # pad with ones for bias
             o = np.ones((np.shape(a_normed)[0],1))
             a_padded = np.concatenate((o,a_normed),axis = 1)
+        print (np.shape(inner_weights))
+        print (a_normed)
 
         return a_padded
 

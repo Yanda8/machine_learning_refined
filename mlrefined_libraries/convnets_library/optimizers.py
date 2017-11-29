@@ -8,6 +8,8 @@ import math
 import time
 import copy
 from autograd.misc.flatten import flatten_func
+from autograd.misc.flatten import flatten
+
 
 class Setup:
     '''
@@ -16,30 +18,24 @@ class Setup:
         
     ########## optimizer ##########
     # gradient descent function
-    def gradient_descent(self,g,w,alpha,max_its,beta,version,**kwargs):
+    def gradient_descent(self,g,w_unflat,alpha,max_its,version,**kwargs):
         verbose = False
         if 'verbose' in kwargs:
             verbose = kwargs['verbose']
             
         # flatten the input function, create gradient based on flat function
-        g_flat, unflatten, w = flatten_func(g, w)
+        g_flat, unflatten, w = flatten_func(g, w_unflat)
         grad = compute_grad(g)
 
         # record history
         w_hist = []
-        w_hist.append(unflatten(w))
-
-        # start gradient descent loop
-        z = np.zeros((np.shape(w)))      # momentum term
-
-        if verbose == True:
-            print ('starting optimization...')
+        w_hist.append(w_unflat)
             
         # over the line
         for k in range(max_its):   
             # plug in value into func and derivative
-            grad_eval = grad(w)
-            grad_eval.shape = np.shape(w)
+            grad_eval = grad(w_unflat)
+            grad_eval, _ = flatten(grad_eval)
 
             ### normalized or unnormalized descent step? ###
             if version == 'normalized':
@@ -48,12 +44,12 @@ class Setup:
                     grad_norm += 10**-6*np.sign(2*np.random.rand(1) - 1)
                 grad_eval /= grad_norm
 
-            # take descent step with momentum
-            z = beta*z + grad_eval
-            w = w - alpha*z
+            # take descent step 
+            w = w - alpha*grad_eval
 
             # record weight update
-            w_hist.append(unflatten(w))
+            w_unflat = unflatten(w)
+            w_hist.append(w_unflat)
 
         if verbose == True:
             print ('...optimization complete!')

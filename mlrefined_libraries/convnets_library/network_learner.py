@@ -129,9 +129,9 @@ class Network:
         verbose = False
         if 'verbose' in kwargs:
             verbose = kwargs['verbose']
-            
+
         # run optimizer
-        self.weight_history = self.opt.gradient_descent(self.training_cost,self.w_init,self.alpha,self.max_its,self.beta,self.version,verbose=verbose)
+        self.weight_history = self.opt.gradient_descent(self.training_cost,self.w_init,self.alpha,self.max_its,self.version,verbose=verbose)
         
     ####### show cost function plots #######
     def compute_cost_plots(self): 
@@ -151,7 +151,7 @@ class Network:
         # loop over weights and record cost values
         for w in self.weight_history:
             # use testing architecture to gather stats on training data network normalization
-            a_padded,self.train_stats = self.architectures.testing_architecture(self.x_train,w[0],[])
+            a_padded,self.train_stats = self.architectures.testing_architecture(self.x_train,inner_weights = w[0],kernels = w[1],stats = [])
             self.training_stats.append(self.train_stats)
 
             # evalaute both training and testing data using testing predictor, which will normalize network
