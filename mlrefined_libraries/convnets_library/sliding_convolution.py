@@ -27,6 +27,11 @@ class visualizer:
                
         
     def draw_it(self,**kwargs):
+            
+        fmt = '.1f'    
+        if 'mode' in kwargs and kwargs['mode']=='int':
+            fmt = 'd'
+            
         
         num_frames = np.size(self.image)
         
@@ -35,12 +40,12 @@ class visualizer:
         artist = fig
         
         # create subplot with 5 panels
-        gs = gridspec.GridSpec(1, 5, width_ratios=[.7, .1, 1, .1, 1]) 
+        gs = gridspec.GridSpec(1, 5, width_ratios=[.6, .05, 1, .05, 1]) 
         ax1 = plt.subplot(gs[0]) # kernel 
         ax5 = plt.subplot(gs[4]) # convolution result
         ax3 = plt.subplot(gs[2]) # image
         ax2 = plt.subplot(gs[1]) # convolution symbol 
-        ax2.scatter(0, 0, marker="$\star$", s=80, c='k'); ax2.set_ylim([-1, 1]); ax2.axis('off');
+        ax2.scatter(0, 0, marker="$*$", s=80, c='k'); ax2.set_ylim([-1, 1]); ax2.axis('off');
         ax4 = plt.subplot(gs[3]) # equal sign
         ax4.scatter(0, 0, marker="$=$", s=80, c='k'); ax4.set_ylim([-1, 1]); ax4.axis('off');   
         
@@ -103,6 +108,21 @@ class visualizer:
         mask_conv_padded = np.zeros(np.shape(conv))
         mask_conv_padded = pad_zeros(mask_conv_padded, L0, L1)
         mask_conv_padded = np.maximum(-2*mask_conv_padded+1, 0) # turn 0s to 1s and vice-versa
+        
+        
+        slider = []
+        for i in range(0, N0):
+            for j in range(0, N1):
+                slider.append([i,j])
+                
+                
+        fmt = '.1f'    
+        if 'mode' in kwargs and kwargs['mode']=='int':
+            fmt = 'd'
+            kernel_padded = kernel_padded.astype('int')
+            image_padded = image_padded.astype('int')
+            conv_padded = conv_padded.astype('int')
+            
             
         
         print ('starting animation rendering...')
@@ -129,7 +149,7 @@ class visualizer:
             cmap_kernel = ["#34495e"]
             
             sns.heatmap(kernel_padded, mask=mask_kernel_padded, square=True, cbar=False, cmap=cmap_kernel,
-                        annot=True, fmt=".1f", linewidths=.1, yticklabels=False, xticklabels=False,
+                        annot=True, fmt=fmt, linewidths=.1, yticklabels=False, xticklabels=False,
                         annot_kws={"weight": "bold"}, ax=ax1)
            
             
@@ -137,19 +157,20 @@ class visualizer:
             # plot image
             cmap_white = ["#ffffff"]
             cmap_gray =  ["#cccccc"]
-            
+        
+        
             sns.heatmap(image_padded, square=True,  cbar=False, cmap=cmap_white,
-                        annot=True, fmt=".1f", linewidths=0.1, yticklabels=False, xticklabels=False, ax=ax3)
+                        annot=True, fmt=fmt, linewidths=0.1, yticklabels=False, xticklabels=False, ax=ax3)
 
             sns.heatmap(image_padded, mask=mask_image_padded, square=True,  cbar=False, cmap=cmap_gray,
-                        annot=True, fmt=".1f", linewidths=0.1, yticklabels=False, xticklabels=False, ax=ax3)
+                        annot=True, fmt=fmt, linewidths=0.1, yticklabels=False, xticklabels=False, ax=ax3)
 
             # make sliding mask 
             mask_sliding_image = np.ones(np.shape(image_padded))
-            mask_sliding_image[int(np.floor(k/N0)):int(np.floor(k/N0))+L0, k%N1:k%N1+L1] = 0
+            mask_sliding_image[slider[k][0]:slider[k][0]+L0, slider[k][1]:slider[k][1]+L1] = 0
             
             sns.heatmap(image_padded, mask=mask_sliding_image, square=True, cbar=False, cmap=cmap_kernel,
-                        annot=True, fmt=".1f", linewidths=.1, yticklabels=False, xticklabels=False,
+                        annot=True, fmt=fmt, linewidths=.1, yticklabels=False, xticklabels=False,
                         annot_kws={"weight": "bold"}, ax=ax3)
 
             
@@ -158,9 +179,9 @@ class visualizer:
             # plot convolution
             cmap_conv =  ["#ffcc00"]
             
-            mask_conv_padded[int(np.floor(k/N0))+L0_half, k%N1+L1_half] = 0
+            mask_conv_padded[slider[k][0]+L0_half, slider[k][1]+L1_half] = 0
             sns.heatmap(conv_padded, mask=mask_conv_padded, square=True, cbar=False, cmap=cmap_conv,
-                        annot=True, fmt=".1f", linewidths=.1, yticklabels=False, xticklabels=False,
+                        annot=True, fmt=fmt, linewidths=.1, yticklabels=False, xticklabels=False,
                         annot_kws={"weight": "bold"}, ax=ax5)
               
             

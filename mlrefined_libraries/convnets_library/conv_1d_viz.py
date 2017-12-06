@@ -172,7 +172,7 @@ def myConvolution (seq, kernel):
 def plot_time_series(data_path, **kwargs):
     
     
-    # read Trump's job approval data (from http://www.presidency.ucsb.edu/data/popularity.php)
+    # read job approval data (from http://www.presidency.ucsb.edu/data/popularity.php)
     df = pd.read_csv(data_path, delim_whitespace = True, header=None)
 
     # extract approval ratings
@@ -223,9 +223,61 @@ def plot_time_series(data_path, **kwargs):
     ax.axhline(y=0, color='k', zorder = 0, linewidth = 0.5)
     
     
-def plot_sequence(n,x,y,z):   
+def plot_time_series_data(data_path, **kwargs):
     
     
+    # read job approval data (from http://www.presidency.ucsb.edu/data/popularity.php)
+    df = pd.read_csv(data_path, delim_whitespace = True, header=None)
+
+    # extract approval ratings
+    y = np.asarray(df[2])
+
+    # reverse the order of data (to be ascending in time)
+    y = y[::-1]   
+    
+    
+    # initialize figure
+    fig = plt.figure(figsize = (10,3))
+    
+    # plot data without interpolation
+    ax1 = fig.add_subplot(121)
+    ax1.scatter(range(0,len(y)), y, c='grey', s=4, marker="o")
+    
+    # fix viewing limits on panel
+    ax1.set_ylim([min(y)-2, max(y)+2])
+            
+    # set tickmarks
+    ax1.set_xticks(np.arange(0,len(y), 60))
+    ax1.set_yticks(np.arange(min(y)-2, max(y)+2, 4)) 
+                
+    # label axes
+    ax1.set_xlabel('$\mathrm{days\,\,elapsed}$', fontsize = 12)
+    ax1.set_ylabel('$\mathrm{approval\,\,ratings\,\,(\%)}$', fontsize = 12, rotation = 90, labelpad = 15)
+            
+    # set axis 
+    ax1.axhline(y=0, color='k', zorder = 0, linewidth = 0.5)
+    
+    
+    
+    
+    # plot data with interpolation
+    ax2 = fig.add_subplot(122)
+    ax2.plot(y, color = 'grey', linewidth=1.3)
+    
+    # fix viewing limits on panel
+    ax2.set_ylim([min(y)-2, max(y)+2])
+            
+    # set tickmarks
+    ax2.set_xticks(np.arange(0,len(y), 60))
+    ax2.set_yticks(np.arange(min(y)-2, max(y)+2, 4)) 
+                
+    # label axes
+    ax2.set_xlabel('$\mathrm{days\,\,elapsed}$', fontsize = 12)
+    ax2.set_ylabel('$\mathrm{approval\,\,ratings\,\,(\%)}$', fontsize = 12, rotation = 90, labelpad = 15)
+              
+           
+                
+def plot_sequence(n,x,y,z):  
     # initialize figure
     fig = plt.figure(figsize = (6,3))
     ax = plt.subplot(111)

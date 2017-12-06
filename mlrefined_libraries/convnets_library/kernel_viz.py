@@ -18,7 +18,7 @@ from sklearn.preprocessing import normalize
 import seaborn as sns
 
         
-def show_conv(image_path, kernel, **kwargs):
+def show_conv(image_path, kernels, **kwargs):
     
     contrast_normalization = True
     if 'contrast_normalization' in kwargs:
@@ -27,42 +27,62 @@ def show_conv(image_path, kernel, **kwargs):
     # load image 
     image = cv2.imread(image_path, 0)
     
-    # compute convolution
-    conv = sig.convolve2d(image, np.flipud(np.fliplr(kernel)), boundary='fill', fillvalue = 0, mode='same')
-
+    # get number of kernels
+    K = np.shape(kernels)[0]
     
     # initialize figure
-    fig = plt.figure(figsize=(10,4))
-    artist = fig
+    fig = plt.figure(figsize=(10,4*K))
+    #fig.subplots_adjust(hspace=None)
+    gs = gridspec.GridSpec(K, 5, width_ratios=[.4, .05, 1, .05, 1]) 
+    
+    for i, kernel in enumerate(kernels):
+    
+        # compute convolution
+        conv = sig.convolve2d(image, np.flipud(np.fliplr(kernel)), boundary='fill', fillvalue = 0, mode='same')
+   
+        # create subplot with 5 panels
+        ax1 = plt.subplot(gs[0+5*i]) # kernel 
+        ax5 = plt.subplot(gs[4+5*i]); ax5.axis('off') # convolution result
+        ax3 = plt.subplot(gs[2+5*i]); ax3.axis('off') # image
+        ax2 = plt.subplot(gs[1+5*i]) # convolution symbol 
+        ax2.scatter(0, 0, marker="$*$", s=80, c='k'); ax2.set_ylim([-1, 1]); ax2.axis('off');
+        ax4 = plt.subplot(gs[3+5*i]) # equal sign
+        ax4.scatter(0, 0, marker="$=$", s=80, c='k'); ax4.set_ylim([-1, 1]); ax4.axis('off'); 
+
+    
+    
+        # plot convolution kernel
+        cmap_kernel = ["#34495e"]
+        L0 = np.shape(kernel)[0]
+        L0_h = int((L0-1)/2)
+        L1 = np.shape(kernel)[1]
+        L1_h = int((L1-1)/2)
+        L = max(L0,L1)
+        L_h = int((L-1)/2)  
+        mask = np.ones((L,L))
+        mask[L_h-L0_h:L_h+L0_h+1, L_h-L1_h:L_h+L1_h+1] = 0 
         
-    # create subplot with 5 panels
-    gs = gridspec.GridSpec(1, 5, width_ratios=[.4, .1, 1, .1, 1]) 
-    ax1 = plt.subplot(gs[0]) # kernel 
-    ax5 = plt.subplot(gs[4]); ax5.axis('off') # convolution result
-    ax3 = plt.subplot(gs[2]); ax3.axis('off') # image
-    ax2 = plt.subplot(gs[1]) # convolution symbol 
-    ax2.scatter(0, 0, marker="$\star$", s=80, c='k'); ax2.set_ylim([-1, 1]); ax2.axis('off');
-    ax4 = plt.subplot(gs[3]) # equal sign
-    ax4.scatter(0, 0, marker="$=$", s=80, c='k'); ax4.set_ylim([-1, 1]); ax4.axis('off');       
-    
-    
-    # plot convolution kernel
-    cmap_kernel = ["#34495e"]       
-    sns.heatmap(kernel, square=True, cbar=False, cmap=cmap_kernel,
+        kernel_new = np.ones((L,L))
+        kernel_new [L_h-L0_h:L_h+L0_h+1, L_h-L1_h:L_h+L1_h+1] = kernel
+        
+        
+        sns.heatmap(kernel_new, square=True, mask=mask, cbar=False, cmap=cmap_kernel,
                         annot=True, fmt=".1f", linewidths=.1, yticklabels=False, xticklabels=False,
                         annot_kws={"weight": "bold"}, ax=ax1)
     
     
-    # plot input image
-    ax3.imshow(image, cmap='gray')
+        # plot input image
+        ax3.imshow(image, cmap='gray')
     
 
-    # plot convolution
-    if contrast_normalization:
-        conv = normalize_contrast(conv)
+        # plot convolution
+        if contrast_normalization:
+            conv = normalize_contrast(conv)
         
-    ax5.imshow(conv, cmap=plt.get_cmap('pink'))
-    plt.show()
+        ax5.imshow(conv, cmap=plt.get_cmap('gray'))# 'pink'))
+
+
+        plt.show()
     
 
 def normalize_contrast(image):

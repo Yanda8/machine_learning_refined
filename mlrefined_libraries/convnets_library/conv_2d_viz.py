@@ -8,10 +8,13 @@ import matplotlib.animation as animation
 from IPython.display import clear_output
 import time
 from matplotlib import gridspec
+import cv2
 
 # import other packages
 import numpy as np
 import math
+from scipy import signal as signal
+
 
 
 class visualizer:
@@ -19,12 +22,13 @@ class visualizer:
     Illustrate convolution/cross-correlation of an input image with variable size kernels.
     '''
     def __init__(self,**args):
-        self.img = args['img']                       # input image
-
+        self.img = args['img']    # input image
+        
         
     def draw_it(self,**kwargs):
         
-        num_frames = 100                       
+        num_frames = 100
+        
         
         if 'num_frames' in kwargs:
             num_frames = kwargs['num_frames']
@@ -43,48 +47,26 @@ class visualizer:
 
         
         # slider (horizontal axis)
-        slider = np.linspace(0.001, 15, num_frames+1)
+        slider = np.arange(1,2*num_frames,2) 
         
         print ('starting animation rendering...')
     
         
-        # this subfunction padds the input image
-        def myPadding_2d (img, kernel_size):
-            
-            # add top and bottom paddings
-            L1 = kernel_size[0] 
-            top = np.repeat(np.reshape(img[0,:],(1,-1)), L1-1, axis=0)
-            bottom = np.repeat(np.reshape(img[-1,:],(1,-1)), L1-1, axis=0)
-            img = np.concatenate((top,img),0)
-            img = np.concatenate((img,bottom),0)
-            
-            # add left and right paddings     
-            L2 = kernel_size[1]
-            left = np.repeat(np.reshape(img[:,0],(-1,1)), L2-1, axis=1)
-            right = np.repeat(np.reshape(img[:,-1],(-1,1)), L2-1, axis=1)
-            img = np.concatenate((left,img),1)
-            img = np.concatenate((img,right),1)
-   
-            return img
-
         
-        # subfunction for 2d convolution/cross-correlation
-        def myConvolution_2d (img, kernel):
-            
-            N1 = np.size(img, 0)
-            N2 = np.size(img, 1)
-            L1 = np.size(kernel, 0)
-            L2 = np.size(kernel, 1)
+        def add_noise(image, p):
+
+            noisy_image = image
+
+            for i in range(image.shape[0]):
+                for j in range(image.shape[1]):          
+                    if np.random.rand() < p:
+                        noisy_image[i,j] = np.random.randint(0,256)
     
-            padded_img = myPadding_2d(img, [L1, L2])
-    
-            conv_img = np.zeros((N1,N2))
-            for i in range(0, N1):
-                for j in range(0, N2):
-                    conv_img[i,j] = sum(sum(padded_img[i:i+L1, j:j+L2]*kernel))
-            
-            return conv_img
-            
+            return noisy_image
+     
+        
+        p = .1
+        noisy_image = add_noise(self.img, p)    
         
         
         # animation sub-function
@@ -102,24 +84,25 @@ class visualizer:
                 clear_output()
             
             # kernel size for the current frame 
-            sig = slider[k]
+            kernel_size = slider[k]
             
-            # construct the kernel 
-            #kernel = np.ones((kernel_size,kernel_size))
-            #kernel = kernel/sum(sum(kernel))
-            kernel_size = 30
-            half_size = int((kernel_size-1)/2) 
-            row = np.zeros((1, kernel_size))
-            for i in range(0, kernel_size):
-                row[0,i] =  (1/(np.sqrt(2*np.pi)*sig))*np.exp(-(i-half_size)**2/(2*sig**2))
+            
+            # construct gaussian kernel
+            #sig = 2
+            #half_size = int((kernel_size-1)/2) 
+            #row = np.zeros((1, kernel_size))
+            #for i in range(0, kernel_size):
+                #row[0,i] =  (1/(np.sqrt(2*np.pi)*sig))*np.exp(-(i-half_size)**2/(2*sig**2))
                 
-            kernel = np.dot(row.T, row) 
-            kernel = kernel/sum(sum(kernel))
+            #kernel = np.dot(row.T, row) 
+            #kernel = kernel/np.sum(kernel)
+            
+            kernel = np.ones((kernel_size,kernel_size))
+            kernel = kernel/np.sum(kernel)
                 
 
             # compute convolution/cross-correlation for the current frame
-            conv_img = myConvolution_2d(self.img, kernel)
-
+            conv_img = signal.convolve2d(noisy_image, kernel, boundary='fill',fillvalue = 0, mode='same')
             # plot conv image
             ax.imshow(conv_img, cmap = 'gray', interpolation = 'bicubic')
                 

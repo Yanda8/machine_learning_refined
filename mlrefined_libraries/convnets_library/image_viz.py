@@ -14,6 +14,8 @@ import cv2
 from scipy import signal as sig
 import time
 from sklearn.preprocessing import normalize
+import seaborn as sns
+
 
         
 def edge_detect(image_path, **kwargs):
@@ -48,13 +50,7 @@ def edge_detect(image_path, **kwargs):
     if 'num_iterations' in kwargs:
         num_iterations = kwargs['num_iterations']    
     
-    
-    #m = (0,0,0) 
-    #s = (10,10,10)
-    #image = cv2.randn(image,m,s)
-    # apply Gaussian noise to the input image 
-    #image = image + cv2.randn(image,(0),(1)) 
-    print(np.shape(image))
+  
     # apply Gaussian blur to smooth out the input image 
     img = cv2.GaussianBlur(image, GaussianBlurSize, GaussianBlurSigma);
 
@@ -152,35 +148,35 @@ def create_image(image_name, **kwargs):
 
 def load_kernels():
     
-    kernels = {'1': np.array([[-1,  0,  1],
+    kernels = {'5': np.array([[-1,  0,  1],
                               [-1,  0,  1],
                               [-1,  0,  1]]),
            
-               '2': np.array([[ 0,  1,  1],
+               '6': np.array([[ 0,  1,  1],
                               [-1,  0,  1],
                               [-1, -1,  0]]),
                
-               '3': np.array([[ 1,  1,  1],
+               '7': np.array([[ 1,  1,  1],
                               [ 0,  0,  0],
                               [-1, -1, -1]]),
            
-               '4': np.array([[ 1,  1,  0],
+               '8': np.array([[ 1,  1,  0],
                               [ 1,  0, -1],
                               [ 0, -1, -1]]),
            
-               '5': np.array([[ 1,  0, -1],
+               '1': np.array([[ 1,  0, -1],
                               [ 1,  0, -1],
                               [ 1,  0, -1]]),
                        
-               '6': np.array([[ 0, -1, -1],
+               '2': np.array([[ 0, -1, -1],
                               [ 1,  0, -1],
                               [ 1,  1,  0]]),
                
-               '7': np.array([[-1, -1, -1],
+               '3': np.array([[-1, -1, -1],
                               [ 0,  0,  0],
                               [ 1,  1,  1]]),
            
-               '8': np.array([[-1, -1,  0],
+               '4': np.array([[-1, -1,  0],
                               [-1,  0,  1],
                               [ 0,  1,  1]])}    
         
@@ -198,31 +194,35 @@ def load_kernels_v2(num_kernels, kernel_size):
 
 def load_directions():
 
-    directions = {'1':'$\\leftarrow$',
-                  '2':'$\\swarrow$',
-                  '3':'$\\downarrow$',
-                  '4':'$\\searrow$',  
-                  '5':'$\\rightarrow$',
-                  '6':'$\\nearrow$',
-                  '7':'$\\uparrow$',
-                  '8':'$\\nwarrow$'}                   
+    directions = {'5':'$\\leftarrow$',
+                  '6':'$\\swarrow$',
+                  '7':'$\\downarrow$',
+                  '8':'$\\searrow$',  
+                  '1':'$\\rightarrow$',
+                  '2':'$\\nearrow$',
+                  '3':'$\\uparrow$',
+                  '4':'$\\nwarrow$'}                   
                     
     return directions
 
 
 
-def show_conv_images(image):
+def show_conv_images(image, **kwargs):
+    
+    GaussianBlurSigma = 2
+    if 'GaussianBlurSigma' in kwargs:
+        GaussianBlurSigma = kwargs['GaussianBlurSigma']
     
     kernels = load_kernels()
     directions = load_directions()
    
     # initialize figure
-    fig = plt.figure(figsize=(9,4))
-    gs=GridSpec(3,6) 
+    fig = plt.figure(figsize=(10,4))
+    gs=GridSpec(3,8) 
 
     # plot convolutions
     for i in range(1, 9):
-        fig.add_subplot(gs[int(i>4),4*int(i%4==0)+(i%4)+1])
+        fig.add_subplot(gs[int(i>4)*4+i+1])
         conv = myConv(image, kernels[str(i)])
         conv = np.round(255*conv/500)  
         conv = cv2.dilate(conv, np.ones((11, 11)), iterations=1)
@@ -230,7 +230,7 @@ def show_conv_images(image):
         plt.xticks([]), plt.yticks([])
         plt.title(directions[str(i)], fontsize = 16)
     
-    fig.add_subplot(gs[2,2:7]) # colorbar
+    fig.add_subplot(gs[2,2:6]) # colorbar
     plt.axis('off')
     cbar = plt.colorbar(ticks=[0, 255], orientation='horizontal')
     cbar.ax.set_xticklabels(['$\mathrm{low\,edge\,content}', '$\mathrm{high\,edge\,content}'])# vertically oriented colorbar
@@ -239,6 +239,14 @@ def show_conv_images(image):
     plt.imshow(cv2.bitwise_not(image), vmin=0, vmax=255, cmap=plt.get_cmap('Greys'))
     plt.xticks([]), plt.yticks([])
     plt.title('$\mathrm{input\,\,image}', fontsize = 10)
+    
+    fig.add_subplot(gs[0:2,6:8]) # histogram
+    hist = calc_conv_hist(image, kernels)     
+    make_circ_hist(hist)
+    plt.xticks([]), plt.yticks([])
+    #plt.title('$\mathrm{edge\,\,histogram}', fontsize = 10)
+    
+    
 
     plt.show()  
     
@@ -316,7 +324,7 @@ def myConv(image, kernel):
     kernel = np.flipud(np.fliplr(kernel))
     
     # compute convolution (more precisely: cross-crorrelation)
-    conv = sig.convolve2d(image, kernel, boundary='fill',fillvalue = 0, mode='same')
+    conv = sig.convolve2d(image, kernel, boundary='fill', fillvalue=0, mode='same')
     
     return conv    
 
@@ -412,8 +420,34 @@ def scan_image(image, **kwargs):
             cv2.imshow("Window", clone)
             cv2.waitKey(1)
             time.sleep(0.025)
+            
+            
+
+def show_conv_kernels():
+    
+    kernels = load_kernels()
+    directions = load_directions()
+   
+    # initialize figure
+    fig = plt.figure(figsize=(8,4))
+    gs=GridSpec(2,4) 
+
+    # plot convolutions
+    for i in range(1, 9):
+        ax = plt. subplot(gs[i-1])
+        cmap_kernel = ["#34495e"]
+        sns.heatmap(kernels[str(i)].astype('int'), square=True, cbar=False, cmap=cmap_kernel,
+                        annot=True, fmt="d", linewidths=.1, yticklabels=False, xticklabels=False,
+                        annot_kws={"weight": "bold"}, ax=ax)
 
         
+        plt.xticks([]), plt.yticks([])
+        plt.title(directions[str(i)], fontsize = 16)
+    
+    plt.show()  
+    
+    
+
      
             
     
