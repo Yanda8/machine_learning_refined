@@ -131,8 +131,6 @@ def vector_add_plot(vec1,vec2):
 # simple plot of 2d vector linear combination / paralellagram law
 def vector_linear_combination_plot(vec1, vec2, alpha1, alpha2):     
     # renderer
-    plt.style.use('ggplot')
-    
     fig = plt.figure(figsize = (12,4))
 
     # create subplot with 3 panels, plot input function in center plot
