@@ -59,7 +59,7 @@ class visualizer:
         
         # Gaussian blur params
         GaussianBlurSize = (7,7)
-        GaussianBlurSigma = 1.5
+        GaussianBlurSigma = 1
     
         # Canny edge detector params
         low_threshold = 1
@@ -67,7 +67,7 @@ class visualizer:
         num_iterations = 1
     
         # default dilation params
-        dilationSize = (3,3)
+        dilationSize = (4,4)
 
         # apply Gaussian blur to smooth out the input image 
         img = cv2.GaussianBlur(self.image, GaussianBlurSize, GaussianBlurSigma);

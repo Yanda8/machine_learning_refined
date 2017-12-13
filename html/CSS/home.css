@@ -172,3 +172,114 @@ line-height: 20px;
 	-moz-border-radius: 10px;
 	-webkit-border-radius: 10px;
 }
+
+
+/* collapsable list */
+  
+}
+.chapters-container{
+  background:#fff;
+  color: #fff;
+  box-shadow: 1px 1px 1px 1px red;
+}
+.chapters-container input[type='checkbox'] ~ .description{
+  transition: .3s ease-in;
+}
+
+
+.chapters-container input[type='checkbox']:checked ~ .three_col .description {
+  height:100px;
+}
+
+.chapters-container input[type='checkbox']:checked ~ .four_col .description {
+  height:130px;
+}
+
+.chapters-container input[type='checkbox']:checked ~ .five_col .description {
+  height:160px;
+}
+
+.chapters-container input[type='checkbox']:checked ~ .six_col .description {
+  height:190px;
+}
+
+.chapters-container input[type='checkbox']:checked ~ .seven_col .description {
+  height:220px;
+}
+
+
+.chapters-container input[type='checkbox']{
+  width: 100%;
+  display: none;
+}
+.chapters-container label{
+  width: 67%; /* box width */
+  max-width: 100%;
+  cursor: pointer;
+  display: inline-block;
+  /*border-bottom:1px solid red;
+  border-top:1px solid red;
+  border-left:1px solid red;
+  border-right:1px solid red;*/
+  position:relative;
+}
+.chapters-container label:before,
+.chapters-container label:after{
+  width:2px;
+  height:15px;
+  background:#444;
+  display:inline-block;
+  position:absolute;
+  content:"";
+  z-index:99;
+  left:25px; /* margin for + */ 
+  top:12px;
+  transform:rotate(90deg)
+}
+
+.chapters-container label:after{
+  transform:rotate(0deg)
+}
+.chapters-container input[type='checkbox']:checked ~ label:after{
+  transform:rotate(90deg)
+}
+.chapters-container input[type='checkbox']:checked ~ label{
+  
+}
+.chapters-container label span{ /* chapter title */
+  font-weight: bold;
+  color: #444;
+  display: block;
+  padding: 10px 12px 12px 45px;
+  margin: 0;
+  text-align: left;
+}
+.description{
+  background: white;
+  text-align: left;
+  /*font-family: inherit;*/
+  color: #222;
+  width: 67%;
+  height: 0;
+  color: black;
+  padding-left: 15px;
+  padding-right: 15px;
+  display: inline-block;
+  overflow: hidden;
+  box-sizing: border-box;
+  transition: .4s ease-in-out;
+} 
+.description p{
+  line-height: 13px;
+  padding-right: 10px;
+}
+.chapters-container label{
+    background: #efeee6;   
+}
+
+
+
+
+
+
+
