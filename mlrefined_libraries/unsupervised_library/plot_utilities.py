@@ -29,14 +29,14 @@ class Visualizer:
         ax1 = plt.subplot(gs[0]); 
 
         # run through weights, evaluate classification and counting costs, record
-        ax1.plot(history,label = 'run ' + str(c),linewidth = 4*(0.8))
+        ax1.plot(history,linewidth = 4*(0.8))
 
         ax1.set_xlabel('iteration',fontsize = 10)
         ax1.set_ylabel('cost function value',fontsize = 10)
         plt.show()
 
     # compare cost to counting
-    def compare_regression_histories(self,histories):
+    def compare_histories(self,histories):
         ##### setup figure to plot #####
         # initialize figure
         fig = plt.figure(figsize = (7,3))
