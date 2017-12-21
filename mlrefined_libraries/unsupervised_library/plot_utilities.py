@@ -36,7 +36,17 @@ class Visualizer:
         plt.show()
 
     # compare cost to counting
-    def compare_histories(self,histories):
+    def compare_histories(self,histories,**kwargs):
+        # parse input args
+        label1 = ''; label2 = '';
+        if 'label1' in kwargs:
+            label1 = kwargs['label1']
+        if 'label2' in kwargs:
+            label2 = kwargs['label2']  
+        plot_range = len(histories[0])
+        if 'plot_range' in kwargs:
+            plot_range = kwargs['plot_range']
+        
         ##### setup figure to plot #####
         # initialize figure
         fig = plt.figure(figsize = (7,3))
@@ -49,10 +59,14 @@ class Visualizer:
         c = 1
         for history in histories:
             # plot both classification and counting cost histories
-            ax1.plot(history,label = 'run ' + str(c),linewidth = 4*(0.8)**(c))
+            if c == 1:
+                ax1.plot(np.arange(1,len(history) + 1),history,label = label1,linewidth = 4*(0.8)**(c))
+            else:
+                ax1.plot(np.arange(1,len(history) + 1),history,label = label2,linewidth = 4*(0.8)**(c))
             c += 1
 
-        ax1.set_xlabel('iteration',fontsize = 10)
+        ax1.set_xlabel('value of $K$',fontsize = 10)
         ax1.set_ylabel('cost function value',fontsize = 10)
         plt.legend(loc='upper right')
+        ax1.set_xticks(plot_range)
         plt.show()
