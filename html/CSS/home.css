@@ -2,6 +2,29 @@
 
 @import url('https://fonts.googleapis.com/css?family=Lato');
 
+
+.back-text-color { /* color of text on the back of each card */
+	color: #333;
+}
+			
+			
+.bg {
+	/* background image */
+	background-image: url("../pics/background_v1.png");
+	height: 420px; 
+	/* Center and scale the image nicely */
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: cover;
+}
+
+#myVideo {
+    right: 0;
+    bottom: 0;
+    height: 275px;
+}
+
+
 u { /* custom underline */
 	border-bottom: solid 3px #ff7e70;
     display: inline;
@@ -9,7 +32,27 @@ u { /* custom underline */
 }
 
 a.redlink {
-color: #ff7e70;
+color: #0f6bff;
+color: #ff0077;
+}
+
+a.sublink-active {
+color: #0f6bff;
+color: #ff0077;
+text-transform: uppercase;
+font-size: 75%;
+word-spacing: 3pt;
+letter-spacing: 0.5pt;
+font-weight: bold;
+}
+
+a.sublink-inactive {
+color: #cccccc;
+text-transform: uppercase;
+font-size: 75%;
+word-spacing: 3pt;
+letter-spacing: 0.5pt;
+font-weight: bold;
 }
 
 #title {
@@ -20,13 +63,14 @@ text-align: center;
 letter-spacing: 1pt;
 }
 
-#sub-title {
-color: #666;
+.sub-title {
+color: #222;
 font-family: Lato, 'sans-serif' !important;
-font-size: 120%;
+font-size: 105%;
 text-align: justify;
 word-spacing: 2pt;
-padding: 0px 255px 0px 230px;
+line-height: 140%;
+padding: 0px 240px 0px 240px;
 }
 
 
@@ -37,7 +81,7 @@ padding: 0px 255px 0px 230px;
 
 body {
 	background-color: white;
-	margin: 20px;
+	margin: 0px;
 	font-family: Arial, Tahoma; 
 	font-size: 15px; 
 	color: white; 
@@ -188,23 +232,23 @@ line-height: 20px;
 
 
 .chapters-container input[type='checkbox']:checked ~ .three_col .description {
-  height:100px;
+  height:110px;
 }
 
 .chapters-container input[type='checkbox']:checked ~ .four_col .description {
-  height:130px;
+  height:140px;
 }
 
 .chapters-container input[type='checkbox']:checked ~ .five_col .description {
-  height:160px;
+  height:170px;
 }
 
 .chapters-container input[type='checkbox']:checked ~ .six_col .description {
-  height:190px;
+  height:200px;
 }
 
 .chapters-container input[type='checkbox']:checked ~ .seven_col .description {
-  height:220px;
+  height:230px;
 }
 
 
@@ -257,11 +301,11 @@ line-height: 20px;
 .description{
   background: white;
   text-align: left;
-  /*font-family: inherit;*/
+  font-family: Lato, 'sans-serif' !important;
   color: #222;
   width: 67%;
   height: 0;
-  color: black;
+  color: #222;
   padding-left: 15px;
   padding-right: 15px;
   display: inline-block;
@@ -276,6 +320,7 @@ line-height: 20px;
 .chapters-container label{
     background: #efeee6;   
 }
+
 
 
 

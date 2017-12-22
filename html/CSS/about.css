@@ -8,11 +8,11 @@
 
 
 
-			.paragraph {
-  			text-align: justify !important;
-  			text-justify: inter-word !important;
-  			padding: 0px 300px 0px 300px;
-			}
+.paragraph {
+  text-align: justify !important;
+  text-justify: inter-word !important;
+  padding: 0px 300px 0px 300px;
+}
 
 
 
@@ -216,10 +216,10 @@
 
 .at-user__name {
   color: #313435;
-  font-family: 'Roboto', sans-serif;
-  font-size: 1.8rem;
-  font-weight: 500;
-  line-height: 2.625rem;
+  font-family: Lato, 'sans-serif' !important;
+  font-size: 1.1rem;
+  font-weight: 600;
+  line-height: 1.5rem;
 }
 
 .at-user__title {
