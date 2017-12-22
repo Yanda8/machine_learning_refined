@@ -21,7 +21,9 @@
 #myVideo {
     right: 0;
     bottom: 0;
-    height: 275px;
+    left: 0;
+    height: 300px;
+    width: 102%;
 }
 
 
