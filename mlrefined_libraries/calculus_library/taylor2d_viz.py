@@ -47,7 +47,7 @@ class visualizer:
         max_val = 2.5
         if 'max_val' in kwargs:
             max_val = kwargs['max_val']
-        w_vals = np.linspace(-max_val,max_val,num_frames)       # range of values over which to plot first / second order approximations
+        w_vals = np.linspace(-max_val + 0.2,max_val - 0.2,num_frames)       # range of values over which to plot first / second order approximations
         
         # generate a range of values over which to plot input function, and derivatives
         w_plot = np.linspace(-max_val-0.5,max_val+0.5,200)                  # input range for original function
@@ -91,10 +91,6 @@ class visualizer:
             tempy = np.linspace(0,g_val,100)
             tempx = w_val*np.ones((100))
             ax.plot(tempx,tempy,linewidth = 0.7,color = 'k',linestyle = '--',zorder = 1)
-                
-            # label axes
-            ax.set_xlabel('$w$',fontsize = 13)
-            ax.set_ylabel('$g(w)$',fontsize = 13,rotation = 0,labelpad = 25)
 
             #### should we plot first order approximation? ####
             if first_order == True:
@@ -110,15 +106,15 @@ class visualizer:
                 '''
                 
                 # or just constant width
-                w1 = w_val - 3
-                w2 = w_val + 3
+                w1 = w_val - 0.5
+                w2 = w_val + 0.5
 
                 # compute first order approximation
                 wrange = np.linspace(w1,w2, 100)
                 h = g_val + g_grad_val*(wrange - w_val)
 
                 # plot the first order approximation
-                ax.plot(wrange,h,color = self.colors[0],linewidth = 2,zorder = 2)      # plot approx
+                ax.plot(wrange,h,color = self.colors[0],linewidth = 3,zorder = 1)      # plot approx
 
             #### should we plot second order approximation? ####
             if second_order == True:
@@ -145,7 +141,7 @@ class visualizer:
                 h = g_val + g_grad_val*(wrange - w_val) + 0.5*g_hess_val*(wrange - w_val)**2 
 
                 # plot the second order approximation
-                ax.plot(wrange,h,color = self.colors[1],linewidth = 2,zorder = 1)      # plot approx
+                ax.plot(wrange,h,color = self.colors[1],linewidth = 3,zorder = 2)      # plot approx
 
             # fix viewing limits on panel
             ax.set_xlim([-max_val,max_val])
@@ -154,6 +150,11 @@ class visualizer:
             # set tickmarks
             ax.set_xticks(-np.arange(-round(max_val), round(max_val) + 1, 1.0))
             ax.set_yticks(np.arange(round(min(g_plot) - ggap), round(max(g_plot) + ggap) + 1, 1.0))
+            
+            # label axes
+            ax.set_xlabel('$w$',fontsize = 18)
+            ax.set_ylabel('$g(w)$',fontsize = 18,rotation = 0,labelpad = 25)
+            ax.set_title(r'$w^0 = ' + str(np.round(w_val,2)) +  '$',fontsize = 19)
                 
             # set axis 
             ax.axhline(y=0, color='k',zorder = 0,linewidth = 0.5)
