@@ -166,7 +166,7 @@ def random_eval_experiment():
     # define symmetric quadratic N-dimensional
     g = lambda w: np.dot(w.T,w)
 
-    # loop over dimensions, sample points, evaluate
+    # loop over dimensions, sample directions, evaluate
     mean_evals = []
     big_dim = 100
     num_pts = 10000
@@ -175,9 +175,12 @@ def random_eval_experiment():
         dim_eval = []
         m_eval = []
         for pt in range(num_pts):
-            # generate random point using uniform
-            r = 2*np.random.rand(dim+1) - 1
-            e = g(r)
+            # generate random direction using normalized gaussian                    
+            direction = np.random.randn(dim + 1,1)
+            norms = np.sqrt(np.sum(direction*direction,axis = 1))[:,np.newaxis]
+            direction = direction/norms   
+            
+            e = g(direction)
             dim_eval.append(e)
 
             # record mean and std of so many pts

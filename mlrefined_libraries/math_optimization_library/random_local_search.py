@@ -175,7 +175,7 @@ def draw_2d(g,steplength,max_steps,w_inits,num_samples,**kwargs):
 
             
 # animator for random local search
-def visualize3d(func,**kwargs):
+def visualize3d(func,pt_history,eval_history,**kwargs):
     ### input arguments ###        
     wmax = 1
     if 'wmax' in kwargs:
@@ -248,9 +248,6 @@ def visualize3d(func,**kwargs):
         ax2.axhline(linestyle = '--', color = 'k',linewidth = 1)
         ax2.axvline(linestyle = '--', color = 'k',linewidth = 1)
     
-    #### run local random search algorithm ####
-    pt_history,eval_history = random_local_search(func,pt,max_steps,num_samples,steplength)
-
     ### plot circle on which point lies, as well as step length circle - used only for simple quadratic
     if plot_final == True:
         # plot contour of quadratic on which final point was plotted
@@ -278,31 +275,31 @@ def visualize3d(func,**kwargs):
     
     #### scatter path points ####
     for k in range(len(eval_history)):
-        ax.scatter(pt_history[k,0],pt_history[k,1],0,s = 60,c = colorspec[k],edgecolor = 'k',linewidth = 0.5*math.sqrt((1/(float(k) + 1))),zorder = 3)
+        ax.scatter(pt_history[k][0],pt_history[k][1],0,s = 60,c = colorspec[k],edgecolor = 'k',linewidth = 0.5*math.sqrt((1/(float(k) + 1))),zorder = 3)
         
-        ax2.scatter(pt_history[k,0],pt_history[k,1],s = 60,c = colorspec[k],edgecolor = 'k',linewidth = 1.5*math.sqrt((1/(float(k) + 1))),zorder = 3)
+        ax2.scatter(pt_history[k][0],pt_history[k][1],s = 60,c = colorspec[k],edgecolor = 'k',linewidth = 1.5*math.sqrt((1/(float(k) + 1))),zorder = 3)
 
     #### connect points with arrows ####
-    if len(eval_history) < 10:
-        for i in range(len(eval_history)-1):
-            pt1 = pt_history[i]
-            pt2 = pt_history[i+1]
-        
+    for i in range(len(eval_history)-1):
+        pt1 = pt_history[i]
+        pt2 = pt_history[i+1]
+
+        if np.linalg.norm(pt1 - pt2) > 0.5:
             # draw arrow in left plot
             a = Arrow3D([pt1[0],pt2[0]], [pt1[1],pt2[1]], [0, 0], mutation_scale=10, lw=2, arrowstyle="-|>", color="k")
             ax.add_artist(a)
-                    
+
             # draw 2d arrow in right plot
             ax2.arrow(pt1[0],pt1[1],(pt2[0] - pt1[0])*0.78,(pt2[1] - pt1[1])*0.78, head_width=0.1, head_length=0.1, fc='k', ec='k',linewidth=3,zorder = 2,length_includes_head=True)
 
     ### cleanup panels ###
-    ax.set_xlabel('$w_1$',fontsize = 12)
-    ax.set_ylabel('$w_2$',fontsize = 12,rotation = 0)
-    ax.set_title('$g(w_1,w_2)$',fontsize = 12)
+    ax.set_xlabel('$w_0$',fontsize = 12)
+    ax.set_ylabel('$w_1$',fontsize = 12,rotation = 0)
+    ax.set_title('$g(w_0,w_1)$',fontsize = 12)
     ax.view_init(view[0],view[1])
     
-    ax2.set_xlabel('$w_1$',fontsize = 12)
-    ax2.set_ylabel('$w_2$',fontsize = 12,rotation = 0)
+    ax2.set_xlabel('$w_0$',fontsize = 12)
+    ax2.set_ylabel('$w_1$',fontsize = 12,rotation = 0)
     
     # clean up axis
     ax.xaxis.pane.fill = False

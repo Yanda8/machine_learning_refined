@@ -59,7 +59,41 @@ class visualizer:
             # record
             self.w_hist.append(w)
 
-            
+    ##### draw still image of gradient descent on single-input function ####       
+    def draw_cost(self,**kwargs):
+        self.g = kwargs['g']                            # input function
+        wmin = -3.1
+        wmax = 3.1
+        if 'wmin' in kwargs:            
+            wmin = kwargs['wmin']
+        if 'wmax' in kwargs:
+            wmax = kwargs['wmax']
+                    
+        # initialize figure
+        fig = plt.figure(figsize = (9,4))
+        artist = fig
+
+        # create subplot with 3 panels, plot input function in center plot
+        gs = gridspec.GridSpec(1, 3, width_ratios=[1,4,1]) 
+
+        ax1 = plt.subplot(gs[0]); ax1.axis('off')
+        ax3 = plt.subplot(gs[2]); ax3.axis('off')
+        ax = plt.subplot(gs[1]); 
+
+        # generate function for plotting on each slide
+        w_plot = np.linspace(wmin,wmax,500)
+        g_plot = self.g(w_plot)
+        g_range = max(g_plot) - min(g_plot)
+        ggap = g_range*0.1
+        width = 30
+        
+        # plot function, axes lines
+        ax.plot(w_plot,g_plot,color = 'k',zorder = 2)                           # plot function
+        ax.axhline(y=0, color='k',zorder = 1,linewidth = 0.25)
+        ax.axvline(x=0, color='k',zorder = 1,linewidth = 0.25)
+        ax.set_xlabel(r'$w$',fontsize = 13)
+        ax.set_ylabel(r'$g(w)$',fontsize = 13,rotation = 0,labelpad = 25)            
+ 
     ##### draw still image of gradient descent on single-input function ####       
     def draw_2d(self,**kwargs):
         self.g = kwargs['g']                            # input function
@@ -102,12 +136,11 @@ class visualizer:
         #fig.subplots_adjust(left=0, right=1, bottom=0, top=1) # remove whitespace
         #fig.subplots_adjust(wspace=0.01,hspace=0.01)
 
-        # create subplot with 3 panels, plot input function in center plot
-        gs = gridspec.GridSpec(1, 3, width_ratios=[1,4,1]) 
+        # create subplot with 2 panels, plot input function in center plot
+        gs = gridspec.GridSpec(1, 2, width_ratios=[1,1]) 
 
-        ax1 = plt.subplot(gs[0]); ax1.axis('off')
-        ax3 = plt.subplot(gs[2]); ax3.axis('off')
-        ax = plt.subplot(gs[1]); 
+        ax1 = plt.subplot(gs[0]); 
+        ax2 = plt.subplot(gs[1]); 
 
         # generate function for plotting on each slide
         w_plot = np.linspace(wmin,wmax,500)
@@ -136,11 +169,17 @@ class visualizer:
             self.colorspec = np.concatenate((self.colorspec,np.zeros((len(s),1))),1)
         
             # plot function, axes lines
-            ax.plot(w_plot,g_plot,color = 'k',zorder = 2)                           # plot function
-            ax.axhline(y=0, color='k',zorder = 1,linewidth = 0.25)
-            ax.axvline(x=0, color='k',zorder = 1,linewidth = 0.25)
-            ax.set_xlabel(r'$w$',fontsize = 13)
-            ax.set_ylabel(r'$g(w)$',fontsize = 13,rotation = 0,labelpad = 25)            
+            ax1.plot(w_plot,g_plot,color = 'k',zorder = 2)                           # plot function
+            ax1.axhline(y=0, color='k',zorder = 1,linewidth = 0.25)
+            ax1.axvline(x=0, color='k',zorder = 1,linewidth = 0.25)
+            ax1.set_xlabel(r'$w$',fontsize = 13)
+            ax1.set_ylabel(r'$g(w)$',fontsize = 13,rotation = 0,labelpad = 25)            
+            
+            ax2.plot(w_plot,g_plot,color = 'k',zorder = 2)                           # plot function
+            ax2.axhline(y=0, color='k',zorder = 1,linewidth = 0.25)
+            ax2.axvline(x=0, color='k',zorder = 1,linewidth = 0.25)
+            ax2.set_xlabel(r'$w$',fontsize = 13)
+            ax2.set_ylabel(r'$g(w)$',fontsize = 13,rotation = 0,labelpad = 25)            
             
             ### plot all gradient descent points ###
             for k in range(len(self.w_hist)):
@@ -148,8 +187,8 @@ class visualizer:
                 w_val = self.w_hist[k]
                 g_val = self.g(w_val)
             
-                ax.scatter(w_val,g_val,s = 90,c = self.colorspec[k],edgecolor = 'k',linewidth = 0.5*((1/(float(k) + 1)))**(0.4),zorder = 3,marker = 'X')            # evaluation on function
-                ax.scatter(w_val,0,s = 90,facecolor = self.colorspec[k],edgecolor = 'k',linewidth = 0.5*((1/(float(k) + 1)))**(0.4), zorder = 3)
+                ax2.scatter(w_val,g_val,s = 90,c = self.colorspec[k],edgecolor = 'k',linewidth = 0.5*((1/(float(k) + 1)))**(0.4),zorder = 3,marker = 'X')            # evaluation on function
+                ax2.scatter(w_val,0,s = 90,facecolor = self.colorspec[k],edgecolor = 'k',linewidth = 0.5*((1/(float(k) + 1)))**(0.4), zorder = 3)
                     
 
     ##### draw still image of gradient descent on single-input function ####       
@@ -261,37 +300,18 @@ class visualizer:
             
                 
     ##### animate gradient descent method using single-input function #####
-    def animate_2d(self,**kwargs):
-        self.g = kwargs['g']                          # input function
+    def animate_2d(self,g,w_hist,**kwargs):
+        self.g = g                                    # input function
+        self.w_hist = w_hist                          # input weight history
         self.grad = compute_grad(self.g)              # gradient of input function
-        self.w_init =float( -2)                       # user-defined initial point (adjustable when calling each algorithm)
-        self.alpha = 10**-4                           # user-defined step length for gradient descent (adjustable when calling gradient descent)
-        self.max_its = 20                             # max iterations to run for each algorithm
-        self.w_hist = []                              # container for algorithm path
-        
+        self.w_init = self.w_hist[0]                  # user-defined initial point (adjustable when calling each algorithm)
+         
         wmin = -3.1
         wmax = 3.1
         if 'wmin' in kwargs:            
             wmin = kwargs['wmin']
         if 'wmax' in kwargs:
             wmax = kwargs['wmax']
-            
-        # version of gradient descent to use (normalized or unnormalized)
-        self.version = 'unnormalized'
-        if 'version' in kwargs:
-            self.version = kwargs['version']
-            
-        # get new initial point if desired
-        if 'w_init' in kwargs:
-            self.w_init = float(kwargs['w_init'])
-            
-        # take in user defined step length
-        if 'steplength' in kwargs:
-            self.steplength = kwargs['steplength']
-            
-        # take in user defined maximum number of iterations
-        if 'max_its' in kwargs:
-            self.max_its = float(kwargs['max_its'])
             
         # initialize figure
         fig = plt.figure(figsize = (9,4))
@@ -314,10 +334,6 @@ class visualizer:
         g_range = max(g_plot) - min(g_plot)
         ggap = g_range*0.1
         width = 30
-        
-        # run gradient descent method
-        self.w_hist = []
-        self.run_gradient_descent()
         
         # colors for points --> green as the algorithm begins, yellow as it converges, red at final point
         s = np.linspace(0,1,len(self.w_hist[:round(len(self.w_hist)/2)]))
@@ -385,15 +401,15 @@ class visualizer:
                 h = g_eval + grad_eval*(wrange - w)
 
                 # plot tangent line
-                ax.plot(wrange,h,color = 'lime',linewidth = 2,zorder = 1)      # plot approx
+                ax.plot(wrange,h,color = self.colorspec[k-1],linewidth = 2,zorder = 1)      # plot approx
 
                 # plot tangent point
                 ax.scatter(w,g_eval,s = 100,c = 'm',edgecolor = 'k',linewidth = 0.7,zorder = 3,marker = 'X')            # plot point of tangency
             
                 # plot next point learned from surrogate
-                if np.mod(t,2) == 0:
+                if np.mod(t,2) == 0 and k < len(self.w_hist) -1:
                     # create next point information
-                    w_zero = w - self.alpha*grad_eval
+                    w_zero = self.w_hist[k]
                     g_zero = self.g(w_zero)
                     h_zero = g_eval + grad_eval*(w_zero - w)
 
@@ -426,13 +442,12 @@ class visualizer:
         return(anim)
 
     # visualize descent on multi-input function
-    def visualize3d(self,g,w_init,steplength,max_its,**kwargs):
+    def visualize3d(self,g,w_hist,**kwargs):
         ### input arguments ###        
         self.g = g
-        self.steplength = steplength
-        self.max_its = max_its
         self.grad = compute_grad(self.g)              # gradient of input function
-
+        self.w_hist = w_hist
+            
         wmax = 1
         if 'wmax' in kwargs:
             wmax = kwargs['wmax'] + 0.5
@@ -452,20 +467,6 @@ class visualizer:
         num_contours = 10
         if 'num_contours' in kwargs:
             num_contours = kwargs['num_contours']
-
-        # version of gradient descent to use (normalized or unnormalized)
-        self.version = 'unnormalized'
-        if 'version' in kwargs:
-            self.version = kwargs['version']
-            
-        # get initial point 
-        self.w_init = np.asarray([float(s) for s in w_init])
-                    
-        # take in user defined step length
-        self.steplength = steplength
-            
-        # take in user defined maximum number of iterations
-        self.max_its = max_its
             
         ##### construct figure with panels #####
         # construct figure
@@ -478,7 +479,8 @@ class visualizer:
         
         # remove whitespace from figure
         fig.subplots_adjust(left=0, right=1, bottom=0, top=1) # remove whitespace
-
+        fig.subplots_adjust(wspace=0.01,hspace=0.01)
+        
         #### define input space for function and evaluate ####
         w = np.linspace(-wmax,wmax,200)
         w1_vals, w2_vals = np.meshgrid(w,w)
@@ -501,10 +503,6 @@ class visualizer:
         if axes == True:
             ax2.axhline(linestyle = '--', color = 'k',linewidth = 1)
             ax2.axvline(linestyle = '--', color = 'k',linewidth = 1)
-
-        #### run local random search algorithm ####
-        self.w_hist = []
-        self.run_gradient_descent()
 
         # colors for points
         s = np.linspace(0,1,len(self.w_hist[:round(len(self.w_hist)/2)]))
@@ -546,6 +544,8 @@ class visualizer:
         ax2.set_ylabel('$w_2$',fontsize = 12,rotation = 0)
         ax2.axhline(y=0, color='k',zorder = 0,linewidth = 0.5)
         ax2.axvline(x=0, color='k',zorder = 0,linewidth = 0.5)
+        ax2.set_xlim([-wmax,wmax])
+        ax2.set_ylim([-wmax,wmax])
 
         # clean up axis
         ax.xaxis.pane.fill = False
