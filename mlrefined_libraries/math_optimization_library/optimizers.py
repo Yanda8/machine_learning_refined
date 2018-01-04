@@ -86,3 +86,48 @@ def coordinate_search(g,alpha_choice,max_its,w):
     weight_history.append(w)
     cost_history.append(g(w))
     return weight_history,cost_history
+
+# zero order coordinate descent algorithm
+def coordinate_descent_zero_order(g,alpha_choice,max_its,w):        
+    # run coordinate search
+    N = np.size(w)
+    weight_history = []         # container for weight history
+    cost_history = []           # container for corresponding cost function history
+    alpha = 0
+    for k in range(1,max_its+1):        
+        # check if diminishing steplength rule used
+        if alpha_choice == 'diminishing':
+            alpha = 1/float(k)
+        else:
+            alpha = alpha_choice
+            
+        # loop over each coordinate direction
+        for n in range(N):
+            direction = np.zeros((1,N))
+            direction[0][n] = 1
+            directions = np.concatenate((direction,-direction),axis = 0)
+            
+            # record weights and cost evaluation
+            weight_history.append(w)
+            cost_history.append(g(w))
+
+            ### pick best descent direction
+            # compute all new candidate points
+            w_candidates = w + alpha*directions
+
+            # evaluate all candidates
+            evals = np.array([g(w_val) for w_val in w_candidates])
+
+            # if we find a real descent direction take the step in its direction
+            ind = np.argmin(evals)
+            if g(w_candidates[ind]) < g(w):
+                # pluck out best descent direction
+                d = directions[ind,:]
+
+                # take step
+                w = w + alpha*d
+        
+    # record weights and cost evaluation
+    weight_history.append(w)
+    cost_history.append(g(w))
+    return weight_history,cost_history
