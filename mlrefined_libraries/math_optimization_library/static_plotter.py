@@ -32,7 +32,11 @@ class Visualizer:
             wmin = kwargs['wmin']
         if 'wmax' in kwargs:
             wmax = kwargs['wmax']
-
+            
+        onerun_perplot = False
+        if 'onerun_perplot' in kwargs:
+            onerun_perplot = kwargs['onerun_perplot']
+            
         ### initialize figure
         fig = plt.figure(figsize = (9,4))
         artist = fig
@@ -89,12 +93,18 @@ class Visualizer:
             self.colorspec = np.concatenate((self.colorspec,np.zeros((len(s),1))),1)
             
             ### plot all history points
+            ax = ax2
+            if onerun_perplot == True:
+                if j == 0:
+                    ax = ax1
+                if j == 1:
+                    ax = ax2
             for k in range(len(w_hist)):
                 # pick out current weight and function value from history, then plot
                 w_val = w_hist[k]
                 g_val = c_hist[k]
-                ax2.scatter(w_val,g_val,s = 90,c = self.colorspec[k],edgecolor = 'k',linewidth = 0.5*((1/(float(k) + 1)))**(0.4),zorder = 3,marker = 'X')            # evaluation on function
-                ax2.scatter(w_val,0,s = 90,facecolor = self.colorspec[k],edgecolor = 'k',linewidth = 0.5*((1/(float(k) + 1)))**(0.4), zorder = 3)
+                ax.scatter(w_val,g_val,s = 90,c = self.colorspec[k],edgecolor = 'k',linewidth = 0.5*((1/(float(k) + 1)))**(0.4),zorder = 3,marker = 'X')            # evaluation on function
+                ax.scatter(w_val,0,s = 90,facecolor = self.colorspec[k],edgecolor = 'k',linewidth = 0.5*((1/(float(k) + 1)))**(0.4), zorder = 3)
 
     ##### draw picture of function and run for two-input function ####       
     def two_input_surface_contour_plot(self,g,w_hist,**kwargs):
@@ -373,7 +383,7 @@ class Visualizer:
                 pt2 = w_hist[j]
                 
                 # if points are different draw error
-                if np.linalg.norm(pt1 - pt2) > 10**(-1) and j < 10:
+                if np.linalg.norm(pt1 - pt2) > 10**(-1):
                     ax.arrow(pt1[0],pt1[1],(pt2[0] - pt1[0])*0.8,(pt2[1] - pt1[1])*0.8, head_width=0.1, head_length=0.1, fc='k', ec='k',linewidth=4,zorder = 2,length_includes_head=True)
                     ax.arrow(pt1[0],pt1[1],(pt2[0] - pt1[0])*0.8,(pt2[1] - pt1[1])*0.8, head_width=0.1, head_length=0.1, fc='w', ec='w',linewidth=0.25,zorder = 2,length_includes_head=True)
         
