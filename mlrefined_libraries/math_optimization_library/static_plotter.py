@@ -382,10 +382,15 @@ class Visualizer:
                 pt1 = w_hist[j-1]
                 pt2 = w_hist[j]
                 
+                # produce scalar for arrow head length
+                pt_length = np.linalg.norm(pt1 - pt2)
+                head_length = 0.1
+                alpha = (head_length - 0.35)/pt_length + 1
+                
                 # if points are different draw error
-                if np.linalg.norm(pt1 - pt2) > 10**(-1):
-                    ax.arrow(pt1[0],pt1[1],(pt2[0] - pt1[0])*0.8,(pt2[1] - pt1[1])*0.8, head_width=0.1, head_length=0.1, fc='k', ec='k',linewidth=4,zorder = 2,length_includes_head=True)
-                    ax.arrow(pt1[0],pt1[1],(pt2[0] - pt1[0])*0.8,(pt2[1] - pt1[1])*0.8, head_width=0.1, head_length=0.1, fc='w', ec='w',linewidth=0.25,zorder = 2,length_includes_head=True)
+                if np.linalg.norm(pt1 - pt2) > 2*head_length:
+                    ax.arrow(pt1[0],pt1[1],(pt2[0] - pt1[0])*alpha,(pt2[1] - pt1[1])*alpha, head_width=0.1, head_length=head_length, fc='k', ec='k',linewidth=4,zorder = 2,length_includes_head=True)
+                    ax.arrow(pt1[0],pt1[1],(pt2[0] - pt1[0])*alpha,(pt2[1] - pt1[1])*alpha, head_width=0.1, head_length=head_length, fc='w', ec='w',linewidth=0.25,zorder = 2,length_includes_head=True)
         
     ### draw surface plot
     def draw_surface(self,g,ax,**kwargs):
