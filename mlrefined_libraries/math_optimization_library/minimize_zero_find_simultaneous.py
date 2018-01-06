@@ -114,12 +114,12 @@ class visualizer:
             if k == 0:
                 w_val = self.w_init
                 g_val = self.g(w_val)
-                ax1.scatter(w_val,g_val,s = 120,c = 'm',edgecolor = 'k',linewidth = 0.7,zorder = 2)            # plot point of tangency
-                ax1.scatter(w_val,0,s = 120,c = 'm',edgecolor = 'k',linewidth = 0.7, zorder = 2, marker = 'X')
+                ax1.scatter(w_val,g_val,s = 120,c = 'w',edgecolor = 'k',linewidth = 0.7,zorder = 3)            # plot point of tangency
+                ax1.scatter(w_val,0,s = 120,c = 'w',edgecolor = 'k',linewidth = 0.7, zorder = 2, marker = 'X')
 
                 g_val = self.grad(w_val)
-                ax2.scatter(w_val,g_val,s = 120,c = 'm',edgecolor = 'k',linewidth = 0.7,zorder = 2)            # plot point of tangency
-                ax2.scatter(w_val,0,s = 120,c = 'm',edgecolor = 'k',linewidth = 0.7, zorder = 2, marker = 'X')
+                ax2.scatter(w_val,g_val,s = 120,c = 'w',edgecolor = 'k',linewidth = 0.7,zorder = 3)            # plot point of tangency
+                ax2.scatter(w_val,0,s = 120,c = 'w',edgecolor = 'k',linewidth = 0.7, zorder = 2, marker = 'X')
             
             # draw functions first, then start animating process
             if k > 0:
@@ -161,18 +161,18 @@ class visualizer:
                 o = np.ones((len(s)))
 
                 # plot all
-                ax1.plot(wrange,h,color = 'b',linewidth = 2,zorder = 1)      # plot approx
+                ax1.plot(wrange,h,color = self.colorspec[k-1],linewidth = 2,zorder = 1)      # plot approx
 
                 # plot tangent point
-                ax1.scatter(w_val, g_val, s = 120, c='m',edgecolor = 'k',linewidth = 0.7,zorder = 3)
+                ax1.scatter(w_val, g_val, s = 120, c='w',edgecolor = 'k',linewidth = 1,zorder = 3)
 
                 # created dashed linen connecting the three            
                 ax1.plot(o*w_zero,s,'k--',linewidth=1)
 
                 # draw intersection at zero and associated point on cost function you hop back too
-                ax1.scatter(w_zero,h_zero,s = 120,c = 'k', zorder = 2)
-                ax1.scatter(w_zero,g_zero,s = 120,c = self.colorspec[k-1],edgecolor = 'k',linewidth = 0.7,zorder = 3)            # plot point of tangency
-                ax1.scatter(w_zero,0,s = 120,facecolor = self.colorspec[k-1],marker = 'X',edgecolor = 'k',linewidth = 0.7, zorder = 2)
+                # ax1.scatter(w_zero,h_zero,s = 120,c = 'k', zorder = 2)
+                ax1.scatter(w_zero,g_zero,s = 120,c = self.colorspec[k-1],edgecolor = 'k',linewidth = 1,zorder = 3)            # plot point of tangency
+                ax1.scatter(w_zero,0,s = 120,facecolor = self.colorspec[k-1],marker = 'X',edgecolor = 'k',linewidth = 1, zorder = 2)
 
                 #### derivative (zero-crossing) view ####
                 # grab historical weight, compute function and derivative evaluations
@@ -187,10 +187,10 @@ class visualizer:
                 o = np.ones((len(s)))
 
                 # plot tangent line
-                ax2.plot(wrange,h,color = 'b',linewidth = 2,zorder = 1)      # plot approx
+                ax2.plot(wrange,h,color = self.colorspec[k-1],linewidth = 2,zorder = 1)      # plot approx
 
                 # plot tangent point
-                ax2.scatter(w_val, g_val, s = 120, c='m',edgecolor = 'k',linewidth = 0.7,zorder = 3)
+                ax2.scatter(w_val, g_val, s = 120, c='w',edgecolor = 'k',linewidth = 1,zorder = 3)
 
                 # draw dashed lines to highlight zero crossing point
                 ax2.plot(o*w_zero,s,'k--',linewidth=1)
@@ -321,12 +321,12 @@ class visualizer:
             if k == 0:
                 w_val = self.w_init
                 g_val = self.g(w_val)
-                ax1.scatter(w_val,g_val,s = 120,c = 'm',edgecolor = 'k',linewidth = 0.7,zorder = 2)            # plot point of tangency
-                ax1.scatter(w_val,0,s = 120,c = 'm',edgecolor = 'k',linewidth = 0.7, zorder = 2, marker = 'X')
+                ax1.scatter(w_val,g_val,s = 120,c = 'w',edgecolor = 'k',linewidth = 1.0,zorder = 3)            # plot point of tangency
+                ax1.scatter(w_val,0,s = 120,c = 'w',edgecolor = 'k',linewidth = 1.0, zorder = 2, marker = 'X')
 
                 g_val = self.grad(w_val)
-                ax2.scatter(w_val,g_val,s = 120,c = 'm',edgecolor = 'k',linewidth = 0.7,zorder = 2)            # plot point of tangency
-                ax2.scatter(w_val,0,s = 120,c = 'm',edgecolor = 'k',linewidth = 0.7, zorder = 2, marker = 'X')
+                ax2.scatter(w_val,g_val,s = 120,c = 'w',edgecolor = 'k',linewidth = 1.0,zorder = 3)            # plot point of tangency
+                ax2.scatter(w_val,0,s = 120,c = 'w',edgecolor = 'k',linewidth = 1.0, zorder = 2, marker = 'X')
             
             # plot functions first for one slide
             if k > 0:
@@ -370,13 +370,13 @@ class visualizer:
                 o = np.ones((len(s)))
 
                 # plot all
-                ax1.plot(wrange,h,color = 'b',linewidth = 2,zorder = 1)      # plot approx
-                ax1.scatter(w1,g1,s = 120,c = 'm',edgecolor = 'k',linewidth = 0.7,zorder = 3)           # plot point of tangency
-                ax1.scatter(w2,g2,s = 120,c = 'm',edgecolor = 'k',linewidth = 0.7,zorder = 3)           # plot point of tangency
+                ax1.plot(wrange,h,color =  self.colorspec[k-1] ,linewidth = 2,zorder = 1)      # plot approx
+                ax1.scatter(w1,g1,s = 120,c = 'w',edgecolor = 'k',linewidth = 1.0,zorder = 3)           # plot point of tangency
+                ax1.scatter(w2,g2,s = 120,c = 'w',edgecolor = 'k',linewidth = 1.0,zorder = 3)           # plot point of tangency
                 ax1.plot(o*w_zero,s,'k--',linewidth=1)
 
                 # draw intersection at zero and associated point on cost function you hop back too
-                ax1.scatter(w_zero,h_zero,s = 120,c = 'k', zorder = 2)
+                # ax1.scatter(w_zero,h_zero,s = 120,c = 'k', zorder = 2)
                 ax1.scatter(w_zero,g_zero,s = 120,c = self.colorspec[k-1],edgecolor = 'k',linewidth = 0.7,zorder = 3)            # plot point of tangency
                 ax1.scatter(w_zero,0,s = 120,facecolor = self.colorspec[k-1],marker = 'X',edgecolor = 'k',linewidth = 0.7, zorder = 2)
 
@@ -398,11 +398,11 @@ class visualizer:
                 o = np.ones((len(s)))
 
                 # plot secant line 
-                ax2.plot(wrange,h,color = 'b',linewidth = 2,zorder = 1)      # plot approx
+                ax2.plot(wrange,h,color =  self.colorspec[k-1],linewidth = 2,zorder = 1)      # plot approx
 
                 # plot intersection points
-                ax2.scatter(w1,g1,s = 120,c = 'm',edgecolor = 'k',linewidth = 0.7,zorder = 3)           # plot point of tangency
-                ax2.scatter(w2,g2,s = 120,c = 'm',edgecolor = 'k',linewidth = 0.7,zorder = 3)           # plot point of tangency
+                ax2.scatter(w1,g1,s = 120,c = 'w',edgecolor = 'k',linewidth = 1.0,zorder = 3)           # plot point of tangency
+                ax2.scatter(w2,g2,s = 120,c = 'w',edgecolor = 'k',linewidth = 1.0,zorder = 3)           # plot point of tangency
 
                 # plot dashed line
                 ax2.plot(o*w_zero,s,'k--',linewidth=1)

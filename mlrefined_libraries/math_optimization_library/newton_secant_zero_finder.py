@@ -113,15 +113,23 @@ class visualizer:
                     g_val = self.g(w_val)
                     
 
-                    if j == k-1 or j == k:
+                    if j == k-1:
                         # draw guide line to visua
                         s = np.linspace(0,g_val)
                         o = np.ones((len(s)))
                         ax.plot(o*w_val,s,'k--',linewidth=1,zorder = 1)
                         
-                        ax.scatter(w_val,g_val,s = 90,c = self.colorspec[j],edgecolor = 'k',linewidth = 0.7,zorder = 3)            # plot point of tangency
-                        ax.scatter(w_val,0,s = 90,facecolor = self.colorspec[j],marker = 'X',edgecolor = 'k',linewidth = 0.7, zorder = 2)
-                       
+                        ax.scatter(w_val,g_val,s = 90,c = self.colorspec[j],edgecolor = 'k',linewidth = 1,zorder = 3)            # plot point of tangency
+                        ax.scatter(w_val,0,s = 90,facecolor = self.colorspec[j],marker = 'X',edgecolor = 'k',linewidth = 1, zorder = 2)
+                     
+                    if j == k:
+                        # draw guide line to visua
+                        s = np.linspace(0,g_val)
+                        o = np.ones((len(s)))
+                        ax.plot(o*w_val,s,'k--',linewidth=1,zorder = 1)
+                        
+                        ax.scatter(w_val,g_val,s = 90,c = 'w',edgecolor = 'k',linewidth = 1,zorder = 3)            # plot point of tangency
+                        ax.scatter(w_val,0,s = 90,facecolor = 'w',marker = 'X',edgecolor = 'k',linewidth = 1, zorder = 2)
 
             # plot surrogate function and travel-to point
             if k > 0 and k < len(self.w_hist) + 1:
@@ -140,7 +148,7 @@ class visualizer:
                 h = g_eval + grad_eval*(wrange - w)
 
                 # plot tangent line
-                ax.plot(wrange,h,color = 'b',linewidth = 2,zorder = 1)      # plot approx
+                ax.plot(wrange,h,color = self.colorspec[k-1],linewidth = 2,zorder = 1)      # plot approx
 
                 # plot tangent point
                 #ax.scatter(w,g_eval,s = 100,c = 'm',edgecolor = 'k',linewidth = 0.7,zorder = 2)            # plot point of tangency
