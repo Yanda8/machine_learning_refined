@@ -24,8 +24,13 @@ if 'differentiation' in series.lower():
     series_url = '3_Automatic_differentiation'
     
 if 'zero' in series.lower():
-    series_url = '5_Zero_order_methods'    
+    series_url = '5_Zero_order_methods'
+        
+if 'first' in series.lower():
+    series_url = '6_First_order_methods'        
     
+    
+   
 if 'unsupervised' in series.lower():
     series_url = 'Unsupervised_Learning'       
 
