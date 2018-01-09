@@ -23,6 +23,9 @@ soup.html.head.title.string = page_title
 if 'differentiation' in series.lower():
     series_url = '3_Automatic_differentiation'
     
+if 'zero' in series.lower():
+    series_url = '5_Zero_order_methods'    
+    
 if 'unsupervised' in series.lower():
     series_url = 'Unsupervised_Learning'       
 
