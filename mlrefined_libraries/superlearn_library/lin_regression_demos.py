@@ -251,14 +251,14 @@ class Visualizer:
         anim = animation.FuncAnimation(fig, animate ,frames=num_frames, interval=num_frames, blit=True)
         
         return(anim)
-    
+ 
     ###### plot plotting functions ######
     def plot_data(self):
         # construct figure
-        fig, axs = plt.subplots(1, 3, figsize=(8,3))
+        fig, axs = plt.subplots(1, 3, figsize=(9,4))
 
         # create subplot with 2 panels
-        gs = gridspec.GridSpec(1, 3, width_ratios=[1,2,1]) 
+        gs = gridspec.GridSpec(1, 3, width_ratios=[1,5,1]) 
         ax1 = plt.subplot(gs[0]); ax1.axis('off') 
         ax2 = plt.subplot(gs[1]); 
         ax3 = plt.subplot(gs[2]); ax3.axis('off')
@@ -269,6 +269,75 @@ class Visualizer:
         # scatter points
         self.scatter_pts(ax2)
         
+    def plot_regression_fits(self,final_weights):
+        # construct figure
+        fig, axs = plt.subplots(1, 3, figsize=(8,3))
+
+        # create subplot with 2 panels
+        gs = gridspec.GridSpec(1, 3, width_ratios=[1,2,1]) 
+        ax1 = plt.subplot(gs[0]); ax1.axis('off') 
+        ax2 = plt.subplot(gs[1]); 
+        ax3 = plt.subplot(gs[2]); ax3.axis('off')
+ 
+        # scatter points
+        self.scatter_pts(ax2)      
+        
+        # print regression fits
+        for weights in final_weights:
+            ax2.plot_fit(ax2,weights)
+        
+    # plot regression fits
+    def plot_fit(self,plotting_weights,**kwargs):
+        # construct figure
+        fig, axs = plt.subplots(1, 3, figsize=(9,4))
+
+        # create subplot with 2 panels
+        gs = gridspec.GridSpec(1, 3, width_ratios=[1,5,1]) 
+        ax1 = plt.subplot(gs[0]); ax1.axis('off') 
+        ax = plt.subplot(gs[1]); 
+        ax3 = plt.subplot(gs[2]); ax3.axis('off')
+        
+        # set plotting limits
+        xmax = copy.deepcopy(max(self.x))
+        xmin = copy.deepcopy(min(self.x))
+        xgap = (xmax - xmin)*0.25
+        xmin -= xgap
+        xmax += xgap
+
+        ymax = max(self.y)
+        ymin = min(self.y)
+        ygap = (ymax - ymin)*0.25
+        ymin -= ygap
+        ymax += ygap    
+
+        # initialize points
+        ax.scatter(self.x,self.y,color = 'k', edgecolor = 'w',linewidth = 0.9,s = 40)
+
+        # clean up panel
+        ax.set_xlim([xmin,xmax])
+        ax.set_ylim([ymin,ymax])
+
+        # label axes
+        ax.set_xlabel(r'$x$', fontsize = 12)
+        ax.set_ylabel(r'$y$', rotation = 0,fontsize = 12)
+        
+        # create fit
+        s = np.linspace(xmin,xmax,300)
+        colors = ['k','magenta']
+        if 'colors' in kwargs:
+            colors = kwargs['colors']
+        c = 0
+        mean = 0.0
+        std = 1.0
+        if 'input_mean' in kwargs:
+            mean = kwargs['input_mean']
+        if 'input_std' in kwargs:
+            std = kwargs['input_std']
+        for weights in plotting_weights:
+            t = weights[0] + weights[1]*(s - mean)/std
+            ax.plot(s,t,linewidth = 2,color = colors[c])
+            c+=1
+    
     # scatter points
     def scatter_pts(self,ax):
         if np.shape(self.x)[1] == 1:
@@ -293,9 +362,8 @@ class Visualizer:
             ax.set_ylim([ymin,ymax])
             
             # label axes
-            ax.set_xlabel(r'$x$', fontsize = 12)
-            ax.set_ylabel(r'$y$', rotation = 0,fontsize = 12)
-            ax.set_title('data', fontsize = 13)
+            ax.set_xlabel(r'$x$', fontsize = 16)
+            ax.set_ylabel(r'$y$', rotation = 0,fontsize = 16,labelpad = 15)
             
         if np.shape(self.x)[1] == 2:
             # set plotting limits

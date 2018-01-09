@@ -170,7 +170,7 @@ class Visualizer:
         
         ### make contour right plot - as well as horizontal and vertical axes ###
         self.contour_plot_setup(g,ax2,**kwargs)  # draw contour plot
-        self.draw_weight_path(ax2,w_hist)        # draw path on contour plot
+        self.draw_weight_path(ax2,w_hist,**kwargs)        # draw path on contour plot
         
         if show_original == True:
             self.contour_plot_setup(g,ax1,**kwargs)  # draw contour plot
@@ -316,8 +316,8 @@ class Visualizer:
         ax.set_ylabel('$w_1$',fontsize = 14,labelpad = 15,rotation = 0)
         ax.axhline(y=0, color='k',zorder = 0,linewidth = 0.5)
         ax.axvline(x=0, color='k',zorder = 0,linewidth = 0.5)
-        ax.set_xticks(np.arange(round(xmin),round(xmax)+1))
-        ax.set_yticks(np.arange(round(ymin),round(ymax)+1))
+        # ax.set_xticks(np.arange(round(xmin),round(xmax)+1))
+        # ax.set_yticks(np.arange(round(ymin),round(ymax)+1))
         
         # set viewing limits
         ax.set_xlim(xmin,xmax)
@@ -369,6 +369,10 @@ class Visualizer:
     def draw_weight_path(self,ax,w_hist,**kwargs):
         # make colors for plot
         colorspec = self.make_colorspec(w_hist)
+        
+        arrows = True
+        if 'arrows' in kwargs:
+            arrows = kwargs['arrows']
 
         ### plot function decrease plot in right panel
         for j in range(len(w_hist)):  
@@ -388,7 +392,11 @@ class Visualizer:
                 alpha = (head_length - 0.35)/pt_length + 1
                 
                 # if points are different draw error
-                if np.linalg.norm(pt1 - pt2) > 2*head_length:
+                if np.linalg.norm(pt1 - pt2) > head_length and arrows == True:
+                    if np.ndim(pt1) > 1:
+                        pt1 = pt1.flatten()
+                        pt2 = pt2.flatten()
+                    
                     ax.arrow(pt1[0],pt1[1],(pt2[0] - pt1[0])*alpha,(pt2[1] - pt1[1])*alpha, head_width=0.1, head_length=head_length, fc='k', ec='k',linewidth=4,zorder = 2,length_includes_head=True)
                     ax.arrow(pt1[0],pt1[1],(pt2[0] - pt1[0])*alpha,(pt2[1] - pt1[1])*alpha, head_width=0.1, head_length=head_length, fc='w', ec='w',linewidth=0.25,zorder = 2,length_includes_head=True)
         
