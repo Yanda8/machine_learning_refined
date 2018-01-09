@@ -30,9 +30,12 @@ if 'first' in series.lower():
     series_url = '6_First_order_methods'    
     
 if 'second' in series.lower():
-    series_url = '7_Second_order_methods'          
+    series_url = '7_Second_order_methods'    
     
+if 'linear' in series.lower() and 'regression' in series.lower():
+    series_url = ' 8_Linear_regression'          
     
+   
    
 if 'unsupervised' in series.lower():
     series_url = 'Unsupervised_Learning'       
