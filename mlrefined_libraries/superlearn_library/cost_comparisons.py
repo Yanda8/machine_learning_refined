@@ -50,7 +50,7 @@ class Visualizer:
             y_p = self.y[p]
             a_p = w[0] + sum([a*b for a,b in zip(w[1:],x_p)])
             cost += np.maximum(0,-y_p*a_p)
-        return cost
+        return cost/float(len(self.y))
 
     # the convex softmax cost function
     def softmax(self,w):
@@ -60,7 +60,7 @@ class Visualizer:
             y_p = self.y[p]
             a_p = w[0] + sum([a*b for a,b in zip(w[1:],x_p)])
             cost += np.log(1 + np.exp(-y_p*a_p))
-        return cost
+        return cost/float(len(self.y))
                    
     ### compare grad descent runs - given cost to counting cost ###
     def compare_to_counting(self,cost,**kwargs):

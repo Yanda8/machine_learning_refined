@@ -138,15 +138,13 @@ class Visualizer:
     # produce static image of gradient descent or newton's method run
     def static_fig(self,w_hist,**kwargs):
         self.w_hist = w_hist
-        
-        # determine best weights based on number of misclassifications
-        g_count = []
-        for j in range(len(w_hist)):
-            w = w_hist[j]
-            count = self.counting_cost(w)
-            g_count.append(count)
-        ind = np.argmin(g_count)
-        w = w_hist[ind]
+        ind = -1
+        show_path = True
+        if np.size(w_hist) == 0:
+            show_path = False
+        w = 0
+        if show_path:
+            w = w_hist[ind]
         
         ##### setup figure to plot #####
         # initialize figure
@@ -191,32 +189,33 @@ class Visualizer:
         self.contour_plot(ax2,viewmax,num_contours)
         
         ### make left panel - plot data and fit ###
-        # initialize fit
-        y_fit = np.tanh(w[0] + x_fit*w[1])
-            
         # scatter data
         self.scatter_pts(ax1)
-            
-        # plot fit to data
-        color = self.colorspec[-1]
-        ax1.plot(x_fit,y_fit,color = color,linewidth = 2) 
         
-        # add points to right panel contour plot
-        num_frames = len(self.w_hist)
-        for k in range(num_frames):
-            # current color
-            color = self.colorspec[k]
-            
-            # current weights
-            w = self.w_hist[k]
+        if show_path:
+            # initialize fit
+            y_fit = np.tanh(w[0] + x_fit*w[1])
 
-            ###### make right panel - plot contour and steps ######
-            if k == 0:
-                ax2.scatter(w[0],w[1],s = 90,facecolor = color,edgecolor = 'k',linewidth = 0.5, zorder = 3)
-            if k > 0 and k < num_frames:
-                self.plot_pts_on_contour(ax2,k,color)
-            if k == num_frames -1:
-                ax2.scatter(w[0],w[1],s = 90,facecolor = color,edgecolor = 'k',linewidth = 0.5, zorder = 3)
+            # plot fit to data
+            color = self.colorspec[-1]
+            ax1.plot(x_fit,y_fit,color = color,linewidth = 2) 
+
+            # add points to right panel contour plot
+            num_frames = len(self.w_hist)
+            for k in range(num_frames):
+                # current color
+                color = self.colorspec[k]
+
+                # current weights
+                w = self.w_hist[k]
+
+                ###### make right panel - plot contour and steps ######
+                if k == 0:
+                    ax2.scatter(w[0],w[1],s = 90,facecolor = color,edgecolor = 'k',linewidth = 0.5, zorder = 3)
+                if k > 0 and k < num_frames:
+                    self.plot_pts_on_contour(ax2,k,color)
+                if k == num_frames -1:
+                    ax2.scatter(w[0],w[1],s = 90,facecolor = color,edgecolor = 'k',linewidth = 0.5, zorder = 3)
         
         plt.show()
             

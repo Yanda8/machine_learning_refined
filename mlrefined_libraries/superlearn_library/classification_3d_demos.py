@@ -48,13 +48,7 @@ class Visualizer:
      ######## 3d static and animation functions ########
     # produce static image of gradient descent or newton's method run
     def static_fig(self,w_hist,**kwargs):      
-        # determine best weights based on number of misclassifications
-        g_count = []
-        for j in range(len(w_hist)):
-            w = w_hist[j]
-            count = self.counting_cost(w)
-            g_count.append(count)
-        ind = np.argmin(g_count)
+        ind = -1
         w = w_hist[ind]
 
         # grab args
