@@ -47,10 +47,7 @@ class Visualizer:
                     
      ######## 3d static and animation functions ########
     # produce static image of gradient descent or newton's method run
-    def static_fig(self,w_hist,**kwargs):      
-        ind = -1
-        w = w_hist[ind]
-
+    def static_fig(self,w,**kwargs):      
         # grab args
         zplane = 'on'
         if 'zplane' in kwargs:
@@ -159,7 +156,56 @@ class Visualizer:
             ax3.set_title('cost value',fontsize = 12)
     
         plt.show()
-       
+  
+    # produce static image of gradient descent or newton's method run
+    def static_fig_topview(self,g,w,**kwargs):               
+        ### plot all input data ###
+        # generate input range for functions
+        minx = min(min(self.x[:,0]),min(self.x[:,1]))
+        maxx = max(max(self.x[:,0]),max(self.x[:,1]))
+        gapx = (maxx - minx)*0.1
+        minx -= gapx
+        maxx += gapx
+
+        r = np.linspace(minx,maxx,400)
+        x1_vals,x2_vals = np.meshgrid(r,r)
+        x1_vals.shape = (len(r)**2,1)
+        x2_vals.shape = (len(r)**2,1)
+        h = np.concatenate([x1_vals,x2_vals],axis = 1)
+        g_vals = np.tanh( w[0] + w[1]*x1_vals + w[2]*x2_vals )
+        g_vals = np.asarray(g_vals)
+
+        # vals for cost surface
+        x1_vals.shape = (len(r),len(r))
+        x2_vals.shape = (len(r),len(r))
+        g_vals.shape = (len(r),len(r))
+
+        # create figure to plot
+        ### initialize figure
+        fig = plt.figure(figsize = (9,4))
+        gs = gridspec.GridSpec(1, 3, width_ratios=[1,5,1]) 
+        ax1 = plt.subplot(gs[0]);  ax1.axis('off')
+        ax2 = plt.subplot(gs[1],aspect = 'equal');
+        ax3 = plt.subplot(gs[2]);  ax3.axis('off')
+            
+        # plot points - first in 3d, then from above
+        self.separator_view(ax2)
+        class_nums = np.unique(self.y)
+        C = len(class_nums)
+         
+        # plot separator in right plot
+        ax2.contour(x1_vals,x2_vals,g_vals,colors = 'k',levels = [0],linewidths = 3,zorder = 1)
+            
+        # plot color filled contour based on separator
+        if C == 2:
+            g_vals = np.sign(g_vals) + 1
+            ax2.contourf(x1_vals,x2_vals,g_vals,colors = self.colors[:],alpha = 0.1,levels = range(0,C+1))
+        else:
+            ax2.contourf(x1_vals,x2_vals,g_vals,colors = self.colors[:],alpha = 0.1,levels = range(0,C+1))
+  
+        plt.show()
+        
+
     # set axis in left panel
     def move_axis_left(self,ax):
         tmp_planes = ax.zaxis._PLANES 
