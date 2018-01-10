@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head><meta charset="utf-8"/>
-<title>On generalizability of Reinforcement Learning</title><script src="https://unpkg.com/jupyter-js-widgets@2.0.*/dist/embed.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
+<title>18.4 On generalizability of Reinforcement Learning</title><script src="https://unpkg.com/jupyter-js-widgets@2.0.*/dist/embed.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
 <style type="text/css">
     /*!
@@ -11790,7 +11790,7 @@ div#notebook {
 <div class="logo-share"></div>
 <div class="logo-share">
 <!-- github -->
-<a href="https://github.com/jermwatt/mlrefined/blob/gh-pages/blog_posts/Reinforcement_Learning/On_generalizability_of_reinforcement_learning.ipynb" target="_blank">
+<a href="https://github.com/jermwatt/mlrefined/blob/gh-pages/blog_posts/18_Reinforcement_Learning_Foundations/18_4_On_generalizability_of_reinforcement_learning.ipynb" target="_blank">
 <img height="28" onmouseout="this.src='../../html/pics/github.png';" onmouseover="this.src='../../html/pics/github_filled.png';" src="../../html/pics/github.png" width="28"/>
 </a>
 </div>
@@ -11803,21 +11803,21 @@ div#notebook {
 <div class="logo-share"></div>
 <div class="logo-share">
 <!-- linkedin -->
-<a href="https://www.linkedin.com/cws/share?url=https%3A%2F%2Fjermwatt.github.io%2Fmlrefined%2Fblog_posts%2FReinforcement_Learning%2FOn_generalizability_of_reinforcement_learning.html" target="_blank">
+<a href="https://www.linkedin.com/cws/share?url=https%3A%2F%2Fjermwatt.github.io%2Fmlrefined%2Fblog_posts%2F18_Reinforcement_Learning_Foundations%2F18_4_On_generalizability_of_reinforcement_learning.html" target="_blank">
 <img height="28" onmouseout="this.src='../../html/pics/linkedin.png';" onmouseover="this.src='../../html/pics/linkedin_filled.png';" src="../../html/pics/linkedin.png" width="28"/>
 </a>
 </div>
 <div class="logo-share"></div>
 <div class="logo-share">
 <!-- twitter -->
-<a href="https://twitter.com/intent/tweet?ref_src=twsrc%5Etfw&amp;tw_p=tweetbutton&amp;url=https%3A%2F%2Fjermwatt.github.io%2Fmlrefined%2Fblog_posts%2FReinforcement_Learning%2FOn_generalizability_of_reinforcement_learning.html" target="_blank">
+<a href="https://twitter.com/intent/tweet?ref_src=twsrc%5Etfw&amp;tw_p=tweetbutton&amp;url=https%3A%2F%2Fjermwatt.github.io%2Fmlrefined%2Fblog_posts%2F18_Reinforcement_Learning_Foundations%2F18_4_On_generalizability_of_reinforcement_learning.html" target="_blank">
 <img height="28" onmouseout="this.src='../../html/pics/twitter.png';" onmouseover="this.src='../../html/pics/twitter_filled.png';" src="../../html/pics/twitter.png" width="28"/>
 </a>
 </div>
 <div class="logo-share"></div>
 <div class="logo-share">
 <!-- facebook -->
-<a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fjermwatt.github.io%2Fmlrefined%2Fblog_posts%2FReinforcement_Learning%2FOn_generalizability_of_reinforcement_learning.html" target="_blank">
+<a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fjermwatt.github.io%2Fmlrefined%2Fblog_posts%2F18_Reinforcement_Learning_Foundations%2F18_4_On_generalizability_of_reinforcement_learning.html" target="_blank">
 <img height="28" onmouseout="this.src='../../html/pics/facebook.png';" onmouseover="this.src='../../html/pics/facebook_filled.png';" src="../../html/pics/facebook.png" width="28"/>
 </a>
 </div>
@@ -11827,10 +11827,10 @@ div#notebook {
 <br/><br/>
 <div class="page-title" style="text-align: center !important;">
 <span style="color: #333; font-size: 40%; letter-spacing: 3px;">
-<span style="font-size: 80%;">► </span><a href="../../../mlrefined/html/pages/topics/Reinforcement_Learning.html" style="color: black; cursor: pointer; text-transform: uppercase; font-weight:bold;">Reinforcement Learning Series</a>
+<span style="font-size: 80%;">► </span><a href="https://jermwatt.github.io/mlrefined/index.html" style="color: black; cursor: pointer; text-transform: uppercase; font-weight:bold;" target="_blank">Chapter 18: Reinforcement Learning Foundations</a>
 </span>
 <br/><br/>
-<mark style="padding: 0px; background-color: #f9f3c2;">On generalizability of Reinforcement Learning</mark>
+<mark style="padding: 0px; background-color: #f9f3c2;">18.4 On generalizability of Reinforcement Learning</mark>
 </div>
 <br/>
 <div class="border-box-sizing" id="notebook" tabindex="-1">
@@ -11855,7 +11855,7 @@ div#notebook {
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="1.--How-generalizable-is-a-trained-agent?">1.  How generalizable is a trained agent?<a class="anchor-link" href="#1.--How-generalizable-is-a-trained-agent?">¶</a></h2><p>So far in the Reinforcement Learning series we have seen how to train a fully-functional Gridworld agent using Q-Learning. To reproduce the results for easy reference, we initialize the Gridworld in the next Python cell, train it in the second cell using the enhanced version of the Q-Learning algorithm discussed in part 3, and use the learned optimal policy to move efficiently through the world starting at a number of intitial locations.</p>
+<h2 id="18.4.1-How-generalizable-is-a-trained-agent?">18.4.1 How generalizable is a trained agent?<a class="anchor-link" href="#18.4.1-How-generalizable-is-a-trained-agent?">¶</a></h2><p>So far in the Reinforcement Learning series we have seen how to train a fully-functional Gridworld agent using Q-Learning. To reproduce the results for easy reference, we initialize the Gridworld in the next Python cell, train it in the second cell using the enhanced version of the Q-Learning algorithm discussed in part 3, and use the learned optimal policy to move efficiently through the world starting at a number of initial locations.</p>
 </div>
 </div>
 </div>
@@ -12215,7 +12215,7 @@ EHSACEEHiBB0gAhBB4j4P1ppBn8SWfoHAAAAAElFTkSuQmCC
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>As you can see above, in all four instances, our trained agent was able to navigate the world quite efficiently. Note that the Gridworld environment we used here for testing is identical to the one we used for training. The question then arises: how well will our trained agent perform if we set it loose on a different Gridworld enviroment? Let's experiment and find out!</p>
+<p>As you can see above, in all four instances, our trained agent was able to navigate the world quite efficiently. Note that the Gridworld environment we used here for testing is identical to the one we used for training. The question then arises: how well will our trained agent perform if we set it loose on a different Gridworld environment? Let's experiment and find out!</p>
 <p>Below we load in the 'moat' Gridworld and set our learned agent loose on it.</p>
 </div>
 </div>
@@ -12608,7 +12608,7 @@ A0QIOkCEoANECDpAhKADRAg6QISgA0T8BZVqBn+UhbhDAAAAAElFTkSuQmCC
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Oof! The agent - trained on the maze environment - does not perform well on the moat environment at all!</p>
-<p>This is because eventhough the enviroment the agent was trained on was a Gridworld, it was still quite different than the one we tested the agent on. Our agent gained all of its experience on something very different than what we tested it on. So, should we be surprised by this failure? No.</p>
+<p>This is because even though the environment the agent was trained on was a Gridworld, it was still quite different than the one we tested the agent on. Our agent gained all of its experience on something very different than what we tested it on. So, should we be surprised by this failure? No.</p>
 <p>Let's now test our fully trained agent in a Gridworld environment that is only slightly different from the one it was originally trained on. In the Python cell below we load this new testing environment.</p>
 </div>
 </div>
@@ -12955,7 +12955,7 @@ IegAEYIOECHoABGCDhAh6AARgg4QIegAEYIOECHoABGCDhAh6AARgg4QIegAEYIOECHoABGCDhAh
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Generally speaking, we cannot expect an RL agent trained on one enviroment to perform well on another substantially different one. To demand this is like expecting an object detector - trained to recognize human faces on a large set of images - to accurately detect cars in a new set of images.</p>
+<p>Generally speaking, we cannot expect an RL agent trained on one environment to perform well on another substantially different one. To demand this is like expecting an object detector - trained to recognize human faces on a large set of images - to accurately detect cars in a new set of images.</p>
 <p>Machine learning is all about creating pattern recognizers that - when trained properly on a dataset - generalize from what they have seen in training to making accurate predictions on new input data. If a pattern recognizer isn't trained on the sort of data we would like it to recognize in the future we can't expect miracles to happen!</p>
 </div>
 </div>
@@ -12964,6 +12964,6 @@ IegAEYIOECHoABGCDhAh6AARgg4QIegAEYIOECHoABGCDhAh6AARgg4QIegAEYIOECHoABGCDhAh
 </div>
 </body>
 <script type="application/vnd.jupyter.widget-state+json">
-{"version_major": 1, "state": {}, "version_minor": 0}
+{"version_major": 1, "version_minor": 0, "state": {}}
 </script>
 </html>

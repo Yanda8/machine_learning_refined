@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head><meta charset="utf-8"/>
-<title>Q-Learning</title><script src="https://unpkg.com/jupyter-js-widgets@2.0.*/dist/embed.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
+<title>18.2 Q-Learning</title><script src="https://unpkg.com/jupyter-js-widgets@2.0.*/dist/embed.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
 <style type="text/css">
     /*!
@@ -11790,7 +11790,7 @@ div#notebook {
 <div class="logo-share"></div>
 <div class="logo-share">
 <!-- github -->
-<a href="https://github.com/jermwatt/mlrefined/blob/gh-pages/blog_posts/Reinforcement_Learning/Q_learning.ipynb" target="_blank">
+<a href="https://github.com/jermwatt/mlrefined/blob/gh-pages/blog_posts/18_Reinforcement_Learning_Foundations/18_2_Q_learning.ipynb" target="_blank">
 <img height="28" onmouseout="this.src='../../html/pics/github.png';" onmouseover="this.src='../../html/pics/github_filled.png';" src="../../html/pics/github.png" width="28"/>
 </a>
 </div>
@@ -11803,21 +11803,21 @@ div#notebook {
 <div class="logo-share"></div>
 <div class="logo-share">
 <!-- linkedin -->
-<a href="https://www.linkedin.com/cws/share?url=https%3A%2F%2Fjermwatt.github.io%2Fmlrefined%2Fblog_posts%2FReinforcement_Learning%2FQ_learning.html" target="_blank">
+<a href="https://www.linkedin.com/cws/share?url=https%3A%2F%2Fjermwatt.github.io%2Fmlrefined%2Fblog_posts%2F18_Reinforcement_Learning_Foundations%2F18_2_Q_learning.html" target="_blank">
 <img height="28" onmouseout="this.src='../../html/pics/linkedin.png';" onmouseover="this.src='../../html/pics/linkedin_filled.png';" src="../../html/pics/linkedin.png" width="28"/>
 </a>
 </div>
 <div class="logo-share"></div>
 <div class="logo-share">
 <!-- twitter -->
-<a href="https://twitter.com/intent/tweet?ref_src=twsrc%5Etfw&amp;tw_p=tweetbutton&amp;url=https%3A%2F%2Fjermwatt.github.io%2Fmlrefined%2Fblog_posts%2FReinforcement_Learning%2FQ_learning.html" target="_blank">
+<a href="https://twitter.com/intent/tweet?ref_src=twsrc%5Etfw&amp;tw_p=tweetbutton&amp;url=https%3A%2F%2Fjermwatt.github.io%2Fmlrefined%2Fblog_posts%2F18_Reinforcement_Learning_Foundations%2F18_2_Q_learning.html" target="_blank">
 <img height="28" onmouseout="this.src='../../html/pics/twitter.png';" onmouseover="this.src='../../html/pics/twitter_filled.png';" src="../../html/pics/twitter.png" width="28"/>
 </a>
 </div>
 <div class="logo-share"></div>
 <div class="logo-share">
 <!-- facebook -->
-<a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fjermwatt.github.io%2Fmlrefined%2Fblog_posts%2FReinforcement_Learning%2FQ_learning.html" target="_blank">
+<a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fjermwatt.github.io%2Fmlrefined%2Fblog_posts%2F18_Reinforcement_Learning_Foundations%2F18_2_Q_learning.html" target="_blank">
 <img height="28" onmouseout="this.src='../../html/pics/facebook.png';" onmouseover="this.src='../../html/pics/facebook_filled.png';" src="../../html/pics/facebook.png" width="28"/>
 </a>
 </div>
@@ -11827,10 +11827,10 @@ div#notebook {
 <br/><br/>
 <div class="page-title" style="text-align: center !important;">
 <span style="color: #333; font-size: 40%; letter-spacing: 3px;">
-<span style="font-size: 80%;">► </span><a href="../../../mlrefined/html/pages/topics/Reinforcement_Learning.html" style="color: black; cursor: pointer; text-transform: uppercase; font-weight:bold;">Reinforcement Learning Series</a>
+<span style="font-size: 80%;">► </span><a href="https://jermwatt.github.io/mlrefined/index.html" style="color: black; cursor: pointer; text-transform: uppercase; font-weight:bold;" target="_blank">Chapter 18: Reinforcement Learning Foundations</a>
 </span>
 <br/><br/>
-<mark style="padding: 0px; background-color: #f9f3c2;">Q-Learning</mark>
+<mark style="padding: 0px; background-color: #f9f3c2;">18.2 Q-Learning</mark>
 </div>
 <br/>
 <div class="border-box-sizing" id="notebook" tabindex="-1">
@@ -11860,7 +11860,7 @@ In this notebook we derive the most basic version of the so-called Q-Learning al
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p></p><h1 id="3.1--Whats-the-use-of-a-recursive-definition-of-$Q$-if-we-don't-know-what-$Q$-is-to-begin-with?">1. Resolving $Q$ and the curse of recursion<a class="anchor-link" href="#3.1--Whats-the-use-of-a-recursive-definition-of-$Q$-if-we-don't-know-what-$Q$-is-to-begin-with?">¶</a></h1>
+<p></p><h1 id="3.1--Whats-the-use-of-a-recursive-definition-of-$Q$-if-we-don't-know-what-$Q$-is-to-begin-with?">18.2.1 Resolving $Q$ and the curse of recursion<a class="anchor-link" href="#3.1--Whats-the-use-of-a-recursive-definition-of-$Q$-if-we-don't-know-what-$Q$-is-to-begin-with?">¶</a></h1>
 <p>At first glance the recursive definition of $Q$</p>
 <p style="text-align: center !important;">$Q\left(s_{k},\,a_{k}\right)=r_{k}+\underset{i\in\varOmega(s_{k+1})}{\text{maximum}}\,\,Q\left(s_{k+1},\,\alpha_{i}\right)$</p><p>seems to aid little in helping us determine the optimal $Q$ function. $Q$ is on both sides of the recursive definition above but we don't know $Q$ to begin with. So how does this recursion help?</p>
 <p>The answer is in the agent's intrinsic ability to interact with the problem environment. The idea here is to initialize $Q$ to some (random) value, run a large number of episodes and update $Q$ via the recursive definition as we go along. This essentially constitutes the training phase of Reinforcement Learning.</p>
@@ -11886,7 +11886,7 @@ In this notebook we derive the most basic version of the so-called Q-Learning al
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p></p><h1 id="3.2--The-basic-Q-Learning-algorithm">2. The basic Q-Learning algorithm<a class="anchor-link" href="#3.2--The-basic-Q-Learning-algorithm">¶</a></h1>
+<p></p><h1 id="3.2--The-basic-Q-Learning-algorithm">18.2.2 The basic Q-Learning algorithm<a class="anchor-link" href="#3.2--The-basic-Q-Learning-algorithm">¶</a></h1>
 <p>In the most basic approach we run each episode by taking a random initial state, a <strong>random</strong> action, and repeat taking steps until a goal state is reached or maximum number of steps is taken. More precisely, at the $k^{th}$ step we are at a state $s_{k}$ and take a <strong>random</strong> action $a_k$ and update $Q(s_{k},a_k)$ using the recursive definition of $Q$, as </p>
 <p style="text-align: center !important;">$Q\left(s_{k},\,a_{k}\right)=r_{k}+\underset{i\in\varOmega(s_{k+1})}{\text{maximum}}\,\,Q\left(s_{k+1},\,\alpha_{i}\right)$</p>
 <p>
@@ -12468,7 +12468,7 @@ To see the entire Q-Learning function for this Gridworld problem, enter <code>an
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p></p><h1 id="3.2--Once-trained,-how-do-we-use-our-trained-agent?">3. The testing phase: using the trained agent<a class="anchor-link" href="#3.2--Once-trained,-how-do-we-use-our-trained-agent?">¶</a></h1>
+<p></p><h1 id="3.2--Once-trained,-how-do-we-use-our-trained-agent?">18.2.3 The testing phase: using the trained agent<a class="anchor-link" href="#3.2--Once-trained,-how-do-we-use-our-trained-agent?">¶</a></h1>
 <p>
 Given our agent (and more specifically the $Q$ function) is learned properly, how should the agent optimally move at each state?
 </p>
@@ -12777,7 +12777,7 @@ In the next Python cell we illustrate how to use the optimal policy with the Gri
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p></p><h1 id="3.3--Evaluating-performance-and-parameter-tuning">4. Parameter tuning<a class="anchor-link" href="#3.3--Evaluating-performance-and-parameter-tuning">¶</a></h1>
+<p></p><h1 id="3.3--Evaluating-performance-and-parameter-tuning">18.2.4 Parameter tuning<a class="anchor-link" href="#3.3--Evaluating-performance-and-parameter-tuning">¶</a></h1>
 <p>
 We have a number of parameters to choose for the basic Q-learning algorithm. These include
 the number of maximum steps per episode of training $T$, as well as the total number of training episodes $E$. Each of these parameters can heavily influence the performance of our trained agent. On one end of the spectrum, if $T$ is not set high enough the agent may never reach the goal state. With a problem like Gridworld, where there is only one such state, this would be disastrous as the system (and $Q$) would never learn how to reach a goal. On the other hand, setting the number of steps too large can make training take extremely long.
@@ -13439,7 +13439,7 @@ AABJRU5ErkJggg==
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p></p><h1 id="3.4--Representing-the-Q-function-as-a-2-dimensional-matrix*">5. $Q$ function as a 2-dimensional matrix*</h1>
+<p></p><h1 id="3.4--Representing-the-Q-function-as-a-2-dimensional-matrix*">18.2.5 $Q$ function as a 2-dimensional matrix*</h1>
 <p>While mathematically the input to $Q(s,a)$ can have many dimensions, being pairs of raw states and actions, the way we compute $Q$ via <em>Bellman's equation</em> and store it on a computer is via a 2-dimensional matrix representation.</p>
 <p>Recall we denote the set of all realized states as $S=\left\{ \sigma_{1},\sigma_{2},...,\sigma_{N}\right\} $, and likewise the set of all possible actions as $ A=\left\{ \alpha_{1},\alpha_{2},...,\alpha_{M}\right\} $. We can then represent $Q$ on a computer as the $N \times M$ matrix</p>
 <p style="text-align: center !important;">$Q=\left[\begin{array}{cccc}
@@ -13580,6 +13580,6 @@ Q\left(\sigma_{N},\alpha_{1}\right) &amp;  &amp;  &amp; Q\left(\sigma_{N},\alpha
 </div>
 </body>
 <script type="application/vnd.jupyter.widget-state+json">
-{"version_minor": 0, "state": {}, "version_major": 1}
+{"version_major": 1, "state": {}, "version_minor": 0}
 </script>
 </html>
