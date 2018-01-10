@@ -9,13 +9,6 @@
 		
 		<!-- need this for navigation menu --> 
 		<link rel="stylesheet" href="html/CSS/navbar.css">
-		
-		<style>
-			.back-text-color { /* color of text on the back of each card */
-				color: #333;
-			}
-			
-		 </style>	
 		 
 		<!-- subscription -->
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
@@ -25,253 +18,157 @@
 		 
 
 	<body>
+
 	
 		<!-- Navigation menu -->	
-		<br/><br/><br/>
-		<div>
+
+		<div class ="navmenu">
     		<ul>
         		<li class="menu-item active"><a href="index.html"><span class="menu-item">HOME</span></a></li>
-        		<li class="menu-item"><a href="html/pages/presentations.html"><span class="menu-item">PRESENTATIONS</span></a></li>
-        		<li class="menu-item"><a href="html/pages/gallery.html"><span class="menu-item">GALLERY</span></a></li>
+        	<!--	<li class="menu-item"><a href="html/pages/presentations.html"><span class="menu-item">PRESENTATIONS</span></a></li>
+        		<li class="menu-item"><a href="html/pages/gallery.html"><span class="menu-item">GALLERY</span></a></li> -->
         		<li class="menu-item"><a href="html/pages/about.html"><span class="menu-item">ABOUT</span></a></li>
    			</ul>
 		</div>
 		
+		<!-- still image background
+		<div class="bg">
+		</div>
+		-->		
 		
+		<video autoplay muted loop id="myVideo" src="html/vids/background_v1.mov"></video>
+		<script>
+		var vid = document.getElementById("myVideo");
+		vid.playbackRate = 1.5;
+		</script>
+		
+		<!-- <p id="title">Machine Learning Refined</p> -->
 		<br/><br/>
-		<p id="title">Machine Learning Refined</p>
-		<p style="padding: 0px 240px 0px 240px; text-align: justify;" id="sub-title">
-			
-	
-
-		This is a blog about machine learning / deep learning fundamentals built by the authors of the textbook <a class="redlink" target="_blank" href="http://mlrefined.com">Machine Learning Refined</a> published by Cambridge University Press.  
-
-The posts - cut into short series - use careful writing and interactive coding widgets to provide an intuitive and playful way to learn about core concepts in AI- from some of the most basic to the most advanced.  
-		
-		<br>
-		<br>
-
-		Each and every post here is a Python Jupyter notebook - prettied up for the web - that you can download and run on your own machine by pulling <a class="redlink" target="_blank" href="https://github.com/jermwatt/mlrefined"> our repo</a>.  
-
+		<p class="sub-title"> This is a blog about machine learning and deep learning fundamentals built by the authors of the
+			textbook <a class="redlink" target="_blank" href="http://mlrefined.com">Machine Learning Refined</a>
+			published by Cambridge University Press. The posts, cut into short series, use careful writing and interactive coding widgets
+			to provide an intuitive and playful way to learn about core concepts in AI - from some of the most basic to the most advanced.  
+		<br/><br/>
+			Each and every post here is a Python Jupyter notebook, prettied up for the web, that you can download and run on your own machine
+			by pulling our <a class="redlink" target="_blank" href="https://github.com/jermwatt/mlrefined">GitHub repo</a>.  
 		</p>
 		<br/><br/>
+		<hr style="display:block; margin-top: 0.5em; margin-bottom: 0.5em; margin-left: 240px; margin-right: 240px; border-style: inset; border-width: 1px;"/>
+		<br/>
 		
-		<div class="wrapper">
 		
-			<!-- 1st card -->
-			<div class="col_third">
-        		<div class="hover panel">
-        			<!-- front face -->
-          			<div class="front">
-            			<div class="box1">
-              				<p>REINFORCEMENT LEARNING</p>
-            			</div>
-          			</div>
-          			<!-- back face -->          			
-          			<div class="back">
-            			<div class="box2">
-              				<p><code class="back-text-color">Topics include basic Q-learning algorithm and common enhancements, deep reinforcement learning, and more.</code></p>
-      						<p><code><a href="html/pages/topics/Reinforcement_Learning.html">click to read</a></code></p>
-            			</div>
-          			</div>
-        		</div>
-			</div>
+		<div class="chapters-container">
+  			<input type="checkbox" name="chapters" id="chapter01" checked />   
+  			<label for="chapter01"><span>Derivatives and automatic differentiation</span></label>
+  			<div class="eleven_col">
+  				<div class="description">
+    				<p><strong>1. </strong> What are derivatives? <a target="_blank" class="sublink-active" href="blog_posts/3_Automatic_differentiation/3_1_what_are_derivatives.html">&nbsp; text</a> <a target="_blank" class="sublink-inactive" href="">&nbsp; slides</a> </p>
+    				<p><strong>2. </strong> Derivatives at a point and the numerical differentiator <a target="_blank" class="sublink-active" href="blog_posts/3_Automatic_differentiation/3_2_numerical_differentiator.html">&nbsp; text</a> <a target="_blank" class="sublink-inactive" href="">&nbsp; slides</a></p>
+    				<p><strong>3. </strong> Derivative equations and hand computations <a target="_blank" class="sublink-active" href="blog_posts/3_Automatic_differentiation/3_3_derivative_equations.html">&nbsp; text</a> <a target="_blank" class="sublink-inactive" href="">&nbsp; slides</a></p>
+    				<p><strong>4. </strong> Automatic differentiation - the forward mode <a target="_blank" class="sublink-active" href="blog_posts/3_Automatic_differentiation/3_4_AD_forward_mode.html">&nbsp; text</a> <a target="_blank" class="sublink-inactive" href="">&nbsp; slides</a> </p>
+    				<p><strong>5. </strong> Higher order derivatives <a target="_blank" class="sublink-active" href="blog_posts/3_Automatic_differentiation/3_5_higher_order.html">&nbsp; text</a> <a target="_blank" class="sublink-inactive" href="">&nbsp; slides</a> </p>
+    				<p><strong>6. </strong> Taylor series <a target="_blank" class="sublink-active" href="blog_posts/3_Automatic_differentiation/3_6_Taylor_Series.html">&nbsp; text</a> <a target="_blank" class="sublink-inactive" href="">&nbsp; slides</a> </p>
+    				<p><strong>7. </strong> Derivatives of multi-input functions <a target="_blank" class="sublink-active" href="blog_posts/3_Automatic_differentiation/3_7_multi_input_derivatives.html">&nbsp; text</a> <a target="_blank" class="sublink-inactive" href="">&nbsp; slides</a> </p>
+    				<p><strong>8. </strong> Effective gradient computation <a target="_blank" class="sublink-inactive" href="">&nbsp; text</a> <a target="_blank" class="sublink-inactive" href="">&nbsp; slides</a> </p>
+    				<p><strong>9. </strong> The Hessian and higher order derivatives <a target="_blank" class="sublink-active" href="blog_posts/3_Automatic_differentiation/3_9_higher_multivariate.html">&nbsp; text</a> <a target="_blank" class="sublink-inactive" href="">&nbsp; slides</a> </p>
+    				<p><strong>10. </strong> Multi-input Taylor Series <a target="_blank" class="sublink-active" href="blog_posts/3_Automatic_differentiation/3_10_multi_taylor_series.html">&nbsp; text</a> <a target="_blank" class="sublink-inactive" href="">&nbsp; slides</a> </p>
+    				<p><strong>11. </strong> Getting to know autograd: your professional grade automatic differentiator <a target="_blank" class="sublink-active" href="blog_posts/3_Automatic_differentiation/3_11_getting_to_know_autograd.html">&nbsp; text</a> <a target="_blank" class="sublink-inactive" href="">&nbsp; slides</a> </p>
+  				</div>
+  			</div>
+		</div>
+		
+		<div class="chapters-container">
+  			<input type="checkbox" name="chapters" id="chapter02" checked/>
+  			<label for="chapter02"><span>Optimization: zero order methods </span></label>
+  			<div class="six_col">
+  				<div class="description">
+    				<p><strong>0. </strong> Motivation for mathematical optimization<a target="_blank" class="sublink-active" href="blog_posts/5_Zero_order_methods/5_0_Motivation.html">&nbsp; text</a> <a target="_blank" class="sublink-inactive" href="">&nbsp; slides</a></p>
+    				<p><strong>1. </strong> The zero order condition for optimality <a target="_blank" class="sublink-active" href="blog_posts/5_Zero_order_methods/5_1_zero_order_condition.html">&nbsp; text</a> <a target="_blank" class="sublink-inactive" href="">&nbsp; slides</a></p>
+    				<p><strong>2. </strong> Global optimization methods <a target="_blank" class="sublink-active" href="blog_posts/5_Zero_order_methods/5_2_Global_optimization_methods.html">&nbsp; text</a> <a target="_blank" class="sublink-inactive" href="">&nbsp; slides</a></p>
+    				<p><strong>3. </strong> Local optimization methods <a target="_blank" class="sublink-active" href="blog_posts/5_Zero_order_methods/5_3_Local_optimization_methods.html">&nbsp; text</a> <a target="_blank" class="sublink-inactive" href="">&nbsp; slides</a></p>
+    				<p><strong>4. </strong> Random search<a target="_blank" class="sublink-active" href="blog_posts/5_Zero_order_methods/5_4_Random_search.html">&nbsp; text</a> <a target="_blank" class="sublink-inactive" href="">&nbsp; slides</a></p>
+    				<p><strong>5. </strong> Coordinate search and descent<a target="_blank" class="sublink-active" href="blog_posts/5_Zero_order_methods/5_5_Coordinate_search_and_descent.html">&nbsp; text</a> <a target="_blank" class="sublink-inactive" href="">&nbsp; slides</a></p>  				
+  				</div>
+  			</div>
+		</div>
+	
+	
+		<div class="chapters-container">
+  			<input type="checkbox" name="chapters" id="chapter03" checked/>   
+  			<label for="chapter03"><span>Optimization: first order methods</span></label>
+  			<div class="seven_col">
+  				<div class="description">
+    				<p><strong>0. </strong> Introduction <a target="_blank" class="sublink-active" href="blog_posts/6_First_order_methods/6_0_Introduction.html">&nbsp; text</a> <a target="_blank" class="sublink-inactive" href="">&nbsp; slides</a></p>
+    				<p><strong>1. </strong> The first order optimality condition <a target="_blank" class="sublink-active" href="blog_posts/6_First_order_methods/6_1_First_order_condition.html">&nbsp; text</a> <a target="_blank" class="sublink-inactive" href="">&nbsp; slides</a></p>
+    				<p><strong>2. </strong> The geometric anatomy of lines and hyperplanes <a target="_blank" class="sublink-active" href="blog_posts/6_First_order_methods/6_2_Hyperplane_anatomy.html">&nbsp; text</a> <a target="_blank" class="sublink-inactive" href="">&nbsp; slides</a></p>
+    				<p><strong>3. </strong> The geometric anatomy of first order Taylor series approximations <a target="_blank" class="sublink-active" href="blog_posts/6_First_order_methods/6_3_tangent_plane_anatomy.html">&nbsp; text</a> <a target="_blank" class="sublink-inactive" href="">&nbsp; slides</a></p>
+  				    <p><strong>4. </strong> Gradient descent <a target="_blank" class="sublink-active" href="blog_posts/6_First_order_methods/6_4_Gradient_descent.html">&nbsp; text</a> <a target="_blank" class="sublink-inactive" href="">&nbsp; slides</a></p>
+    				<p><strong>5. </strong> Conservative steplength rules <a target="_blank" class="sublink-active" href="blog_posts/6_First_order_methods/6_5_Conservative_steplength_rules.html">&nbsp; text</a> <a target="_blank" class="sublink-inactive" href="">&nbsp; slides</a></p>
+    				<p><strong>6. </strong> First order coordinate descent methods<a target="_blank" class="sublink-active" href="blog_posts/6_First_order_methods/6_6_Coordinate_descent.html">&nbsp; text</a> <a target="_blank" class="sublink-inactive" href="">&nbsp; slides</a></p>
 
-      		
-      		<!-- 2nd card -->
-			<div class="col_third">
-        		<div class="hover panel">
-        			<!-- front face -->
-          			<div class="front">
-            			<div class="box1">
-              				<p>MATHEMATICAL OPTIMIZATION</p>
-            			</div>
-          			</div>
-          			<!-- back face -->          			
-          			<div class="back">
-            			<div class="box2">
-              				<p><code class="back-text-color"> Topics here include methods by which we determine proper parameters for machine learning and deep learning models.</code></p>
-      						<p><code><a href="html/pages/topics/Mathematical_Optimization.html">click to read</a></code></p>
-            			</div>
-          			</div>
-        		</div>
+  				</div>
+  			</div>	
+		</div>
+		
+		<div class="chapters-container">
+  			<input type="checkbox" name="chapters" id="chapter04" checked/>   
+  			<label for="chapter04"><span>Optimization: second order methods</span></label>
+  			<div class="eight_col">	
+  				<div class="description">
+    				<p><strong>1. </strong> Quadratic functions <a target="_blank" class="sublink-active" href="blog_posts/7_Second_order_methods/7_1_Quadratic_functions.html">&nbsp; text</a> <a target="_blank" class="sublink-inactive" href="">&nbsp; slides</a></p>
+    				<p><strong>2. </strong> Second order derivatives and curvature <a target="_blank" class="sublink-active" href="blog_posts/7_Second_order_methods/7_2_Second_derivatives_curvature.html">&nbsp; text</a> <a target="_blank" class="sublink-inactive" href="">&nbsp; slides</a></p>
+    				<p><strong>3. </strong> Newton's method <a target="_blank" class="sublink-active" href="blog_posts/7_Second_order_methods/7_3_Newtons_method.html">&nbsp; text</a> <a target="_blank" class="sublink-inactive" href="">&nbsp; slides</a></p>
+    				<p><strong>4. </strong> Regularization, Newton's method, and non-convex functions<a target="_blank" class="sublink-active" href="blog_posts/7_Second_order_methods/7_4_Newtons_regularized.html">&nbsp; text</a> <a target="_blank" class="sublink-inactive" href="">&nbsp; slides</a></p>
+    				<p><strong>5. </strong> The first order derivation of Newton's method <a target="_blank" class="sublink-active" href="blog_posts/7_Second_order_methods/7_5_Newtons_firstorder.html">&nbsp; text</a> <a target="_blank" class="sublink-inactive" href="">&nbsp; slides</a></p>
+    				<p><strong>6. </strong> Quasi-Newton methods <a target="_blank" class="sublink-active" href="blog_posts/7_Second_order_methods/7_6_Quasi_newton_methods.html">&nbsp; text</a> <a target="_blank" class="sublink-inactive" href="">&nbsp; slides</a></p>
+    				<p><strong>7. </strong> Coordinate descent <a target="_blank" class="sublink-inactive" href="">&nbsp; text</a> <a target="_blank" class="sublink-inactive" href="">&nbsp; slides</a></p>
+    				<p><strong>8. </strong> The second order optimality condition <a target="_blank" class="sublink-active" href="blog_posts/7_Second_order_methods/7_8_Second_order_condition.html">&nbsp; text</a> <a target="_blank" class="sublink-inactive" href="">&nbsp; slides</a></p>  				
+  				</div>
 			</div>
-			
-			
-			<!-- 3rd card -->
-			<div class="col_third end">
-        		<div class="hover panel">
-        			<!-- front face -->
-          			<div class="front">
-            			<div class="box1">
-              				<p>LINEAR SUPERVISED LEARNING</p>
-            			</div>
-          			</div>
-          			<!-- back face -->          			
-          			<div class="back">
-            			<div class="box2">
-              				<p><code class="back-text-color">Topics include linear regression, logistic regression, support vector machines, and more.</code></p>
-      						<p><code><a href="html/pages/topics/Linear_Supervised_Learning.html">click to read</a></code></p>
-            			</div>
-          			</div>
-        		</div>
+		</div>		
+
+		<div class="chapters-container">
+  			<input type="checkbox" name="chapters" id="chapter05" checked/>   
+  			<label for="chapter05"><span>Linear regression </span></label>
+  			<div class="four_col">	
+  				<div class="description">
+    				<p><strong>1. </strong> Least squares linear regression <a target="_blank" class="sublink-active" href="blog_posts/8_Linear_regression/8_1_Least_squares_regression.html">&nbsp; text</a> <a target="_blank" class="sublink-inactive" href="">&nbsp; slides</a></p>
+    				<p><strong>2. </strong> The probabilistic perspective on Least Squares linear regression <a target="_blank" class="sublink-active" href="blog_posts/8_Linear_regression/8_2_Probabilistic_least_squares.html">&nbsp; text</a> <a target="_blank" class="sublink-inactive" href="">&nbsp; slides</a></p>
+    				<p><strong>3. </strong> Least absolute deviations linear regression <a target="_blank" class="sublink-active" href="blog_posts/8_Linear_regression/8_3_Least_absolute_deviations.html">&nbsp; text</a> <a target="_blank" class="sublink-inactive" href="">&nbsp; slides</a></p>
+    				<p><strong>4. </strong> Feature scaling and gradient descent training <a target="_blank" class="sublink-active" href="blog_posts/8_Linear_regression/8_4_feature_scaling.html">&nbsp; text</a> <a target="_blank" class="sublink-inactive" href="">&nbsp; slides</a></p>
+  				</div>
+			</div>
+		</div>
+		
+		
+		<div class="chapters-container">
+  			<input type="checkbox" name="chapters" id="chapter06" checked/>   
+  			<label for="chapter06"><span>Linear unsupervised learning </span></label>
+  			<div class="five_col">
+  				<div class="description">
+    				<p><strong>1. </strong> Fixed spanning sets, orthonormality, and projections <a target="_blank" class="sublink-active" href="blog_posts/11_Linear_unsupervised_learning/11_1_Spanning_sets_orthonormality_projections.html">&nbsp; text</a> <a target="_blank" class="sublink-inactive" href="">&nbsp; slides</a></p>
+    				<p><strong>2. </strong> Principal Component Analysis - learning spanning sets <a target="_blank" class="sublink-active" href="blog_posts/11_Linear_unsupervised_learning/11_2_Principal_Component_Analysis.html">&nbsp; text</a> <a target="_blank" class="sublink-inactive" href="">&nbsp; slides</a></p>
+    				<p><strong>3. </strong> Recommender Systems <a target="_blank" class="sublink-active" href="blog_posts/11_Linear_unsupervised_learning/11_3_Recommender_Systems.html">&nbsp; text</a> <a target="_blank" class="sublink-inactive" href="">&nbsp; slides</a></p>
+    				<p><strong>4. </strong> K-means clustering <a target="_blank" class="sublink-active" href="blog_posts/11_Linear_unsupervised_learning/11_4_K_means_clustering.html">&nbsp; text</a> <a target="_blank" class="sublink-inactive" href="">&nbsp; slides</a></p>
+    				<p><strong>5. </strong> General matrix factorization techniques <a target="_blank" class="sublink-active" href="blog_posts/11_Linear_unsupervised_learning/11_5_matrix_factorization.html">&nbsp; text</a> <a target="_blank" class="sublink-inactive" href="">&nbsp; slides</a></p>
+  				</div>
+			</div>
+		</div>
+
+		<div class="chapters-container">
+  			<input type="checkbox" name="chapters" id="chapter07" checked/>   
+  			<label for="chapter07"><span>Reinforcement learning foundations</span></label>
+  			<div class="four_col">	
+  				<div class="description">
+    				<p><strong>1. </strong> Fundamentals of Reinforcement Learning <a target="_blank" class="sublink-active" href="blog_posts/18_Reinforcement_Learning_Foundations/18_1_Fundamentals_of_reinforcement_learning.html">&nbsp; text</a> <a target="_blank" class="sublink-inactive" href="">&nbsp; slides</a></p>
+    				<p><strong>2. </strong> Q-Learning <a target="_blank" class="sublink-active" href="blog_posts/18_Reinforcement_Learning_Foundations/18_2_Q_learning.html">&nbsp; text</a> <a target="_blank" class="sublink-inactive" href="">&nbsp; slides</a></p>
+    				<p><strong>3. </strong> Q-Learning enhancements <a target="_blank" class="sublink-active" href="blog_posts/18_Reinforcement_Learning_Foundations/18_3_Q_learning_enhancements.html">&nbsp; text</a> <a target="_blank" class="sublink-inactive" href="">&nbsp; slides</a></p>
+    				<p><strong>4. </strong> On generalizability of Reinforcement Learning <a target="_blank" class="sublink-active" href="blog_posts/18_Reinforcement_Learning_Foundations/18_4_On_generalizability_of_reinforcement_learning.html">&nbsp; text</a> <a target="_blank" class="sublink-inactive" href="">&nbsp; slides</a></p>
+  				</div>
 			</div>		
-			
-			
-			
-			<!-- make sure second row appears correctly -->
-		    <div style="padding-top:230px; background-color: white;"></div>
-			
-			
-			<!-- 4th card -->
-			<div class="col_third">
-        		<div class="hover panel">
-        			<!-- front face -->
-          			<div class="front">
-            			<div class="box1">
-              				<p>UNSUPERVISED LEARNING</p>
-            			</div>
-          			</div>
-          			<!-- back face -->          			
-          			<div class="back">
-            			<div class="box2">
-              				<p><code class="back-text-color">Topics include K-means clustering, spectral clustering, PCA, recommender systems, non-negative matrix factorization, and more.  </code></p>
-      						<p><code><a href="html/pages/topics/Unsupervised_Learning.html">click to read</a></code></p>
-            			</div>
-          			</div>
-        		</div>
-			</div>	
-			
-			
-			<!-- 5th card -->    
-      		<div class="col_third">
-        		<div class="hover panel">
-					<!-- front face -->  
-          			<div class="front">
-            			<div class="box1">
-              				<p>COMPUTATIONAL LINEAR ALGEBRA</p>
-            			</div>
-          			</div>
-          			<!-- back face --> 
-          			<div class="back">
-            			<div class="box2">      
-              				<p><code class="back-text-color">In this series we review topics from linear algebra that are foundational to understanding machine learning. </code></p>
-      						<p><code><a href="html/pages/topics/Computational_Linear_Algebra.html">click to read</a></code></p>
-						</div>
-					</div>
-        		</div>
-      		</div>					
-			
+		</div>
 
-			<!-- 6th card -->
-			<div class="col_third end">
-        		<div class="hover panel">
-        			<!-- front face -->        		
-        			<div class="front">
-            			<div class="box1">
-              				<p>COMPUTATIONAL CALCULUS</p>
-            			</div>
-          			</div>
-          			<!-- back face -->   
-          			<div class="back">
-            			<div class="box2">  
-              				<p><code class="back-text-color">A series of posts on the pivotal role Calculus plays in machine learning.</code></p>
-              				<p><code><a href="html/pages/topics/Computational_Calculus.html">click to read</a></code></p>
-            			</div>
-          			</div>
-        		</div>
-			</div>
-			
-						
-			
-			<!-- make sure third row appears correctly -->
-		    <div style="padding-top:230px; background-color: white;"></div>
-      
-
-      		<!-- 7th card -->
-      		<div class="col_third">
-        		<div class="hover panel">		
-          			<!-- front face -->
-          			<div class="front">
-            			<div class="box1">
-              				<p>COMPUTATIONAL MATHEMATICS</p>
-            			</div>
-          			</div>
-          			<!-- back face -->
-          			<div class="back">
-            			<div class="box2">
-              				<br/>
-             	 			<p><code class="back-text-color">A refresher on mathematical functions and how they are used in machine learning.</code></p>
-      						<p><code><a href="html/pages/topics/Computational_Mathematics.html">click to read</a></code></p>
-    					</div>
-          			</div>	
-        		</div>
-			</div>
-      		
-      		
-      		
-
-      		
-      		
-
-			
-
-			
-			
-
-
-			
-
-			
-			
-			
-			
-      		 		
-      		
-      	    <!-- uncomment to  add more cards  		
-      					
-			<!- - fifth card - ->    
-      		<div class="col_third">
-        		<div class="hover panel">
-					<!- - front face - ->  
-          			<div class="front">
-            			<div class="box1">
-              				<p>BLAH BLAH BLAH</p>
-            			</div>
-          			</div>
-          			<!- - back face - -> 
-          			<div class="back">
-            			<div class="box2">      
-              				<p><code class="back-text-color">Topics include blah blah blah</code></p>
-      						<p><code><a href="blah blah blah">click to read</a></code></p>
-						</div>
-					</div>
-        		</div>
-      		</div>
-      		
-      		
-      		<!- - sixth card - ->    
-      		<div class="col_third end">
-        		<div class="hover panel">
-					<!- - front face - ->  
-          			<div class="front">
-            			<div class="box1">
-              				<p>BLAH BLAH BLAH</p>
-            			</div>
-          			</div>
-          			<!- - back face - -> 
-          			<div class="back">
-            			<div class="box2">      
-              				<p><code class="back-text-color">Topics include blah blah blah</code></p>
-      						<p><code><a href="blah blah blah">click to read</a></code></p>
-						</div>
-					</div>
-        		</div>
-      		</div> 
-    	
-         uncomment to add more cards -->
 		
-		</div>	
 		
 		<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
 	
