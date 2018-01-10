@@ -40,8 +40,12 @@ if 'linear' in series.lower() and 'unsupervised' in series.lower():
     
 if 'reinforcement' in series.lower() and 'foundation' in series.lower():
     series_url = '18_Reinforcement_Learning_Foundations'                           
-    
+  
+if 'multiclass' in series.lower() and 'linear' in series.lower():
+    series_url = '10_Linear_multiclass_classification'    
 
+if 'classification' in series.lower() and 'linear' in series.lower():
+    series_url = '9_Linear_twoclass_classification'    
 
 # This script adds navigation bar + sharing logos + title
 script_1 = '''
