@@ -37,18 +37,21 @@ class Visualizer:
             self.cost_func = self.least_squares
         if cost == 'least_absolute_deviations':
             self.cost_func = self.least_absolute_deviations
+        if cost == 'softmax':
+            self.cost_func = self.softmax
+        if cost == 'relu':
+            self.cost_func = self.relu
+
                             
     #####   #####
     def animate_transition(self,num_frames,**kwargs):
         # initialize figure
-        fig = plt.figure(figsize = (9,5))
+        fig = plt.figure(figsize = (10,4.5))
         artist = fig
 
         # create subplot with 3 panels, plot input function in center plot
-        gs = gridspec.GridSpec(1, 3, width_ratios=[1,5,1]) 
-        ax1 = plt.subplot(gs[0]); ax1.axis('off')
-        ax3 = plt.subplot(gs[2]); ax3.axis('off')
-        ax = plt.subplot(gs[1]); ax.set_aspect('equal')
+        gs = gridspec.GridSpec(1, 1) 
+        ax = plt.subplot(gs[0]); ax.set_aspect('equal')
 
         # animation sub-function
         lams = np.linspace(0,1,num_frames)
@@ -88,6 +91,16 @@ class Visualizer:
     # a compact least absolute deviations cost function
     def least_absolute_deviations(self,w):
         cost = np.sum(np.abs(np.dot(self.x.T,w) - self.y))
+        return cost/float(len(self.y))
+    
+    # the convex softmax cost function
+    def softmax(self,w):
+        cost = np.sum(np.log(1 + np.exp(-self.y*np.dot(self.x.T,w))))
+        return cost/float(len(self.y))
+    
+    # the convex relu cost function
+    def relu(self,w):
+        cost = np.sum(np.maximum(0,-self.y*np.dot(self.x.T,w)))
         return cost/float(len(self.y))
     
     ########################################################################################
@@ -177,7 +190,12 @@ class Visualizer:
 
         # create subplots
         N = x.shape[0]
-        gs = gridspec.GridSpec(1,N)
+        gs = 0
+        if N <= 5:
+            gs = gridspec.GridSpec(1,N)
+        else:
+            gs = gridspec.GridSpec(2,5)
+
 
         # remove whitespace from figure
         fig.subplots_adjust(left=0, right=1, bottom=0, top=1) # remove whitespace

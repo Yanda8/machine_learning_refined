@@ -15,8 +15,15 @@ class Setup:
             self.cost_func = self.least_squares
         if cost == 'least_absolute_deviations':
             self.cost_func = self.least_absolute_deviations
+        if cost == 'softmax':
+            self.cost_func = self.softmax
+        if cost == 'relu':
+            self.cost_func = self.relu
+        if cost == 'counter':
+            self.cost_func = self.counting_cost
+
             
-    ###### predict and cost functions #####
+    ###### cost functions #####
     # an implementation of the least squares cost function for linear regression
     def least_squares(self,w):
         cost = np.sum((np.dot(self.x.T,w) - self.y)**2)
@@ -27,4 +34,17 @@ class Setup:
         cost = np.sum(np.abs(np.dot(self.x.T,w) - self.y))
         return cost/float(len(self.y))
 
-        
+    # the convex softmax cost function
+    def softmax(self,w):
+        cost = np.sum(np.log(1 + np.exp(-self.y*np.dot(self.x.T,w))))
+        return cost/float(len(self.y))
+    
+    # the convex relu cost function
+    def relu(self,w):
+        cost = np.sum(np.maximum(0,-self.y*np.dot(self.x.T,w)))
+        return cost/float(len(self.y))
+
+    # the counting cost function
+    def counting_cost(self,w):
+        cost = np.sum((np.sign(np.dot(self.x.T,w)) - self.y)**2)
+        return 0.25*cost 
