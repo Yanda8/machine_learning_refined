@@ -33,36 +33,15 @@ if 'second' in series.lower():
     series_url = '7_Second_order_methods'    
     
 if 'linear' in series.lower() and 'regression' in series.lower():
-    series_url = ' 8_Linear_regression'          
+    series_url = '8_Linear_regression'   
     
-   
-   
-if 'unsupervised' in series.lower():
-    series_url = 'Unsupervised_Learning'       
+if 'linear' in series.lower() and 'unsupervised' in series.lower():
+    series_url = '11_Linear_unsupervised_learning'
+    
+if 'reinforcement' in series.lower() and 'foundation' in series.lower():
+    series_url = '18_Reinforcement_Learning_Foundations'                           
+    
 
-if 'reinforcement' in series.lower():
-    series_url = 'Reinforcement_Learning'
-
-if 'optimization' in series.lower():
-    series_url = 'Mathematical_Optimization'
-    
-if 'calculus' in series.lower():
-    series_url = 'Computational_Calculus'
-    
-if 'mathematics' in series.lower() and 'computation' in series.lower():
-    series_url = 'Computational_Mathematics'      
-    
-if 'algebra' in series.lower():
-    series_url = 'Computational_Linear_Algebra' 
-    
-if 'tree' in series.lower():
-    series_url = 'Tree_Based_Learners'     
-   
-if 'perceptron' in series.lower():
-    series_url = 'Multilayer_Perceptrons' 
-    
-if 'convolution' in series.lower():
-    series_url = 'Convolutional_Neural_Networks'     
 
 # This script adds navigation bar + sharing logos + title
 script_1 = '''
