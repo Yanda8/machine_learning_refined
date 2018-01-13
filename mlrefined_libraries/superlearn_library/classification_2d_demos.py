@@ -30,12 +30,6 @@ class Visualizer:
         
         # colors for viewing classification data 'from above'
         self.colors = ['cornflowerblue','salmon','lime','bisque','mediumaquamarine','b','m','g']
-
-    def center_data(self):
-        # center data
-        self.x = self.x - np.mean(self.x)
-        self.y = self.y - np.mean(self.y)
-        
         
     # the counting cost function - for determining best weights from input weight history
     def counting_cost(self,w):
@@ -434,7 +428,7 @@ class Visualizer:
         w_ = np.concatenate((w1_vals,w2_vals),axis = 1)
         g_vals = []
         for i in range(len(r)**2):
-            g_vals.append(self.least_squares(w_[i,:]))
+            g_vals.append(self.g(w_[i,:]))
         g_vals = np.asarray(g_vals)
 
         # reshape and plot the surface, as well as where the zero-plane is
@@ -473,7 +467,8 @@ class Visualizer:
         w1_vals.shape = (len(w1)**2,1)
         w2_vals.shape = (len(w2)**2,1)
         h = np.concatenate((w1_vals,w2_vals),axis=1)
-        func_vals = np.asarray([self.g(s) for s in h])
+        func_vals = np.asarray([ self.g(np.reshape(s,(2,1))) for s in h])
+        #func_vals = np.asarray([self.g(s) for s in h])
         w1_vals.shape = (len(w1),len(w1))
         w2_vals.shape = (len(w2),len(w2))
         func_vals.shape = (len(w1),len(w2)) 
