@@ -329,12 +329,12 @@ class Visualizer:
         c = 0
         mean = 0.0
         std = 1.0
-        if 'input_mean' in kwargs:
-            mean = kwargs['input_mean']
-        if 'input_std' in kwargs:
-            std = kwargs['input_std']
+        transformer = lambda a: a
+        if 'transformer' in kwargs:
+            transformer = kwargs['transformer']
+
         for weights in plotting_weights:
-            t = weights[0] + weights[1]*(s - mean)/std
+            t = weights[0] + weights[1]*transformer(s).flatten()
             ax.plot(s,t,linewidth = 2,color = colors[c])
             c+=1
     
