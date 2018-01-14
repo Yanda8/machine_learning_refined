@@ -11854,7 +11854,7 @@ div#notebook {
         <span class="k">return</span> <span class="n">normalizer</span><span class="p">,</span> <span class="n">inverse_normalizer</span>
 
     <span class="c1"># standard normalizer - subtract mean, divide by standard deviation - for each input feature</span>
-    <span class="k">def</span> <span class="nf">standard</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">x</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">standard_normalizer</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">x</span><span class="p">):</span>
         <span class="c1"># compute mean / std of each input feature</span>
         <span class="n">x_means</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">axis</span> <span class="o">=</span> <span class="mi">1</span><span class="p">)[:,</span><span class="n">np</span><span class="o">.</span><span class="n">newaxis</span><span class="p">]</span>
         <span class="n">x_stds</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">axis</span> <span class="o">=</span> <span class="mi">1</span><span class="p">)[:,</span><span class="n">np</span><span class="o">.</span><span class="n">newaxis</span><span class="p">]</span>    
@@ -11869,7 +11869,7 @@ div#notebook {
         
     <span class="c1">##### PCA-sphereing functions ####</span>
     <span class="c1"># PCA-sphereing - use PCA to normalize input features</span>
-    <span class="k">def</span> <span class="nf">PCA_sphere</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">x</span><span class="p">,</span><span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">PCA_sphereing</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">x</span><span class="p">,</span><span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="c1"># standard normalize the input data</span>
         <span class="n">standard_normalizer</span><span class="p">,</span> <span class="n">inv_standard_normalizer</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">standard</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
         
