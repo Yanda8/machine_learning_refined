@@ -327,8 +327,7 @@ class Visualizer:
         if 'colors' in kwargs:
             colors = kwargs['colors']
         c = 0
-        mean = 0.0
-        std = 1.0
+ 
         transformer = lambda a: a
         if 'transformer' in kwargs:
             transformer = kwargs['transformer']

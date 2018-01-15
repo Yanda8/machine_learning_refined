@@ -4,10 +4,13 @@ import copy
 import autograd.numpy as np
 
 class Setup:
-    def __init__(self,x,y,cost):
+    def __init__(self,x,y,cost,**kwargs):
         # input data
         self.x = x
         self.y = y
+        self.lam = 0
+        if 'lam' in kwargs:
+            self.lam = kwargs['lam']
         
         # make cost function choice
         self.cost_func = 0
@@ -21,6 +24,13 @@ class Setup:
             self.cost_func = self.relu
         if cost == 'counter':
             self.cost_func = self.counting_cost
+            
+        if cost == 'multiclass_perceptron':
+            self.cost_func = self.multiclass_perceptron
+        if cost == 'multiclass_softmax':
+            self.cost_func = self.multiclass_softmax
+        if cost == 'multiclass_counter':
+            self.cost_func = self.multiclass_counting_cost
 
     ###### basic model ######
     # compute linear combination of input point
@@ -32,7 +42,6 @@ class Setup:
         # compute linear combination and return
         a = np.dot(x.T,w)
         return a
-
             
     ###### cost functions #####
     # an implementation of the least squares cost function for linear regression
@@ -59,3 +68,53 @@ class Setup:
     def counting_cost(self,w):
         cost = np.sum((np.sign(self.model(self.x,w)) - self.y)**2)
         return 0.25*cost 
+    
+    # multiclass perceptron
+    def multiclass_perceptron(self,w):        
+        # pre-compute predictions on all points
+        all_evals = self.model(self.x,w)
+
+        # compute maximum across data points
+        a =  np.max(all_evals,axis = 1)        
+
+        # compute cost in compact form using numpy broadcasting
+        b = all_evals[np.arange(len(self.y)),self.y.astype(int).flatten()-1]
+        cost = np.sum(a - b)
+
+        # add regularizer
+        cost = cost + self.lam*np.linalg.norm(w[1:,:],'fro')**2
+
+        # return average
+        return cost/float(len(self.y))
+    
+    # multiclass softmax
+    def multiclass_softmax(self,w):        
+        # pre-compute predictions on all points
+        all_evals = self.model(self.x,w)
+
+        # compute softmax across data points
+        a = np.log(np.sum(np.exp(all_evals),axis = 1)) 
+
+        # compute cost in compact form using numpy broadcasting
+        b = all_evals[np.arange(len(self.y)),self.y.astype(int).flatten()-1]
+        cost = np.sum(a - b)
+
+        # add regularizer
+        cost = cost + self.lam*np.linalg.norm(w[1:,:],'fro')**2
+
+        # return average
+        return cost/float(len(self.y))
+    
+    # multiclass misclassification cost function - aka the fusion rule
+    def multiclass_counting_cost(self,w):                
+        # pre-compute predictions on all points
+        all_evals = self.model(self.x,w)
+
+        # compute predictions of each input point
+        y_predict = (np.argmax(all_evals,axis = 1) + 1)[:,np.newaxis]
+        
+        # compare predicted label to actual label
+        count = np.sum(np.abs(np.sign(self.y - y_predict)))
+
+        # return number of misclassifications
+        return count

@@ -81,21 +81,18 @@ class Visualizer:
         if 'colors' in kwargs:
             colors = kwargs['colors']
         c = 0
-        mean = 0.0
-        std = 1.0
-        if 'input_mean' in kwargs:
-            mean = kwargs['input_mean']
-        if 'input_std' in kwargs:
-            std = kwargs['input_std']
+        transformer = lambda a: a
+        if 'transformer' in kwargs:
+            transformer = kwargs['transformer']
 
         # plot approximation
-        t = weights[0] + weights[1]*(s - mean)/std
-        l = np.tanh(t).flatten()
-        ax.plot(s,l,linewidth = 2,color = 'r',zorder = 3)
+        l = weights[0] + weights[1]*transformer(s)
+        t = np.tanh(l).flatten()
+        ax.plot(s,t,linewidth = 2,color = 'r',zorder = 3)
         
         # plot counting cost 
-        l = np.sign(t).flatten()
-        ax.plot(s,l,linewidth = 4,color = 'b',zorder = 2)
+        t = np.sign(l).flatten()
+        ax.plot(s,t,linewidth = 4,color = 'b',zorder = 2)
     
     # scatter points
     def scatter_pts(self,ax):

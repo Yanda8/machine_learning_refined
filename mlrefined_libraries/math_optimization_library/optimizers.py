@@ -191,7 +191,7 @@ def newtons_method(g,max_its,w,**kwargs):
     # set numericxal stability parameter / regularization parameter
     epsilon = 10**(-7)
     if 'epsilon' in kwargs:
-        beta = kwargs['epsilon']
+        epsilon = kwargs['epsilon']
 
     # run the newtons method loop
     weight_history = []      # container for weight history

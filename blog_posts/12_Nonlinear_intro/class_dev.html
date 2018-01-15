@@ -11750,7 +11750,7 @@ div#notebook {
 
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[4]:</div>
+<div class="prompt input_prompt">In&nbsp;[1]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># This code cell will not be shown in the HTML version of this notebook</span>
@@ -11780,6 +11780,9 @@ div#notebook {
 <span class="o">%</span><span class="k">matplotlib</span> notebook
 <span class="kn">from</span> <span class="nn">matplotlib</span> <span class="k">import</span> <span class="n">rcParams</span>
 <span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;figure.autolayout&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
+
+<span class="o">%</span><span class="k">load_ext</span> autoreload
+<span class="o">%</span><span class="k">autoreload</span> 2
 </pre></div>
 
 </div>
@@ -12030,13 +12033,458 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[28]:</div>
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span> 
 </pre></div>
 
 </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="One-versus-all">One versus all<a class="anchor-link" href="#One-versus-all">&#182;</a></h1>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[2]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># This code cell will not be shown in the HTML version of this notebook</span>
+<span class="c1"># import custom library</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;../../&#39;</span><span class="p">)</span>
+<span class="kn">from</span> <span class="nn">mlrefined_libraries</span> <span class="k">import</span> <span class="n">superlearn_library</span> <span class="k">as</span> <span class="n">superlearn</span>
+<span class="kn">from</span> <span class="nn">mlrefined_libraries</span> <span class="k">import</span> <span class="n">math_optimization_library</span> <span class="k">as</span> <span class="n">optlib</span>
+<span class="n">datapath</span> <span class="o">=</span> <span class="s1">&#39;../../mlrefined_datasets/superlearn_datasets/&#39;</span>
+
+<span class="c1"># demos for this notebook</span>
+<span class="n">optimizers</span> <span class="o">=</span> <span class="n">optlib</span><span class="o">.</span><span class="n">optimizers</span>
+<span class="n">cost_lib</span> <span class="o">=</span> <span class="n">superlearn</span><span class="o">.</span><span class="n">cost_functions</span>
+<span class="n">normalizers</span> <span class="o">=</span> <span class="n">superlearn</span><span class="o">.</span><span class="n">normalizers</span> 
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[202]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># This code cell will not be shown in the HTML version of this notebook</span>
+<span class="c1"># import custom library</span>
+<span class="kn">import</span> <span class="nn">copy</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;../../&#39;</span><span class="p">)</span>
+<span class="kn">from</span> <span class="nn">mlrefined_libraries</span> <span class="k">import</span> <span class="n">superlearn_library</span> <span class="k">as</span> <span class="n">superlearn</span>
+<span class="kn">from</span> <span class="nn">mlrefined_libraries</span> <span class="k">import</span> <span class="n">math_optimization_library</span> <span class="k">as</span> <span class="n">optlib</span>
+<span class="n">datapath</span> <span class="o">=</span> <span class="s1">&#39;../../mlrefined_datasets/superlearn_datasets/&#39;</span>
+
+<span class="c1"># demos for this notebook</span>
+<span class="n">optimizers</span> <span class="o">=</span> <span class="n">optlib</span><span class="o">.</span><span class="n">optimizers</span>
+<span class="n">cost_lib</span> <span class="o">=</span> <span class="n">superlearn</span><span class="o">.</span><span class="n">cost_functions</span>
+<span class="n">normalizers</span> <span class="o">=</span> <span class="n">superlearn</span><span class="o">.</span><span class="n">normalizers</span> 
+
+<span class="c1">### compare grad descent runs - given cost to counting cost ###</span>
+<span class="k">def</span> <span class="nf">one_versus_all</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="c1"># get and run optimizer to solve two-class problem</span>
+    <span class="n">N</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">shape</span><span class="p">(</span><span class="n">x</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">C</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">y</span><span class="p">))</span>
+    <span class="n">max_its</span> <span class="o">=</span> <span class="mi">100</span><span class="p">;</span> <span class="n">alpha_choice</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="n">cost_name</span> <span class="o">=</span> <span class="s1">&#39;softmax&#39;</span><span class="p">;</span> <span class="n">w</span> <span class="o">=</span> <span class="mf">0.1</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="n">N</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">);</span>
+    
+    <span class="c1"># switches for user choices</span>
+    <span class="k">if</span> <span class="s1">&#39;max_its&#39;</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">:</span>
+        <span class="n">max_its</span> <span class="o">=</span> <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;max_its&#39;</span><span class="p">]</span>
+    <span class="k">if</span> <span class="s1">&#39;alpha_choice&#39;</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">:</span>
+        <span class="n">alpha_choice</span> <span class="o">=</span> <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;alpha_choice&#39;</span><span class="p">]</span>
+    <span class="k">if</span> <span class="s1">&#39;cost_name&#39;</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">:</span>
+        <span class="n">cost_name</span> <span class="o">=</span> <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;cost_name&#39;</span><span class="p">]</span>
+    <span class="k">if</span> <span class="s1">&#39;w&#39;</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">:</span>
+        <span class="n">w</span> <span class="o">=</span> <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;w&#39;</span><span class="p">]</span>
+    
+    <span class="c1"># loop over subproblems and solve</span>
+    <span class="n">weight_histories</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="n">C</span><span class="o">+</span><span class="mi">1</span><span class="p">):</span>
+        <span class="c1"># prepare temporary C vs notC sub-probem labels</span>
+        <span class="n">y_temp</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+        <span class="n">ind</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argwhere</span><span class="p">(</span><span class="n">y_temp</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span> <span class="o">==</span> <span class="n">c</span><span class="p">)</span>
+        <span class="n">ind</span> <span class="o">=</span> <span class="n">ind</span><span class="p">[:,</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">ind2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argwhere</span><span class="p">(</span><span class="n">y_temp</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span> <span class="o">!=</span> <span class="n">c</span><span class="p">)</span>
+        <span class="n">ind2</span> <span class="o">=</span> <span class="n">ind2</span><span class="p">[:,</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">y_temp</span><span class="p">[</span><span class="n">ind</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+        <span class="n">y_temp</span><span class="p">[</span><span class="n">ind2</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
+
+        <span class="c1"># store best weight for final classification </span>
+        <span class="n">cost</span> <span class="o">=</span> <span class="n">cost_lib</span><span class="o">.</span><span class="n">Setup</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y_temp</span><span class="p">,</span><span class="n">cost_name</span><span class="p">)</span><span class="o">.</span><span class="n">cost_func</span>
+        <span class="n">weight_history</span><span class="p">,</span><span class="n">cost_history</span> <span class="o">=</span> <span class="n">optimizers</span><span class="o">.</span><span class="n">gradient_descent</span><span class="p">(</span><span class="n">cost</span><span class="p">,</span><span class="n">alpha_choice</span><span class="p">,</span><span class="n">max_its</span><span class="p">,</span><span class="n">w</span><span class="p">)</span>
+
+        <span class="c1"># store each weight history</span>
+        <span class="n">weight_histories</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">weight_history</span><span class="p">)</span>
+        
+    <span class="c1"># combine each individual classifier weights into single weight </span>
+    <span class="c1"># matrix per step</span>
+    <span class="n">R</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">weight_histories</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+    <span class="n">combined_weights</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">R</span><span class="p">):</span>
+        <span class="n">a</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">C</span><span class="p">):</span>
+            <span class="n">a</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">weight_histories</span><span class="p">[</span><span class="n">c</span><span class="p">][</span><span class="n">r</span><span class="p">])</span>
+        <span class="n">a</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">a</span><span class="p">)</span><span class="o">.</span><span class="n">T</span>
+        <span class="n">a</span> <span class="o">=</span> <span class="n">a</span><span class="p">[</span><span class="mi">0</span><span class="p">,:,:]</span>
+        <span class="n">combined_weights</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+        
+    <span class="c1"># run combined weight matrices through fusion rule to calculate</span>
+    <span class="c1"># number of misclassifications per step</span>
+    <span class="n">counter</span> <span class="o">=</span> <span class="n">cost_lib</span><span class="o">.</span><span class="n">Setup</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="s1">&#39;fusion_rule&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">cost_func</span>
+    <span class="n">count_history</span> <span class="o">=</span> <span class="p">[</span><span class="n">counter</span><span class="p">(</span><span class="n">v</span><span class="p">)</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">combined_weights</span><span class="p">]</span>
+        
+    <span class="k">return</span> <span class="n">combined_weights</span><span class="p">,</span> <span class="n">count_history</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[213]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># load in data</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">loadtxt</span><span class="p">(</span><span class="n">datapath</span> <span class="o">+</span> <span class="s1">&#39;singleinput_multiclass_dataset.csv&#39;</span><span class="p">,</span><span class="n">delimiter</span> <span class="o">=</span> <span class="s1">&#39;,&#39;</span><span class="p">)</span>
+
+<span class="c1"># get input/output pairs</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">data</span><span class="p">[:,:</span><span class="o">-</span><span class="mi">1</span><span class="p">:]</span><span class="o">.</span><span class="n">T</span> 
+<span class="n">y</span> <span class="o">=</span> <span class="n">data</span><span class="p">[:,</span><span class="o">-</span><span class="mi">1</span><span class="p">:]</span> 
+
+<span class="c1"># create normalizer/inverse normalizer</span>
+<span class="n">normalizer</span><span class="p">,</span><span class="n">inverse_normalizer</span> <span class="o">=</span> <span class="n">normalizers</span><span class="o">.</span><span class="n">standard_normalizer</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+
+<span class="c1"># normalize input</span>
+<span class="n">x_normalized</span> <span class="o">=</span> <span class="n">normalizer</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+
+<span class="c1"># run one-versus-all</span>
+<span class="n">combined_weights</span><span class="p">,</span> <span class="n">count_history</span> <span class="o">=</span> <span class="n">one_versus_all</span><span class="p">(</span><span class="n">x_normalized</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">max_its</span> <span class="o">=</span> <span class="mi">1000</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[209]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># plot the cost function history for a given run</span>
+<span class="n">classification_plotter</span><span class="o">.</span><span class="n">plot_cost_histories</span><span class="p">([</span><span class="n">count_history</span><span class="p">],</span><span class="n">start</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span><span class="n">labels</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;standard&#39;</span><span class="p">,</span><span class="s1">&#39;normalized&#39;</span><span class="p">])</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt"></div>
+<div class="output_subarea output_text output_error">
+<pre>
+<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">TypeError</span>                                 Traceback (most recent call last)
+<span class="ansi-green-fg">&lt;ipython-input-209-9e6eabbb8127&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span><span class="ansi-blue-fg">()</span>
+<span class="ansi-green-intense-fg ansi-bold">      1</span> <span class="ansi-red-fg"># plot the cost function history for a given run</span>
+<span class="ansi-green-fg">----&gt; 2</span><span class="ansi-red-fg"> </span>classification_plotter<span class="ansi-blue-fg">.</span>plot_cost_histories<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">[</span>count_history<span class="ansi-blue-fg">]</span><span class="ansi-blue-fg">,</span>start <span class="ansi-blue-fg">=</span> <span class="ansi-cyan-fg">0</span><span class="ansi-blue-fg">,</span>labels <span class="ansi-blue-fg">=</span> <span class="ansi-blue-fg">[</span><span class="ansi-blue-fg">&#39;standard&#39;</span><span class="ansi-blue-fg">,</span><span class="ansi-blue-fg">&#39;normalized&#39;</span><span class="ansi-blue-fg">]</span><span class="ansi-blue-fg">)</span>
+
+<span class="ansi-red-fg">TypeError</span>: plot_cost_histories() missing 2 required positional arguments: &#39;cost_histories&#39; and &#39;count_histories&#39;</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[214]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">count_history</span><span class="p">[</span><span class="o">-</span><span class="mi">10</span><span class="p">:]</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt output_prompt">Out[214]:</div>
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>[2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0]</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[168]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">counter</span> <span class="o">=</span> <span class="n">cost_lib</span><span class="o">.</span><span class="n">Setup</span><span class="p">(</span><span class="n">x_normalized</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="s1">&#39;fusion_rule&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">cost_func</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[169]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">counter</span><span class="p">(</span><span class="n">combined_weights</span><span class="p">[</span><span class="mi">100</span><span class="p">])</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt output_prompt">Out[169]:</div>
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>13.0</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[123]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">combined_weights</span><span class="p">[</span><span class="mi">100</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt output_prompt">Out[123]:</div>
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>(2, 4)</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[167]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">x</span><span class="o">.</span><span class="n">shape</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt output_prompt">Out[167]:</div>
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>(1, 30)</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[175]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">count_history</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt output_prompt">Out[175]:</div>
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>[22.0,
+ 14.0,
+ 14.0,
+ 14.0,
+ 14.0,
+ 14.0,
+ 14.0,
+ 14.0,
+ 14.0,
+ 13.0,
+ 12.0,
+ 11.0,
+ 11.0,
+ 11.0,
+ 11.0,
+ 11.0,
+ 10.0,
+ 9.0,
+ 9.0,
+ 9.0,
+ 9.0,
+ 9.0,
+ 9.0,
+ 9.0,
+ 9.0,
+ 9.0,
+ 9.0,
+ 9.0,
+ 9.0,
+ 9.0,
+ 9.0,
+ 9.0,
+ 9.0,
+ 9.0,
+ 9.0,
+ 9.0,
+ 9.0,
+ 9.0,
+ 8.0,
+ 8.0,
+ 8.0,
+ 8.0,
+ 8.0,
+ 8.0,
+ 8.0,
+ 8.0,
+ 8.0,
+ 8.0,
+ 8.0,
+ 8.0,
+ 8.0,
+ 8.0,
+ 8.0,
+ 8.0,
+ 8.0,
+ 8.0,
+ 8.0,
+ 8.0,
+ 8.0,
+ 8.0,
+ 8.0,
+ 8.0,
+ 8.0,
+ 8.0,
+ 8.0,
+ 8.0,
+ 8.0,
+ 8.0,
+ 8.0,
+ 8.0,
+ 8.0,
+ 8.0,
+ 8.0,
+ 8.0,
+ 8.0,
+ 8.0,
+ 8.0,
+ 8.0,
+ 8.0,
+ 8.0,
+ 8.0,
+ 8.0,
+ 8.0,
+ 8.0,
+ 8.0,
+ 8.0,
+ 8.0,
+ 8.0,
+ 8.0,
+ 8.0,
+ 8.0,
+ 8.0,
+ 8.0,
+ 8.0,
+ 8.0,
+ 8.0,
+ 8.0,
+ 8.0,
+ 7.0,
+ 7.0,
+ 7.0]</pre>
+</div>
+
+</div>
+
 </div>
 </div>
 
