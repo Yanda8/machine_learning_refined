@@ -24,7 +24,7 @@ class Visualizer:
     ''' 
 
     # compare cost histories from multiple runs
-    def plot_cost_histories(self,weight_histories,cost_histories,count_histories,start,**kwargs):        
+    def plot_cost_histories(self,cost_histories,count_histories,start,**kwargs):        
         # plotting colors
         colors = ['k','magenta','springgreen','blueviolet','chocolate']
         
@@ -49,14 +49,8 @@ class Visualizer:
         # run through input histories, plotting each beginning at 'start' iteration
         for c in range(len(cost_histories)):
             history = cost_histories[c]
-            w_hist = weight_histories[c]
             count_hist = count_histories[c]
-            
-            label = 0
-            if c == 0:
-                label = labels[0]
-            else:
-                label = labels[1]
+            label = labels[c]
                 
             # check if a label exists, if so add it to the plot
             ax.plot(np.arange(start,len(history),1),history[start:],linewidth = 3*(0.8)**(c),color = colors[c]) 
