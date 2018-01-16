@@ -208,7 +208,7 @@ def pca_visualizer(X,W,pcs):
         c+=1
     
 # func,
-def sphereing_visualizer(X,W,S,pcs):
+def sphereing_visualizer(X,V,W,S):
     # renderer    
     fig = plt.figure(figsize = (10,5))
     
@@ -222,7 +222,7 @@ def sphereing_visualizer(X,W,S,pcs):
         
     # loop over panels and plot each 
     c = 1
-    for ax,pt,ar in zip([ax1,ax2,ax3],[X,W,S],[pcs,ars,ars2]): 
+    for ax,pt,ar in zip([ax1,ax2,ax3],[X,W,S],[V,ars,ars2]): 
         # set viewing limits for originals
         xmin = np.min(pt[0,:])
         xmax = np.max(pt[0,:])

@@ -1,5 +1,6 @@
 import autograd.numpy as np
 
+###### standard normalization function ######
 def standard_normalizer(x):
     # compute the mean and standard deviation of the input
     x_means = np.mean(x,axis = 1)[:,np.newaxis]
