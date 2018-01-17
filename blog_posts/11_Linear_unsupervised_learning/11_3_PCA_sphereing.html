@@ -12123,10 +12123,10 @@ datapoint $\mathbf{x}_p$ by $\mathbf{w}_p = \mathbf{V}_{\,}^T\mathbf{x}_p^{\,}$.
 <div class="output_wrapper">
 <div class="output">
 <div class="output_area"><div class="prompt"></div>
-<div id="eabad907-e5c4-4e34-abab-d220cc649427"></div>
+<div id="113e7254-b1ec-4fec-8d3f-94a912a289c9"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#eabad907-e5c4-4e34-abab-d220cc649427');
+var element = $('#113e7254-b1ec-4fec-8d3f-94a912a289c9');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -13013,10 +13013,10 @@ if (IPython.notebook.kernel != null) {
 <div class="output_wrapper">
 <div class="output">
 <div class="output_area"><div class="prompt"></div>
-<div id="27630dbe-e34d-48c5-9578-236fd0c52172"></div>
+<div id="437e388d-a757-4453-8059-63ff597e9d3e"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#27630dbe-e34d-48c5-9578-236fd0c52172');
+var element = $('#437e388d-a757-4453-8059-63ff597e9d3e');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -13808,10 +13808,10 @@ if (IPython.notebook.kernel != null) {
 <div class="output_wrapper">
 <div class="output">
 <div class="output_area"><div class="prompt"></div>
-<div id="f280ffc0-d1e2-48a2-89ed-25d18e24055c"></div>
+<div id="faac60ab-eee1-4984-a2e0-34c64a5d9b69"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#f280ffc0-d1e2-48a2-89ed-25d18e24055c');
+var element = $('#faac60ab-eee1-4984-a2e0-34c64a5d9b69');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -14612,24 +14612,78 @@ if (IPython.notebook.kernel != null) {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In [308]:</div>
+<div class="prompt input_prompt">In [322]:</div>
 <div class="inner_cell">
 <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># load in mnist test set</span>
-<span class="n">csvname</span> <span class="o">=</span> <span class="s1">'/Users/Nurgetson/Desktop/mnist/mnist_test.csv'</span>
+<span class="n">csvname</span> <span class="o">=</span> <span class="s1">'/Users/Nurgetson/Desktop/mnist/mnist_train.csv'</span>
 <span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">loadtxt</span><span class="p">(</span><span class="n">csvname</span><span class="p">,</span><span class="n">delimiter</span> <span class="o">=</span> <span class="s1">','</span><span class="p">)</span>
 
-<span class="c1"># get input/output pairs</span>
-<span class="n">x</span> <span class="o">=</span> <span class="n">data</span><span class="p">[:,</span><span class="mi">0</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">:]</span><span class="o">.</span><span class="n">T</span> 
-<span class="n">y</span> <span class="o">=</span> <span class="n">data</span><span class="p">[:,</span><span class="mi">0</span><span class="p">][:,</span><span class="n">np</span><span class="o">.</span><span class="n">newaxis</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span>
+<span class="c1"># # get input/output pairs</span>
+<span class="c1"># x = data[:,0:-1:].T </span>
+<span class="c1"># y = data[:,0][:,np.newaxis] + 1</span>
 
-<span class="c1"># contrast normalize input</span>
-<span class="c1"># create normalizer/inverse normalizer</span>
-<span class="n">contrast_normalize</span> <span class="o">=</span> <span class="n">standard_normalizer</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">T</span><span class="p">)</span>
+<span class="c1"># # contrast normalize input</span>
+<span class="c1"># # create normalizer/inverse normalizer</span>
+<span class="c1"># contrast_normalize = standard_normalizer(x.T)</span>
 
-<span class="c1"># normalize input</span>
-<span class="n">x_decontrast</span> <span class="o">=</span> <span class="n">contrast_normalize</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">T</span><span class="p">)</span><span class="o">.</span><span class="n">T</span>
+<span class="c1"># # normalize input</span>
+<span class="c1"># x_decontrast = contrast_normalize(x.T).T</span>
 </pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [325]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">data</span><span class="p">[:,</span><span class="mi">0</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">:]</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">data</span><span class="p">[:,</span><span class="mi">0</span><span class="p">][:,</span><span class="n">np</span><span class="o">.</span><span class="n">newaxis</span><span class="p">]</span> 
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [327]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">new_data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">hstack</span><span class="p">((</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [328]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">savetxt</span><span class="p">(</span><span class="n">csvname</span><span class="p">,</span><span class="n">new_data</span><span class="p">,</span><span class="n">delimiter</span> <span class="o">=</span> <span class="s1">','</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [326]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">x</span><span class="o">.</span><span class="n">shape</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="output_wrapper">
+<div class="output">
+<div class="output_area"><div class="prompt output_prompt">Out[326]:</div>
+<div class="output_text output_subarea output_execute_result">
+<pre>(60000, 784)</pre>
+</div>
 </div>
 </div>
 </div>
@@ -14660,10 +14714,10 @@ if (IPython.notebook.kernel != null) {
 <div class="output_wrapper">
 <div class="output">
 <div class="output_area"><div class="prompt"></div>
-<div id="6380ef07-74fd-4c49-bebd-ce0f4fe3e701"></div>
+<div id="2ee7959a-cb40-4faf-91e5-01ca64446f9a"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#6380ef07-74fd-4c49-bebd-ce0f4fe3e701');
+var element = $('#2ee7959a-cb40-4faf-91e5-01ca64446f9a');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -15578,10 +15632,10 @@ d_n = \frac{1}{P}\left\Vert \mathbf{v}_n^T \mathbf{X} \right \Vert_2^2 = {\frac{
 <div class="output_wrapper">
 <div class="output">
 <div class="output_area"><div class="prompt"></div>
-<div id="1808ce24-624e-473f-9ab9-637519a6c046"></div>
+<div id="d1fa8223-0278-4ab7-9efe-b65689e745f0"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#1808ce24-624e-473f-9ab9-637519a6c046');
+var element = $('#d1fa8223-0278-4ab7-9efe-b65689e745f0');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -16364,6 +16418,6 @@ if (IPython.notebook.kernel != null) {
 </div>
 </div></body>
 <script type="application/vnd.jupyter.widget-state+json">
-{"version_minor": 0, "state": {}, "version_major": 1}
+{"state": {}, "version_major": 1, "version_minor": 0}
 </script>
 </html>

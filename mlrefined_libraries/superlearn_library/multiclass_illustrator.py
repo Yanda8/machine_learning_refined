@@ -44,7 +44,7 @@ class Visualizer:
         cost = 0
         for p in range(len(self.y)):
             # pluck out current true label, predicted label
-            y_p = int(self.y[p][0]) - 1        # subtract off one due to python indexing
+            y_p = int(self.y[p][0])         # subtract off one due to python indexing
             y_hat_p = int(np.argmax(y_hats[p])) 
 
             # update cost
@@ -61,7 +61,7 @@ class Visualizer:
         cost = 0
         for p in range(len(self.y)):
             # pluck out current true label
-            y_p = int(self.y[p][0]) - 1    # subtract off one due to python indexing
+            y_p = int(self.y[p][0])    # subtract off one due to python indexing
 
             # update cost summand
             cost +=  np.log(np.sum(np.exp(all_evals[p,:]))) - all_evals[p,y_p]
@@ -240,7 +240,7 @@ class Visualizer:
         
         # initialize figure
         fig = plt.figure(figsize = (9,4))
-        gs = gridspec.GridSpec(1, 2,width_ratios = [1,1]) 
+        gs = gridspec.GridSpec(1, 2,width_ratios = [1.5,1]) 
             
         # setup current axis
         ax = plt.subplot(gs[0],projection = '3d');
@@ -283,16 +283,16 @@ class Visualizer:
         
         # plot contour in right panel
         C = len(np.unique(self.y))
-        ax2.contour(w1_vals,w2_vals,g_vals,colors = 'k',levels = range(0,C+1),linewidths = 2.75,zorder = 4)
-        ax2.contourf(w1_vals,w2_vals,g_vals+1,colors = self.colors[:],alpha = 0.2,levels = range(0,C+1))
+        ax2.contour(w1_vals,w2_vals,g_vals,colors = 'k',levels = range(-1,C),linewidths = 2.75,zorder = 4)
+        ax2.contourf(w1_vals,w2_vals,g_vals,colors = self.colors[:],alpha = 0.2,levels = range(-1,C))
         
         # plot surface and z-plane contour in left panel
-        g_vals += 1
-        ax.plot_surface(w1_vals,w2_vals,g_vals-0.1,alpha = 0.3,color = 'w',rstride=50, cstride=50,linewidth=0.5,edgecolor = 'k',zorder = 0) 
+        ax.plot_surface(w1_vals,w2_vals,g_vals,alpha = 0.3,color = 'w',rstride=50, cstride=50,linewidth=0.5,edgecolor = 'k',zorder = 0) 
         
         # plot zplane = 0 in left 3d panel - showing intersection of regressor with z = 0 (i.e., its contour, the separator, in the 3d plot too)?
         if zplane == 'on':
-            ax.plot_surface(w1_vals,w2_vals,g_vals*0,alpha = 0.1) 
+            g_vals +=1
+            #ax.plot_surface(w1_vals,w2_vals,g_vals*0-1,alpha = 0.1) 
             
             # loop over each class and color in z-plane
             for c in class_nums:
@@ -300,7 +300,7 @@ class Visualizer:
                 ax.contour(w1_vals,w2_vals,g_vals - c,colors = 'k',levels = [0],linewidths = 3,zorder = 1)
                         
                 # color parts of plane with correct colors
-                ax.contourf(w1_vals,w2_vals, g_vals - 0.5 - c + 1 ,colors = self.colors[(int(c)-1):],alpha = 0.1,levels = range(0,2))
+                ax.contourf(w1_vals,w2_vals, g_vals - 0.5 - c ,colors = self.colors[(int(c)):],alpha = 0.1,levels = range(0,2))
                 
                 
         # scatter points in 3d
@@ -415,7 +415,6 @@ class Visualizer:
         plt.show()
         
     
-    
     #### utility functions ####           
     #plot data
     def plot_data(self,ax):
@@ -424,7 +423,7 @@ class Visualizer:
                 
         # color current class
         for a in range(0,num_classes):
-            t = np.argwhere(self.y == a+1)
+            t = np.argwhere(self.y == a)
             t = t[:,0]
             ax.scatter(self.x[0,t],self.x[1,t], s = 50,color = self.colors[a],edgecolor = 'k',linewidth = 1.5)
         

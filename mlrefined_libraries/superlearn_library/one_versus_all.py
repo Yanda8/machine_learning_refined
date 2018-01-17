@@ -34,7 +34,7 @@ def train(x,y,**kwargs):
     
     # loop over subproblems and solve
     weight_histories = []
-    for c in range(1,C+1):
+    for c in range(0,C):
         # prepare temporary C vs notC sub-probem labels
         y_temp = copy.deepcopy(y)
         ind = np.argwhere(y_temp.astype(int) == c)

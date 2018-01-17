@@ -78,7 +78,7 @@ class Setup:
         a =  np.max(all_evals,axis = 1)        
 
         # compute cost in compact form using numpy broadcasting
-        b = all_evals[np.arange(len(self.y)),self.y.astype(int).flatten()-1]
+        b = all_evals[np.arange(len(self.y)),self.y.astype(int).flatten()]
         cost = np.sum(a - b)
 
         # add regularizer
@@ -96,7 +96,7 @@ class Setup:
         a = np.log(np.sum(np.exp(all_evals),axis = 1)) 
 
         # compute cost in compact form using numpy broadcasting
-        b = all_evals[np.arange(len(self.y)),self.y.astype(int).flatten()-1]
+        b = all_evals[np.arange(len(self.y)),self.y.astype(int).flatten()]
         cost = np.sum(a - b)
 
         # add regularizer
@@ -111,7 +111,7 @@ class Setup:
         all_evals = self.model(self.x,w)
 
         # compute predictions of each input point
-        y_predict = (np.argmax(all_evals,axis = 1) + 1)[:,np.newaxis]
+        y_predict = (np.argmax(all_evals,axis = 1))[:,np.newaxis]
         
         # compare predicted label to actual label
         count = np.sum(np.abs(np.sign(self.y - y_predict)))

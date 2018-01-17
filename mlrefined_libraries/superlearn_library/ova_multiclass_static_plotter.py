@@ -49,9 +49,9 @@ class Visualizer:
         for c in range(C):
             # prepare temporary C vs notC sub-probem labels
             y_temp = copy.deepcopy(y)
-            ind = np.argwhere(y_temp.astype(int) == (c+1))
+            ind = np.argwhere(y_temp.astype(int) == (c))
             ind = ind[:,0]
-            ind2 = np.argwhere(y_temp.astype(int) != (c+1))
+            ind2 = np.argwhere(y_temp.astype(int) != (c))
             ind2 = ind2[:,0]
             y_temp[ind] = 1
             y_temp[ind2] = -1

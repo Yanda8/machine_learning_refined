@@ -94,7 +94,7 @@ class Visualizer:
         a = self.model(transformer(s),weights)
 
         # plot counting cost 
-        t = np.argmax(a,axis = 1).flatten() + 1
+        t = np.argmax(a,axis = 1).flatten()
         ax2.plot(s.flatten(),t,linewidth = 4,color = 'b',zorder = 2)
     
     # compute linear combination of input point
@@ -121,9 +121,9 @@ class Visualizer:
         for c in range(C):
             # create subproblem data
             y_temp = copy.deepcopy(self.y)
-            ind = np.argwhere(y_temp.astype(int) == (c+1))
+            ind = np.argwhere(y_temp.astype(int) == (c))
             ind = ind[:,0]
-            ind2 = np.argwhere(y_temp.astype(int) != (c+1))
+            ind2 = np.argwhere(y_temp.astype(int) != (c))
             ind2 = ind2[:,0]
             y_temp[ind] = 1
             y_temp[ind2] = -1
@@ -150,9 +150,9 @@ class Visualizer:
         for c in range(C):
             # create subproblem data
             y_temp = copy.deepcopy(self.y)
-            ind = np.argwhere(y_temp.astype(int) == (c+1))
+            ind = np.argwhere(y_temp.astype(int) == (c))
             ind = ind[:,0]
-            ind2 = np.argwhere(y_temp.astype(int) != (c+1))
+            ind2 = np.argwhere(y_temp.astype(int) != (c))
             ind2 = ind2[:,0]
             y_temp[ind] = 1
             y_temp[ind2] = -1

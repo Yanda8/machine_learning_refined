@@ -75,7 +75,7 @@ class Visualizer:
     ### compare grad descent runs - given cost to counting cost ###
     def solve_2class_subproblems(self,**kwargs):
         # parse args
-        max_its = 10
+        max_its = 5
         if 'max_its' in kwargs:
             max_its = kwargs['max_its']
         alpha = 10**-3
@@ -107,9 +107,9 @@ class Visualizer:
             print ('solving sub-problem number ' + str(i+1))
             # prepare temporary C vs notC sub-probem labels
             self.y_temp = copy.deepcopy(self.y)
-            ind = np.argwhere(self.y_temp == (i+1))
+            ind = np.argwhere(self.y_temp == (i))
             ind = ind[:,0]
-            ind2 = np.argwhere(self.y_temp != (i+1))
+            ind2 = np.argwhere(self.y_temp != (i))
             ind2 = ind2[:,0]
             self.y_temp[ind] = 1
             self.y_temp[ind2] = -1
@@ -118,7 +118,7 @@ class Visualizer:
             if algo == 'gradient_descent':# run gradient descent
                 w_hist = self.opt.gradient_descent(g = self.g,w = np.random.randn(np.shape(self.x)[1]+1,1),version = version,max_its = max_its, alpha = alpha,steplength_rule = steplength_rule)
             elif algo == 'newtons_method':
-                w_hist = self.opt.newtons_method(g = self.g,w = np.random.randn(np.shape(self.x)[1]+1,1),max_its = max_its)
+                w_hist = self.opt.newtons_method(g = self.g,w = np.random.randn(np.shape(self.x)[1]+1,1),max_its = max_its,epsilon = 10**(-5))
             
             # store best weight for final classification 
             g_count = []
@@ -166,7 +166,7 @@ class Visualizer:
                 
             # color current class
             ax.scatter(self.x[:,0], self.x[:,1], s = 30,color = '0.75')
-            t = np.argwhere(self.y == a+1)
+            t = np.argwhere(self.y == a)
             t = t[:,0]
             ax.scatter(self.x[t,0],self.x[t,1], s = 50,color = self.colors[a],edgecolor = 'k',linewidth = 1.5)
 
@@ -572,7 +572,7 @@ class Visualizer:
                 
         # color current class
         for a in range(0,num_classes):
-            t = np.argwhere(self.y == a+1)
+            t = np.argwhere(self.y == a)
             t = t[:,0]
             ax.scatter(self.x[t,0],self.x[t,1], s = 50,color = self.colors[a],edgecolor = 'k',linewidth = 1.5)
         
