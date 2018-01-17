@@ -11986,7 +11986,7 @@ a.anchor-link {
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>A multiclass dataset $\left\{ \left(\mathbf{x}_{p,}\,y_{p}\right)\right\} _{p=1}^{P}$
-consists of $C$ distinct classes of data with label values $y_{p}\in\left\{ 1,2,...,C\right\} $</p>
+consists of $C$ distinct classes of data with label values $y_{p}\in\left\{0,1,...,C-1\right\} $</p>
 
 </div>
 </div>
@@ -12022,10 +12022,10 @@ consists of $C$ distinct classes of data with label values $y_{p}\in\left\{ 1,2,
 
 
 
-<div id="685987ca-4e9d-4c12-a780-11db1db31a19"></div>
+<div id="970dca8d-280d-4c66-8fbb-16b86e6530e5"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#685987ca-4e9d-4c12-a780-11db1db31a19');
+var element = $('#970dca8d-280d-4c66-8fbb-16b86e6530e5');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -12885,10 +12885,10 @@ if (IPython.notebook.kernel != null) {
 
 
 
-<div id="eda6c928-6fe7-4a4b-9de9-f62b94a7d6b2"></div>
+<div id="e288d10f-8eaa-461c-b3b3-71784070f62f"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#eda6c928-6fe7-4a4b-9de9-f62b94a7d6b2');
+var element = $('#e288d10f-8eaa-461c-b3b3-71784070f62f');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -13681,7 +13681,7 @@ if (IPython.notebook.kernel != null) {
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>With OvA we learn $C$ two-class classifiers - with the bias/slope weights denoted as  $\left(w_0^{(1)},\,\mathbf{w}_{\mathstrut}^{(1)} \right),\,\left(w_0^{(2)},\,\mathbf{w}_{\mathstrut}^{(2)}\right),\,\ldots,\,\left(w_0^{(C)},\,\mathbf{w}_{\mathstrut}^{(C)}\right)$ - the $c^{th}$ of which can be written as</p>
+<p>With OvA we learn $C$ two-class classifiers - with the bias/slope weights denoted as  $\left(w_0^{(0)},\,\mathbf{w}_{\mathstrut}^{(0)} \right),\,\left(w_0^{(1)},\,\mathbf{w}_{\mathstrut}^{(1)}\right),\,\ldots,\,\left(w_0^{(C-1)},\,\mathbf{w}_{\mathstrut}^{(C-1)}\right)$ - the $c^{th}$ of which can be written as</p>
 \begin{equation}
 w_0^{(c)} + \mathbf{x}_{\mathstrut}^T\mathbf{w}_{\mathstrut}^{(c)} = 0
 \end{equation}
@@ -13705,7 +13705,7 @@ w_0^{(c)} + \mathbf{x}_{p}^T\mathbf{w}_{\mathstrut}^{(c)}  \begin{cases}   &gt; 
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>implying that</p>
 \begin{equation}
-w_0^{(c)} + \mathbf{x}_{p}^T\mathbf{w}_{\mathstrut}^{(c)} = \underset{j=1,...,C}{\text{max}} \,\,\,w_0^{(\,j)} + \mathbf{x}_{p}^T\mathbf{w}_{\mathstrut}^{(\,j)}
+w_0^{(c)} + \mathbf{x}_{p}^T\mathbf{w}_{\mathstrut}^{(c)} = \underset{j=0,...,C-1}{\text{max}} \,\,\,w_0^{(\,j)} + \mathbf{x}_{p}^T\mathbf{w}_{\mathstrut}^{(\,j)}
 \end{equation}
 </div>
 </div>
@@ -13778,7 +13778,7 @@ w_0^{(c)} + \mathbf{x}_{p}^T\mathbf{w}_{\mathstrut}^{(c)} = \underset{j=1,...,C}
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Such a point $\mathbf{x}$ satisfies the condition</p>
 \begin{equation}
-w_0^{(c)} + \mathbf{x}_{\mathstrut}^T\mathbf{w}_{\mathstrut}^{(c)} = \underset{j=1,...,C}{\text{max}} \,\,\,w_0^{(\,j)} + \mathbf{x}_{\mathstrut}^T\mathbf{w}_{\mathstrut}^{(\,j)}
+w_0^{(c)} + \mathbf{x}_{\mathstrut}^T\mathbf{w}_{\mathstrut}^{(c)} = \underset{j=0,...,C-1}{\text{max}} \,\,\,w_0^{(\,j)} + \mathbf{x}_{\mathstrut}^T\mathbf{w}_{\mathstrut}^{(\,j)}
 \end{equation}
 </div>
 </div>
@@ -13789,7 +13789,7 @@ w_0^{(c)} + \mathbf{x}_{\mathstrut}^T\mathbf{w}_{\mathstrut}^{(c)} = \underset{j
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Therefore to get the associated label $y$ we therefore want the <em>maximum argument</em> of the right hand side</p>
 \begin{equation}
-y =  \underset{j=1,...,C}{\text{argmax}} \,\,\,w_0^{(\,j)} + \mathbf{x}_{\mathstrut}^T\mathbf{w}_{\mathstrut}^{(\,j)}
+y =  \underset{j=0,...,C-1}{\text{argmax}} \,\,\,w_0^{(\,j)} + \mathbf{x}_{\mathstrut}^T\mathbf{w}_{\mathstrut}^{(\,j)}
 \end{equation}
 </div>
 </div>
@@ -13819,10 +13819,10 @@ y =  \underset{j=1,...,C}{\text{argmax}} \,\,\,w_0^{(\,j)} + \mathbf{x}_{\mathst
 
 
 
-<div id="22d09b06-636d-42f3-92a0-c82dd112f312"></div>
+<div id="f7429e79-09db-4cd4-8ff0-1c5f3cdab61c"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#22d09b06-636d-42f3-92a0-c82dd112f312');
+var element = $('#f7429e79-09db-4cd4-8ff0-1c5f3cdab61c');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -14644,10 +14644,10 @@ if (IPython.notebook.kernel != null) {
 
 
 
-<div id="4ce84362-8702-477e-a25d-c834da92e487"></div>
+<div id="63fc790b-db20-4b72-b8ac-4a4701585799"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#4ce84362-8702-477e-a25d-c834da92e487');
+var element = $('#63fc790b-db20-4b72-b8ac-4a4701585799');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -15494,10 +15494,10 @@ if (IPython.notebook.kernel != null) {
 
 
 
-<div id="88ee513f-f771-4d79-b367-cbdcbb4230db"></div>
+<div id="6afb7b93-565f-43cf-9d70-3d0a206c9056"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#88ee513f-f771-4d79-b367-cbdcbb4230db');
+var element = $('#6afb7b93-565f-43cf-9d70-3d0a206c9056');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -16318,7 +16318,7 @@ w_0^{(c)} \longleftarrow \frac{w_0^{(c)}}{\left\Vert \mathbf{w}_{\mathstrut}^{(c
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>To assign a point in one of our current regions we seek out the classifier which <em>maximizes</em> this quantity</p>
 \begin{equation}
-y =  \underset{j=1,...,C}{\text{argmax}} \,\,\,w_0^{(\,j)} + \mathbf{x}_{\mathstrut}^T\mathbf{w}_{\mathstrut}^{(\,j)}
+y =  \underset{j=0,...,C-1}{\text{argmax}} \,\,\,w_0^{(\,j)} + \mathbf{x}_{\mathstrut}^T\mathbf{w}_{\mathstrut}^{(\,j)}
 \end{equation}
 </div>
 </div>
@@ -16365,10 +16365,10 @@ y =  \underset{j=1,...,C}{\text{argmax}} \,\,\,w_0^{(\,j)} + \mathbf{x}_{\mathst
 
 
 
-<div id="369e16c5-025a-4d36-a357-f060ef222882"></div>
+<div id="665e041f-7896-472a-b1ff-960cc7aa2b51"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#369e16c5-025a-4d36-a357-f060ef222882');
+var element = $('#665e041f-7896-472a-b1ff-960cc7aa2b51');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -17196,10 +17196,10 @@ if (IPython.notebook.kernel != null) {
 
 
 
-<div id="b13eafe8-4f36-4a32-b98b-7cdea2103843"></div>
+<div id="08942535-2cc3-42d8-acc5-ecd668411616"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#b13eafe8-4f36-4a32-b98b-7cdea2103843');
+var element = $('#08942535-2cc3-42d8-acc5-ecd668411616');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -17994,7 +17994,7 @@ if (IPython.notebook.kernel != null) {
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>We can formalize this rule by noting that - once again - our reasoning has led us to assign a point to the class whose boundary is at the largest signed distance from it. Every point in the region lies on the negative side of our classifiers and all signed distances are negative. Hence the shortest distance <em>in magnitude</em> is the largest <em>signed</em> distance, being the smallest (in magnitude) negative number.</p>
 \begin{equation}
-y =  \underset{j=1,...,C}{\text{argmax}} \,\,\,w_0^{(\,j)} + \mathbf{x}_{\mathstrut}^T\mathbf{w}_{\mathstrut}^{(\,j)}
+y =  \underset{j=0,...,C-1}{\text{argmax}} \,\,\,w_0^{(\,j)} + \mathbf{x}_{\mathstrut}^T\mathbf{w}_{\mathstrut}^{(\,j)}
 \end{equation}
 </div>
 </div>
@@ -18013,7 +18013,7 @@ y =  \underset{j=1,...,C}{\text{argmax}} \,\,\,w_0^{(\,j)} + \mathbf{x}_{\mathst
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>We have now deduced that the following single rule for assigning a label $y$ to a point $\mathbf{x}$ applies to the entire space of our problem</p>
 \begin{equation}
-y =  \underset{j=1,...,C}{\text{argmax}} \,\,\,w_0^{(\,j)} + \mathbf{x}_{\mathstrut}^T\mathbf{w}_{\mathstrut}^{(\,j)}
+y =  \underset{j=0,...,C-1}{\text{argmax}} \,\,\,w_0^{(\,j)} + \mathbf{x}_{\mathstrut}^T\mathbf{w}_{\mathstrut}^{(\,j)}
 \end{equation}
 </div>
 </div>
@@ -18033,9 +18033,9 @@ y =  \underset{j=1,...,C}{\text{argmax}} \,\,\,w_0^{(\,j)} + \mathbf{x}_{\mathst
 <div class="text_cell_render border-box-sizing rendered_html">
 <h3 id="One-versus-All--multi-class-classification">One-versus-All  multi-class classification<a class="anchor-link" href="#One-versus-All--multi-class-classification">&#182;</a></h3><p><hr style="height:1px;border:none;color:#555;background-color:#555;"></p>
 <p style="line-height: 1.7;">
-<strong>1:</strong>&nbsp;&nbsp; <strong>Input:</strong> multiclass dataset $\left\{ \left(\mathbf{x}_{p,}\,y_{p}\right)\right\} _{p=1}^{P}$ where $y_{p}\in\left\{ 1,2,...,C\right\}$, two-class classification scheme and optimizer <br>
+<strong>1:</strong>&nbsp;&nbsp; <strong>Input:</strong> multiclass dataset $\left\{ \left(\mathbf{x}_{p,}\,y_{p}\right)\right\} _{p=1}^{P}$ where $y_{p}\in\left\{0,1,...,C-1\right\}$, two-class classification scheme and optimizer <br>
 
-<strong>2:</strong>&nbsp;&nbsp; <code>for</code> $\,\,c = 1...C$<br>
+<strong>2:</strong>&nbsp;&nbsp; <code>for</code> $\,\,c = 0...C-1$<br>
 
 <strong>3:</strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; form temporary labels $\tilde y_p = \begin{cases}   +1 \,\,\,\,\,\,\text{if}\,\, y_p = c \\ -1 \,\,\,\,\,\,\text{if}\,\, y_p \neq c    \end{cases}$ <br><br>
 
@@ -18047,7 +18047,7 @@ y =  \underset{j=1,...,C}{\text{argmax}} \,\,\,w_0^{(\,j)} + \mathbf{x}_{\mathst
 
 <strong>6:</strong>&nbsp;&nbsp; <code>end for</code> <br>
 
-<strong>7:</strong>&nbsp;&nbsp; To assign a label $y$ to a point $\mathbf{x}$, apply the fusion rule: $y =  \underset{j=1,...,C}{\text{argmax}} \,\,\,w_0^{(\,j)} + \mathbf{x}_{\mathstrut}^T\mathbf{w}_{\mathstrut}^{(\,j)}$<br>
+<strong>7:</strong>&nbsp;&nbsp; To assign a label $y$ to a point $\mathbf{x}$, apply the fusion rule: $y =  \underset{j=0,...,C-1}{\text{argmax}} \,\,\,w_0^{(\,j)} + \mathbf{x}_{\mathstrut}^T\mathbf{w}_{\mathstrut}^{(\,j)}$<br>
 
 <hr style="height:1px;border:none;color:#555;background-color:#555;">
 </p>
@@ -18087,10 +18087,10 @@ y =  \underset{j=1,...,C}{\text{argmax}} \,\,\,w_0^{(\,j)} + \mathbf{x}_{\mathst
 
 
 
-<div id="d1b50b6a-4e79-4560-9569-e5d0431f8a7e"></div>
+<div id="194707fc-f208-4fa0-9c6b-f900fa48c2e7"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#d1b50b6a-4e79-4560-9569-e5d0431f8a7e');
+var element = $('#194707fc-f208-4fa0-9c6b-f900fa48c2e7');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -18905,7 +18905,7 @@ if (IPython.notebook.kernel != null) {
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="Example-1:--Classifying-a-dataset-with-$C-=-4$-classes-using-OvA"><span style="color:#a50e3e;">Example 1: </span> Classifying a dataset with $C = 4$ classes using OvA<a class="anchor-link" href="#Example-1:--Classifying-a-dataset-with-$C-=-4$-classes-using-OvA">&#182;</a></h4>
+<h4 id="Example-1:--Classifying-a-dataset-with-four-classes-using-OvA"><span style="color:#a50e3e;">Example 1: </span> Classifying a dataset with four classes using OvA<a class="anchor-link" href="#Example-1:--Classifying-a-dataset-with-four-classes-using-OvA">&#182;</a></h4>
 </div>
 </div>
 </div><div class="fragment">
@@ -18940,10 +18940,10 @@ if (IPython.notebook.kernel != null) {
 
 
 
-<div id="cda0d3b8-e7f2-4042-9c9a-8a07cb97de59"></div>
+<div id="be5a7b49-a37e-4f9f-906f-9e12614c0727"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#cda0d3b8-e7f2-4042-9c9a-8a07cb97de59');
+var element = $('#be5a7b49-a37e-4f9f-906f-9e12614c0727');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -19769,10 +19769,10 @@ if (IPython.notebook.kernel != null) {
 
 
 
-<div id="ec39c75c-53e3-42ef-8d60-3b48acb226cf"></div>
+<div id="4545d030-e8a5-4382-87e8-f4e72db40187"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#ec39c75c-53e3-42ef-8d60-3b48acb226cf');
+var element = $('#4545d030-e8a5-4382-87e8-f4e72db40187');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -20575,7 +20575,7 @@ if (IPython.notebook.kernel != null) {
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Taking the input of the $p^{th}$ point $\left(\mathbf{x}_p,\,y_p\right)$ we use the fusion rule to produce a predicted output $\hat y_p$ as</p>
 \begin{equation}
-\hat y_p =  \underset{j=1,...,C}{\text{argmax}} \,\,\,w_0^{(\,j)} + \mathbf{x}_{p}^T\mathbf{w}_{\mathstrut}^{(\,j)}
+\hat y_p =  \underset{j=0,...,C-1}{\text{argmax}} \,\,\,w_0^{(\,j)} + \mathbf{x}_{p}^T\mathbf{w}_{\mathstrut}^{(\,j)}
 \end{equation}
 </div>
 </div>
