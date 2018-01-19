@@ -7,11 +7,14 @@ import matplotlib.cm as cm
 from matplotlib.colors import Normalize
 import matplotlib.patches as patches
 import copy
+import operator
 
 
 # import other packages
 import numpy as np
-import cv2
+#import cv2
+from PIL import Image
+from PIL import ImageEnhance
 from scipy import signal as sig
 import time
 from sklearn.preprocessing import normalize
@@ -25,7 +28,10 @@ def show_conv(image_path, kernels, **kwargs):
         contrast_normalization = kwargs['contrast_normalization']
     
     # load image 
-    image = cv2.imread(image_path, 0)
+    #image = cv2.imread(image_path, 0)
+    image = Image.open(image_path).convert('L')
+    image = np.array(image)
+
     
     # get number of kernels
     K = np.shape(kernels)[0]
@@ -98,10 +104,18 @@ def normalize_contrast(image):
     
     # change data type to uint8
     image = image.astype('uint8')
+    image = Image.fromarray(image)
     
     # equalize histogram using opencv
     image = cv2.equalizeHist(image)
     
     return image
+
+
+
+
+
+
+
     
    

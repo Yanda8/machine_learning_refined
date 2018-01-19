@@ -13,7 +13,7 @@ import matplotlib.patches as patches
 # import other packages
 import numpy as np
 import math
-import cv2
+#import cv2
 
 class visualizer:
     '''
@@ -61,7 +61,9 @@ class visualizer:
 
             # plot original image
             np.random.shuffle(self.image[:,k,:])
-            ax.imshow(cv2.cvtColor(self.image, cv2.COLOR_BGR2RGB))
+            #ax.imshow(cv2.cvtColor(self.image, cv2.COLOR_BGR2RGB))
+            ax.imshow(self.image)
+
            
             
             # remove tickmarks

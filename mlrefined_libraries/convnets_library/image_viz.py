@@ -8,6 +8,10 @@ from matplotlib.colors import Normalize
 import matplotlib.patches as patches
 import copy
 
+from PIL import Image
+from scipy import ndimage
+
+
 # import other packages
 import numpy as np
 import cv2
@@ -16,11 +20,10 @@ import time
 from sklearn.preprocessing import normalize
 import seaborn as sns
 
-
-        
+# Edge detection using opencv
 def edge_detect(image_path, **kwargs):
     
-    image = cv2.imread(image_path)
+    image = cv2.imread(image_path)    
         
     # Gaussian blur params
     GaussianBlurSize = (7,7)
@@ -55,7 +58,7 @@ def edge_detect(image_path, **kwargs):
     img = cv2.GaussianBlur(image, GaussianBlurSize, GaussianBlurSigma);
 
     # apply Canny edge detector
-    edges = cv2.Canny(img, low_threshold, high_threshold);
+    edges = cv2.Canny(img, low_threshold, high_threshold)
 
     # apply dilation to thicken the edges
     edges = cv2.dilate(edges, np.ones(dilationSize), iterations=num_iterations)
@@ -67,6 +70,7 @@ def edge_detect(image_path, **kwargs):
     # plot input image
     plt.subplot(121)
     plt.imshow(cv2.cvtColor(image, cv2.COLOR_BGR2RGB))
+
     plt.xticks([]), plt.yticks([])
 
     # plot edge-detected image

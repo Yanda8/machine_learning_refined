@@ -13,7 +13,7 @@ from IPython.display import clear_output
 # import patches
 from matplotlib.patches import Rectangle, PathPatch
 import mpl_toolkits.mplot3d.art3d as art3d
-
+#import cv2 
 from PIL import Image
 
 # convert a color image to grayscale and plot both for visual comparison
