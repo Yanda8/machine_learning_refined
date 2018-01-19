@@ -13,7 +13,6 @@ import matplotlib.patches as patches
 # import other packages
 import numpy as np
 import math
-import cv2
 
 class visualizer:
     '''

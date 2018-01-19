@@ -8,7 +8,6 @@ import matplotlib.animation as animation
 from IPython.display import clear_output
 import time
 from matplotlib import gridspec
-import cv2
 
 # import other packages
 import numpy as np

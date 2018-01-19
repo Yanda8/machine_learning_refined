@@ -14,7 +14,7 @@ from scipy import ndimage
 
 # import other packages
 import numpy as np
-import cv2
+#import cv2
 from scipy import signal as sig
 import time
 from sklearn.preprocessing import normalize
@@ -23,7 +23,7 @@ import seaborn as sns
 # Edge detection using opencv
 def edge_detect(image_path, **kwargs):
     
-    image = cv2.imread(image_path)    
+    #image = cv2.imread(image_path)    
         
     # Gaussian blur params
     GaussianBlurSize = (7,7)
@@ -55,13 +55,13 @@ def edge_detect(image_path, **kwargs):
     
   
     # apply Gaussian blur to smooth out the input image 
-    img = cv2.GaussianBlur(image, GaussianBlurSize, GaussianBlurSigma);
+    #img = cv2.GaussianBlur(image, GaussianBlurSize, GaussianBlurSigma);
 
     # apply Canny edge detector
-    edges = cv2.Canny(img, low_threshold, high_threshold)
+    #edges = cv2.Canny(img, low_threshold, high_threshold)
 
     # apply dilation to thicken the edges
-    edges = cv2.dilate(edges, np.ones(dilationSize), iterations=num_iterations)
+    #edges = cv2.dilate(edges, np.ones(dilationSize), iterations=num_iterations)
 
 
     # initialize figure
@@ -69,7 +69,7 @@ def edge_detect(image_path, **kwargs):
 
     # plot input image
     plt.subplot(121)
-    plt.imshow(cv2.cvtColor(image, cv2.COLOR_BGR2RGB))
+    #plt.imshow(cv2.cvtColor(image, cv2.COLOR_BGR2RGB))
 
     plt.xticks([]), plt.yticks([])
 
@@ -229,7 +229,7 @@ def show_conv_images(image, **kwargs):
         fig.add_subplot(gs[int(i>4)*4+i+1])
         conv = myConv(image, kernels[str(i)])
         conv = np.round(255*conv/500)  
-        conv = cv2.dilate(conv, np.ones((11, 11)), iterations=1)
+        #conv = cv2.dilate(conv, np.ones((11, 11)), iterations=1)
         plt.imshow(conv, vmin=0, vmax=255, cmap=plt.get_cmap('gnuplot2'))
         plt.xticks([]), plt.yticks([])
         plt.title(directions[str(i)], fontsize = 16)
@@ -240,7 +240,9 @@ def show_conv_images(image, **kwargs):
     cbar.ax.set_xticklabels(['$\mathrm{low\,edge\,content}', '$\mathrm{high\,edge\,content}'])# vertically oriented colorbar
     
     fig.add_subplot(gs[0:2,0:2]) # input image
-    plt.imshow(cv2.bitwise_not(image), vmin=0, vmax=255, cmap=plt.get_cmap('Greys'))
+    #plt.imshow(cv2.bitwise_not(image), vmin=0, vmax=255, cmap=plt.get_cmap('Greys'))
+    plt.imshow(image, vmin=0, vmax=255, cmap=plt.get_cmap('Greys'))
+
     plt.xticks([]), plt.yticks([])
     plt.title('$\mathrm{input\,\,image}', fontsize = 10)
     

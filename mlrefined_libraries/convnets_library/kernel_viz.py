@@ -84,9 +84,9 @@ def show_conv(image_path, kernels, **kwargs):
         # plot convolution
         if contrast_normalization:
             conv = normalize_contrast(conv)
-        
-        ax5.imshow(conv, cmap=plt.get_cmap('gray'))# 'pink'))
 
+
+        ax5.imshow(np.sign(conv), cmap=plt.get_cmap('gray'))# 'pink'))
 
         plt.show()
     
@@ -104,10 +104,9 @@ def normalize_contrast(image):
     
     # change data type to uint8
     image = image.astype('uint8')
-    image = Image.fromarray(image)
     
     # equalize histogram using opencv
-    image = cv2.equalizeHist(image)
+    #image = cv2.equalizeHist(image)
     
     return image
 
