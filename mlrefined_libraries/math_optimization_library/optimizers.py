@@ -217,4 +217,5 @@ def newtons_method(g,max_its,w,**kwargs):
     # the gradient at the final step we don't get the final cost function value 
     # via the Automatic Differentiatoor) 
     cost_history.append(flat_g(w))  
+    
     return weight_history,cost_history

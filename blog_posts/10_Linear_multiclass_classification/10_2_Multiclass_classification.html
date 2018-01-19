@@ -11942,7 +11942,7 @@ w_0^{(y_p)} + \mathbf{x}_{p}^T\mathbf{w}_{\mathstrut}^{(y_p)} = \underset{j \,=\
 \begin{equation}
 g\left(w_0^{(0)},\,\mathbf{w}_{\mathstrut}^{(0)},...,w_0^{(C-1)},\,\mathbf{w}_{\mathstrut}^{(C-1)} \right) = \frac{1}{P}\sum_{p = 1}^P \left[\,\left(\underset{j \,=\, 0,...,C-1}{\text{max}} \,\,\,w_0^{(\,j)} + \mathbf{x}_{p}^T\mathbf{w}_{\mathstrut}^{(\,j)}\right) - \left(w_0^{(y_p)} + \mathbf{x}_{p}^T\mathbf{w}_{\mathstrut}^{(y_p)}\right) \right]
 \end{equation}<p>We call this the <em>multi-class perceptron cost</em> due to the fact that it is a direct generalization of the two-class perceptron. We show in the appendix that when $C = 2$, this cost function reduces to the two-class perceptron. We also prove its convexity in the appendix of this Section.</p>
-<blockquote><p>The <em>multiclass perceptron cost</em> is a direct generalization of the two-class perceptron, and is convex likewise.</p>
+<blockquote><p>The <em>multiclass perceptron cost</em> is a direct generalization of the two-class perceptron, and is convex.</p>
 </blockquote>
 <p>Note how in minimizing this cost we should - at least formally - subject it to the constraints that all normal vectors are unit length, i.e., $\left \Vert \mathbf{w}_{\mathstrut}^{(\,j)} \right \Vert_2^2 = 1$ for all $j$. Remember - we need these normal vectors to be unit length if we are to fairly compare the distance of each input $\mathbf{x}_p$ to our two-class decision boundaries.</p>
 </div>
@@ -11989,6 +11989,126 @@ g\left(w_0^{(0)},\,\mathbf{w}_{\mathstrut}^{(0)},...,w_0^{(C-1)},\,\mathbf{w}_{\
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="10.2.2--Implementing-and-minimizing-a-modular-multiclass-perceptron-in-Python">10.2.2  Implementing and minimizing a modular multiclass perceptron in <code>Python</code><a class="anchor-link" href="#10.2.2--Implementing-and-minimizing-a-modular-multiclass-perceptron-in-Python">¶</a></h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>One is free to implement the cost function here in a number of ways.  Note however that in the particular implementation shown here the weights from all $C$ classifiers are input as an $N + 1$ by $C$ array of the form</p>
+\begin{equation}
+\mathbf{W}=\left[\begin{array}{cccc}
+w_{0}^{(0)} &amp; w_{0}^{(2)} &amp; \cdots &amp; w_{0}^{(C-1)}\\
+\mathbf{w}^{(0)} &amp; \mathbf{w}^{(2)} &amp; \cdots &amp; \mathbf{w}^{(C-1)}
+\end{array}\right]
+\end{equation}<p>where the bias and normal vector of the $c^{th}$ classifier have been stacked on top of one another and made the array's $c^{th}$ column.  In this notation we evaluate all $C$ classifiers simultaneously as</p>
+\begin{equation}
+\text{model}\left(\mathbf{x},\mathbf{W}\right) = \mathbf{x}^T\mathbf{W}^{\,}
+\end{equation}<p>i.e., our entire set of linear (classification) models.  We implement this below in the <code>Python</code> function called <code>model</code>.  Note that this precisely the same piece of code we used to implement cost functions for both linear regression and two-class classification in the previous two Chapters.  The only difference here is that now we will be inputting the entire weight matrix $\mathbf{W}$ as the variable <code>w</code>.</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [4]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># compute linear combination of input point</span>
+<span class="k">def</span> <span class="nf">model</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">w</span><span class="p">):</span>
+    <span class="c1"># tack a 1 onto the top of each input point all at once</span>
+    <span class="n">o</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">((</span><span class="mi">1</span><span class="p">,</span><span class="n">np</span><span class="o">.</span><span class="n">shape</span><span class="p">(</span><span class="n">x</span><span class="p">)[</span><span class="mi">1</span><span class="p">]))</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">vstack</span><span class="p">((</span><span class="n">o</span><span class="p">,</span><span class="n">x</span><span class="p">))</span>
+    
+    <span class="c1"># compute linear combination and return</span>
+    <span class="n">a</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">T</span><span class="p">,</span><span class="n">w</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">a</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Employing this funciton we can then implement a multiclass perceptron in <code>Python</code> looping over each point explicitly, as shown below.</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [5]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># multiclass perceptron regularized by the summed length of all normal vectors</span>
+<span class="n">lam</span> <span class="o">=</span> <span class="mi">10</span><span class="o">**-</span><span class="mi">5</span>  <span class="c1"># our regularization paramter </span>
+<span class="k">def</span> <span class="nf">multiclass_perceptron</span><span class="p">(</span><span class="n">w</span><span class="p">):</span>        
+    <span class="c1"># pre-compute predictions on all points</span>
+    <span class="n">all_evals</span> <span class="o">=</span> <span class="n">model</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">w</span><span class="p">)</span>
+
+    <span class="c1"># compute counting cost</span>
+    <span class="n">cost</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">y</span><span class="p">)):</span>
+        <span class="c1"># pluck out current true label</span>
+        <span class="n">y_p</span> <span class="o">=</span> <span class="n">y</span><span class="p">[</span><span class="n">p</span><span class="p">]</span> 
+
+        <span class="c1"># update cost summand</span>
+        <span class="n">cost</span> <span class="o">+=</span>  <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">all_evals</span><span class="p">[</span><span class="n">p</span><span class="p">,:])</span> <span class="o">-</span> <span class="n">all_evals</span><span class="p">[</span><span class="n">p</span><span class="p">,</span><span class="nb">int</span><span class="p">(</span><span class="n">y_p</span><span class="p">)]</span>
+        
+    <span class="c1"># return cost with regularizer added</span>
+    <span class="n">cost</span> <span class="o">+=</span> <span class="n">lam</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">w</span><span class="p">[</span><span class="mi">1</span><span class="p">:,:],</span><span class="s1">'fro'</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span>
+    <span class="k">return</span> <span class="n">cost</span><span class="o">/</span><span class="nb">float</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">y</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><code>Python</code> code often runs much faster when <code>for</code> loops - or equivalently <code>list comprehensions</code> - are written equivalently using matrix-vector <code>numpy</code> operations (this has been a constant theme in our implementations since linear regression in Section 8.1).  This often leads to more compact <code>Python</code> code as well, since <code>for</code> loop operations are often more compactly written (even mathematically) as a matrix-vector operations.</p>
+<p>Below we show an example of writing the <code>multiclass_perceptron</code> cost function more compactly than shown previously using <code>numpy</code> operations instead of the explicit <code>for</code> loop over the data points.  Both this and the previous implementation compute the same final result for a given set of input weights, but here the computation will be considerably (orders of magnitude) faster.</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [12]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">lam</span> <span class="o">=</span> <span class="mi">10</span><span class="o">**-</span><span class="mi">1</span>  <span class="c1"># our regularization paramter </span>
+<span class="k">def</span> <span class="nf">multiclass_perceptron</span><span class="p">(</span><span class="n">w</span><span class="p">):</span>        
+    <span class="c1"># pre-compute predictions on all points</span>
+    <span class="n">all_evals</span> <span class="o">=</span> <span class="n">model</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">w</span><span class="p">)</span>
+    
+    <span class="c1"># compute maximum across data points</span>
+    <span class="n">a</span> <span class="o">=</span>  <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">all_evals</span><span class="p">,</span><span class="n">axis</span> <span class="o">=</span> <span class="mi">1</span><span class="p">)</span>        
+    
+    <span class="c1"># compute cost in compact form using numpy broadcasting</span>
+    <span class="n">b</span> <span class="o">=</span> <span class="n">all_evals</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">y</span><span class="p">)),</span><span class="n">y</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span><span class="o">.</span><span class="n">flatten</span><span class="p">()]</span>
+    <span class="n">cost</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">a</span> <span class="o">-</span> <span class="n">b</span><span class="p">)</span>
+    
+    <span class="c1"># add regularizer</span>
+    <span class="n">cost</span> <span class="o">=</span> <span class="n">cost</span> <span class="o">+</span> <span class="n">lam</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">w</span><span class="p">[</span><span class="mi">1</span><span class="p">:,:],</span><span class="s1">'fro'</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span>
+    
+    <span class="c1"># return average</span>
+    <span class="k">return</span> <span class="n">cost</span><span class="o">/</span><span class="nb">float</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">y</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
 <h4 id="Example-1:--Multiclass-perceptron"><span style="color:#a50e3e;">Example 1: </span> Multiclass perceptron<a class="anchor-link" href="#Example-1:--Multiclass-perceptron">¶</a></h4>
 </div>
 </div>
@@ -12022,10 +12142,10 @@ g\left(w_0^{(0)},\,\mathbf{w}_{\mathstrut}^{(0)},...,w_0^{(C-1)},\,\mathbf{w}_{\
 <div class="output_wrapper">
 <div class="output">
 <div class="output_area"><div class="prompt"></div>
-<div id="f4c9d353-b131-4c9d-8f7a-9e9f9b471c89"></div>
+<div id="8dcb3930-151f-4a22-b0c9-686686d1be4d"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#f4c9d353-b131-4c9d-8f7a-9e9f9b471c89');
+var element = $('#8dcb3930-151f-4a22-b0c9-686686d1be4d');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -12831,78 +12951,7 @@ if (IPython.notebook.kernel != null) {
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>One is free to implement the cost function here in a number of ways.  Note however that in the particular implementation shown here the weights from all $C$ classifiers are input as an $N + 1$ by $C$ array of the form</p>
-\begin{equation}
-\mathbf{W}=\left[\begin{array}{cccc}
-w_{0}^{(0)} &amp; w_{0}^{(2)} &amp; \cdots &amp; w_{0}^{(C-1)}\\
-\mathbf{w}^{(0)} &amp; \mathbf{w}^{(2)} &amp; \cdots &amp; \mathbf{w}^{(C-1)}
-\end{array}\right]
-\end{equation}<p>where the bias and normal vector of the $c^{th}$ classifier have been stacked on top of one another and made the array's $c^{th}$ column.  In this notation we evaluate all $C$ classifiers simultaneously as $\mathbf{x}^T\mathbf{W}^{\,}$, i.e., our entire set of linear (classification) models.  We implement this below in the <code>Python</code> function called <code>model</code>.</p>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In [4]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># compute linear combination of input point</span>
-<span class="k">def</span> <span class="nf">model</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">w</span><span class="p">):</span>
-    <span class="c1"># tack a 1 onto the top of each input point all at once</span>
-    <span class="n">o</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">((</span><span class="mi">1</span><span class="p">,</span><span class="n">np</span><span class="o">.</span><span class="n">shape</span><span class="p">(</span><span class="n">x</span><span class="p">)[</span><span class="mi">1</span><span class="p">]))</span>
-    <span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">vstack</span><span class="p">((</span><span class="n">o</span><span class="p">,</span><span class="n">x</span><span class="p">))</span>
-    
-    <span class="c1"># compute linear combination and return</span>
-    <span class="n">a</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">T</span><span class="p">,</span><span class="n">w</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">a</span>
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>Employing this funciton we can then implement a multiclass perceptron, as shown below.</p>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In [5]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># multiclass perceptron regularized by the summed length of all normal vectors</span>
-<span class="n">lam</span> <span class="o">=</span> <span class="mi">10</span><span class="o">**-</span><span class="mi">5</span>  <span class="c1"># our regularization paramter </span>
-<span class="k">def</span> <span class="nf">multiclass_perceptron</span><span class="p">(</span><span class="n">w</span><span class="p">):</span>        
-    <span class="c1"># pre-compute predictions on all points</span>
-    <span class="n">all_evals</span> <span class="o">=</span> <span class="n">model</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">w</span><span class="p">)</span>
-
-    <span class="c1"># compute counting cost</span>
-    <span class="n">cost</span> <span class="o">=</span> <span class="mi">0</span>
-    <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">y</span><span class="p">)):</span>
-        <span class="c1"># pluck out current true label</span>
-        <span class="n">y_p</span> <span class="o">=</span> <span class="n">y</span><span class="p">[</span><span class="n">p</span><span class="p">]</span> 
-
-        <span class="c1"># update cost summand</span>
-        <span class="n">cost</span> <span class="o">+=</span>  <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">all_evals</span><span class="p">[</span><span class="n">p</span><span class="p">,:])</span> <span class="o">-</span> <span class="n">all_evals</span><span class="p">[</span><span class="n">p</span><span class="p">,</span><span class="nb">int</span><span class="p">(</span><span class="n">y_p</span><span class="p">)]</span>
-        
-    <span class="c1"># return cost with regularizer added</span>
-    <span class="n">cost</span> <span class="o">+=</span> <span class="n">lam</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">w</span><span class="p">[</span><span class="mi">1</span><span class="p">:,:],</span><span class="s1">'fro'</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span>
-    <span class="k">return</span> <span class="n">cost</span><span class="o">/</span><span class="nb">float</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">y</span><span class="p">))</span>
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>Since the cost is convex we can use the unnormalized form of gradient descent to minimize it.</p>
+<p>Since the cost is convex we can use gradient descent to minimize it.</p>
 </div>
 </div>
 </div>
@@ -12943,10 +12992,10 @@ w_{0}^{(0)} &amp; w_{0}^{(2)} &amp; \cdots &amp; w_{0}^{(C-1)}\\
 <div class="output_wrapper">
 <div class="output">
 <div class="output_area"><div class="prompt"></div>
-<div id="fb37b057-9b2a-442b-b900-6947eccbc192"></div>
+<div id="7d62dc25-8035-47dd-be69-11101eaedc7d"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#fb37b057-9b2a-442b-b900-6947eccbc192');
+var element = $('#7d62dc25-8035-47dd-be69-11101eaedc7d');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -13765,10 +13814,10 @@ if (IPython.notebook.kernel != null) {
 <div class="output_wrapper">
 <div class="output">
 <div class="output_area"><div class="prompt"></div>
-<div id="2a605e23-3d13-4afb-ad90-a783e95c10fa"></div>
+<div id="2586cf3b-3e58-4bde-9b00-71d74669841e"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#2a605e23-3d13-4afb-ad90-a783e95c10fa');
+var element = $('#2586cf3b-3e58-4bde-9b00-71d74669841e');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -14599,10 +14648,10 @@ if (IPython.notebook.kernel != null) {
 <div class="output_wrapper">
 <div class="output">
 <div class="output_area"><div class="prompt"></div>
-<div id="e7a587b4-42b6-4347-bcfb-7e3e72e948d2"></div>
+<div id="6621ab7d-2fde-4302-815d-3495f55676f4"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#e7a587b4-42b6-4347-bcfb-7e3e72e948d2');
+var element = $('#6621ab7d-2fde-4302-815d-3495f55676f4');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -15404,10 +15453,10 @@ if (IPython.notebook.kernel != null) {
 <div class="output_wrapper">
 <div class="output">
 <div class="output_area"><div class="prompt"></div>
-<div id="e8a068e0-ae7b-481b-9587-987b036840de"></div>
+<div id="f9ee8761-ba57-46ec-ade5-7a8e3eb7af8e"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#e8a068e0-ae7b-481b-9587-987b036840de');
+var element = $('#f9ee8761-ba57-46ec-ade5-7a8e3eb7af8e');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -16191,152 +16240,6 @@ if (IPython.notebook.kernel != null) {
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="10.2.3-Coding-for-speed-in-Python">10.2.3 Coding for speed in <code>Python</code><a class="anchor-link" href="#10.2.3-Coding-for-speed-in-Python">¶</a></h2>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p><code>Python</code> code often runs much faster when <code>for</code> loops - or equivalently <code>list comprehensions</code> - are written equivalently using matrix-vector <code>Numpy</code> operations.  This often leads to more compact <code>Python</code> code as well, since <code>for</code> loop operations are often more compactly written (even mathematically) as a matrix-vector operations.</p>
-<p>Below we show an example of writing the <code>multiclass_perceptron</code> cost function more compactly than shown previously using <code>Numpy</code> operations instead of the explicit <code>for</code> loop over the data points.  Both this and the previous implementation compute the same final result for a given set of input weights, but here the computation will be considerably faster.</p>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In [12]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">lam</span> <span class="o">=</span> <span class="mi">10</span><span class="o">**-</span><span class="mi">1</span>  <span class="c1"># our regularization paramter </span>
-<span class="k">def</span> <span class="nf">multiclass_perceptron_python_effecient</span><span class="p">(</span><span class="n">w</span><span class="p">):</span>        
-    <span class="c1"># pre-compute predictions on all points</span>
-    <span class="n">all_evals</span> <span class="o">=</span> <span class="n">model</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">w</span><span class="p">)</span>
-    
-    <span class="c1"># compute maximum across data points</span>
-    <span class="n">a</span> <span class="o">=</span>  <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">all_evals</span><span class="p">,</span><span class="n">axis</span> <span class="o">=</span> <span class="mi">1</span><span class="p">)</span>        
-    
-    <span class="c1"># compute cost in compact form using numpy broadcasting</span>
-    <span class="n">b</span> <span class="o">=</span> <span class="n">all_evals</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">y</span><span class="p">)),</span><span class="n">y</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span><span class="o">.</span><span class="n">flatten</span><span class="p">()]</span>
-    <span class="n">cost</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">a</span> <span class="o">-</span> <span class="n">b</span><span class="p">)</span>
-    
-    <span class="c1"># add regularizer</span>
-    <span class="n">cost</span> <span class="o">=</span> <span class="n">cost</span> <span class="o">+</span> <span class="n">lam</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">w</span><span class="p">[</span><span class="mi">1</span><span class="p">:,:],</span><span class="s1">'fro'</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span>
-    
-    <span class="c1"># return average</span>
-    <span class="k">return</span> <span class="n">cost</span><span class="o">/</span><span class="nb">float</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">y</span><span class="p">))</span>
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>Using the previous toy dataset as an example, here you can see that the more efficient version evaluates around 3 times faster than the naively written version for this particular dataset.</p>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In [14]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">datetime</span> <span class="k">import</span> <span class="n">datetime</span> 
-
-<span class="c1"># load in dataset</span>
-<span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">loadtxt</span><span class="p">(</span><span class="n">datapath</span> <span class="o">+</span> <span class="s1">'3class_data.csv'</span><span class="p">,</span><span class="n">delimiter</span> <span class="o">=</span> <span class="s1">','</span><span class="p">)</span>
-
-<span class="c1"># get input/output pairs</span>
-<span class="n">x</span> <span class="o">=</span> <span class="n">data</span><span class="p">[:,:</span><span class="o">-</span><span class="mi">1</span><span class="p">:]</span><span class="o">.</span><span class="n">T</span>
-<span class="n">y</span> <span class="o">=</span> <span class="n">data</span><span class="p">[:,</span><span class="o">-</span><span class="mi">1</span><span class="p">:]</span>
-
-<span class="c1"># initial weights</span>
-<span class="n">w</span> <span class="o">=</span> <span class="mf">0.1</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="mi">3</span><span class="p">)</span>
-
-<span class="c1"># run test using first version</span>
-<span class="n">startTime</span><span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span> 
-<span class="n">test_val_1</span> <span class="o">=</span> <span class="n">multiclass_perceptron</span><span class="p">(</span><span class="n">w</span><span class="p">)</span>
-<span class="n">timeElapsed1</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">-</span><span class="n">startTime</span> 
-
-<span class="c1"># run second version</span>
-<span class="n">startTime</span><span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span> 
-<span class="n">test_val_2</span> <span class="o">=</span> <span class="n">multiclass_perceptron_python_effecient</span><span class="p">(</span><span class="n">w</span><span class="p">)</span>
-<span class="n">timeElapsed2</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">-</span><span class="n">startTime</span> 
-
-<span class="c1"># print out oboth for comparison</span>
-<span class="nb">print</span> <span class="p">(</span><span class="s1">'1st test value = '</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">test_val_1</span><span class="p">)</span> <span class="o">+</span> <span class="s1">', compute time = '</span><span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">timeElapsed1</span><span class="p">))</span>
-<span class="nb">print</span> <span class="p">(</span><span class="s1">'2nd test value = '</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">test_val_2</span><span class="p">)</span> <span class="o">+</span> <span class="s1">', compute time = '</span><span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">timeElapsed2</span><span class="p">))</span>
-</pre></div>
-</div>
-</div>
-</div>
-<div class="output_wrapper">
-<div class="output">
-<div class="output_area"><div class="prompt"></div>
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>1st test value = 0.225093296551, compute time = 0:00:00.000803
-2nd test value = 0.225093296551, compute time = 0:00:00.000243
-</pre>
-</div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>This speed advantage can be magnified dramatically when performing minimization using the automatic differentiator <code>autograd</code> (perhaps due to a difference in the way the computation graph of each function is represented).  In the next cell we run 1000 steps of gradient descent using each function, in each case using the same parameters.  Using more<code>Python</code> efficient implementation this simple run of gradient descent is sped up by a factor of (over) 10!</p>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In [15]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># run gradient descent to minimize cost</span>
-<span class="n">startTime</span><span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span> 
-<span class="n">g</span> <span class="o">=</span> <span class="n">multiclass_perceptron</span><span class="p">;</span> <span class="n">max_its</span> <span class="o">=</span> <span class="mi">200</span><span class="p">;</span> <span class="n">alpha_choice</span> <span class="o">=</span> <span class="mi">10</span><span class="o">**</span><span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="p">);</span>
-<span class="n">weight_history</span><span class="p">,</span><span class="n">cost_history</span> <span class="o">=</span> <span class="n">optimizers</span><span class="o">.</span><span class="n">gradient_descent</span><span class="p">(</span><span class="n">g</span><span class="p">,</span><span class="n">alpha_choice</span><span class="p">,</span><span class="n">max_its</span><span class="p">,</span><span class="n">w</span><span class="p">)</span>
-<span class="n">timeElapsed1</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">-</span><span class="n">startTime</span> 
-
-<span class="c1"># run gradient descent to minimize cost</span>
-<span class="n">startTime</span><span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span> 
-<span class="n">g</span> <span class="o">=</span> <span class="n">multiclass_perceptron_python_effecient</span><span class="p">;</span> <span class="n">max_its</span> <span class="o">=</span> <span class="mi">200</span><span class="p">;</span> <span class="n">alpha_choice</span> <span class="o">=</span> <span class="mi">10</span><span class="o">**</span><span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="p">);</span>
-<span class="n">weight_history</span><span class="p">,</span><span class="n">cost_history</span> <span class="o">=</span> <span class="n">optimizers</span><span class="o">.</span><span class="n">gradient_descent</span><span class="p">(</span><span class="n">g</span><span class="p">,</span><span class="n">alpha_choice</span><span class="p">,</span><span class="n">max_its</span><span class="p">,</span><span class="n">w</span><span class="p">)</span>
-<span class="n">timeElapsed2</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">-</span><span class="n">startTime</span> 
-
-<span class="c1"># print out oboth for comparison</span>
-<span class="nb">print</span> <span class="p">(</span><span class="s1">'run with 1st version compute time = '</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">timeElapsed1</span><span class="p">))</span>
-<span class="nb">print</span> <span class="p">(</span><span class="s1">'run with 2nd version compute time = '</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">timeElapsed2</span><span class="p">))</span>
-</pre></div>
-</div>
-</div>
-</div>
-<div class="output_wrapper">
-<div class="output">
-<div class="output_area"><div class="prompt"></div>
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>run with 1st version compute time = 0:00:01.339572
-run with 2nd version compute time = 0:00:00.136756
-</pre>
-</div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="10.2.4--The-smooth-softmax-approximation-to-multiclass-perceptron-cost">10.2.4  The smooth softmax approximation to multiclass perceptron cost<a class="anchor-link" href="#10.2.4--The-smooth-softmax-approximation-to-multiclass-perceptron-cost">¶</a></h2>
 </div>
 </div>
@@ -16419,7 +16322,7 @@ g\left(w_0^{(0)},\,\mathbf{w}_{\mathstrut}^{(0)},...,w_0^{(C-1)},\,\mathbf{w}_{\
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="Example-3:--Multi-class-softmax-on-a-toy-dataset-with-$C=3$-classes"><span style="color:#a50e3e;">Example 3: </span> Multi-class softmax on a toy dataset with $C=3$ classes<a class="anchor-link" href="#Example-3:--Multi-class-softmax-on-a-toy-dataset-with-$C=3$-classes">¶</a></h4>
+<h2 id="10.2.4--Implementing-and-minimizing-a-modular-multiclass-softmax-in-Python">10.2.4  Implementing and minimizing a modular multiclass softmax in <code>Python</code><a class="anchor-link" href="#10.2.4--Implementing-and-minimizing-a-modular-multiclass-softmax-in-Python">¶</a></h2>
 </div>
 </div>
 </div>
@@ -16428,23 +16331,7 @@ g\left(w_0^{(0)},\,\mathbf{w}_{\mathstrut}^{(0)},...,w_0^{(C-1)},\,\mathbf{w}_{\
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>In this example we run the multi-class softmax classifier on the same dataset used in the previous example, first using unnormalized gradient descent and then Newton's method.  In the next Python cell we implement a version of the multi-class softmax cost function complete with regularizer. The weights are formatted precisely as in our implementation of the multi-class perceptron, discussed in Example 1.</p>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In [26]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># load in dataset</span>
-<span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">loadtxt</span><span class="p">(</span><span class="n">datapath</span> <span class="o">+</span> <span class="s1">'3class_data.csv'</span><span class="p">,</span><span class="n">delimiter</span> <span class="o">=</span> <span class="s1">','</span><span class="p">)</span>
-
-<span class="c1"># get input/output pairs</span>
-<span class="n">x</span> <span class="o">=</span> <span class="n">data</span><span class="p">[:,:</span><span class="o">-</span><span class="mi">1</span><span class="p">:]</span><span class="o">.</span><span class="n">T</span>
-<span class="n">y</span> <span class="o">=</span> <span class="n">data</span><span class="p">[:,</span><span class="o">-</span><span class="mi">1</span><span class="p">:]</span>
-</pre></div>
-</div>
+<p>We can make a compact and efficient implementation the multiclass softmax in <code>Python</code> by taking our corresponding multiclass perceptron implementation from the previous Section and making a few modifications, as shown below.</p>
 </div>
 </div>
 </div>
@@ -16471,6 +16358,40 @@ g\left(w_0^{(0)},\,\mathbf{w}_{\mathstrut}^{(0)},...,w_0^{(C-1)},\,\mathbf{w}_{\
     
     <span class="c1"># return average</span>
     <span class="k">return</span> <span class="n">cost</span><span class="o">/</span><span class="nb">float</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">y</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="Example-3:--Multi-class-softmax-on-a-toy-dataset-with-$C=3$-classes"><span style="color:#a50e3e;">Example 3: </span> Multi-class softmax on a toy dataset with $C=3$ classes<a class="anchor-link" href="#Example-3:--Multi-class-softmax-on-a-toy-dataset-with-$C=3$-classes">¶</a></h4>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>In this example we run the multi-class softmax classifier on the same dataset used in the previous example, first using unnormalized gradient descent and then Newton's method.  In the next Python cell we implement a version of the multi-class softmax cost function complete with regularizer. The weights are formatted precisely as in our implementation of the multi-class perceptron, discussed in Example 1.</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [26]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># load in dataset</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">loadtxt</span><span class="p">(</span><span class="n">datapath</span> <span class="o">+</span> <span class="s1">'3class_data.csv'</span><span class="p">,</span><span class="n">delimiter</span> <span class="o">=</span> <span class="s1">','</span><span class="p">)</span>
+
+<span class="c1"># get input/output pairs</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">data</span><span class="p">[:,:</span><span class="o">-</span><span class="mi">1</span><span class="p">:]</span><span class="o">.</span><span class="n">T</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">data</span><span class="p">[:,</span><span class="o">-</span><span class="mi">1</span><span class="p">:]</span>
 </pre></div>
 </div>
 </div>
@@ -16524,10 +16445,10 @@ g\left(w_0^{(0)},\,\mathbf{w}_{\mathstrut}^{(0)},...,w_0^{(C-1)},\,\mathbf{w}_{\
 <div class="output_wrapper">
 <div class="output">
 <div class="output_area"><div class="prompt"></div>
-<div id="138b25a7-6965-4b55-9a9b-164a69fe980a"></div>
+<div id="90f9a80b-6b69-407f-9669-d099850ac6bd"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#138b25a7-6965-4b55-9a9b-164a69fe980a');
+var element = $('#90f9a80b-6b69-407f-9669-d099850ac6bd');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -17351,10 +17272,10 @@ if (IPython.notebook.kernel != null) {
 <div class="output_wrapper">
 <div class="output">
 <div class="output_area"><div class="prompt"></div>
-<div id="77b2363d-0f95-43f8-b493-5c8ce9a3d55c"></div>
+<div id="dd33944f-8750-4330-890a-cfe29fb5646f"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#77b2363d-0f95-43f8-b493-5c8ce9a3d55c');
+var element = $('#dd33944f-8750-4330-890a-cfe29fb5646f');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -18165,10 +18086,10 @@ if (IPython.notebook.kernel != null) {
 <div class="output_wrapper">
 <div class="output">
 <div class="output_area"><div class="prompt"></div>
-<div id="7cc04a77-6f82-4b97-a6c1-66d821fbc4bd"></div>
+<div id="6d5f2ba9-4d96-40e4-944b-71c44ea2ebc0"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#7cc04a77-6f82-4b97-a6c1-66d821fbc4bd');
+var element = $('#6d5f2ba9-4d96-40e4-944b-71c44ea2ebc0');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -18989,10 +18910,10 @@ if (IPython.notebook.kernel != null) {
 <div class="output_wrapper">
 <div class="output">
 <div class="output_area"><div class="prompt"></div>
-<div id="50d90ac8-5b8e-484b-8998-6b9dcd79de01"></div>
+<div id="b50f9ca6-723a-415d-b5b8-f239ad8fa44d"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#50d90ac8-5b8e-484b-8998-6b9dcd79de01');
+var element = $('#b50f9ca6-723a-415d-b5b8-f239ad8fa44d');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -19816,10 +19737,10 @@ if (IPython.notebook.kernel != null) {
 <div class="output_wrapper">
 <div class="output">
 <div class="output_area"><div class="prompt"></div>
-<div id="34db52d0-3857-4b0e-abfa-13791b4e6d04"></div>
+<div id="be11fadb-78d3-4c01-9d0f-33a50bbaaece"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#34db52d0-3857-4b0e-abfa-13791b4e6d04');
+var element = $('#be11fadb-78d3-4c01-9d0f-33a50bbaaece');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -20612,7 +20533,7 @@ if (IPython.notebook.kernel != null) {
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>We do this the same way we do with OvA.</p>
+<p>We do this the same way we do with OvA as detailed in the previous Section, however here we can show off a nice <code>Python</code> implementation using the <code>model</code> function above.</p>
 </div>
 </div>
 </div>
@@ -20633,9 +20554,9 @@ if (IPython.notebook.kernel != null) {
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>and then simply compare the actual and predicted labels to understand if our prediction is correct.  One way to write this comparison is via $\left | \text{sign}\left(\hat y_p - \overset{\mathstrut}{y_p} \right) \right |$, which is $0$ if the prediction matches the true label and $+1$ otherwise.  We can then write the total number of misclassifications on our training set as</p>
+<p>We can write the fusion rule equivalently via our more compact linear <code>model</code> notation established above in Section 10.2.2, in which all $C$ linear combinations above are expressed as $\text{model}\left(\mathbf{x}_p,\mathbf{W}\right) = \mathbf{x}_p^T\mathbf{W}^{\,}$.  For any input $\mathbf{x}_p$ the output here is a $1\times C$ vector whose $j^{th}$ coordinate is precisely $w_0^{(j)} + \mathbf{x}_{p}^T\mathbf{w}_{\mathstrut}^{(j)}$.  With this notation we can write the fusion rule as</p>
 \begin{equation}
-\text{number of misclassifications on training set } = \sum_{p = 1}^{P} \left | \text{sign}\left(\hat y_p - \overset{\mathstrut}{y_p}\right) \right |
+\hat y_p =  \underset{j=0,...,C-1}{\text{argmax}} \,\, \text{model}\left(\mathbf{x}_p,\mathbf{W}\right)
 \end{equation}
 </div>
 </div>
@@ -20645,9 +20566,9 @@ if (IPython.notebook.kernel != null) {
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>with the accuracy being then calculated as</p>
+<p>To count the number of mislcassifications on a training set we can then simply compare the actual and predicted labels over the data</p>
 \begin{equation}
-\text{accuracy of learned classifier} = 1 - \frac{1}{P} \sum_{p = 1}^{P} \left | \text{sign}\left(\hat y_p - \overset{\mathstrut}{y_p}\right) \right |
+ \sum_{p = 1}^{P} \left | \text{sign}\left(\hat y_p - \overset{\mathstrut}{y_p}\right) \right | =  \sum_{p = 1}^{P} \left | \text{sign}\left(\text{model}\left(\mathbf{x}_p,\mathbf{W}\right) - \overset{\mathstrut}{y_p}\right) \right |.
 \end{equation}
 </div>
 </div>
@@ -20657,7 +20578,30 @@ if (IPython.notebook.kernel != null) {
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>We can implement this multiclass misclassification counter precisely as shown at the end of the previous Section.</p>
+<p>Since we have already implemented the <code>model</code> function previously we can use it to implement this multiclass counting function <code>Python</code> as shown below.</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># multiclass counting cost</span>
+<span class="k">def</span> <span class="nf">multiclass_counting_cost</span><span class="p">(</span><span class="n">w</span><span class="p">):</span>                
+    <span class="c1"># pre-compute predictions on all points</span>
+    <span class="n">all_evals</span> <span class="o">=</span> <span class="n">model</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">w</span><span class="p">)</span>
+
+    <span class="c1"># compute predictions of each input point</span>
+    <span class="n">y_predict</span> <span class="o">=</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">all_evals</span><span class="p">,</span><span class="n">axis</span> <span class="o">=</span> <span class="mi">1</span><span class="p">))[:,</span><span class="n">np</span><span class="o">.</span><span class="n">newaxis</span><span class="p">]</span>
+
+    <span class="c1"># compare predicted label to actual label</span>
+    <span class="n">count</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sign</span><span class="p">(</span><span class="n">y</span> <span class="o">-</span> <span class="n">y_predict</span><span class="p">)))</span>
+
+    <span class="c1"># return number of misclassifications</span>
+    <span class="k">return</span> <span class="n">count</span>
+</pre></div>
+</div>
 </div>
 </div>
 </div>
@@ -20699,10 +20643,10 @@ if (IPython.notebook.kernel != null) {
 <div class="output_wrapper">
 <div class="output">
 <div class="output_area"><div class="prompt"></div>
-<div id="ba53112f-af94-4b95-8907-d0f22075621d"></div>
+<div id="d90011c9-0bfc-4c4a-869e-c02129db238c"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#ba53112f-af94-4b95-8907-d0f22075621d');
+var element = $('#d90011c9-0bfc-4c4a-869e-c02129db238c');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -21943,6 +21887,6 @@ g\left(\lambda \mathbf{w}_1+\left(1-\lambda\right) \mathbf{w}_2\right)\leq \lamb
 </div>
 </body>
 <script type="application/vnd.jupyter.widget-state+json">
-{"version_major": 1, "version_minor": 0, "state": {}}
+{"state": {}, "version_major": 1, "version_minor": 0}
 </script>
 </html>
