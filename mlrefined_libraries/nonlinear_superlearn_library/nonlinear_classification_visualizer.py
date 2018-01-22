@@ -5,15 +5,12 @@ from mpl_toolkits.mplot3d import Axes3D
 from IPython.display import clear_output
 
 # import autograd functionality
-from autograd import grad as compute_grad   # The only autograd function you may ever need
 import autograd.numpy as np
-from autograd import hessian as compute_hess
 import math
 import time
 from matplotlib import gridspec
 import copy
 from matplotlib.ticker import FormatStrFormatter
-
 
 class Visualizer:
     '''
@@ -169,7 +166,12 @@ class Visualizer:
 
     ######## show N = 2 static image ########
     # show coloring of entire space
-    def static_N2_img(self,w_best,cost,predict,f1,f2,**kwargs):
+    def static_N2_img(self,w_best,runner,**kwargs):
+        cost = runner.cost_func
+        predict = runner.model
+        feat = runner.feature_transforms
+        normalizer = runner.normalizer
+
         # or just take last weights
         self.w = w_best
         
@@ -195,24 +197,24 @@ class Visualizer:
         ax4 = plt.subplot(gs[3],projection = '3d');
         
         ### cleanup left plots, create max view ranges ###
-        xmin1 = min(self.x[:,0])
-        xmax1 = max(self.x[:,0])
+        xmin1 = np.min(self.x[:,0])
+        xmax1 = np.max(self.x[:,0])
         xgap1 = (xmax1 - xmin1)*0.05
         xmin1 -= xgap1
         xmax1 += xgap1
         ax.set_xlim([xmin1,xmax1])
         ax3.set_xlim([xmin1,xmax1])
 
-        xmin2 = min(self.x[:,1])
-        xmax2 = max(self.x[:,1])
+        xmin2 = np.min(self.x[:,1])
+        xmax2 = np.max(self.x[:,1])
         xgap2 = (xmax2 - xmin2)*0.05
         xmin2 -= xgap2
         xmax2 += xgap2
         ax.set_ylim([xmin2,xmax2])
         ax3.set_ylim([xmin2,xmax2])
 
-        ymin = min(self.y)
-        ymax = max(self.y)
+        ymin = np.min(self.y)
+        ymax = np.max(self.y)
         ygap = (ymax - ymin)*0.05
         ymin -= ygap
         ymax += ygap
@@ -245,11 +247,7 @@ class Visualizer:
         s = np.reshape(s,(np.size(s),1))
         t = np.reshape(t,(np.size(t),1))
         h = np.concatenate((s,t),axis = 1)
-        z = []
-        for j in range(len(h)):
-            a = predict(h[j,:],self.w)
-            z.append(a)
-        z = np.asarray(z)
+        z = predict(normalizer(h.T),self.w)
         z = np.tanh(z)
         
         # reshape it
@@ -274,8 +272,11 @@ class Visualizer:
         
         #### plot right panel scatter ####
         # transform data
-        x1 = [f1(e) for e in self.x]
-        x2 = [f2(e) for e in self.x]
+        f = feat(normalizer(self.x.T)).T
+        x1 = f[:,0]
+        x2 = f[:,1]
+        #x1 = [f1(e) for e in self.x]
+        #x2 = [f2(e) for e in self.x]
         ind0 = [v[0] for v in ind0]
         ind1 = [v[0] for v in ind1]
 
@@ -291,50 +292,50 @@ class Visualizer:
         ax4.scatter(v1,v2,self.y[ind1],s = 55, color = self.colors[1], edgecolor = 'k')
         
         ### cleanup right panels - making max viewing ranges ###
-        xmin1 = min(v1)
-        xmax1 = max(v1)
-        xgap1 = (xmax1 - xmin1)*0.1
+        
+        xmin1 = np.min(x1)
+        xmax1 = np.max(x1)
+        xgap1 = (xmax1 - xmin1)*0.05
         xmin1 -= xgap1
         xmax1 += xgap1
         ax2.set_xlim([xmin1,xmax1])
         ax4.set_xlim([xmin1,xmax1])
 
-        xmin2 = min(v2)
-        xmax2 = max(v2)
-        xgap2 = (xmax2 - xmin2)*0.1
+        xmin2 = np.min(x2)
+        xmax2 = np.max(x2)
+        xgap2 = (xmax2 - xmin2)*0.05
         xmin2 -= xgap2
         xmax2 += xgap2
-        ax2.set_ylim([xmin2,xmax2])
-        ax4.set_ylim([xmin2,xmax2])
-
-        ymin = min(self.y)
-        ymax = max(self.y)
-        ygap = (ymax - ymin)*0.05
-        ymin -= ygap
-        ymax += ygap
-        ax4.set_zlim([ymin,ymax])
         
-        ax4.axis('off')
-        ax4.view_init(view2[0],view2[1])
-
         ax2.set_yticklabels([])
         ax2.set_xticklabels([])
         ax2.set_xticks([])
         ax2.set_yticks([])
-        ax2.set_xlabel(r'$f\,_1\left(x_1,x_2\right)$',fontsize = 15)
-        ax2.set_ylabel(r'$f\,_2\left(x_1,x_2\right)$',fontsize = 15)        
+        ax2.set_xlabel(r'$f\,_1\left(\mathbf{x}\right)$',fontsize = 15)
+        ax2.set_ylabel(r'$f\,_2\left(\mathbf{x}\right)$',fontsize = 15)        
         
         ### plot right panel 3d scatter ###
         #### make right plot contour ####
         r1 = np.linspace(xmin1,xmax1,100)
         r2 = np.linspace(xmin2,xmax2,100)
         s,t = np.meshgrid(r1,r2)
-        z = self.w[0] + self.w[1]*s + self.w[2]*t 
+        
+        s.shape = (1,len(r1)**2)
+        t.shape = (1,len(r2)**2)
+       # h = np.vstack((s,t))
+       # h = feat(normalizer(h))  
+       # s = h[0,:]
+       # t = h[1,:]
+        z = self.w[0] + self.w[1]*s + self.w[2]*t
         z = np.tanh(np.asarray(z))
+        
+        s.shape = (np.size(r1),np.size(r2))
+        t.shape = (np.size(r1),np.size(r2))
         z.shape = (np.size(r1),np.size(r2))
+
         ax2.contour(s,t,z,colors='k', linewidths=2.5,levels = [0],zorder = 2)
         ax2.contourf(s,t,z,colors = [self.colors[1],self.colors[0]],alpha = 0.15,levels = range(-1,2))
-        
+
         #### plot right surface plot ####
         # plot regression surface
         ax4.plot_surface(s,t,z,alpha = 0.1,color = 'w',rstride=10, cstride=10,linewidth=0.5,edgecolor = 'k')
@@ -349,8 +350,14 @@ class Visualizer:
             ax4.contourf(s,t,z,colors = self.colors[0],levels = [0,1],zorder = 1,alpha = 0.1)
             ax4.contourf(s,t,z+1,colors = self.colors[1],levels = [0,1],zorder = 1,alpha = 0.1)
    
-        plt.show()
-      
+        ax2.set_ylim([xmin2,xmax2])
+        ax4.set_ylim([xmin2,xmax2])
+
+        ax4.axis('off')
+        ax4.view_init(view2[0],view2[1])
+        ax4.set_zlim([ymin,ymax])
+
+        
             
     ###### plot plotting functions ######
     def plot_data(self):
@@ -415,11 +422,18 @@ class Visualizer:
             ax2.yaxis.set_major_formatter(FormatStrFormatter('%.1f'))
             
             # plot points in 2d and 3d
-            ind0 = np.argwhere(self.y == +1)
-            ax2.scatter(self.x[ind0,0],self.x[ind0,1],s = 55, color = self.colors[0], edgecolor = 'k')
+            C = len(np.unique(self.y))
+            if C == 2:
+                ind0 = np.argwhere(self.y == +1)
+                ax2.scatter(self.x[ind0,0],self.x[ind0,1],s = 55, color = self.colors[0], edgecolor = 'k')
 
-            ind1 = np.argwhere(self.y == -1)
-            ax2.scatter(self.x[ind1,0],self.x[ind1,1],s = 55, color = self.colors[1], edgecolor = 'k')
+                ind1 = np.argwhere(self.y == -1)
+                ax2.scatter(self.x[ind1,0],self.x[ind1,1],s = 55, color = self.colors[1], edgecolor = 'k')
+            else:
+                for c in range(C):
+                    ind0 = np.argwhere(self.y == c)
+                    ax2.scatter(self.x[ind0,0],self.x[ind0,1],s = 55, color = self.colors[c], edgecolor = 'k')
+                    
         
             self.move_axis_left(ax1)
             ax1.set_xlabel(r'$x_1$', fontsize = 12,labelpad = 5)
@@ -504,3 +518,260 @@ class Visualizer:
         view_2 = (25, -45)
         init_view = view_2
         ax.view_init(*init_view) 
+        
+        
+    # toy plot
+    def multiclass_plot(self,run,w,**kwargs):
+        model = run.model
+        normalizer = run.normalizer
+        
+        # grab args
+        view = [20,-70]
+        if 'view' in kwargs:
+            view = kwargs['view']
+ 
+        ### plot all input data ###
+        # generate input range for functions
+        minx = min(min(self.x[:,0]),min(self.x[:,1]))
+        maxx = max(max(self.x[:,0]),max(self.x[:,1]))
+        gapx = (maxx - minx)*0.1
+        minx -= gapx
+        maxx += gapx
+
+        r = np.linspace(minx,maxx,600)
+        w1_vals,w2_vals = np.meshgrid(r,r)
+        w1_vals.shape = (len(r)**2,1)
+        w2_vals.shape = (len(r)**2,1)
+        h = np.concatenate([w1_vals,w2_vals],axis = 1).T
+
+        g_vals = model(normalizer(h),w)
+        g_vals = np.asarray(g_vals)
+        g_vals = np.argmax(g_vals,axis = 1)
+
+        # vals for cost surface
+        w1_vals.shape = (len(r),len(r))
+        w2_vals.shape = (len(r),len(r))
+        g_vals.shape = (len(r),len(r))
+
+        # create figure to plot
+        fig = plt.figure(num=None, figsize=(12,5), dpi=80, facecolor='w', edgecolor='k')
+
+        ### create 3d plot in left panel
+        ax1 = plt.subplot(121,projection = '3d')
+        ax2 = plt.subplot(122)
+
+        fig.subplots_adjust(left=0,right=1,bottom=0,top=1)   # remove whitespace around 3d figure
+
+        # scatter points in both panels
+        class_nums = np.unique(self.y)
+        C = len(class_nums)
+        for c in range(C):
+            ind = np.argwhere(self.y == class_nums[c])
+            ind = [v[0] for v in ind]
+            ax1.scatter(self.x[ind,0],self.x[ind,1],self.y[ind],s = 80,color = self.colors[c],edgecolor = 'k',linewidth = 1.5)
+            ax2.scatter(self.x[ind,0],self.x[ind,1],s = 110,color = self.colors[c],edgecolor = 'k', linewidth = 2)
+            
+        # switch for 2class / multiclass view
+        if C == 2:
+            # plot regression surface
+            ax1.plot_surface(w1_vals,w2_vals,g_vals,alpha = 0.1,color = 'k',rstride=20, cstride=20,linewidth=0,edgecolor = 'k') 
+
+            # plot zplane = 0 in left 3d panel - showing intersection of regressor with z = 0 (i.e., its contour, the separator, in the 3d plot too)?
+            ax1.plot_surface(w1_vals,w2_vals,g_vals*0,alpha = 0.1,rstride=20, cstride=20,linewidth=0.15,color = 'k',edgecolor = 'k') 
+            
+            # plot separator in left plot z plane
+            ax1.contour(w1_vals,w2_vals,g_vals,colors = 'k',levels = [0],linewidths = 3,zorder = 1)
+
+            # color parts of plane with correct colors
+            ax1.contourf(w1_vals,w2_vals,g_vals+1,colors = self.colors[:],alpha = 0.1,levels = range(0,2))
+            ax1.contourf(w1_vals,w2_vals,-g_vals+1,colors = self.colors[1:],alpha = 0.1,levels = range(0,2))
+    
+            # plot separator in right plot
+            ax2.contour(w1_vals,w2_vals,g_vals,colors = 'k',levels = [0],linewidths = 3,zorder = 1)
+
+            # adjust height of regressor to plot filled contours
+            ax2.contourf(w1_vals,w2_vals,g_vals+1,colors = self.colors[:],alpha = 0.1,levels = range(0,C+1))
+
+            ### clean up panels
+            # set viewing limits on vertical dimension for 3d plot           
+            minz = min(copy.deepcopy(self.y))
+            maxz = max(copy.deepcopy(self.y))
+
+            gapz = (maxz - minz)*0.1
+            minz -= gapz
+            maxz += gapz
+
+        # multiclass view
+        else:   
+            ax1.plot_surface(w1_vals,w2_vals,g_vals,alpha = 0.1,color = 'w',rstride=45, cstride=45,linewidth=0.25,edgecolor = 'k')
+
+            for c in range(C):
+                # plot separator curve in left plot z plane
+                ax1.contour(w1_vals,w2_vals,g_vals - c,colors = 'k',levels = [0],linewidths = 3,zorder = 1)
+
+                # color parts of plane with correct colors
+                ax1.contourf(w1_vals,w2_vals,g_vals - c +0.5,colors = self.colors[c],alpha = 0.4,levels = [0,1])
+             
+                
+            # plot separator in right plot
+            ax2.contour(w1_vals,w2_vals,g_vals,colors = 'k',levels = range(0,C+1),linewidths = 3,zorder = 1)
+            
+            # adjust height of regressor to plot filled contours
+            ax2.contourf(w1_vals,w2_vals,g_vals+0.5,colors = self.colors[:],alpha = 0.2,levels = range(0,C+1))
+
+            ### clean up panels
+            # set viewing limits on vertical dimension for 3d plot 
+            minz = 0
+            maxz = max(copy.deepcopy(self.y))
+            gapz = (maxz - minz)*0.1
+            minz -= gapz
+            maxz += gapz
+            ax1.set_zlim([minz,maxz])
+
+            ax1.view_init(view[0],view[1]) 
+
+        # clean up panel
+        ax1.xaxis.pane.fill = False
+        ax1.yaxis.pane.fill = False
+        ax1.zaxis.pane.fill = False
+
+        ax1.xaxis.pane.set_edgecolor('white')
+        ax1.yaxis.pane.set_edgecolor('white')
+        ax1.zaxis.pane.set_edgecolor('white')
+
+        ax1.xaxis._axinfo["grid"]['color'] =  (1,1,1,0)
+        ax1.yaxis._axinfo["grid"]['color'] =  (1,1,1,0)
+        ax1.zaxis._axinfo["grid"]['color'] =  (1,1,1,0)
+
+        self.move_axis_left(ax1)
+        ax1.set_xlabel(r'$x_1$', fontsize = 16,labelpad = 5)
+        ax1.set_ylabel(r'$x_2$', rotation = 0,fontsize = 16,labelpad = 5)
+        ax1.set_zlabel(r'$y$', rotation = 0,fontsize = 16,labelpad = 5)
+
+        ax2.set_xlabel(r'$x_1$', fontsize = 18,labelpad = 10)
+        ax2.set_ylabel(r'$x_2$', rotation = 0,fontsize = 18,labelpad = 15)
+        
+        
+    # toy plot
+    def show_individual_classifiers(self,run,w,**kwargs):
+        model = run.model
+        normalizer = run.normalizer
+        feat = run.feature_transforms
+        
+        # grab args
+        view = [20,-70]
+        if 'view' in kwargs:
+            view = kwargs['view']
+ 
+        ### plot all input data ###
+        # generate input range for functions
+        minx = min(min(self.x[:,0]),min(self.x[:,1]))
+        maxx = max(max(self.x[:,0]),max(self.x[:,1]))
+        gapx = (maxx - minx)*0.1
+        minx -= gapx
+        maxx += gapx
+
+        r = np.linspace(minx,maxx,600)
+        w1_vals,w2_vals = np.meshgrid(r,r)
+        w1_vals.shape = (len(r)**2,1)
+        w2_vals.shape = (len(r)**2,1)
+        h = np.concatenate([w1_vals,w2_vals],axis = 1).T
+
+        g_vals = model(normalizer(h),w)
+        g_vals = np.asarray(g_vals)
+        g_new = copy.deepcopy(g_vals)
+        g_vals = np.argmax(g_vals,axis = 1)
+
+        # vals for cost surface
+        w1_vals.shape = (len(r),len(r))
+        w2_vals.shape = (len(r),len(r))
+        g_vals.shape = (len(r),len(r))
+
+        # count points
+        class_nums = np.unique(self.y)
+        C = int(len(class_nums))
+        
+        fig = plt.figure(figsize = (10,7))
+        gs = gridspec.GridSpec(2, C) 
+
+        #### left plot - data and fit in original space ####
+        # setup current axis
+        ax1 = plt.subplot(gs[C],projection = '3d');
+        ax2 = plt.subplot(gs[C+1],aspect = 'equal');
+        fig.subplots_adjust(left=0,right=1,bottom=0,top=1)   # remove whitespace around 3d figure
+
+        ##### plot top panels ####
+        for d in range(C):
+            # create panel
+            ax = plt.subplot(gs[d],aspect = 'equal');
+                       
+            for c in range(C):
+                # plot points
+                ind = np.argwhere(self.y == class_nums[c])
+                ind = [v[0] for v in ind]
+                ax.scatter(self.x[ind,0],self.x[ind,1],s = 50,color = self.colors[c],edgecolor = 'k', linewidth = 2)
+            
+            g_2 = np.sign(g_new[:,d])
+            g_2.shape = (len(r),len(r))
+
+            # plot separator curve 
+            ax.contour(w1_vals,w2_vals,g_2+1,colors = 'k',levels = [-1,1],linewidths = 4.5,zorder = 1,linestyle = '-')
+            ax.contour(w1_vals,w2_vals,g_2+1,colors = self.colors[d],levels = [-1,1],linewidths = 2.5,zorder = 1,linestyle = '-')
+                
+            ax.set_xlabel(r'$x_1$', fontsize = 18,labelpad = 10)
+            ax.set_ylabel(r'$x_2$', rotation = 0,fontsize = 18,labelpad = 15)
+        
+        ##### plot bottom panels ###
+        # scatter points in both bottom panels
+        for c in range(C):
+            ind = np.argwhere(self.y == class_nums[c])
+            ind = [v[0] for v in ind]
+            ax1.scatter(self.x[ind,0],self.x[ind,1],self.y[ind],s = 50,color = self.colors[c],edgecolor = 'k',linewidth = 1.5)
+            ax2.scatter(self.x[ind,0],self.x[ind,1],s = 50,color = self.colors[c],edgecolor = 'k', linewidth = 2)
+      
+        ax1.plot_surface(w1_vals,w2_vals,g_vals,alpha = 0.1,color = 'w',rstride=45, cstride=45,linewidth=0.25,edgecolor = 'k')
+
+        for c in range(C):
+            # plot separator curve in left plot z plane
+            ax1.contour(w1_vals,w2_vals,g_vals - c,colors = 'k',levels = [0],linewidths = 3,zorder = 1)
+
+            # color parts of plane with correct colors
+            ax1.contourf(w1_vals,w2_vals,g_vals - c +0.5,colors = self.colors[c],alpha = 0.4,levels = [0,1])
+             
+        # plot separator in right plot
+        ax2.contour(w1_vals,w2_vals,g_vals,colors = 'k',levels = range(0,C+1),linewidths = 3,zorder = 1)
+
+        # adjust height of regressor to plot filled contours
+        ax2.contourf(w1_vals,w2_vals,g_vals+0.5,colors = self.colors[:],alpha = 0.2,levels = range(0,C+1))
+
+        ### clean up panels
+        # set viewing limits on vertical dimension for 3d plot 
+        minz = 0
+        maxz = max(copy.deepcopy(self.y))
+        gapz = (maxz - minz)*0.1
+        minz -= gapz
+        maxz += gapz
+        ax1.set_zlim([minz,maxz])
+
+        ax1.view_init(view[0],view[1]) 
+
+        # clean up panel
+        ax1.xaxis.pane.fill = False
+        ax1.yaxis.pane.fill = False
+        ax1.zaxis.pane.fill = False
+
+        ax1.xaxis.pane.set_edgecolor('white')
+        ax1.yaxis.pane.set_edgecolor('white')
+        ax1.zaxis.pane.set_edgecolor('white')
+
+        ax1.xaxis._axinfo["grid"]['color'] =  (1,1,1,0)
+        ax1.yaxis._axinfo["grid"]['color'] =  (1,1,1,0)
+        ax1.zaxis._axinfo["grid"]['color'] =  (1,1,1,0)
+
+        self.move_axis_left(ax1)
+        ax1.set_xlabel(r'$x_1$', fontsize = 16,labelpad = 5)
+        ax1.set_ylabel(r'$x_2$', rotation = 0,fontsize = 16,labelpad = 5)
+        ax1.set_zlabel(r'$y$', rotation = 0,fontsize = 16,labelpad = 5)
+
+        ax2.set_xlabel(r'$x_1$', fontsize = 18,labelpad = 10)
+        ax2.set_ylabel(r'$x_2$', rotation = 0,fontsize = 18,labelpad = 15)

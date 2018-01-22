@@ -11898,10 +11898,10 @@ w_0 + \mathbf{x}_p^T\mathbf{w}^{\,}_{\,}
 <div class="output_wrapper">
 <div class="output">
 <div class="output_area"><div class="prompt"></div>
-<div id="1325d1d9-8e6b-45d3-843c-eec1e78fe0b5"></div>
+<div id="db271407-fac5-45dc-a1bf-231b68613fcc"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#1325d1d9-8e6b-45d3-843c-eec1e78fe0b5');
+var element = $('#db271407-fac5-45dc-a1bf-231b68613fcc');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -12745,10 +12745,10 @@ if (IPython.notebook.kernel != null) {
 <div class="output_wrapper">
 <div class="output">
 <div class="output_area"><div class="prompt"></div>
-<div id="b12835a8-7f7d-4b93-8d8b-1487b0f45a12"></div>
+<div id="c1592920-5a89-4da8-9153-04b9789e3b5d"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#b12835a8-7f7d-4b93-8d8b-1487b0f45a12');
+var element = $('#c1592920-5a89-4da8-9153-04b9789e3b5d');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -13601,10 +13601,10 @@ y =  \underset{j \,=\, 0,...,C-1}{\text{argmax}} \,\,\,w_0^{(\,j)} + \mathbf{x}_
 <div class="output_wrapper">
 <div class="output">
 <div class="output_area"><div class="prompt"></div>
-<div id="850a513a-a1fc-4f0e-b3a1-ef49ad38a6af"></div>
+<div id="9f3c2b20-c995-4376-b978-ceede9cd3b97"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#850a513a-a1fc-4f0e-b3a1-ef49ad38a6af');
+var element = $('#9f3c2b20-c995-4376-b978-ceede9cd3b97');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -14425,10 +14425,10 @@ if (IPython.notebook.kernel != null) {
 <div class="output_wrapper">
 <div class="output">
 <div class="output_area"><div class="prompt"></div>
-<div id="f77d4730-6b8e-4a4f-a5f3-1ba478eeac93"></div>
+<div id="97d9720b-b0d5-4025-b470-b5dba9b9a7bc"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#f77d4730-6b8e-4a4f-a5f3-1ba478eeac93');
+var element = $('#97d9720b-b0d5-4025-b470-b5dba9b9a7bc');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -15258,10 +15258,10 @@ if (IPython.notebook.kernel != null) {
 <div class="output_wrapper">
 <div class="output">
 <div class="output_area"><div class="prompt"></div>
-<div id="d60a4aae-1de8-41f6-8ce6-1125aa556c7d"></div>
+<div id="98da16e3-061d-43b8-9338-f2dae6dc9bf7"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#d60a4aae-1de8-41f6-8ce6-1125aa556c7d');
+var element = $('#98da16e3-061d-43b8-9338-f2dae6dc9bf7');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -16112,10 +16112,10 @@ y =  \underset{j \,=\, 0,...,C-1}{\text{argmax}} \,\,\,w_0^{(\,j)} + \mathbf{x}_
 <div class="output_wrapper">
 <div class="output">
 <div class="output_area"><div class="prompt"></div>
-<div id="233a1a33-399f-4a82-b67f-9215e91d20d9"></div>
+<div id="4cf84553-b8fb-48b2-8163-77741f67cdd0"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#233a1a33-399f-4a82-b67f-9215e91d20d9');
+var element = $('#4cf84553-b8fb-48b2-8163-77741f67cdd0');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -16935,10 +16935,10 @@ if (IPython.notebook.kernel != null) {
 <div class="output_wrapper">
 <div class="output">
 <div class="output_area"><div class="prompt"></div>
-<div id="6a092d45-beb3-4f55-aa67-fd9f86ccca54"></div>
+<div id="858ccde7-bece-48db-84a0-0f839f669712"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#6a092d45-beb3-4f55-aa67-fd9f86ccca54');
+var element = $('#858ccde7-bece-48db-84a0-0f839f669712');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -17786,6 +17786,15 @@ y =  \underset{j \,=\, 0,...,C-1}{\text{argmax}} \,\,\,w_0^{(\,j)} + \mathbf{x}_
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
+<p>In practice it is common to see implementations that skip the normalization in step 5.  This can theoretically lead to poor classification due to different sized normal vectors creating out of scale distance-to-clsasifier measurements.  However because often each classifier is trained using the same optimization framework - e.g., the same sized initialization and optimization algorithm - the resulting size of each trained normal vector can end up being around the same size (hence reducing the need for normalization).</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
 <p>Having addressed every region in the space of our exemplar dataset, one might wonder what the entire space looks like after learning the decision boundary. We plot this in the next Python cell. In both the left and right panels below we correctly classify and color the entire space as described above. In the left panel we show the three original two-class linear decision boundaries, and on the right we show the multi-class decision boundary (in black) created by fusing these individual boundaries using the fusion rule. This black multi-class boundary arises at points where the fusion rule does not provide a unique solution - i.e., at points where two or more classifiers provide the maximum evaluation.</p>
 <p>The boundary resulting from the fusion rule is always piecewise-linear as with our example shown here. While the fusion rule explicitly defines this boundary it does not provide us with a closed form formula for it as with e.g., logistic regression (although one may work out a somewhat convoluted formula describing the boundary in general). In fact the piecewise-linear boundaries shown in the figures of this Section were drawn not by determining their formula but by labeling (and appropriately coloring) every point using the fusion rule.</p>
 </div>
@@ -17805,10 +17814,10 @@ y =  \underset{j \,=\, 0,...,C-1}{\text{argmax}} \,\,\,w_0^{(\,j)} + \mathbf{x}_
 <div class="output_wrapper">
 <div class="output">
 <div class="output_area"><div class="prompt"></div>
-<div id="3f7cabd6-eca4-4cc9-a9a3-d673c67ef8b8"></div>
+<div id="cbc2d627-6813-42a0-b306-1fe52d09205f"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#3f7cabd6-eca4-4cc9-a9a3-d673c67ef8b8');
+var element = $('#cbc2d627-6813-42a0-b306-1fe52d09205f');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -18592,6 +18601,94 @@ if (IPython.notebook.kernel != null) {
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="10.1.7--Implementing-a-One-versus-All-classifier-in-Python">10.1.7  Implementing a One-versus-All classifier in <code>Python</code><a class="anchor-link" href="#10.1.7--Implementing-a-One-versus-All-classifier-in-Python">¶</a></h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Since we have already discussed how to implement several two-class classification schemes in the previous Chapter, here we will only describe an efficient way of implementing the <em>fusion rule</em> in <code>Python</code>.  To take advantage of the <code>numpy</code> libraries fast array operations we stack the trained weights from our $C$ classifiers together into a single $\left(N + 1\right) \times C$ array of the form</p>
+\begin{equation}
+\mathbf{W}=\left[\begin{array}{cccc}
+w_{0}^{(0)} &amp; w_{0}^{(2)} &amp; \cdots &amp; w_{0}^{(C-1)}\\
+w_{1}^{(0)} &amp; w_{1}^{(2)} &amp; \cdots &amp; w_{1}^{(C-1)}\\
+\vdots &amp; \vdots &amp; \cdots &amp; \vdots \,\,\,\,\,\, \\
+w_{N}^{(0)} &amp; w_{N}^{(2)} &amp; \cdots &amp; w_{N}^{(C-1)}\\
+\end{array}\right]
+\end{equation}
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Here the bias and normal vector of the $c^{th}$ classifier have been stacked on top of one another and make up the $c^{th}$ column of the array.  Now lets extend our <code>model</code> notation to also denote the evaluation of our $C$ individual linear models as</p>
+\begin{equation}
+\text{model}\left(\mathbf{x},\mathbf{W}\right) = \mathbf{x}^T\mathbf{W}^{\,} = 
+\begin{bmatrix}
+w_0^{(\,0)} + \mathbf{x}_{p}^T\mathbf{w}_{\mathstrut}^{(\,0)}  \, ,
+w_1^{(\,1)} + \mathbf{x}_{p}^T\mathbf{w}_{\mathstrut}^{(\,1)}  \, ,
+\cdots \, ,
+w_0^{(\,C-1)} + \mathbf{x}_{p}^T\mathbf{w}_{\mathstrut}^{(\,C-1)}
+\end{bmatrix}.
+\end{equation}<p>Note the above is a $1\times C$ array of our linear models that can be evaluated at any $\mathbf{W}$.  This sort of abuse of notation actually carries over completely in <code>Python</code>, and using precisely the same <code>model</code> implementation we have seen in the previous two Chapters can be used here as well.  We repeat this code below - notice that  the input <code>w</code> to this <code>Pythonic</code> function is indeed our matrix of weights $\mathbf{W}$.</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># compute C linear combinations of input point, one per classifier</span>
+<span class="k">def</span> <span class="nf">model</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">w</span><span class="p">):</span>
+    <span class="c1"># tack a 1 onto the top of each input point all at once</span>
+    <span class="n">o</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">((</span><span class="mi">1</span><span class="p">,</span><span class="n">np</span><span class="o">.</span><span class="n">shape</span><span class="p">(</span><span class="n">x</span><span class="p">)[</span><span class="mi">1</span><span class="p">]))</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">vstack</span><span class="p">((</span><span class="n">o</span><span class="p">,</span><span class="n">x</span><span class="p">))</span>
+    
+    <span class="c1"># compute linear combination and return</span>
+    <span class="n">a</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">T</span><span class="p">,</span><span class="n">w</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">a</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Notice that we can now write the fusion rule in this extended <code>model</code> notation equivalently as</p>
+\begin{equation}
+y = \underset{j \,=\, 0,...,C-1} {\text{max}}\,\text{model}\left(\mathbf{x},\mathbf{W}\right).
+\end{equation}<p>Hence - based on the <code>Python</code> function for our <code>model</code> above - we can implement the fusion rule quite simply as shown below.</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [1]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># the fusion rule</span>
+<span class="k">def</span> <span class="nf">fusion_rule</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">w</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">model</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">w</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
 <h4 id="Example-1:--Classifying-a-dataset-with-$C-=-4$-classes-using-OvA"><span style="color:#a50e3e;">Example 1: </span> Classifying a dataset with $C = 4$ classes using OvA<a class="anchor-link" href="#Example-1:--Classifying-a-dataset-with-$C-=-4$-classes-using-OvA">¶</a></h4>
 </div>
 </div>
@@ -18625,10 +18722,10 @@ if (IPython.notebook.kernel != null) {
 <div class="output_wrapper">
 <div class="output">
 <div class="output_area"><div class="prompt"></div>
-<div id="90d92afc-aebd-4fe0-bd6c-fd132c296e11"></div>
+<div id="17ada735-f38d-4a79-bf32-fc27b67390d2"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#90d92afc-aebd-4fe0-bd6c-fd132c296e11');
+var element = $('#17ada735-f38d-4a79-bf32-fc27b67390d2');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -19451,10 +19548,10 @@ if (IPython.notebook.kernel != null) {
 <div class="output_wrapper">
 <div class="output">
 <div class="output_area"><div class="prompt"></div>
-<div id="04ea6c26-ecaa-40f8-a5fd-e1e98457b021"></div>
+<div id="86fb85ca-a10f-4333-b8ec-a62a928acfbb"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#04ea6c26-ecaa-40f8-a5fd-e1e98457b021');
+var element = $('#86fb85ca-a10f-4333-b8ec-a62a928acfbb');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -20273,10 +20370,10 @@ if (IPython.notebook.kernel != null) {
 <div class="output_wrapper">
 <div class="output">
 <div class="output_area"><div class="prompt"></div>
-<div id="03fbaaac-9682-482f-a8bc-25a3adc8e0f6"></div>
+<div id="f2c25f63-ab97-42d0-b225-dcd8275c55b0"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#03fbaaac-9682-482f-a8bc-25a3adc8e0f6');
+var element = $('#f2c25f63-ab97-42d0-b225-dcd8275c55b0');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -21106,10 +21203,10 @@ if (IPython.notebook.kernel != null) {
 <div class="output_wrapper">
 <div class="output">
 <div class="output_area"><div class="prompt"></div>
-<div id="db647829-c309-4785-bc8c-a5807281ff42"></div>
+<div id="b4db6b29-0902-43e7-b305-2ad7ffccd0a2"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#db647829-c309-4785-bc8c-a5807281ff42');
+var element = $('#b4db6b29-0902-43e7-b305-2ad7ffccd0a2');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -21911,10 +22008,10 @@ if (IPython.notebook.kernel != null) {
 <div class="output_wrapper">
 <div class="output">
 <div class="output_area"><div class="prompt"></div>
-<div id="895550da-18ae-437b-b7c3-face22561bd9"></div>
+<div id="4fa8b5a3-4dbb-4581-8822-5eefa6cf988f"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#895550da-18ae-437b-b7c3-face22561bd9');
+var element = $('#4fa8b5a3-4dbb-4581-8822-5eefa6cf988f');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -22707,10 +22804,10 @@ if (IPython.notebook.kernel != null) {
 <div class="output_wrapper">
 <div class="output">
 <div class="output_area"><div class="prompt"></div>
-<div id="61755fc5-101c-4274-8eff-566ced7278f1"></div>
+<div id="8ed2a138-191b-4421-8afd-e57d16342103"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#61755fc5-101c-4274-8eff-566ced7278f1');
+var element = $('#8ed2a138-191b-4421-8afd-e57d16342103');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -23522,10 +23619,10 @@ if (IPython.notebook.kernel != null) {
 <div class="output_wrapper">
 <div class="output">
 <div class="output_area"><div class="prompt"></div>
-<div id="aa78d938-6810-4498-862e-eae374926e54"></div>
+<div id="1d061acb-1a90-47f6-9960-cbbb9f2fe749"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#aa78d938-6810-4498-862e-eae374926e54');
+var element = $('#1d061acb-1a90-47f6-9960-cbbb9f2fe749');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -24352,10 +24449,10 @@ if (IPython.notebook.kernel != null) {
 <div class="output_wrapper">
 <div class="output">
 <div class="output_area"><div class="prompt"></div>
-<div id="3367f9f4-74f1-41a4-9dd0-4baf2720e095"></div>
+<div id="35debf44-2369-46bb-b813-f92f66247300"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#3367f9f4-74f1-41a4-9dd0-4baf2720e095');
+var element = $('#35debf44-2369-46bb-b813-f92f66247300');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -25139,7 +25236,7 @@ if (IPython.notebook.kernel != null) {
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="10.1.7--Counting-misclassifications-and-the-accuracy-of-a-multi-class-classifier">10.1.7  Counting misclassifications and the accuracy of a multi-class classifier<a class="anchor-link" href="#10.1.7--Counting-misclassifications-and-the-accuracy-of-a-multi-class-classifier">¶</a></h2>
+<h2 id="10.1.8--Counting-misclassifications-and-the-accuracy-of-a-multi-class-classifier">10.1.8  Counting misclassifications and the accuracy of a multi-class classifier<a class="anchor-link" href="#10.1.8--Counting-misclassifications-and-the-accuracy-of-a-multi-class-classifier">¶</a></h2>
 </div>
 </div>
 </div>
@@ -25183,6 +25280,6 @@ if (IPython.notebook.kernel != null) {
 </div>
 </body>
 <script type="application/vnd.jupyter.widget-state+json">
-{"state": {}, "version_major": 1, "version_minor": 0}
+{"version_major": 1, "state": {}, "version_minor": 0}
 </script>
 </html>

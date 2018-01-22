@@ -11998,16 +11998,65 @@ g\left(w_0^{(0)},\,\mathbf{w}_{\mathstrut}^{(0)},...,w_0^{(C-1)},\,\mathbf{w}_{\
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>One is free to implement the cost function here in a number of ways.  Note however that in the particular implementation shown here the weights from all $C$ classifiers are input as an $N + 1$ by $C$ array of the form</p>
+<p>One is free to implement the cost function here in a number of ways e.g., as we have done with linear regression and two-class classification in previous Chapters by first implementing a linear <code>model</code> function (which here we could do for each individual classifier).  Note however that for efficiency's sake here (i.e., to avoid unnecessary <code>for</code> loops in favor of much more efficient <code>numpy</code> operations) the particular implementation shown here the weights from all $C$ classifiers are input as an $\left(N + 1\right) \times C$ array of the form</p>
 \begin{equation}
 \mathbf{W}=\left[\begin{array}{cccc}
 w_{0}^{(0)} &amp; w_{0}^{(2)} &amp; \cdots &amp; w_{0}^{(C-1)}\\
-\mathbf{w}^{(0)} &amp; \mathbf{w}^{(2)} &amp; \cdots &amp; \mathbf{w}^{(C-1)}
+w_{1}^{(0)} &amp; w_{1}^{(2)} &amp; \cdots &amp; w_{1}^{(C-1)}\\
+\vdots &amp; \vdots &amp; \cdots &amp; \vdots \,\,\,\,\,\, \\
+w_{N}^{(0)} &amp; w_{N}^{(2)} &amp; \cdots &amp; w_{N}^{(C-1)}\\
 \end{array}\right]
-\end{equation}<p>where the bias and normal vector of the $c^{th}$ classifier have been stacked on top of one another and made the array's $c^{th}$ column.  In this notation we evaluate all $C$ classifiers simultaneously as</p>
+\end{equation}<p>where the bias and normal vector of the $c^{th}$ classifier have been stacked on top of one another and made the array's $c^{th}$ column.  In this notation we evaluate all $C$ classifiers simultaneously as the $1\times C$ vector</p>
 \begin{equation}
-\text{model}\left(\mathbf{x},\mathbf{W}\right) = \mathbf{x}^T\mathbf{W}^{\,}
-\end{equation}<p>i.e., our entire set of linear (classification) models.  We implement this below in the <code>Python</code> function called <code>model</code>.  Note that this precisely the same piece of code we used to implement cost functions for both linear regression and two-class classification in the previous two Chapters.  The only difference here is that now we will be inputting the entire weight matrix $\mathbf{W}$ as the variable <code>w</code>.</p>
+\text{model}\left(\mathbf{x},\mathbf{W}\right) = \mathbf{x}^T\mathbf{W}^{\,} = 
+\begin{bmatrix}
+w_0^{(\,0)} + \mathbf{x}_{p}^T\mathbf{w}_{\mathstrut}^{(\,0)}  \, ,
+w_1^{(\,1)} + \mathbf{x}_{p}^T\mathbf{w}_{\mathstrut}^{(\,1)}  \, ,
+\cdots \, ,
+w_0^{(\,C-1)} + \mathbf{x}_{p}^T\mathbf{w}_{\mathstrut}^{(\,C-1)}
+\end{bmatrix}.
+\end{equation}
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>i.e., our entire set of linear (classification) models.  In this extended <code>model</code> notation we can more conveniently implement essentially any formula based off of the fusion rule like e.g., the multiclass perceptron.  For example, we can write the fusion rule itself - which for a general input $\mathbf{x}$ is written as $y =  \underset{j \,=\, 0,...,C-1}{\text{argmax}} \,\,\,w_0^{(\,j)} + \mathbf{x}_{\mathstrut}^T\mathbf{w}_{\mathstrut}^{(\,j)}$ - equivalently as</p>
+\begin{equation}
+y = \underset{j \,=\, 0,...,C-1} {\text{max}}\,\text{model}\left(\mathbf{x},\mathbf{W}\right).
+\end{equation}
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>In particular we can write the (unregularized) $p^{th}$ summand of the multiclass perceptron compactly as</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+\begin{equation}
+\left(\underset{j \,=\, 0,...,C-1} {\text{max}} \,\,\,w_0^{(\,j)} + \mathbf{x}_{p}^T\mathbf{w}_{\mathstrut}^{(\,j)} \right) - \left(w_0^{(y_p)} + \mathbf{x}_{p}^T\mathbf{w}_{\mathstrut}^{(y_p)}\right) = \left(\underset{j \,=\, 0,...,C-1} {\text{max}}\,\text{model}\left(\mathbf{x}_p,\mathbf{W}\right)\right) - \text{model}\left(\mathbf{x}_p,\mathbf{W}\right)_{y_p}.
+\end{equation}
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>We implement the multilayer perceptron cost below, beginning with the <code>model</code>.  Note that this precisely the same piece of code we used to implement cost functions for both linear regression and two-class classification in the previous two Chapters.  The only difference here is that now we will be inputting the entire weight matrix $\mathbf{W}$ as the variable <code>w</code> - i.e., <code>Python</code> automatically adjusts to our extended usage of the <code>model</code> notion to arrays of weights.</p>
 </div>
 </div>
 </div>
@@ -12016,7 +12065,7 @@ w_{0}^{(0)} &amp; w_{0}^{(2)} &amp; \cdots &amp; w_{0}^{(C-1)}\\
 <div class="prompt input_prompt">In [4]:</div>
 <div class="inner_cell">
 <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># compute linear combination of input point</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># compute C linear combinations of input point, one per classifier</span>
 <span class="k">def</span> <span class="nf">model</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">w</span><span class="p">):</span>
     <span class="c1"># tack a 1 onto the top of each input point all at once</span>
     <span class="n">o</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">((</span><span class="mi">1</span><span class="p">,</span><span class="n">np</span><span class="o">.</span><span class="n">shape</span><span class="p">(</span><span class="n">x</span><span class="p">)[</span><span class="mi">1</span><span class="p">]))</span>
@@ -12142,10 +12191,10 @@ w_{0}^{(0)} &amp; w_{0}^{(2)} &amp; \cdots &amp; w_{0}^{(C-1)}\\
 <div class="output_wrapper">
 <div class="output">
 <div class="output_area"><div class="prompt"></div>
-<div id="8dcb3930-151f-4a22-b0c9-686686d1be4d"></div>
+<div id="e2755fea-e708-4eca-b9a6-c19e9d4afeec"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#8dcb3930-151f-4a22-b0c9-686686d1be4d');
+var element = $('#e2755fea-e708-4eca-b9a6-c19e9d4afeec');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -12992,10 +13041,10 @@ if (IPython.notebook.kernel != null) {
 <div class="output_wrapper">
 <div class="output">
 <div class="output_area"><div class="prompt"></div>
-<div id="7d62dc25-8035-47dd-be69-11101eaedc7d"></div>
+<div id="436ac876-eb76-4eb3-830b-d4d5eb961651"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#7d62dc25-8035-47dd-be69-11101eaedc7d');
+var element = $('#436ac876-eb76-4eb3-830b-d4d5eb961651');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -13814,10 +13863,10 @@ if (IPython.notebook.kernel != null) {
 <div class="output_wrapper">
 <div class="output">
 <div class="output_area"><div class="prompt"></div>
-<div id="2586cf3b-3e58-4bde-9b00-71d74669841e"></div>
+<div id="7a5bdf7a-99cf-4d05-88ed-9861728d960c"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#2586cf3b-3e58-4bde-9b00-71d74669841e');
+var element = $('#7a5bdf7a-99cf-4d05-88ed-9861728d960c');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -14648,10 +14697,10 @@ if (IPython.notebook.kernel != null) {
 <div class="output_wrapper">
 <div class="output">
 <div class="output_area"><div class="prompt"></div>
-<div id="6621ab7d-2fde-4302-815d-3495f55676f4"></div>
+<div id="53d803cf-6dd4-44f4-951b-1c7cbe815096"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#6621ab7d-2fde-4302-815d-3495f55676f4');
+var element = $('#53d803cf-6dd4-44f4-951b-1c7cbe815096');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -15453,10 +15502,10 @@ if (IPython.notebook.kernel != null) {
 <div class="output_wrapper">
 <div class="output">
 <div class="output_area"><div class="prompt"></div>
-<div id="f9ee8761-ba57-46ec-ade5-7a8e3eb7af8e"></div>
+<div id="3ad0f42c-a184-44a3-95b6-d8ea2a33542b"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#f9ee8761-ba57-46ec-ade5-7a8e3eb7af8e');
+var element = $('#3ad0f42c-a184-44a3-95b6-d8ea2a33542b');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -16331,7 +16380,37 @@ g\left(w_0^{(0)},\,\mathbf{w}_{\mathstrut}^{(0)},...,w_0^{(C-1)},\,\mathbf{w}_{\
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>We can make a compact and efficient implementation the multiclass softmax in <code>Python</code> by taking our corresponding multiclass perceptron implementation from the previous Section and making a few modifications, as shown below.</p>
+<p>We can make a compact and efficient implementation the multiclass softmax in <code>Python</code> by taking our corresponding multiclass perceptron implementation from the previous Section and making a few modifications, as shown below.  In particular we continue to use the compact <code>model</code> notation first discussed in 10.2.2, i.e., the $1 \times C$ vector formula</p>
+\begin{equation}
+\text{model}\left(\mathbf{x},\mathbf{W}\right) = \mathbf{x}^T\mathbf{W}^{\,} = 
+\begin{bmatrix}
+w_0^{(\,0)} + \mathbf{x}_{p}^T\mathbf{w}_{\mathstrut}^{(\,0)}  \, ,
+w_1^{(\,1)} + \mathbf{x}_{p}^T\mathbf{w}_{\mathstrut}^{(\,1)}  \, ,
+\cdots \, ,
+w_0^{(\,C-1)} + \mathbf{x}_{p}^T\mathbf{w}_{\mathstrut}^{(\,C-1)}
+\end{bmatrix}.
+\end{equation}
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>With this notation the $p^{th}$ summand of the multiclass softmax cost as written in e.g., equation (14) compactly as</p>
+\begin{equation}
+\text{log}\left( \sum_{j = 0}^{C-1}  e^{ w_0^{(j)} + \mathbf{x}_{p}^T\mathbf{w}_{\mathstrut}^{(j)}}  \right) - \left( w_0^{(y_p)} + \mathbf{x}_{p}^T\mathbf{w}_{\mathstrut}^{(y_p)}\right) = {\text{soft}}\left(\text{model}\left(\mathbf{x}_p,\mathbf{W}\right)\right) - \text{model}\left(\mathbf{x}_p,\mathbf{W}\right)_{y_p}.
+\end{equation}
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>With this more compact way of expressing the multiclass softmax - and with the module <code>model</code> having already been written above - we can quickly implement a <code>Python</code> efficient implementation of the multiclass softmax cost.</p>
 </div>
 </div>
 </div>
@@ -16445,10 +16524,10 @@ g\left(w_0^{(0)},\,\mathbf{w}_{\mathstrut}^{(0)},...,w_0^{(C-1)},\,\mathbf{w}_{\
 <div class="output_wrapper">
 <div class="output">
 <div class="output_area"><div class="prompt"></div>
-<div id="90f9a80b-6b69-407f-9669-d099850ac6bd"></div>
+<div id="1ce2f794-24cc-4d73-bc4e-05b3d8b0b704"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#90f9a80b-6b69-407f-9669-d099850ac6bd');
+var element = $('#1ce2f794-24cc-4d73-bc4e-05b3d8b0b704');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -17272,10 +17351,10 @@ if (IPython.notebook.kernel != null) {
 <div class="output_wrapper">
 <div class="output">
 <div class="output_area"><div class="prompt"></div>
-<div id="dd33944f-8750-4330-890a-cfe29fb5646f"></div>
+<div id="eb2000d6-0d65-411a-a77c-59536fde9a02"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#dd33944f-8750-4330-890a-cfe29fb5646f');
+var element = $('#eb2000d6-0d65-411a-a77c-59536fde9a02');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -18086,10 +18165,10 @@ if (IPython.notebook.kernel != null) {
 <div class="output_wrapper">
 <div class="output">
 <div class="output_area"><div class="prompt"></div>
-<div id="6d5f2ba9-4d96-40e4-944b-71c44ea2ebc0"></div>
+<div id="637d95f3-7488-4024-8902-65dae3f6d97a"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#6d5f2ba9-4d96-40e4-944b-71c44ea2ebc0');
+var element = $('#637d95f3-7488-4024-8902-65dae3f6d97a');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -18910,10 +18989,10 @@ if (IPython.notebook.kernel != null) {
 <div class="output_wrapper">
 <div class="output">
 <div class="output_area"><div class="prompt"></div>
-<div id="b50f9ca6-723a-415d-b5b8-f239ad8fa44d"></div>
+<div id="8fc875a4-1d1d-424d-a222-beb902d4f5e7"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#b50f9ca6-723a-415d-b5b8-f239ad8fa44d');
+var element = $('#8fc875a4-1d1d-424d-a222-beb902d4f5e7');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -19737,10 +19816,10 @@ if (IPython.notebook.kernel != null) {
 <div class="output_wrapper">
 <div class="output">
 <div class="output_area"><div class="prompt"></div>
-<div id="be11fadb-78d3-4c01-9d0f-33a50bbaaece"></div>
+<div id="c2bc5913-0286-42a5-a2ba-5d62f96ec642"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#be11fadb-78d3-4c01-9d0f-33a50bbaaece');
+var element = $('#c2bc5913-0286-42a5-a2ba-5d62f96ec642');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -20643,10 +20722,10 @@ if (IPython.notebook.kernel != null) {
 <div class="output_wrapper">
 <div class="output">
 <div class="output_area"><div class="prompt"></div>
-<div id="d90011c9-0bfc-4c4a-869e-c02129db238c"></div>
+<div id="935a51df-bfad-4f42-b2f2-ca63982c24cc"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#d90011c9-0bfc-4c4a-869e-c02129db238c');
+var element = $('#935a51df-bfad-4f42-b2f2-ca63982c24cc');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -21887,6 +21966,6 @@ g\left(\lambda \mathbf{w}_1+\left(1-\lambda\right) \mathbf{w}_2\right)\leq \lamb
 </div>
 </body>
 <script type="application/vnd.jupyter.widget-state+json">
-{"state": {}, "version_major": 1, "version_minor": 0}
+{"state": {}, "version_minor": 0, "version_major": 1}
 </script>
 </html>

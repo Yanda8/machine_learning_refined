@@ -14032,6 +14032,8 @@ g\left(\mathbf{w}\right) = \text{tanh}\left(w_1 - w_2\right).
 <span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">gca</span><span class="p">(</span><span class="n">projection</span><span class="o">=</span><span class="s1">'3d'</span><span class="p">)</span>
 
 <span class="c1"># re-shape inputs and output for plotting</span>
+<span class="c1"># matplotlib's surface plotter requires all</span>
+<span class="c1"># three input arguments are 2d arrays</span>
 <span class="n">w1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">w1</span><span class="p">,(</span><span class="n">np</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="n">s</span><span class="p">),</span><span class="n">np</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="n">s</span><span class="p">)))</span>
 <span class="n">w2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">w2</span><span class="p">,(</span><span class="n">np</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="n">s</span><span class="p">),</span><span class="n">np</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="n">s</span><span class="p">)))</span>
 <span class="n">g_vals</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">g_vals</span><span class="p">,(</span><span class="n">np</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="n">s</span><span class="p">),</span><span class="n">np</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="n">s</span><span class="p">)))</span>
@@ -15221,6 +15223,6 @@ QRAEQQQw/wdhGG5IpfegOQAAAABJRU5ErkJggg==
 </div>
 </body>
 <script type="application/vnd.jupyter.widget-state+json">
-{"version_minor": 0, "state": {}, "version_major": 1}
+{"version_minor": 0, "version_major": 1, "state": {}}
 </script>
 </html>

@@ -30,6 +30,7 @@ class Visualizer:
         self.x_original = x
         self.x_normalized = x_normalized
         self.y = y
+        self.cost_func = cost
         
         # make cost function choice
         self.cost_func = 0
@@ -41,12 +42,11 @@ class Visualizer:
             self.cost_func = self.softmax
         if cost == 'relu':
             self.cost_func = self.relu
-
                             
     #####   #####
     def animate_transition(self,num_frames,**kwargs):
         # initialize figure
-        fig = plt.figure(figsize = (10,4.5))
+        fig = plt.figure(figsize = (10,5))
         artist = fig
 
         # create subplot with 3 panels, plot input function in center plot
