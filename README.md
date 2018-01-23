@@ -2,7 +2,7 @@
 
 See our [blog here](https://jermwatt.github.io/mlrefined/index.html) for interactive versions of the notebooks in this repo. 
 
-Python 3 and a number of standard Python packages for scientific computing (numpy, matplotlib, and Jupyter being the most common) are required to use the notebooks in this repo.  To get these basic libraries we highly recommend downloading the [Anaconda Python 3 distribution](https://www.anaconda.com/download/#macos).
+Python 3 and a number of standard Python packages for scientific computing (numpy, matplotlib, and Jupyter being the most common) are required to use the notebooks in this repo, as well as a [latex](https://www.latex-project.org/).  To get these basic libraries we highly recommend downloading the [Anaconda Python 3 distribution](https://www.anaconda.com/download/#macos).
 
 Many of these notebooks also require the Automatic Differentiator [autograd](https://github.com/HIPS/autograd) which can be installed by typing the following command at your terminal
       
