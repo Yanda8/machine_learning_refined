@@ -32,6 +32,17 @@ class visualizer:
         max_range = -3
         if 'max_range' in args:
             max_range = args['max_range']
+        if 'mode' in args:
+            mode = args['mode']
+        else:
+            mode = 'convex_combo'
+            
+        if 'alpha_range' in args:
+            alpha_range = args['alpha_range']
+        else:
+            alpha_range = [0,1]
+           
+            
         if 'title1' in args:
             title1 = args['title1']
         else:
@@ -43,7 +54,7 @@ class visualizer:
         if 'title3' in args:
             title3 = args['title3']
         else:
-            title3 = '$\\alpha\,g_1 + (1 - \\alpha)\,g_2$'    
+            title3 = '$(1 - \\alpha)\,g_1 + \\alpha\,g_2$'    
             
       
         # initialize figure
@@ -72,7 +83,7 @@ class visualizer:
         g2_max = np.amax(g2_plot) + g2_gap
        
         # decide on number of slides
-        alpha_vals = np.linspace(1,0,num_frames)
+        alpha_vals = np.linspace(alpha_range[0], alpha_range[1], num_frames)
         print ('starting animation rendering...')
 
         # animation sub-function
@@ -100,7 +111,12 @@ class visualizer:
 
             # plot combination of both
             alpha = alpha_vals[k]
-            g_combo = alpha*g1_plot + (1 - alpha)*g2_plot
+            
+            if mode == 'regularization': 
+                g_combo = g1_plot + alpha*g2_plot
+            else:
+                g_combo = (1-alpha)*g1_plot + alpha*g2_plot
+            
             ax3.plot(w_plot,g_combo,color = 'k',zorder = 1) 
             ax3.set_title(title3,fontsize = 15)
             

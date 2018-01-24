@@ -57,3 +57,7 @@ class Visualizer:
             plt.legend(loc='upper right')
         ax.set_xlim([start - 1,len(history)+1])
         plt.show()
+        
+       
+        
+        

@@ -180,8 +180,8 @@ div.input_area { /* code cell */
   border: none;
   background: #272822;
   line-height: 1.4em;
-  margin-right: 160px;
-  margin-left: 80px;
+  margin-right: 88px; /* previously 160  */
+  margin-left: 8px; /* previously 80  */
   margin-top: 10px;
   margin-bottom: 20px;
   padding: 5px;
@@ -199,15 +199,15 @@ div.text_cell_render { /* markdown cell */
   font-family: "PT Sans", Helvetica, Arial, sans-serif;
   font-weight: 300;
   font-size: 17px;
-  margin-left: 72px;
-  margin-right: 150px;
+  margin-left: 0px;  /* previously 72  */
+  margin-right: 78px; /* previously 150  */
   line-height: 1.5em;
   letter-spacing: .2px;
 }
 
 .output_png,.output_subarea {
-  margin-left: 70px;
-  margin-right: 50px;
+  margin-left: 0px;  /* previously 70  */
+  margin-right: 0px; /* previously 50  */
   text-align: center;
 }
 
