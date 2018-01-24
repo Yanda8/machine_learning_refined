@@ -11918,7 +11918,33 @@ In this gif we start off by showing a realistic linear classification dataset (a
 \begin{equation}
 \text{model}\left(\mathbf{x},\mathbf{w}\right)  = 
 w_0^{\,} + {w}_{1}^{\,}\,f\left(\mathbf{x}_p\right)
-\end{equation}<p>where here $f$ is some nonlinear function or <em>feature transformation</em>.  To determine ideal weights we would follow the same logic as when our <code>model</code> was a linear one, and minimize an appropriate cost function of this nonlinear <code>model</code> to determine the appropriate <em>nonlinear decision boundary</em> $\text{model}\left(\mathbf{x},\mathbf{w}\right)  = 0$.  This was precisely the same scenario we found with nonlinear regression in the prior Section as well, and just as with nonlinear regression we could in general just as well use a weighted sum of $B$ nonlinear functions of our input as</p>
+\end{equation}<p>where here $f$ is some nonlinear function or <em>feature transformation</em>.  To determine ideal weights we would follow the same logic as when our <code>model</code> was a linear one, and minimize an appropriate cost function of this nonlinear <code>model</code> to determine the appropriate <em>nonlinear decision boundary</em> $\text{model}\left(\mathbf{x},\mathbf{w}\right)  = 0$.</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<figure>
+<p>
+<img alt="" height="80%" src="../../mlrefined_images/nonlinear_superlearn_images/nonlinear_classification.png" width="80%"/>
+</p>
+<figcaption> <strong>Figure 2:</strong> <em> 
+A figurative drawing of the nonlinear two-class classification scenario, which we can achieve by injecting nonlinear feature transformations into our `model` in precisely the same way we did in the previous Section with nonlinear regression.  In the top panel we show the 'regression' perspective on two-class classification, where in the nonlinear context we aim to learn a step function with *nonlinear* boundary that separates the two classes of our data as best as possible.  From the 'separator' point of view we aim to simultaneously learn a proper nonlinear boundary that separates the two classes. 
+</em>
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>This was precisely the same scenario we found with nonlinear regression in the prior Section as well, and just as with nonlinear regression we could in general just as well use a weighted sum of $B$ nonlinear functions of our input as</p>
 \begin{equation}
 \text{model}\left(\mathbf{x},\mathbf{w}\right) = w_0 + {w}_{1}\,f_1\left(\mathbf{x}_p\right) +  {w}_{2}\,f_2\left(\mathbf{x}_p\right) + \cdots + w_B\,f_B\left(\mathbf{x}_p\right)  
 \end{equation}<p>where $f_1,\,f_2,\,...\,f_B$ are nonlinear feature transformations and $w_0$ through $w_B$ - as well as any weights internal to the nonlinear functions - are represented in the weight set $\mathbf{w}$ and must be tuned properly to determine a proper <em>nonlinear decision boundary</em>.</p>
@@ -11952,7 +11978,7 @@ w_0^{\,} + {w}_{1}^{\,}\,f\left(\mathbf{x}_p\right)
 <p>
 <img alt="" height="80%" src="../../mlrefined_images/nonlinear_superlearn_images/nonlinear_classification_to_funcapprox.gif" width="80%"/>
 </p>
-<figcaption> <strong>Figure 2:</strong> <em> 
+<figcaption> <strong>Figure 3:</strong> <em> 
 In this gif we start off by showing a realistic nonlinear classification dataset (a small noisy set of points that can be roughly modeled by a step function with nonlinear boundary).  We then progress to remove all noise from those points (i.e., returning the true label values to our 'noisy' points), and finally show the perfect nonlinear classification scenario where we have infinitely many points lying perfectly on a step function with nonlinear boundary. 
 </em>
 </figcaption>
@@ -12071,10 +12097,10 @@ In this gif we start off by showing a realistic nonlinear classification dataset
 <div class="output_wrapper">
 <div class="output">
 <div class="output_area"><div class="prompt"></div>
-<div id="3c58bfe3-d4d2-4c24-96c0-b34be5181f03"></div>
+<div id="5da00acc-b5c1-4f94-b130-4c912dca2075"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#3c58bfe3-d4d2-4c24-96c0-b34be5181f03');
+var element = $('#5da00acc-b5c1-4f94-b130-4c912dca2075');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -12938,10 +12964,10 @@ f\left(x \right) = \frac{x - \mu}{\sigma}
 <div class="output_wrapper">
 <div class="output">
 <div class="output_area"><div class="prompt"></div>
-<div id="05564b91-4c44-4d01-a7b9-28a1ed9a1124"></div>
+<div id="74a1c27f-6aa3-4666-9d77-a986dabdf8af"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#05564b91-4c44-4d01-a7b9-28a1ed9a1124');
+var element = $('#74a1c27f-6aa3-4666-9d77-a986dabdf8af');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -13808,10 +13834,10 @@ A prototypical $N = 1$ dimensional input shown from the regression perspective (
 <div class="output_wrapper">
 <div class="output">
 <div class="output_area"><div class="prompt"></div>
-<div id="71ea24db-89cb-4a85-8cca-37a5d5ae9df4"></div>
+<div id="52ef3f90-27bd-4cfa-b7dd-652c96aa80ae"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#71ea24db-89cb-4a85-8cca-37a5d5ae9df4');
+var element = $('#52ef3f90-27bd-4cfa-b7dd-652c96aa80ae');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -14703,10 +14729,10 @@ An example dataset like the one we are currently looking to learn a classifier o
 <div class="output_wrapper">
 <div class="output">
 <div class="output_area"><div class="prompt"></div>
-<div id="ffe60e59-48a1-46c1-88d9-cbd27cf70a42"></div>
+<div id="b7ffacb3-5161-4fe9-89b5-9dff33822d2f"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#ffe60e59-48a1-46c1-88d9-cbd27cf70a42');
+var element = $('#b7ffacb3-5161-4fe9-89b5-9dff33822d2f');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -15545,10 +15571,10 @@ if (IPython.notebook.kernel != null) {
 <div class="output_wrapper">
 <div class="output">
 <div class="output_area"><div class="prompt"></div>
-<div id="cfe202bd-52d3-404b-8024-cf8bf79d4a92"></div>
+<div id="46b58ac1-a544-4be2-8362-df4e2c35eb88"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#cfe202bd-52d3-404b-8024-cf8bf79d4a92');
+var element = $('#46b58ac1-a544-4be2-8362-df4e2c35eb88');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -16422,10 +16448,10 @@ if (IPython.notebook.kernel != null) {
 <div class="output_wrapper">
 <div class="output">
 <div class="output_area"><div class="prompt"></div>
-<div id="3c7b6513-c69f-4b47-8a10-807f0dd846a1"></div>
+<div id="a088bac7-44f0-4bc0-91c7-93ce8431439c"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#3c7b6513-c69f-4b47-8a10-807f0dd846a1');
+var element = $('#a088bac7-44f0-4bc0-91c7-93ce8431439c');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -17429,10 +17455,10 @@ w_{B}^{(0)} &amp; w_{B}^{(2)} &amp; \cdots &amp; w_{B}^{(C-1)}\\
 <div class="output_wrapper">
 <div class="output">
 <div class="output_area"><div class="prompt"></div>
-<div id="f17cf3a3-9609-49b6-8632-89665dff390a"></div>
+<div id="6551ee09-7a95-4a78-beb7-a39a2fc6bece"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#f17cf3a3-9609-49b6-8632-89665dff390a');
+var element = $('#6551ee09-7a95-4a78-beb7-a39a2fc6bece');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -18303,10 +18329,10 @@ f\left(\mathbf{x}\right) = x_1^ix_2^j
 <div class="output_wrapper">
 <div class="output">
 <div class="output_area"><div class="prompt"></div>
-<div id="5279383e-da07-4cc0-85c9-a86a9946f67d"></div>
+<div id="4fe33dd8-3325-4b23-9f0b-e67d190c5a51"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#5279383e-da07-4cc0-85c9-a86a9946f67d');
+var element = $('#4fe33dd8-3325-4b23-9f0b-e67d190c5a51');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -19143,10 +19169,10 @@ if (IPython.notebook.kernel != null) {
 <div class="output_wrapper">
 <div class="output">
 <div class="output_area"><div class="prompt"></div>
-<div id="6e6544a1-4f5d-4747-8360-b353bb81bf91"></div>
+<div id="3bc64954-f10b-4311-8ff3-15ba55df2911"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#6e6544a1-4f5d-4747-8360-b353bb81bf91');
+var element = $('#3bc64954-f10b-4311-8ff3-15ba55df2911');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
