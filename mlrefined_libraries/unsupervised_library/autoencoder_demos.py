@@ -95,13 +95,13 @@ def show_encode_decode(x,encoder,decoder,cost_history,weight_history,**kwargs):
     p = 0
     if np.ndim(w_best) > 2:
         # create encoded vectors
-        v = encoder(x,w_best[0])
+        v = encoder(w_best[0],x)
 
         # decode onto basis
         p = decoder(w_best[1:],v)
     else:
         # create encoded vectors
-        v = encoder(x,w_best)
+        v = encoder(w_best,x)
 
         # decode onto basis
         p = decoder(w_best,v)
@@ -160,13 +160,13 @@ def show_encode_decode(x,encoder,decoder,cost_history,weight_history,**kwargs):
 
     if np.ndim(w_best) > 2:
         # create encoded vectors
-        v = encoder(z,w_best[0])
+        v = encoder(w_best[0],z)
 
         # decode onto basis
         p = decoder(w_best[1:],v)
     else:
         # create encoded vectors
-        v = encoder(z,w_best)
+        v = encoder(w_best,z)
 
         # decode onto basis
         p = decoder(w_best,v)
@@ -185,13 +185,13 @@ def show_encode_decode(x,encoder,decoder,cost_history,weight_history,**kwargs):
 
     if np.ndim(w_best) > 2:
         # create encoded vectors
-        v = encoder(z,w_best[0])
+        v = encoder(w_best[0],z)
 
         # decode onto basis
         p = decoder(w_best[1:],v)
     else:
         # create encoded vectors
-        v = encoder(z,w_best)
+        v = encoder(w_best,z)
 
         # decode onto basis
         p = decoder(w_best,v)
