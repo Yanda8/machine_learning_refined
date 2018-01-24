@@ -45,7 +45,10 @@ if 'multiclass' in series.lower() and 'linear' in series.lower():
     series_url = '10_Linear_multiclass_classification'    
 
 if 'classification' in series.lower() and 'linear' in series.lower():
-    series_url = '9_Linear_twoclass_classification'    
+    series_url = '9_Linear_twoclass_classification'  
+
+if 'nonlinear' in series.lower() and 'introduction' in series.lower():
+    series_url = '12_Nonlinear_intro'   
 
 # This script adds navigation bar + sharing logos + title
 script_1 = '''
