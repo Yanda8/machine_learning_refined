@@ -1,8 +1,9 @@
 <!DOCTYPE html>
 <html>
-<head><meta charset="utf-8"/>
-<title>Part 3: Computation graphs and the construction of endlessly complex functions</title><script src="https://unpkg.com/jupyter-js-widgets@2.0.*/dist/embed.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
+<head><meta charset="utf-8" />
+<title>Part_3_constructing_functions</title><script src="https://unpkg.com/jupyter-js-widgets@2.0.*/dist/embed.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
 <style type="text/css">
     /*!
 *
@@ -10,8 +11,8 @@
 *
 */
 /*!
- * Bootstrap v3.3.7 (http://getbootstrap.com)
- * Copyright 2011-2016 Twitter, Inc.
+ * Bootstrap v3.3.6 (http://getbootstrap.com)
+ * Copyright 2011-2015 Twitter, Inc.
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
  */
 /*! normalize.css v3.0.3 | MIT License | github.com/necolas/normalize.css */
@@ -1106,6 +1107,7 @@ a:focus {
   text-decoration: underline;
 }
 a:focus {
+  outline: thin dotted;
   outline: 5px auto -webkit-focus-ring-color;
   outline-offset: -2px;
 }
@@ -2534,6 +2536,7 @@ select[size] {
 input[type="file"]:focus,
 input[type="radio"]:focus,
 input[type="checkbox"]:focus {
+  outline: thin dotted;
   outline: 5px auto -webkit-focus-ring-color;
   outline-offset: -2px;
 }
@@ -3024,6 +3027,7 @@ select[multiple].input-lg {
 .btn.focus,
 .btn:active.focus,
 .btn.active.focus {
+  outline: thin dotted;
   outline: 5px auto -webkit-focus-ring-color;
   outline-offset: -2px;
 }
@@ -8754,9 +8758,6 @@ body > #header .header-bar {
     margin-left: 10px;
   }
 }
-[dir="rtl"] #ipython_notebook {
-  float: right !important;
-}
 #noscript {
   width: auto;
   padding-top: 16px;
@@ -8959,14 +8960,8 @@ span#login_widget > .button .badge,
  *
  * Author: Jupyter Development Team
  */
-[dir="rtl"] #tabs li {
-  float: right;
-}
 ul#tabs {
   margin-bottom: 4px;
-}
-[dir="rtl"] ul#tabs {
-  margin-right: 0px;
 }
 ul#tabs a {
   padding-top: 6px;
@@ -8989,16 +8984,6 @@ ul.breadcrumb span {
 }
 .list_toolbar .tree-buttons {
   padding-top: 1px;
-}
-[dir="rtl"] .list_toolbar .tree-buttons {
-  float: left !important;
-}
-[dir="rtl"] .list_toolbar .pull-right {
-  padding-top: 1px;
-  float: left !important;
-}
-[dir="rtl"] .list_toolbar .pull-left {
-  float: right !important;
 }
 .dynamic-buttons {
   padding-top: 3px;
@@ -9135,9 +9120,6 @@ ul.breadcrumb span {
 #tree-selector {
   padding-right: 0px;
 }
-[dir="rtl"] #tree-selector a {
-  float: right;
-}
 #button-select-all {
   min-width: 50px;
 }
@@ -9227,9 +9209,6 @@ ul#new-menu {
   left: auto;
   right: 0;
 }
-[dir="rtl"] #new-menu {
-  text-align: right;
-}
 .kernel-menu-icon {
   padding-right: 12px;
   width: 24px;
@@ -9274,9 +9253,6 @@ ul#new-menu {
 }
 #running .panel-group .panel .panel-body .list_container .list_item:last-child {
   border-bottom: 0px;
-}
-[dir="rtl"] #running .col-sm-8 {
-  float: right !important;
 }
 .delete-button {
   display: none;
@@ -9573,7 +9549,6 @@ div.cell.selected.jupyter-soft-selected {
   }
 }
 div.inner_cell {
-  min-width: 0;
   /* Old browsers */
   display: -webkit-box;
   -webkit-box-orient: vertical;
@@ -9594,6 +9569,11 @@ div.inner_cell {
   box-flex: 1;
   /* Modern browsers */
   flex: 1;
+}
+@-moz-document url-prefix() {
+  div.inner_cell {
+    overflow-x: hidden;
+  }
 }
 /* input_area and input_prompt must match in top border and margin for alignment */
 div.input_area {
@@ -11264,7 +11244,7 @@ div#pager .ui-resizable-handle::after {
 }
 .shortcut_key {
   display: inline-block;
-  width: 21ex;
+  width: 20ex;
   text-align: right;
   font-family: monospace;
 }
@@ -11576,7 +11556,6 @@ ul.typeahead-list > li > a {
   box-shadow: 0px 0px 12px 1px rgba(87, 87, 87, 0.2);
 }
 .terminal-app .terminal {
-  width: 100%;
   float: left;
   font-family: monospace;
   color: white;
@@ -11590,9 +11569,6 @@ ul.typeahead-list > li > a {
 .terminal-app .terminal dummy-screen {
   line-height: 1em;
   font-size: 14px;
-}
-.terminal-app .terminal .xterm-rows {
-  padding: 10px;
 }
 .terminal-app .terminal-cursor {
   color: black;
@@ -11713,6 +11689,8 @@ ul.typeahead-list > li > a {
 .ansi-bold { font-weight: bold; }
 
     </style>
+
+
 <style type="text/css">
 /* Overrides of notebook CSS for static HTML export */
 body {
@@ -11723,7 +11701,9 @@ body {
 div#notebook {
   overflow: visible;
   border-top: none;
-}@media print {
+}
+
+@media print {
   div.cell {
     display: block;
     page-break-inside: avoid;
@@ -11738,15 +11718,16 @@ div#notebook {
   }
 }
 </style>
+
 <!-- Custom stylesheet, it must be in the same directory as the html file -->
-<link href="custom.css" rel="stylesheet"/>
+<link rel="stylesheet" href="custom.css">
+
 <!-- Loading mathjax macro -->
 <!-- Load mathjax -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS_HTML"></script>
-<!-- MathJax configuration -->
-<script type="text/x-mathjax-config">
+    <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML"></script>
+    <!-- MathJax configuration -->
+    <script type="text/x-mathjax-config">
     MathJax.Hub.Config({
-    	TeX: { equationNumbers: { autoNumber: "AMS" } },
         tex2jax: {
             inlineMath: [ ['$','$'], ["\\(","\\)"] ],
             displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
@@ -11757,247 +11738,193 @@ div#notebook {
         // we use CSS to left justify single line equations in code cells.
         displayAlign: 'center',
         "HTML-CSS": {
-            availableFonts: ["TeX"],
-            preferredFont: "TeX",
             styles: {'.MathJax_Display': {"margin": 0}},
             linebreaks: { automatic: true }
         }
     });
     </script>
-<link href="../../html/CSS/custom.css" rel="stylesheet"/>
-<style>
-        p {
-            text-align: justify !important;
-            text-justify: inter-word !important;
-        }
-    </style>
-<!-- End of mathjax configuration --></head>
+    <!-- End of mathjax configuration --></head>
 <body>
-<!-- uncomment to add back menu
-<div style="text-align:center !important; padding-top:58px;">
+  <div tabindex="-1" id="notebook" class="border-box-sizing">
+    <div class="container" id="notebook-container">
 
-				<a href="../../../index.html" style="font-family: inherit; font-weight: 200; letter-spacing: 1.5px; color: #222; font-size: 97%;">HOME</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="../../../about.html" style="font-family: inherit; font-weight: 200; letter-spacing: 1.5px; color: #222; font-size: 97%;">ABOUT</a>
-
-
-</div> -->
-<br/><br/><br/>
-<!-- share buttons -->
-<div style="width: 53%; margin:auto;">
-<div id="1" style="width: 75%; float:left;">
-<span style="color:black; font-family:'lato', sans-serif; font-size: 18px;">code</span>
-<div style="width: 95px; border-bottom: solid 1px; border-color:black;">
-<div class="logo-share"></div>
-<div class="logo-share"></div>
-<div class="logo-share">
-<!-- github -->
-<a href="https://github.com/jermwatt/mlrefined/blob/gh-pages/blog_posts/Computational_Mathematics/Part_3_constructing_functions.ipynb" target="_blank">
-<img height="28" onmouseout="this.src='../../html/pics/github.png';" onmouseover="this.src='../../html/pics/github_filled.png';" src="../../html/pics/github.png" width="28"/>
-</a>
-</div>
-</div>
-</div>
-<div id="2" style="width: 25%; float:left;">
-<span style="color:black; font-family:'lato', sans-serif; font-size: 18px;">share</span>
-<div style="width: 210px; border-bottom: solid 1px; border-color:black;">
-<div class="logo-share"></div>
-<div class="logo-share"></div>
-<div class="logo-share">
-<!-- linkedin -->
-<a href="https://www.linkedin.com/cws/share?url=https%3A%2F%2Fjermwatt.github.io%2Fmlrefined%2Fblog_posts%2FComputational_Mathematics%2FPart_3_constructing_functions.html" target="_blank">
-<img height="28" onmouseout="this.src='../../html/pics/linkedin.png';" onmouseover="this.src='../../html/pics/linkedin_filled.png';" src="../../html/pics/linkedin.png" width="28"/>
-</a>
-</div>
-<div class="logo-share"></div>
-<div class="logo-share">
-<!-- twitter -->
-<a href="https://twitter.com/intent/tweet?ref_src=twsrc%5Etfw&amp;tw_p=tweetbutton&amp;url=https%3A%2F%2Fjermwatt.github.io%2Fmlrefined%2Fblog_posts%2FComputational_Mathematics%2FPart_3_constructing_functions.html" target="_blank">
-<img height="28" onmouseout="this.src='../../html/pics/twitter.png';" onmouseover="this.src='../../html/pics/twitter_filled.png';" src="../../html/pics/twitter.png" width="28"/>
-</a>
-</div>
-<div class="logo-share"></div>
-<div class="logo-share">
-<!-- facebook -->
-<a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fjermwatt.github.io%2Fmlrefined%2Fblog_posts%2FComputational_Mathematics%2FPart_3_constructing_functions.html" target="_blank">
-<img height="28" onmouseout="this.src='../../html/pics/facebook.png';" onmouseover="this.src='../../html/pics/facebook_filled.png';" src="../../html/pics/facebook.png" width="28"/>
-</a>
-</div>
-</div>
-</div>
-</div>
-<br/><br/>
-<div class="page-title" style="text-align: center !important;">
-<span style="color: #333; font-size: 40%; letter-spacing: 3px;">
-<span style="font-size: 80%;">► </span><a href="../../../mlrefined/html/pages/topics/Computational_Mathematics.html" style="color: black; cursor: pointer; text-transform: uppercase; font-weight:bold;">Computational Mathematics Series</a>
-</span>
-<br/><br/>
-<mark style="padding: 0px; background-color: #f9f3c2;">Part 3: Computation graphs and the construction of endlessly complex functions</mark>
-</div>
-<br/>
-<div class="border-box-sizing" id="notebook" tabindex="-1">
-<div class="container" id="notebook-container">
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-
+<h2 id="Computational-Mathematics-Series">Computational Mathematics Series<a class="anchor-link" href="#Computational-Mathematics-Series">&#182;</a></h2>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-
+<h1 id="Part-3:-Computation-graphs-and-the-construction-of-endlessly-complex-functions">Part 3: Computation graphs and the construction of endlessly complex functions<a class="anchor-link" href="#Part-3:-Computation-graphs-and-the-construction-of-endlessly-complex-functions">&#182;</a></h1>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>In the previous post we learned about elementary functions like polynomials, reciprocal functions, trigonometric functions, and more, shown in Table 1 below for easy reference.</p>
+
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <center>
-<caption>Table 1: Elementary functions</caption>
-</center><table>
-<col width="180"/>
-<col width="100"/>
+     <caption>Table 1: Elementary functions</caption>
+ </center><table>
+  <col width="180">
+  <col width="100">
 <thead>
 <tr>
-<th>elementary function</th>
-<th>equation</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>constant</td>
-<td>$c$</td>
-</tr>
-<tr>
-<td>monomial (degree $p\neq 0$)</td>
-<td>$x^p$</td>
-</tr>
-<tr>
-<td>sine</td>
-<td>$\text{sin}(x)$</td>
-</tr>
-<tr>
-<td>cosine</td>
-<td>$\text{cos}(x)$</td>
-</tr>
-<tr>
-<td>exponential</td>
-<td>$e^x$</td>
-</tr>
-<tr>
-<td>logarithm</td>
-<td>$\text{log}(x)$</td>
-</tr>
-<tr>
-<td>hyperbloic tangent</td>
-<td>$\text{tanh}(x)$</td>
-</tr>
-<tr>
-<td>rectified linear unit (ReLU) </td>
-<td>$\text{max}\left(0,x\right)$</td>
-</tr>
-</tbody>
+    <th>elementary function</th>
+    <th>equation</th> 
+  </tr>
+  </thead>
+  <tbody>
+    <tr>
+    <td>constant</td>
+    <td>$c$</td>
+  </tr>
+  <tr>
+    <td>monomial (degree $p\neq 0$)</td>
+    <td>$x^p$</td>
+  </tr>
+    <tr>
+    <td>sine</td>
+    <td>$\text{sin}(x)$</td>
+  </tr>
+  <tr>
+    <td>cosine</td>
+    <td>$\text{cos}(x)$</td>
+  </tr>
+  <tr>
+    <td>exponential</td>
+    <td>$e^x$</td>
+  </tr>
+  <tr>
+    <td>logarithm</td>
+    <td>$\text{log}(x)$</td>
+  </tr>
+    <tr>
+    <td>hyperbloic tangent</td>
+    <td>$\text{tanh}(x)$</td>
+  </tr>
+      <tr>
+    <td>rectified linear unit (ReLU) </td>
+    <td>$\text{max}\left(0,x\right)$</td>
+  </tr>
+  </tbody>
 </table>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>We also learned about basic operations such as addition, multiplcation, max/min, composition, etc., which we summarize here in Table 2.</p>
+
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <center>
-<caption>Table 2: Elementary operations</caption>
-</center><table>
-<col width="350"/>
-<col width="120"/>
+     <caption>Table 2: Elementary operations</caption>
+ </center><table>
+  <col width="350">
+  <col width="120">
 <thead>
 <tr>
-<th>operation</th>
-<th>equation</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td> addition of a constant $c$ to the function $f(x)$ </td>
-<td> $c + f(x)$</td>
-</tr>
-<tr>
-<td> multiplication of the function $f(x)$ by a constant $c$ </td>
-<td> $c\,f(x)$</td>
-</tr>
-<tr>
-<td>addition of the functions $f(x)$ and $g(x)$</td>
-<td> $f(x) + g(x)$ </td>
-</tr>
-<tr>
-<td> multiplication of the functions $f(x)$ and $g(x)$ </td>
-<td> $f(x)\, g(x)$ </td>
-</tr>
-<tr>
-<td> maximum of the functions $f(x)$ and $g(x)$</td>
-<td> $\text{max}\left(f(x),g(x)\right)$ </td>
-</tr>
-<tr>
-<td> composition of the function $f(x)$ with the function $g(x)$</td>
-<td> $f(g(x))$ </td>
-</tr>
-</tbody>
+    <th>operation</th> 
+    <th>equation</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr>
+    <td> addition of a constant $c$ to the function $f(x)$ </td>
+    <td> $c + f(x)$</td>
+  </tr> 
+    <tr>
+    <td> multiplication of the function $f(x)$ by a constant $c$ </td>
+    <td> $c\,f(x)$</td>
+  </tr> 
+  <tr>
+  <td>addition of the functions $f(x)$ and $g(x)$</td>
+    <td> $f(x) + g(x)$ </td>
+  </tr> 
+  <tr>
+  <td> multiplication of the functions $f(x)$ and $g(x)$ </td>
+    <td> $f(x)\, g(x)$ </td>
+  </tr>  
+   <tr>
+  <td> maximum of the functions $f(x)$ and $g(x)$</td>
+    <td> $\text{max}\left(f(x),g(x)\right)$ </td>
+  </tr>
+  <tr>
+  <td> composition of the function $f(x)$ with the function $g(x)$</td>
+    <td> $f(g(x))$ </td>
+  </tr>
+  </tbody>
 </table>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Introducing the idea of a computation graph, in this post we combine functions and operations listed in these two Tables in order to construct new functions of arbitrary complexity. The same thinking also allows us to deconstruct generic functions into their elementary functions and operations in a consistent manner.  This basic idea arises throughout machine learning: from the design Automatic Differentiation algorithms to the design of novel neural network architectures.</p>
+
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In [1]:</div>
+<div class="prompt input_prompt">In&nbsp;[1]:</div>
 <div class="inner_cell">
-<div class="input_area">
+    <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#run this cell to import all necessary libraries for the notebook experiments</span>
 <span class="kn">import</span> <span class="nn">sys</span>
-<span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">'../../'</span><span class="p">)</span>
+<span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;../../&#39;</span><span class="p">)</span>
 <span class="kn">from</span> <span class="nn">mlrefined_libraries</span> <span class="k">import</span> <span class="n">basics_library</span> <span class="k">as</span> <span class="n">baslib</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 </pre></div>
+
 </div>
 </div>
 </div>
+
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="1.---Computational-graphs-for-arithmetic">1.   Computational graphs for arithmetic<a class="anchor-link" href="#1.---Computational-graphs-for-arithmetic">¶</a></h1>
+<h1 id="1.---Computational-graphs-for-arithmetic">1.   Computational graphs for arithmetic<a class="anchor-link" href="#1.---Computational-graphs-for-arithmetic">&#182;</a></h1>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -12007,34 +11934,40 @@ $$ 5*2^3 + 1 = \left(\left(5*2\right)^3\right)+1 = \left(10^3\right)+1 = 1000 + 
 $$ 5*2^3 + 1 = \left(5*\left(2^3\right)\right)+1 = \left(5*8\right)+1 = 40 + 1 = 41$$<p>Performing Exponentiation first, followed by addition and then multplication gives yet another result</p>
 $$ 5*2^3 + 1 = 5*\left(\left(2^3\right)+1\right) = 5*\left(8+1\right) = 5 * 9 = 45$$<p>In other words, depending on the order in which we employ operations we can end up with different results.  In secondary school you learn the conventional order for evaluating arithmetic expressions: parenthesis first, then exponentiation, then multiplication/division, and finally addition/subtraction. With this conventional order of operations our second result above is correct.</p>
 <p>The way these operations are performed computationally - i.e., either when we perform the calculation by hand or when we let a computer handle it - can be expressed visually using a <em>computational graph</em>.  This is an often employed tool that visualizes all sorts of computational algorithms - in particular basic arithmetic - and is used throughout machine learning to help visualize computation.</p>
+
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="1.1--Example-computations">1.1  Example computations<a class="anchor-link" href="#1.1--Example-computations">¶</a></h2>
+<h2 id="1.1--Example-computations">1.1  Example computations<a class="anchor-link" href="#1.1--Example-computations">&#182;</a></h2>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>In this short subsection we look at a few examples with arithmetic to get a basic intuition as to how they work in tandem with computation graphs.  Along the way we will learn important concepts and language to describe computation graphs as well.</p>
+
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="Example.---Building-a-computation-graph-for-$2\times3-+-5$"><span style="color:#a50e3e;">Example. </span>  Building a computation graph for $2\times3 + 5$<a class="anchor-link" href="#Example.---Building-a-computation-graph-for-$2\times3-+-5$">¶</a></h4>
+<h4 id="Example.---Building-a-computation-graph-for-$2\times3-+-5$"><span style="color:#a50e3e;">Example. </span>  Building a computation graph for $2\times3 + 5$<a class="anchor-link" href="#Example.---Building-a-computation-graph-for-$2\times3-+-5$">&#182;</a></h4>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -12056,11 +11989,12 @@ b = a + 5  \\
 \end{array}<p></p>
 <p>where $b$ represents the desired arithmetic $2\times3 + 5$ completely.</p>
 <p>We can plot this set of equations as the graph shown below which gives us a visual perspective on the computation.</p>
-<p><img height="auto" src="../../mlrefined_images/basics_images/numbers_graph_1.png" width="25%"/></p>
+<p><img src="../../mlrefined_images/basics_images/numbers_graph_1.png" width="25%" height="auto"></p>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -12071,34 +12005,41 @@ b = a + 5  \\
 <p>To further describe the local topology of a computation graphs in words the terms <em>parent</em> and <em>child</em> node are used to describe adjacent hierarchical relationships, or in other words two nodes connected in a graph by a single edge.  The parent node is the one taking in the other node as input, or where the arrow points to.  The child node is the input of the parent, or where the arrow originates.  Because these terms / relationships are defined locally a particular node can be both a parent and a child with respect to other nodes in the graph.</p>
 <blockquote><p>To further describe the local topology of a computation graphs in words the terms <em>parent</em> and <em>child</em> node are used to describe adjacent hierarchical relationships, or in other words two nodes connected in a graph by a single edge.  The parent node is the one taking in the other node as input, or where the arrow points to.  The child node is the input of the parent, or where the arrow originates.  Because these terms / relationships are defined locally a particular node can be both a parent and a child with respect to other nodes in the graph.</p>
 </blockquote>
+
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Lets use this computation graph vocabulary to describe what is going on in the computation graph shown above for $2\times3 + 5$. Examining the graph we can see how $a$ takes in both $2$ and $3$, and so $a$ is the parent node to the children $2$ and $3$. Examining how $a$ and $b$ are related we can see that $a$ is a child node here, with $b$ being its parent as well as the parent of $5$.</p>
+
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<hr/>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="Example.---A-computation-graph-for-$\text{tanh}(1.5)\text{cos}(1.5)-+-\text{log}(1.5)$"><span style="color:#a50e3e;">Example. </span>  A computation graph for $\text{tanh}(1.5)\text{cos}(1.5) + \text{log}(1.5)$<a class="anchor-link" href="#Example.---A-computation-graph-for-$\text{tanh}(1.5)\text{cos}(1.5)-+-\text{log}(1.5)$">¶</a></h4>
+<hr>
+
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="Example.---A-computation-graph-for-$\text{tanh}(1.5)\text{cos}(1.5)-+-\text{log}(1.5)$"><span style="color:#a50e3e;">Example. </span>  A computation graph for $\text{tanh}(1.5)\text{cos}(1.5) + \text{log}(1.5)$<a class="anchor-link" href="#Example.---A-computation-graph-for-$\text{tanh}(1.5)\text{cos}(1.5)-+-\text{log}(1.5)$">&#182;</a></h4>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -12113,55 +12054,63 @@ d = a\times b \\
 e = d + c \\
 \end{array}<p></p>
 <p>which corresponds to the following computation graph.</p>
+
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p><img height="auto" src="../../mlrefined_images/basics_images/graph_eval.png" width="80%"/></p>
+<p><img src="../../mlrefined_images/basics_images/graph_eval.png" width="80%" height="auto"></p>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Take a moment to verify that the computation graph above indeed represents the expression $\text{tanh}(1.5)\text{cos}(1.5) + \text{log}(1.5)$. Again every node (except the input node in gray) contains an operation: the nodes $d$ and $e$ contain the operations multiplication and addition, while the nodes $a$, $b$, and $c$ contain composition with $\text{tanh}$, $\text{cos}$, and $\text{log}$, repectively. In general, when any of the elementary functions appear in a node, that node represents the composition of that elementary function with its input.</p>
 <p>We can now use the computation graph to evaluate the expression $\text{tanh}(1.5)\text{cos}(1.5) + \text{log}(1.5)$. To do so, we start from the input node (shown in gray) on the left and wiggle our way to the rightmost node $e$.</p>
 <p>With the first parent-child equation we have $a = \text{tanh}(1.5) = 0.905$, which can be shown on the computation graph as follows</p>
-<p><img height="auto" src="../../mlrefined_images/basics_images/graph_a.png" width="80%"/></p><p>where the parent and child nodes are highlighted in red and blue, respectively.</p>
+<p><img src="../../mlrefined_images/basics_images/graph_a.png" width="80%" height="auto"></p><p>where the parent and child nodes are highlighted in red and blue, respectively.</p>
 <p>Moving on to the second equation we have $b = \text{cos}(1.5) = 0.701$</p>
-<p><img height="auto" src="../../mlrefined_images/basics_images/graph_b.png" width="80%"/></p><p>The third and last parent of the input node is the node $c$ whose value is found as $c = \text{log}(1.5)\approx 0.176$</p>
-<p><img height="auto" src="../../mlrefined_images/basics_images/graph_c.png" width="80%"/></p><p>Continuning our evaluation, next we get to the node $d$ that has two children: nodes $a$ and $b$, whose values are already found. Therefore we have $d = a \times b \ = 0.905 \times 0.701 = 0.634$</p>
-<p><img height="auto" src="../../mlrefined_images/basics_images/graph_d.png" width="80%"/></p><p>Finally, the node $e$ can be evaluated using the values of its children, nodes $c$ and $d$, as $e=d+c= 0.634+0.176=0.810$.</p>
-<p><img height="auto" src="../../mlrefined_images/basics_images/graph_e.png" width="80%"/></p><p>As you see here in this example, the final value of a mathematical expression is found by moving forward (from left to right) through the computation graph.</p>
+<p><img src="../../mlrefined_images/basics_images/graph_b.png" width="80%" height="auto"></p><p>The third and last parent of the input node is the node $c$ whose value is found as $c = \text{log}(1.5)\approx 0.176$</p>
+<p><img src="../../mlrefined_images/basics_images/graph_c.png" width="80%" height="auto"></p><p>Continuning our evaluation, next we get to the node $d$ that has two children: nodes $a$ and $b$, whose values are already found. Therefore we have $d = a \times b \ = 0.905 \times 0.701 = 0.634$</p>
+<p><img src="../../mlrefined_images/basics_images/graph_d.png" width="80%" height="auto"></p><p>Finally, the node $e$ can be evaluated using the values of its children, nodes $c$ and $d$, as $e=d+c= 0.634+0.176=0.810$.</p>
+<p><img src="../../mlrefined_images/basics_images/graph_e.png" width="80%" height="auto"></p><p>As you see here in this example, the final value of a mathematical expression is found by moving forward (from left to right) through the computation graph.</p>
+
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="Example.---Deriving-a-mathematical-expression-from-its-computation-graph"><span style="color:#a50e3e;">Example. </span>  Deriving a mathematical expression from its computation graph<a class="anchor-link" href="#Example.---Deriving-a-mathematical-expression-from-its-computation-graph">¶</a></h4>
+<h4 id="Example.---Deriving-a-mathematical-expression-from-its-computation-graph"><span style="color:#a50e3e;">Example. </span>  Deriving a mathematical expression from its computation graph<a class="anchor-link" href="#Example.---Deriving-a-mathematical-expression-from-its-computation-graph">&#182;</a></h4>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>So far in our examples we always started with a mathematical expression and built its computation graph. We can also do the reverse, that is, start with a computational graph and form the mathematical expression it represents. Take the computation graph below for example.</p>
-<p><img height="auto" src="../../mlrefined_images/basics_images/reverse_0.png" width="70%"/></p><p>Once again starting at the first input node (containing the number $1.5$) and moving forward through the graph we can build up the mathematical expression step by step. This progression is visually depicted in the series of figures below.</p>
-<p><img height="auto" src="../../mlrefined_images/basics_images/reverse_1.png" width="70%"/></p><hr/>
-<p><img height="auto" src="../../mlrefined_images/basics_images/reverse_2.png" width="70%"/></p><hr/>
-<p><img height="auto" src="../../mlrefined_images/basics_images/reverse_3.png" width="70%"/></p><hr/>
-<p><img height="auto" src="../../mlrefined_images/basics_images/reverse_4.png" width="70%"/></p><hr/>
+<p><img src="../../mlrefined_images/basics_images/reverse_0.png" width="70%" height="auto"></p><p>Once again starting at the first input node (containing the number $1.5$) and moving forward through the graph we can build up the mathematical expression step by step. This progression is visually depicted in the series of figures below.</p>
+<p><img src="../../mlrefined_images/basics_images/reverse_1.png" width="70%" height="auto"></p><hr>
+<p><img src="../../mlrefined_images/basics_images/reverse_2.png" width="70%" height="auto"></p><hr>
+<p><img src="../../mlrefined_images/basics_images/reverse_3.png" width="70%" height="auto"></p><hr>
+<p><img src="../../mlrefined_images/basics_images/reverse_4.png" width="70%" height="auto"></p><hr>
+
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -12169,60 +12118,72 @@ e = d + c \\
 $$
 \text{cos}\left(\left(1.5\right)^2 + \left(-1\right)^2\right) 
 $$</p>
+
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Every mathematical expression has a corresponding computation graph and vice versa.</p>
+
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="1.2--Summary">1.2  Summary<a class="anchor-link" href="#1.2--Summary">¶</a></h2>
+<h2 id="1.2--Summary">1.2  Summary<a class="anchor-link" href="#1.2--Summary">&#182;</a></h2>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>We have just seen how a computation graph gives us a second more visual way of understanding the computation involved in arithmetic expressions, including those containing function evaluations.  Moreover they allow us to break down or build arbitrarily complex expressions - involving many different values, operations, and functions - using a sequence of simple steps of a computation graph.  These simple steps are each an equation  - as illustrated in the examples here - and each <em>always</em> consists of one or two numerical values and an operation (e.g., addition, multiplication, etc.,) or function evaluation.  Furthermore, visualizing the computation graph becomes the best way organize even moderately complex parent-child relations as opposed to listing the relationships as a vertical column of equations.</p>
 <blockquote><p>The computation graph allows us to construct or deconstruct complex arithmetic expressions using a sequences of simple parent-child equations consisting of one or two numerical values and an operation (e.g., addition, multiplication, etc.,) or function evaluation.  Visualizing the computation graph is the best way to organize even moderately complex parent-child relations.</p>
 </blockquote>
+
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>We have also learned vocabulary terms <em>parent</em> and <em>child</em> node to describe the local hierarchical structure of a computation graph.</p>
+
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>As mentioned, we will see computation graphs offer an equally helpful view of many other important algorithmic ideas and yields similar benefit, like the construction of arbitrarily complex functions discussed in the next Section.</p>
+
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="2.-Constructing-endlessly-complex-functions-out-of-elementary-parts">2. Constructing endlessly complex functions out of elementary parts<a class="anchor-link" href="#2.-Constructing-endlessly-complex-functions-out-of-elementary-parts">¶</a></h1>
+<h1 id="2.-Constructing-endlessly-complex-functions-out-of-elementary-parts">2. Constructing endlessly complex functions out of elementary parts<a class="anchor-link" href="#2.-Constructing-endlessly-complex-functions-out-of-elementary-parts">&#182;</a></h1>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -12230,39 +12191,45 @@ $$</p>
 <p>But overall we will see here that the computation graph allows us to construct / deconstruct complex functions using a nested composition of simple parent-child equations that are composed together, each consisting of one or two inputs and an operation (e.g., addition, multiplication, etc.,) or elementary function transformation.</p>
 <blockquote><p>The computation graph allows us to construct or deconstruct complex functions using a <em>nested composition of parent-child equations</em> consisting of one or two inputs and an operation (e.g., addition, multiplication, etc.,) or elementary function transformation.</p>
 </blockquote>
+
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="2.1--Example-functions">2.1  Example functions<a class="anchor-link" href="#2.1--Example-functions">¶</a></h2>
+<h2 id="2.1--Example-functions">2.1  Example functions<a class="anchor-link" href="#2.1--Example-functions">&#182;</a></h2>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>In this short subsection we look at a few examples of how one can use a computation graph mindset to both deconstruct and construct generic functions from elementary parts.  We do this by example to gain the basic intuition as to how this is done.</p>
+
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="Example.--Building-a-computation-graph-for---$f(x)-=-\text{tanh}(x)\text{cos}(x)-+-\text{log}(x)$"><span style="color:#a50e3e;">Example. </span> Building a computation graph for   $f(x) = \text{tanh}(x)\text{cos}(x) + \text{log}(x)$<a class="anchor-link" href="#Example.--Building-a-computation-graph-for---$f(x)-=-\text{tanh}(x)\text{cos}(x)-+-\text{log}(x)$">¶</a></h4>
+<h4 id="Example.--Building-a-computation-graph-for---$f(x)-=-\text{tanh}(x)\text{cos}(x)-+-\text{log}(x)$"><span style="color:#a50e3e;">Example. </span> Building a computation graph for   $f(x) = \text{tanh}(x)\text{cos}(x) + \text{log}(x)$<a class="anchor-link" href="#Example.--Building-a-computation-graph-for---$f(x)-=-\text{tanh}(x)\text{cos}(x)-+-\text{log}(x)$">&#182;</a></h4>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>In the previous Section we saw a numerical example mirroring this one. Therefore the computation graph takes the following simliar form</p>
-<p><img height="auto" src="../../mlrefined_images/basics_images/equation_graph_2.png" width="40%"/></p><p>with the only difference being that now our input node contains the variable $x$ instead of a particular numerical value. The parent-child equations can be written similarly as</p>
+<p><img src="../../mlrefined_images/basics_images/equation_graph_2.png" width="40%" height="auto"></p><p>with the only difference being that now our input node contains the variable $x$ instead of a particular numerical value. The parent-child equations can be written similarly as</p>
 \begin{array}
 \
 a = \text{tanh}(x) \\
@@ -12271,22 +12238,25 @@ c = \text{log}(x) \\
 d = a\times b \\
 e = d + c \\
 \end{array}<p></p>
+
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Computationally speaking in order to plot this function note we can either use the full form of the equation or the list of parent-child equations. We plot both versions side by side in the Python cell below.</p>
+
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In [2]:</div>
+<div class="prompt input_prompt">In&nbsp;[2]:</div>
 <div class="inner_cell">
-<div class="input_area">
+    <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># specify range of input for our functions</span>
 <span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mf">0.1</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">200</span><span class="p">)</span>
 <span class="n">x</span><span class="o">.</span><span class="n">shape</span> <span class="o">=</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">),</span><span class="mi">1</span><span class="p">)</span>
@@ -12308,15 +12278,20 @@ e = d + c \\
 <span class="n">table2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">stack</span><span class="p">((</span><span class="n">x</span><span class="p">,</span><span class="n">e</span><span class="p">),</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
 
 <span class="c1"># use custom plotter to show both functions</span>
-<span class="n">baslib</span><span class="o">.</span><span class="n">basics_plotter</span><span class="o">.</span><span class="n">double_plot</span><span class="p">(</span><span class="n">table1</span> <span class="o">=</span> <span class="n">table1</span><span class="p">,</span> <span class="n">table2</span> <span class="o">=</span> <span class="n">table2</span><span class="p">,</span><span class="n">plot_type</span> <span class="o">=</span> <span class="s1">'continuous'</span><span class="p">,</span><span class="n">xlabel</span> <span class="o">=</span> <span class="s1">'$x$'</span><span class="p">,</span><span class="n">ylabel_1</span> <span class="o">=</span> <span class="s1">'$f_1$'</span><span class="p">,</span><span class="n">ylabel_2</span> <span class="o">=</span> <span class="s1">'$e$'</span><span class="p">,</span><span class="n">fontsize</span> <span class="o">=</span> <span class="mi">18</span><span class="p">)</span>
+<span class="n">baslib</span><span class="o">.</span><span class="n">basics_plotter</span><span class="o">.</span><span class="n">double_plot</span><span class="p">(</span><span class="n">table1</span> <span class="o">=</span> <span class="n">table1</span><span class="p">,</span> <span class="n">table2</span> <span class="o">=</span> <span class="n">table2</span><span class="p">,</span><span class="n">plot_type</span> <span class="o">=</span> <span class="s1">&#39;continuous&#39;</span><span class="p">,</span><span class="n">xlabel</span> <span class="o">=</span> <span class="s1">&#39;$x$&#39;</span><span class="p">,</span><span class="n">ylabel_1</span> <span class="o">=</span> <span class="s1">&#39;$f_1$&#39;</span><span class="p">,</span><span class="n">ylabel_2</span> <span class="o">=</span> <span class="s1">&#39;$e$&#39;</span><span class="p">,</span><span class="n">fontsize</span> <span class="o">=</span> <span class="mi">18</span><span class="p">)</span>
 </pre></div>
+
 </div>
 </div>
 </div>
+
 <div class="output_wrapper">
 <div class="output">
-<div class="output_area">
-<div class="prompt"></div>
+
+
+<div class="output_area"><div class="prompt"></div>
+
+
 <div class="output_png output_subarea ">
 <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAA4gAAAESCAYAAAC/0vvCAAAABHNCSVQICAgIfAhkiAAAAAlwSFlz
 AAALEgAACxIB0t1+/AAAIABJREFUeJzs3Xl8VNX9//HX7JN9IewgiIiCqICoUOtucalLrfZatfan
@@ -12609,49 +12584,59 @@ xhh3u1idOa1+V4+qG3POz0sHA4DFZCTs5wURDmCMcat6V32qnlTPu/id98uVcwHAajISLkdBhCtu
 jHG9Oqu+VA/nnL/mnF+rN9WDMcbtpQMCwCIyEi5PQYQrbIxxrfpQfavuzTm//3X9ovpZvVoxGwCs
 JMEWAGIAAABKSURBVCPh3/gGEQAAgMoLIgAAABsFEQAAgEpBBAAAYKMgAgAAUCmIAAAAbBREAAAA
 KgURAACAjYIIAABApSACAACwURABAACo6g8sWYc5vVRaKAAAAABJRU5ErkJggg==
-"/>
+"
+>
+</div>
+
+</div>
+
 </div>
 </div>
+
 </div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="Example.--Deriving-a-function's-equation-from-its-computation-graph"><span style="color:#a50e3e;">Example. </span> Deriving a function's equation from its computation graph<a class="anchor-link" href="#Example.--Deriving-a-function's-equation-from-its-computation-graph">¶</a></h4>
+<h4 id="Example.--Deriving-a-function's-equation-from-its-computation-graph"><span style="color:#a50e3e;">Example. </span> Deriving a function's equation from its computation graph<a class="anchor-link" href="#Example.--Deriving-a-function's-equation-from-its-computation-graph">&#182;</a></h4>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Given the following computation graph</p>
+
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p><img height="auto" src="../../mlrefined_images/basics_images/reverse_func_0.png" width="80%"/></p>
+<p><img src="../../mlrefined_images/basics_images/reverse_func_0.png" width="80%" height="auto"></p>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>we can easily complete the equation it represents by navigating the graph forward, starting from the input node $x_1$.</p>
-<p><img height="auto" src="../../mlrefined_images/basics_images/reverse_func_1.png" width="80%"/></p><hr/>
-<p><img height="auto" src="../../mlrefined_images/basics_images/reverse_func_2.png" width="80%"/></p><hr/>
-<p><img height="auto" src="../../mlrefined_images/basics_images/reverse_func_3.png" width="80%"/></p><hr/>
-<p><img height="auto" src="../../mlrefined_images/basics_images/reverse_func_4.png" width="80%"/></p>
+<p><img src="../../mlrefined_images/basics_images/reverse_func_1.png" width="80%" height="auto"></p><hr>
+<p><img src="../../mlrefined_images/basics_images/reverse_func_2.png" width="80%" height="auto"></p><hr>
+<p><img src="../../mlrefined_images/basics_images/reverse_func_3.png" width="80%" height="auto"></p><hr>
+<p><img src="../../mlrefined_images/basics_images/reverse_func_4.png" width="80%" height="auto"></p>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -12659,14 +12644,15 @@ KgURAACAjYIIAABApSACAACwURABAACo6g8sWYc5vVRaKAAAAABJRU5ErkJggg==
 $$
 f(x) = \text{cos}(x_1^2 + x_2^2)
 $$<p>which we plot in the next Python cell.  Note that the default viewing angle here has been set to a bird's eye view - looking down on the function directly from above.</p>
+
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In [3]:</div>
+<div class="prompt input_prompt">In&nbsp;[3]:</div>
 <div class="inner_cell">
-<div class="input_area">
+    <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># what function should we play with?  Defined in the next line.</span>
 <span class="n">f</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span> <span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
 
@@ -12676,15 +12662,20 @@ $$<p>which we plot in the next Python cell.  Note that the default viewing angle
 <span class="c1"># run</span>
 <span class="n">view</span> <span class="o">=</span> <span class="p">[</span><span class="o">-</span><span class="mi">90</span><span class="p">,</span><span class="mi">45</span><span class="p">]</span>
 <span class="n">input_range</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">5</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">1000</span><span class="p">)</span> 
-<span class="n">opt_test</span><span class="o">.</span><span class="n">draw_it</span><span class="p">(</span><span class="n">g</span> <span class="o">=</span> <span class="n">f</span><span class="p">,</span><span class="n">set_figsize</span> <span class="o">=</span> <span class="mi">5</span><span class="p">,</span><span class="n">set_axis</span> <span class="o">=</span> <span class="s1">'off'</span><span class="p">,</span><span class="n">view</span> <span class="o">=</span> <span class="n">view</span><span class="p">,</span><span class="n">input_range</span><span class="o">=</span><span class="n">input_range</span><span class="p">)</span>  <span class="c1"># other options: horiz_1_label = 'horizontal_1',horiz_2_label = 'horizontal_2',vert_label = 'vertical',set_title = 'my title')</span>
+<span class="n">opt_test</span><span class="o">.</span><span class="n">draw_it</span><span class="p">(</span><span class="n">g</span> <span class="o">=</span> <span class="n">f</span><span class="p">,</span><span class="n">set_figsize</span> <span class="o">=</span> <span class="mi">5</span><span class="p">,</span><span class="n">set_axis</span> <span class="o">=</span> <span class="s1">&#39;off&#39;</span><span class="p">,</span><span class="n">view</span> <span class="o">=</span> <span class="n">view</span><span class="p">,</span><span class="n">input_range</span><span class="o">=</span><span class="n">input_range</span><span class="p">)</span>  <span class="c1"># other options: horiz_1_label = &#39;horizontal_1&#39;,horiz_2_label = &#39;horizontal_2&#39;,vert_label = &#39;vertical&#39;,set_title = &#39;my title&#39;)</span>
 </pre></div>
+
 </div>
 </div>
 </div>
+
 <div class="output_wrapper">
 <div class="output">
-<div class="output_area">
-<div class="prompt"></div>
+
+
+<div class="output_area"><div class="prompt"></div>
+
+
 <div class="output_png output_subarea ">
 <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAAElCAYAAABect+9AAAABHNCSVQICAgIfAhkiAAAAAlwSFlz
 AAALEgAACxIB0t1+/AAAIABJREFUeJzsvWlzo2d2n39hXwhi30kAXMCtySa72VJvUqQZrTNjexYn
@@ -13517,21 +13508,27 @@ H1gcDufcwAcWh8M5N/CBxeFwzg18YHE4nHMDH1gcDufcwAcWh8M5N/CBxeFwzg18YHE4nHMDH1gc
 DufcwAcWh8M5N/CBxeFwzg18YHE4nHMDH1gcDufcwAcWh8M5N/CBxeFwzg18YHE4nHODoN1ut1/2
 b4LD4XB+H/gJi8PhnBv4wOJwOOcGPrA4HM65gQ8sDodzbuADi8PhnBv4wOJwOOcGPrA4HM65gQ8s
 DodzbuADi8PhnBv4wOJwOOeG/wc2Pyvz7JegNgAAAABJRU5ErkJggg==
-"/>
+"
+>
+</div>
+
+</div>
+
 </div>
 </div>
+
 </div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="Example.---Constructing-a-new-function-out-of-elementary-parts"><span style="color:#a50e3e;">Example. </span>  Constructing a new function out of elementary parts<a class="anchor-link" href="#Example.---Constructing-a-new-function-out-of-elementary-parts">¶</a></h4>
+<h4 id="Example.---Constructing-a-new-function-out-of-elementary-parts"><span style="color:#a50e3e;">Example. </span>  Constructing a new function out of elementary parts<a class="anchor-link" href="#Example.---Constructing-a-new-function-out-of-elementary-parts">&#182;</a></h4>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -13539,18 +13536,18 @@ DodzbuADi8PhnBv4wOJwOOeG/wc2Pyvz7JegNgAAAABJRU5ErkJggg==
 <p>We start with multiplication by a constant</p>
 $$
 a(x) = 20\times x
-$$<p><img height="auto" src="../../mlrefined_images/basics_images/construct_a.png" width="80%"/></p><p>and another child node that creating that squares the input as</p>
+$$<p><img src="../../mlrefined_images/basics_images/construct_a.png" width="80%" height="auto"></p><p>and another child node that creating that squares the input as</p>
 $$
 b(x) = x^2
-$$<p><img height="auto" src="../../mlrefined_images/basics_images/construct_b.png" width="80%"/></p><p>Now we have two child nodes, both transformations of the input $x$.  Next, lets shove $a$ through a cosine function, and add 1 to $b$ giving two parent nodes</p>
+$$<p><img src="../../mlrefined_images/basics_images/construct_b.png" width="80%" height="auto"></p><p>Now we have two child nodes, both transformations of the input $x$.  Next, lets shove $a$ through a cosine function, and add 1 to $b$ giving two parent nodes</p>
 $$
 c(a) = \text{cos}(a)\\
 d(b) = b + 1 \\
-$$<p><img height="auto" src="../../mlrefined_images/basics_images/construct_c_d.png" width="80%"/></p><p>Finally lets make a division parent for $d$, and multiply the result by $c$ as</p>
+$$<p><img src="../../mlrefined_images/basics_images/construct_c_d.png" width="80%" height="auto"></p><p>Finally lets make a division parent for $d$, and multiply the result by $c$ as</p>
 $$
 e(d) = \frac{1}{d} \\
 f(c,e) = c\times e \\
-$$<p><img height="auto" src="../../mlrefined_images/basics_images/construct_e_f.png" width="80%"/></p><p>giving the final parent node $f$.  All together then, we have made a set of parent-child equations (note here we will leave off the parentheses on the left side denoting input for readability purposes since the associated input of each equation is clear from the right hand side of each equation)</p>
+$$<p><img src="../../mlrefined_images/basics_images/construct_e_f.png" width="80%" height="auto"></p><p>giving the final parent node $f$.  All together then, we have made a set of parent-child equations (note here we will leave off the parentheses on the left side denoting input for readability purposes since the associated input of each equation is clear from the right hand side of each equation)</p>
 \begin{array}
 \
 a = 20 \times x \\
@@ -13560,10 +13557,12 @@ d = b + 1 \\
 e = \frac{1}{d} \\
 f = c\times e \\
 \end{array}<p>Of course this is an inferior way of detailing these parent-child relationships, which are better expressed by visualizing the graph as shown above.</p>
+
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -13571,14 +13570,15 @@ f = c\times e \\
 $$
 g(x) = \frac{\text{cos}(20x)}{x^2 + 1}
 $$<p>in the next Python cell.</p>
+
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In [4]:</div>
+<div class="prompt input_prompt">In&nbsp;[4]:</div>
 <div class="inner_cell">
-<div class="input_area">
+    <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># specify range of input for our function</span>
 <span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">3</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">500</span><span class="p">)</span>
 
@@ -13589,15 +13589,20 @@ $$<p>in the next Python cell.</p>
 <span class="n">table1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">stack</span><span class="p">((</span><span class="n">x</span><span class="p">,</span><span class="n">g</span><span class="p">),</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>  
 
 <span class="c1"># use custom plotter to display function</span>
-<span class="n">baslib</span><span class="o">.</span><span class="n">basics_plotter</span><span class="o">.</span><span class="n">single_plot</span><span class="p">(</span><span class="n">table</span> <span class="o">=</span> <span class="n">table1</span><span class="p">,</span><span class="n">xlabel</span> <span class="o">=</span> <span class="s1">'$x$'</span><span class="p">,</span><span class="n">ylabel</span> <span class="o">=</span> <span class="s1">'g'</span><span class="p">,</span><span class="n">rotate_ylabel</span> <span class="o">=</span> <span class="mi">0</span><span class="p">)</span>
+<span class="n">baslib</span><span class="o">.</span><span class="n">basics_plotter</span><span class="o">.</span><span class="n">single_plot</span><span class="p">(</span><span class="n">table</span> <span class="o">=</span> <span class="n">table1</span><span class="p">,</span><span class="n">xlabel</span> <span class="o">=</span> <span class="s1">&#39;$x$&#39;</span><span class="p">,</span><span class="n">ylabel</span> <span class="o">=</span> <span class="s1">&#39;g&#39;</span><span class="p">,</span><span class="n">rotate_ylabel</span> <span class="o">=</span> <span class="mi">0</span><span class="p">)</span>
 </pre></div>
+
 </div>
 </div>
 </div>
+
 <div class="output_wrapper">
 <div class="output">
-<div class="output_area">
-<div class="prompt"></div>
+
+
+<div class="output_area"><div class="prompt"></div>
+
+
 <div class="output_png output_subarea ">
 <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAssAAAEPCAYAAAC0mYnkAAAABHNCSVQICAgIfAhkiAAAAAlwSFlz
 AAALEgAACxIB0t1+/AAAIABJREFUeJzt3Xl4HNWZLvC3lm61NkuWZEve8R7MbgQGD8YEjNmyeBJi
@@ -13955,32 +13960,44 @@ YGAAy5cvZ1AmIhpBDMtERAVuzZo1eOmllzBt2jS8+OKL+d4OEdFhhWGZiKiAbdq0CY899hi+9a1v
 0WGDYZmIqAB1dXVh1apVOPbYY3HRRRfZz3/5y19GU1NTxtxlIiI6dDgNg4iIiIhIgpVlIiIiIiIJ
 hmUiIiIiIgmGZSIiIiIiCYZlIiIiIiIJhmUiIiIiIgmGZSIiIiIiCYZlIiIiIiIJhmUiIiIiIon/
 D8zYzOUJ/ur3AAAAAElFTkSuQmCC
-"/>
+"
+>
+</div>
+
+</div>
+
 </div>
 </div>
+
 </div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="2.2-Section-summary">2.2 Section summary<a class="anchor-link" href="#2.2-Section-summary">¶</a></h2>
+<h2 id="2.2-Section-summary">2.2 Section summary<a class="anchor-link" href="#2.2-Section-summary">&#182;</a></h2>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>As with arithmetic expressions, we have now seen how to construct / deconstruct complex equations into their elementary parts using the computation graph.  This shows how complex equations can be constructed from sequentially composed parent-child equations, where each equation consists of either one or two inputs and an operation of function transformation.  Moreover we saw how in particular how any function can be represented as a nested composition of the parent-child equations defined by its computation graph.</p>
+
 </div>
 </div>
 </div>
-</div>
-</div>
+    </div>
+  </div>
 </body>
+
+ 
+
 <script type="application/vnd.jupyter.widget-state+json">
-{"version_major": 1, "state": {}, "version_minor": 0}
+{"version_minor": 0, "state": {}, "version_major": 1}
 </script>
+
+
 </html>

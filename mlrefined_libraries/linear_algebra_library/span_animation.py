@@ -16,7 +16,10 @@ from matplotlib import gridspec
 import copy
  
 # func,
-def perfect_visualize(vec1,vec2,**kwargs):
+def perfect_visualize(C,**kwargs):
+    vec1 = C[:,0]
+    vec2 = C[:,1]
+    
     # size up vecs
     vec1 = np.asarray(vec1)
     vec2 = np.asarray(vec2)

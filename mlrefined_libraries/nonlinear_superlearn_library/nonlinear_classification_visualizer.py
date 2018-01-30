@@ -11,6 +11,7 @@ import time
 from matplotlib import gridspec
 import copy
 from matplotlib.ticker import FormatStrFormatter
+from inspect import signature
 
 class Visualizer:
     '''
@@ -171,6 +172,10 @@ class Visualizer:
         predict = runner.model
         feat = runner.feature_transforms
         normalizer = runner.normalizer
+                
+        # count parameter layers of input to feature transform
+        sig = signature(feat)
+        sig = len(sig.parameters)
 
         # or just take last weights
         self.w = w_best
@@ -272,7 +277,11 @@ class Visualizer:
         
         #### plot right panel scatter ####
         # transform data
-        f = feat(normalizer(self.x.T)).T
+        f = 0 
+        if sig == 1:
+            f = feat(normalizer(self.x.T)).T
+        else:
+            f = feat(normalizer(self.x.T),self.w[0]).T
         x1 = f[:,0]
         x2 = f[:,1]
         #x1 = [f1(e) for e in self.x]
@@ -326,7 +335,11 @@ class Visualizer:
        # h = feat(normalizer(h))  
        # s = h[0,:]
        # t = h[1,:]
-        z = self.w[0] + self.w[1]*s + self.w[2]*t
+        z = 0
+        if sig == 1:
+            z = self.w[0] + self.w[1]*s + self.w[2]*t
+        else:
+            z = self.w[1][0] + self.w[1][1]*s + self.w[1][2]*t
         z = np.tanh(np.asarray(z))
         
         s.shape = (np.size(r1),np.size(r2))
@@ -357,7 +370,92 @@ class Visualizer:
         ax4.view_init(view2[0],view2[1])
         ax4.set_zlim([ymin,ymax])
 
+    ######## show N = 2 static image ########
+    # show coloring of entire space
+    def static_N2_simple(self,w_best,runner,**kwargs):
+        cost = runner.cost_func
+        predict = runner.model
+        feat = runner.feature_transforms
+        normalizer = runner.normalizer
+                
+        # count parameter layers of input to feature transform
+        sig = signature(feat)
+        sig = len(sig.parameters)
+
+        # or just take last weights
+        self.w = w_best
+
+        # construct figure
+        fig, axs = plt.subplots(1, 2, figsize=(9,4))
+
+        # create subplot with 2 panels
+        gs = gridspec.GridSpec(1, 2) 
+        ax2 = plt.subplot(gs[1],aspect = 'equal'); 
+        ax1 = plt.subplot(gs[0],projection='3d'); 
+
+        # scatter points
+        self.scatter_pts(ax1,self.x)
+
+        ### from above
+        ax2.set_xlabel(r'$x_1$',fontsize = 15)
+        ax2.set_ylabel(r'$x_2$',fontsize = 15,rotation = 0,labelpad = 20)
+        ax2.xaxis.set_major_formatter(FormatStrFormatter('%.1f'))
+        ax2.yaxis.set_major_formatter(FormatStrFormatter('%.1f'))
+
+        # plot points in 2d and 3d
+        C = len(np.unique(self.y))
+        if C == 2:
+            ind0 = np.argwhere(self.y == +1)
+            ax2.scatter(self.x[ind0,0],self.x[ind0,1],s = 55, color = self.colors[0], edgecolor = 'k')
+
+            ind1 = np.argwhere(self.y == -1)
+            ax2.scatter(self.x[ind1,0],self.x[ind1,1],s = 55, color = self.colors[1], edgecolor = 'k')
+        else:
+            for c in range(C):
+                ind0 = np.argwhere(self.y == c)
+                ax2.scatter(self.x[ind0,0],self.x[ind0,1],s = 55, color = self.colors[c], edgecolor = 'k')
+
+        self.move_axis_left(ax1)
+        ax1.set_xlabel(r'$x_1$', fontsize = 12,labelpad = 5)
+        ax1.set_ylabel(r'$x_2$', rotation = 0,fontsize = 12,labelpad = 5)
+        ax1.set_zlabel(r'$y$', rotation = 0,fontsize = 12,labelpad = -3)
+
+        ### create surface and boundary plot ###
+        xmin1 = np.min(self.x[:,0])
+        xmax1 = np.max(self.x[:,0])
+        xgap1 = (xmax1 - xmin1)*0.05
+        xmin1 -= xgap1
+        xmax1 += xgap1
+
+        xmin2 = np.min(self.x[:,1])
+        xmax2 = np.max(self.x[:,1])
+        xgap2 = (xmax2 - xmin2)*0.05
+        xmin2 -= xgap2
+        xmax2 += xgap2    
+        if 'view' in kwargs:
+            view = kwargs['view']
+            ax1.view_init(view[0],view[1])
+
+        # plot boundary for 2d plot
+        r1 = np.linspace(xmin1,xmax1,300)
+        r2 = np.linspace(xmin2,xmax2,300)
+        s,t = np.meshgrid(r1,r2)
+        s = np.reshape(s,(np.size(s),1))
+        t = np.reshape(t,(np.size(t),1))
+        h = np.concatenate((s,t),axis = 1)
+        z = predict(normalizer(h.T),self.w)
+        z = np.sign(z)
         
+        # reshape it
+        s.shape = (np.size(r1),np.size(r2))
+        t.shape = (np.size(r1),np.size(r2))     
+        z.shape = (np.size(r1),np.size(r2))
+        
+        #### plot contour, color regions ####
+        ax2.contour(s,t,z,colors='k', linewidths=2.5,levels = [0],zorder = 2)
+        ax2.contourf(s,t,z,colors = [self.colors[1],self.colors[0]],alpha = 0.15,levels = range(-1,2))
+        ax1.plot_surface(s,t,z,alpha = 0.1,color = 'w',rstride=30, cstride=30,linewidth=0.5,edgecolor = 'k')
+
             
     ###### plot plotting functions ######
     def plot_data(self):

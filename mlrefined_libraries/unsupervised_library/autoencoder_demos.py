@@ -1,5 +1,7 @@
  # import autograd functionality to bulid function's properly for optimizers
 import autograd.numpy as np
+import math
+import copy
 
 # import matplotlib functionality
 import matplotlib.pyplot as plt
@@ -27,13 +29,9 @@ def visual_comparison(x,weights):
         ax.scatter(x[0,:],x[1,:],c = 'k')
         
         # plot pc 1
-        ax.arrow(0, 0, w_best[0,0], w_best[0,1], head_width=0.25, head_length=0.5, fc='k', ec='k',linewidth = 4)
-        ax.arrow(0, 0, w_best[0,0], w_best[0,1], head_width=0.25, head_length=0.5, fc='lime', ec='lime',linewidth = 3)
+        vector_draw(w_best[:,0],ax,color = 'red',zorder = 1)
+        vector_draw(w_best[:,1],ax,color = 'red',zorder = 1)
 
-        # plot pc 2
-        ax.arrow(0, 0, w_best[1,0], w_best[1,1], head_width=0.25, head_length=0.5, fc='k', ec='k',linewidth = 4)
-        ax.arrow(0, 0, w_best[1,0], w_best[1,1], head_width=0.25, head_length=0.5, fc='lime', ec='lime',linewidth = 3)
-        
         # plot vertical / horizontal axes
         ax.axhline(linewidth=0.5, color='k',zorder = 0)
         ax.axvline(linewidth=0.5, color='k',zorder = 0)
@@ -41,7 +39,7 @@ def visual_comparison(x,weights):
         ax.set_xlabel(r'$x_1$',fontsize = 16)
         ax.set_ylabel(r'$x_2$',fontsize = 16,rotation = 0,labelpad = 10)
         
-def show_encode_decode(x,encoder,decoder,cost_history,weight_history,**kwargs):
+def show_encode_decode(x,cost_history,weight_history,**kwargs):
     '''
     Examine the results of linear or nonlinear PCA / autoencoder to two-dimensional input.
     Four panels are shown: 
@@ -61,6 +59,15 @@ def show_encode_decode(x,encoder,decoder,cost_history,weight_history,**kwargs):
     - scale: for vector field / quiver plot, adjusts the length of arrows in vector field
     '''
     # user-adjustable args
+    encoder = lambda a,b: np.dot(b.T,a)
+    decoder = lambda a,b: np.dot(b,a)
+    if 'encoder' in kwargs:
+        encoder = kwargs['encoder']
+    if 'decoder' in kwargs:
+        decoder = kwargs['decoder']
+    projmap = False
+    if 'projmap' in kwargs:
+        projmap = kwargs['projmap']
     show_pc = False
     if 'show_pc' in kwargs:
         show_pc = kwargs['show_pc']
@@ -74,6 +81,11 @@ def show_encode_decode(x,encoder,decoder,cost_history,weight_history,**kwargs):
     # pluck out best weights
     ind = np.argmin(cost_history)
     w_best = weight_history[ind]
+    num_params = 0
+    if type(w_best)==list:
+        num_params = len(w_best)
+    else:
+        num_params = np.ndim(w_best) - 1
 
     ###### figure 1 - original data, encoded data, decoded data ######
     fig = plt.figure(figsize = (10,4))
@@ -88,30 +100,30 @@ def show_encode_decode(x,encoder,decoder,cost_history,weight_history,**kwargs):
     if show_pc == True:
         for pc in range(np.shape(w_best)[1]):
             ax1.arrow(0, 0, w_best[0,pc], w_best[1,pc], head_width=0.25, head_length=0.5, fc='k', ec='k',linewidth = 4)
-            ax1.arrow(0, 0, w_best[0,pc], w_best[1,pc], head_width=0.25, head_length=0.5, fc='lime', ec='lime',linewidth = 3)
+            ax1.arrow(0, 0, w_best[0,pc], w_best[1,pc], head_width=0.25, head_length=0.5, fc='r', ec='r',linewidth = 3)
 
     ### plot encoded and decoded data ###
     v = 0
     p = 0
-    if np.ndim(w_best) > 2:
+    if num_params == 2:
         # create encoded vectors
-        v = encoder(w_best[0],x)
+        v = encoder(x,w_best[0])
 
         # decode onto basis
-        p = decoder(w_best[1:],v)
+        p = decoder(v,w_best[1])
     else:
         # create encoded vectors
-        v = encoder(w_best,x)
+        v = encoder(x,w_best)
 
         # decode onto basis
-        p = decoder(w_best,v)
+        p = decoder(v,w_best)
 
     # plot decoded data 
     z = np.zeros((1,np.size(v)))
     ax2.scatter(v,z,c = 'k',s = 60,linewidth = 0.75,edgecolor = 'w')
     
     # plot decoded data 
-    ax3.scatter(p[0,:],p[1,:],c = 'k',s = 60,linewidth = 0.75,edgecolor = 'w')
+    ax3.scatter(p[0,:],p[1,:],c = 'k',s = 60,linewidth = 0.75,edgecolor = 'r')
 
     # clean up panels
     xmin1 = np.min(x[0,:])
@@ -142,80 +154,103 @@ def show_encode_decode(x,encoder,decoder,cost_history,weight_history,**kwargs):
     ax2.set_title('encoded data',fontsize = 18)
     ax3.set_title('decoded data',fontsize = 18)
     
-    # set whitespace
-    #fgs.update(wspace=0.01, hspace=0.5) # set the spacing between axes. 
-        
-    ##### bottom panels - plot subspace and quiver plot of projections ####
-    fig = plt.figure(figsize = (10,4))
-    gs = gridspec.GridSpec(1, 2) 
-    ax1 = plt.subplot(gs[0],aspect = 'equal'); 
-    ax2 = plt.subplot(gs[1],aspect = 'equal'); 
-    
+    # plot learned manifold
     a = np.linspace(xmin1,xmax1,200)
     b = np.linspace(xmin2,xmax2,200)
     s,t = np.meshgrid(a,b)
     s.shape = (1,len(a)**2)
     t.shape = (1,len(b)**2)
     z = np.vstack((s,t))
-
-    if np.ndim(w_best) > 2:
+    
+    v = 0
+    p = 0
+    if num_params == 2:
         # create encoded vectors
-        v = encoder(w_best[0],z)
+        v = encoder(z,w_best[0])
 
         # decode onto basis
-        p = decoder(w_best[1:],v)
+        p = decoder(v,w_best[1])
     else:
         # create encoded vectors
-        v = encoder(w_best,z)
+        v = encoder(z,w_best)
 
         # decode onto basis
-        p = decoder(w_best,v)
+        p = decoder(v,w_best)
     
-    ax1.scatter(p[0,:],p[1,:],c = 'k',s = 1.5)
-    ax2.scatter(p[0,:],p[1,:],c = 'k',s = 1.5)
-
-    ### create quiver plot of how data is projected ###
-    new_scale = 0.75
-    a = np.linspace(xmin1 - xgap1*new_scale,xmax1 + xgap1*new_scale,20)
-    b = np.linspace(xmin2 - xgap2*new_scale,xmax2 + xgap2*new_scale,20)
-    s,t = np.meshgrid(a,b)
-    s.shape = (1,len(a)**2)
-    t.shape = (1,len(b)**2)
-    z = np.vstack((s,t))
-
-    if np.ndim(w_best) > 2:
-        # create encoded vectors
-        v = encoder(w_best[0],z)
-
-        # decode onto basis
-        p = decoder(w_best[1:],v)
-    else:
-        # create encoded vectors
-        v = encoder(w_best,z)
-
-        # decode onto basis
-        p = decoder(w_best,v)
-
-    # get directions
-    d = []
-    for i in range(p.shape[1]):
-        dr = (p[:,i] - z[:,i])[:,np.newaxis]
-        d.append(dr)
-    d = 2*np.array(d)
-    d = d[:,:,0].T
-    M = np.hypot(d[0,:], d[1,:])
-    ax2.quiver(z[0,:], z[1,:], d[0,:], d[1,:],M,alpha = 0.5,width = 0.01,scale = scale,cmap='autumn') 
-    ax2.quiver(z[0,:], z[1,:], d[0,:], d[1,:],edgecolor = 'k',linewidth = 0.25,facecolor = 'None',width = 0.01,scale = scale) 
-
-    #### clean up and label panels ####
-    for ax in [ax1,ax2]:
-        ax.set_xlim([xmin1 - xgap1*new_scale,xmax1 + xgap1*new_scale])
-        ax.set_ylim([xmin2 - xgap2*new_scale,xmax2 + xgap1*new_scale])
-        ax.set_xlabel(r'$x_1$',fontsize = 16)
-        ax.set_ylabel(r'$x_2$',fontsize = 16,rotation = 0,labelpad = 10)
-     
-    ax1.set_title('manifold found',fontsize = 18)
-    ax2.set_title('projection map',fontsize = 18)
-    
+    ax3.scatter(p[0,:],p[1,:],c = 'k',s = 1.5,edgecolor = 'r',linewidth = 1,zorder = 0)
+        
     # set whitespace
-    gs.update(wspace=0.01, hspace=0.5) # set the spacing between axes. 
+    #fgs.update(wspace=0.01, hspace=0.5) # set the spacing between axes. 
+        
+    ##### bottom panels - plot subspace and quiver plot of projections ####
+    if projmap == True:
+        fig = plt.figure(figsize = (10,4))
+        gs = gridspec.GridSpec(1, 1) 
+        ax1 = plt.subplot(gs[0],aspect = 'equal'); 
+        ax1.scatter(p[0,:],p[1,:],c = 'r',s = 9.5)
+        ax1.scatter(p[0,:],p[1,:],c = 'k',s = 1.5)
+        
+        ### create quiver plot of how data is projected ###
+        new_scale = 0.75
+        a = np.linspace(xmin1 - xgap1*new_scale,xmax1 + xgap1*new_scale,20)
+        b = np.linspace(xmin2 - xgap2*new_scale,xmax2 + xgap2*new_scale,20)
+        s,t = np.meshgrid(a,b)
+        s.shape = (1,len(a)**2)
+        t.shape = (1,len(b)**2)
+        z = np.vstack((s,t))
+        
+        v = 0
+        p = 0
+        if num_params == 2:
+            # create encoded vectors
+            v = encoder(z,w_best[0])
+
+            # decode onto basis
+            p = decoder(v,w_best[1])
+        else:
+            # create encoded vectors
+            v = encoder(z,w_best)
+
+            # decode onto basis
+            p = decoder(v,w_best)
+
+
+        # get directions
+        d = []
+        for i in range(p.shape[1]):
+            dr = (p[:,i] - z[:,i])[:,np.newaxis]
+            d.append(dr)
+        d = 2*np.array(d)
+        d = d[:,:,0].T
+        M = np.hypot(d[0,:], d[1,:])
+        ax1.quiver(z[0,:], z[1,:], d[0,:], d[1,:],M,alpha = 0.5,width = 0.01,scale = scale,cmap='autumn') 
+        ax1.quiver(z[0,:], z[1,:], d[0,:], d[1,:],edgecolor = 'k',linewidth = 0.25,facecolor = 'None',width = 0.01,scale = scale) 
+
+        #### clean up and label panels ####
+        for ax in [ax1]:
+            ax.set_xlim([xmin1 - xgap1*new_scale,xmax1 + xgap1*new_scale])
+            ax.set_ylim([xmin2 - xgap2*new_scale,xmax2 + xgap1*new_scale])
+            ax.set_xlabel(r'$x_1$',fontsize = 16)
+            ax.set_ylabel(r'$x_2$',fontsize = 16,rotation = 0,labelpad = 10)
+
+        ax1.set_title('projection map',fontsize = 18)
+
+        # set whitespace
+        gs.update(wspace=0.01, hspace=0.5) # set the spacing between axes. 
+    
+# draw a vector
+def vector_draw(vec,ax,**kwargs):
+    color = 'k'
+    if 'color' in kwargs:
+        color = kwargs['color']
+    zorder = 3 
+    if 'zorder' in kwargs:
+        zorder = kwargs['zorder']
+        
+    veclen = math.sqrt(vec[0]**2 + vec[1]**2)
+    head_length = 0.25
+    head_width = 0.25
+    vec_orig = copy.deepcopy(vec)
+    vec = (veclen - head_length)/veclen*vec
+    ax.arrow(0, 0, vec[0],vec[1], head_width=head_width, head_length=head_length, fc=color, ec=color,linewidth=3,zorder = zorder)
+      

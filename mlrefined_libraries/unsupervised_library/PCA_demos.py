@@ -106,46 +106,89 @@ def plot_hyperplane(data,slopes,ax):
     ### plot function and z=0 for visualization ###
     ax.plot_surface(w1_vals, w2_vals, zvals, alpha = 0.1,color = 'r',zorder = 2)
     
-def project_data_from_3d_to_2d(X_normalized,X_transformed,vecs,init):
+def project_data_from_3d_to_2d(X,C,view):
+
     # create plotting panel
-    fig = plt.figure(figsize = (9,4))
+    fig = plt.figure(figsize = (10,4))
 
     # create subplot with 3 panels, plot input function in center plot
-    gs = gridspec.GridSpec(1, 2, width_ratios=[1.5,1]) 
+    gs = gridspec.GridSpec(1, 3, width_ratios=[1.5,1,1.5]) 
     ax1 = plt.subplot(gs[0],projection='3d',aspect = 'equal');  
     ax2 = plt.subplot(gs[1],aspect = 'equal'); 
+    ax3 = plt.subplot(gs[2],projection='3d',aspect = 'equal');  
 
+    #### plot original data ####
     # scatter normalized data
-    ax1.scatter(X_normalized[0,:],X_normalized[1,:],X_normalized[2,:],c = 'k',alpha = 0.25)
+    ax1.scatter(X[0,:],X[1,:],X[2,:],c = 'k',alpha = 0.25)
 
     # plot principal components
     a = np.zeros((2,1))
-    ax1.quiver(a,a,a,vecs[0,:],vecs[1,:],vecs[2,:],color = 'r')
+    ax1.quiver(a,a,a,C[0,:],C[1,:],C[2,:],color = 'r')
 
     # draw hyperplane
-    plot_hyperplane(X_normalized.T,vecs,ax1)
+    plot_hyperplane(X.T,C,ax1)
     
     # clean up panel 1
-    ax1.view_init(init[0],init[1])
+    ax1.view_init(view[0],view[1])
     ax1.set_xlabel(r'$x_1$',fontsize = 18,labelpad = 5)
     ax1.set_ylabel(r'$x_2$',fontsize = 18,labelpad = 5)
     ax1.zaxis.set_rotate_label(False)  # disable automatic rotation
     ax1.set_zlabel(r'$x_3$',fontsize = 18,rotation = 0)
-    ax1.set_title('Original space',fontsize = 20)
+    ax1.set_title('Original data',fontsize = 20)
+    move_axis_left(ax1)
+
+    #### plot encoded data ####
+    W = np.linalg.solve(np.dot(C.T,C),np.dot(C.T,X))
 
     # in new coordinate system defined by pcs
-    ax2.scatter(X_transformed[0,:],X_transformed[1,:],c = 'k',edgecolor = 'w',linewidth = 1,s = 50,zorder = 2)
+    ax2.scatter(W[0,:],W[1,:],c = 'k',edgecolor = 'w',linewidth = 1,s = 50,zorder = 2)
 
     # paint arrows on data
-    ax2.arrow(0,0,0,2,fc="r", ec="r",head_width=0.45, head_length=0.45,linewidth = 3,zorder = 3)
-    ax2.arrow(0,0,1,0,fc="r", ec="r",head_width=0.45, head_length=0.45,linewidth = 3,zorder = 3)   
+    ax2.arrow(0,0,0,1,fc="r", ec="r",head_width=0.15, head_length=0.15,linewidth = 2,zorder = 3)
+    ax2.arrow(0,0,1,0,fc="r", ec="r",head_width=0.15, head_length=0.15,linewidth = 2,zorder = 3)   
     
     # clean up panel 2
     ax2.set_xlabel(r'$c_1$',fontsize = 18)
     ax2.set_ylabel(r'$c_2$',fontsize = 18,rotation = 0)
     ax2.axhline(y=0, color='k', linewidth=1.5,zorder = 1)
     ax2.axvline(x=0, color='k', linewidth=1,zorder = 1)
-    ax2.set_title('Transformed space',fontsize = 20)
+    ax2.set_title('Encoded data',fontsize = 20)
+    
+    xmin = np.min([-1.5,np.min(W[0,:])])
+    xmax = np.max([1.5,np.max(W[0,:])])
+    xgap = (xmax - xmin)*0.2
+    xmin -= xgap
+    xmax += xgap
+    
+    ymin = np.min([-1.5,np.min(W[1,:])])
+    ymax = np.max([1.5,np.max(W[1,:])])
+    ygap = (ymax - ymin)*0.2
+    ymin -= ygap
+    ymax += ygap
+   
+    ax2.set_xlim([xmin,xmax])
+    ax2.set_ylim([ymin,ymax])
+    
+    #### plot decoded data ####
+    # scatter decoded data
+    X_d = np.dot(C,W)
+    ax3.scatter(X_d[0,:],X_d[1,:],X_d[2,:],c = 'k',edgecolor = 'r',linewidth = 1,alpha = 0.25)
+    
+    # draw hyperplane
+    plot_hyperplane(X.T,C,ax3)
+    
+    # clean up panel 1
+    ax3.view_init(view[0],view[1])
+    ax3.set_xlabel(r'$x_1$',fontsize = 18,labelpad = 5)
+    ax3.set_ylabel(r'$x_2$',fontsize = 18,labelpad = 5)
+    ax3.zaxis.set_rotate_label(False)  # disable automatic rotation
+    ax3.set_zlabel(r'$x_3$',fontsize = 18,rotation = 0)
+    ax3.set_title('Decoded data',fontsize = 20)
+    move_axis_left(ax3)
+    
+    # set viewing range based on original plot
+    vals = ax1.get_zlim()
+    ax3.set_zlim([vals[0],vals[1]])
     
 # func,
 def pca_visualizer(X,W,pcs):
@@ -287,3 +330,19 @@ def vector_draw(vec,ax,**kwargs):
     vec = (veclen - head_length)/veclen*vec
     ax.arrow(0, 0, vec[0],vec[1], head_width=head_width, head_length=head_length, fc=color, ec=color,linewidth=3,zorder = zorder)
       
+        
+# set axis in left panel
+def move_axis_left(ax):
+    tmp_planes = ax.zaxis._PLANES 
+    ax.zaxis._PLANES = ( tmp_planes[2], tmp_planes[3], 
+                        tmp_planes[0], tmp_planes[1], 
+                        tmp_planes[4], tmp_planes[5])   
+    ax.grid(False)
+    
+    ax.xaxis.pane.fill = False
+    ax.yaxis.pane.fill = False
+    ax.zaxis.pane.fill = False
+
+    ax.xaxis.pane.set_edgecolor('white')
+    ax.yaxis.pane.set_edgecolor('white')
+    ax.zaxis.pane.set_edgecolor('white')

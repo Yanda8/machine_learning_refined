@@ -16,7 +16,10 @@ from matplotlib import gridspec
 import copy
  
 # func,
-def perfect_visualize(vec1,vec2,**kwargs):
+def perfect_visualize(C,**kwargs):
+    vec1 = C[:,0]
+    vec2 = C[:,1]
+    
     # size up vecs
     vec1 = np.asarray(vec1)
     vec2 = np.asarray(vec2)
@@ -117,7 +120,11 @@ def perfect_visualize(vec1,vec2,**kwargs):
     return(anim)    
 
  # func,
-def perfect_visualize_transform(vec1,vec2,**kwargs):
+def perfect_visualize_transform(C,**kwargs):
+    # extract 
+    vec1 = C[:,0]
+    vec2 = C[:,1]
+    
     # size up vecs
     vec1 = np.asarray(vec1)
     vec2 = np.asarray(vec2)
@@ -343,7 +350,10 @@ def sphereing_visualizer(pts,pcs,eigs):
 
 
 # func,
-def perfect_visualize_transform_static(vec1,vec2,**kwargs):
+def perfect_visualize_transform_static(C,**kwargs):
+    vec1 = C[:,0]
+    vec2 = C[:,1]
+    
     # size up vecs
     vec1 = np.asarray(vec1)
     vec2 = np.asarray(vec2)
@@ -366,17 +376,16 @@ def perfect_visualize_transform_static(vec1,vec2,**kwargs):
     xx,yy = np.meshgrid(s,s)
     xx.shape = (xx.size,1)
     yy.shape = (yy.size,1)
-    pts = np.concatenate((xx,yy),axis=1)
-    pts = np.flipud(pts)
-     
-    if 'pts' in kwargs:
-        pts = kwargs['pts']
-        pts = pts.T
+    X = np.concatenate((xx,yy),axis=1)
+    X = np.flipud(X)
+    
+    if 'X' in kwargs:
+        X = kwargs['X'].T
              
     # swing through points and compute coeffecients
     alphas = []
-    for k in range(pts.shape[0]):
-        vec3 = pts[k,:]   
+    for k in range(X.shape[0]):
+        vec3 = X[k,:]   
         vec3.shape = (len(vec3),1)
         A = np.concatenate((vec1copy,vec2copy),axis=1)
         b = vec3
@@ -384,13 +393,13 @@ def perfect_visualize_transform_static(vec1,vec2,**kwargs):
         alphas.append(alpha)
          
     # set viewing limits for originals
-    xmin = np.min(pts[:,0])
-    xmax = np.max(pts[:,0])
+    xmin = np.min(X[:,0])
+    xmax = np.max(X[:,0])
     xgap = (xmax - xmin)*0.15
     xmin -= xgap
     xmax += xgap
-    ymin = np.min(pts[:,1])
-    ymax = np.max(pts[:,1])
+    ymin = np.min(X[:,1])
+    ymax = np.max(X[:,1])
     ygap = (ymax - ymin)*0.15
     ymin -= ygap
     ymax += ygap
@@ -413,9 +422,9 @@ def perfect_visualize_transform_static(vec1,vec2,**kwargs):
 
     ### take pt of grid and estimate with inputs ###        
     # scatter every point up to k
-    for i in range(pts.shape[0]):
+    for i in range(X.shape[0]):
         # plot original point
-        pt = pts[i,:]
+        pt = X[i,:]
         ax1.scatter(pt[0],pt[1],s = 60, c = 'k',edgecolor = 'w',linewidth = 1)
 
         # plot transformed plot
@@ -441,7 +450,7 @@ def perfect_visualize_transform_static(vec1,vec2,**kwargs):
     ax1.grid('off')
     ax1.set_xlabel(r'$x_1$',fontsize = 22)
     ax1.set_ylabel(r'$x_2$',fontsize = 22,rotation = 0,labelpad = 10)
-    ax1.set_title('original space',fontsize = 24)
+    ax1.set_title('original data',fontsize = 24)
 
     ax2.grid(True, which='both')
     ax2.axhline(y=0, color='k', linewidth=1.5,zorder = 1)
@@ -451,7 +460,7 @@ def perfect_visualize_transform_static(vec1,vec2,**kwargs):
     ax2.grid('off')
     ax2.set_xlabel(r'$c_1$',fontsize = 22)
     ax2.set_ylabel(r'$c_2$',fontsize = 22,rotation = 0,labelpad = 10)
-    ax2.set_title('transformed space',fontsize = 24)
+    ax2.set_title('encoded data',fontsize = 24)
          
     # set tick label fonts
     for tick in ax1.xaxis.get_major_ticks():

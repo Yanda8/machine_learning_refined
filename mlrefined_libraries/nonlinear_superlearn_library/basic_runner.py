@@ -1,10 +1,8 @@
 import autograd.numpy as np
 from autograd import value_and_grad 
-from autograd import hessian
 from autograd.misc.flatten import flatten_func
 import copy
 from inspect import signature
-
 
 '''
 A list of cost functions for supervised learning.  Use the choose_cost function
@@ -86,10 +84,7 @@ class Setup:
         # not have internal parameters
         f = 0
         if len(self.sig.parameters) == 2:
-            if np.shape(w)[1] == 1:
-                f = self.feature_transforms(x,w)
-            else:
-                f = self.feature_transforms(x,w[0])
+            f = self.feature_transforms(x,w[0])
         else: 
             f = self.feature_transforms(x)    
 
@@ -101,10 +96,10 @@ class Setup:
         # switch for dealing with feature transforms that either 
         # do or do not have internal parameters
         a = 0
-        if np.ndim(w) == 2:
-            a = np.dot(f.T,w)
-        elif np.ndim(w) == 3:
+        if len(self.sig.parameters) == 2:
             a = np.dot(f.T,w[1])
+        else:
+            a = np.dot(f.T,w)
         return a
     
     # an implementation of the least squares cost function for linear regression
@@ -183,13 +178,17 @@ class Setup:
         return count
     
     ##### optimizer ####
+
     # gradient descent function - inputs: g (input function), alpha (steplength parameter), max_its (maximum number of iterations), w (initialization)
     def gradient_descent(self,g,alpha_choice,max_its,w):
+        # flatten the input function to more easily deal with costs that have layers of parameters
+        g_flat, unflatten, w = flatten_func(g, w) # note here the output 'w' is also flattened
+
         # compute the gradient function of our input function - note this is a function too
         # that - when evaluated - returns both the gradient and function evaluations (remember
         # as discussed in Chapter 3 we always ge the function evaluation 'for free' when we use
         # an Automatic Differntiator to evaluate the gradient)
-        gradient = value_and_grad(g)
+        gradient = value_and_grad(g_flat)
 
         # run the gradient descent loop
         weight_history = []      # container for weight history
@@ -202,22 +201,22 @@ class Setup:
             else:
                 alpha = alpha_choice
 
-            # evaluate the gradient, store current weights and cost function value
+            # evaluate the gradient, store current (unflattened) weights and cost function value
             cost_eval,grad_eval = gradient(w)
-            weight_history.append(w)
+            weight_history.append(unflatten(w))
             cost_history.append(cost_eval)
 
             # take gradient descent step
             w = w - alpha*grad_eval
 
         # collect final weights
-        weight_history.append(w)
+        weight_history.append(unflatten(w))
         # compute final cost function value via g itself (since we aren't computing 
         # the gradient at the final step we don't get the final cost function value 
         # via the Automatic Differentiatoor) 
-        cost_history.append(g(w))  
+        cost_history.append(g_flat(w))  
         return weight_history,cost_history
-    
+
     ###### normalizers #####
     # standard normalization function 
     def standard_normalizer(self,x):
