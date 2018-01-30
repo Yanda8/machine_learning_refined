@@ -50,12 +50,12 @@ class Visualizer:
         ax.set_ylim(ymin,ymax)
 
         # check if we have a model to fit
-        if 'predict' in kwargs:
-            predict = kwargs['predict']
+        if 'model' in kwargs:
+            model = kwargs['model']
             weights = kwargs['weights']
 
             s = np.linspace(xmin,xmax,200)
-            t = [predict(np.reshape(v,(1,1)),weights)[0] for v in s];
+            t = [model(np.reshape(v,(1,1)),weights)[0] for v in s];
             ax.plot(s,t,linewidth = 3,zorder = 3)
         plt.show()
     
@@ -166,8 +166,8 @@ class Visualizer:
        
         ###### plot fit if input ######
         # check if we have a model to fit
-        if 'predict' in kwargs:
-            predict = kwargs['predict']
+        if 'model' in kwargs:
+            model = kwargs['model']
             weights = kwargs['weights']
             
             # or just take last weights        
@@ -185,7 +185,7 @@ class Visualizer:
             z = []
             for j in range(len(h)):
                 h_j = np.reshape(h[j,:],(1,2))
-                a = predict(h_j,weights)
+                a = model(h_j,weights)
                 z.append(a)
             z = np.asarray(z)
             z = np.tanh(z)
