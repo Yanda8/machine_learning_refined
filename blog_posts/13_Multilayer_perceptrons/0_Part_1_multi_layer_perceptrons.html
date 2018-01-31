@@ -11771,7 +11771,7 @@ div#notebook {
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Unlike polynomials and other fixed kernel bases, each element of a neural network basis has internal parameters that can be tuned to change the shape of the basis function considerably. In our general introduction to nonlinear supervised learning we described <em>single-layer</em> network elements, which are constructed by shoving a linear combination of input through a single nonlinear function like $\text{tanh}$ or the ReLU function. In this post we detail multi-layer networks - often called <em>multi-layer perceptrons</em> or <em>deep feedforward neural networks</em>. We begin by describing deep networks in the context of our previous discussion, as a particular catalog of nonlinear functions used for nonlinear supervised learning problems. We then turn to describe these network elements from a computational perspective, so that we can more easily see how to effectively compute with them.</p>
+<p>Unlike polynomials and other fixed kernel bases, each element of a neural network basis has internal parameters that can be tuned to give it a flexible shape. //In our general introduction to nonlinear supervised learning we described <em>single-layer</em> network elements, which are constructed by shoving a linear combination of input through a single nonlinear function like $\text{tanh}$ or the ReLU function.// In this post we detail multi-layer networks - often called <em>multi-layer perceptrons</em> or <em>deep feedforward neural networks</em>. We begin by describing deep networks in the context of our previous discussion, as a particular catalog of nonlinear functions used for nonlinear supervised learning problems. We then turn to describe these network elements from a computational perspective, so that we can more easily see how to effectively compute with them.</p>
 
 </div>
 </div>
@@ -11817,10 +11817,10 @@ div#notebook {
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>As we have seen previously, at the heart of nonlinear regression and classification is the following simple yet powerful idea: curves of arbitrary shape can be approximated using a linear combination of nonlinear basis elements, denoted by</p>
+<p>As we have now seen numerous times throughout the book, at the heart of nonlinear regression and classification is the following simple yet powerful idea: we can use a catalog or basis of nonlinear functions to approximate curves of arbitrary shape. Specifically, we take a linear combination of these basis elements to form the nonlinear model</p>
 \begin{equation}
-\text{predict}\left(x_1,x_2,\ldots,x_N\right)=w_{0}+\underset{i}{\sum}{w_{i}\,\,f_i\left(x_1,x_2,\ldots,x_N\right)}
-\end{equation}<p>where $w_i$'s are tunable coefficients or weights of the linear combination, and $f_i$'s are the basis elements, each of which is a nonlinear function of the input. In this Section we discuss neural network bases and the algebraic form their member elements take, beginning with the simplest such basis: a single-layer neural network basis.</p>
+\text{model}\left(x_1,x_2,\ldots,x_N\right)=w_{0}+\underset{i}{\sum}{w_{i}\,\,f_i\left(x_1,x_2,\ldots,x_N\right)}
+\end{equation}<p>where $w_i$'s are tunable coefficients or weights of the linear combination, and $f_i$'s are the basis elements, each of which is a nonlinear function of the input. With neural network bases these $f_i$'s are also parameterized. In this Section we discuss in detail how to form neural network basis functions starting with the simplest of them: a single-layer neural network basis.</p>
 
 </div>
 </div>
@@ -11830,7 +11830,40 @@ div#notebook {
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="1.1-Single-layer-units">1.1 Single-layer units<a class="anchor-link" href="#1.1-Single-layer-units">&#182;</a></h2>
+<h2 id="1.1-Single-layer-basis-functions">1.1 Single-layer basis functions<a class="anchor-link" href="#1.1-Single-layer-basis-functions">&#182;</a></h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="1.1.1-The-recipe">1.1.1 The recipe<a class="anchor-link" href="#1.1.1-The-recipe">&#182;</a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>A single-layer neural network basis function is built following a very simple two-step recipe:</p>
+<ol>
+<li>Take a <strong>linear</strong> combination of the input (plus a bias): $w_{0}+{\sum_{n=1}^{N}}{w_{n}\,x_n}$ </li>
+<li>Pass the result through a <strong>nonlinear</strong> function: $a\left(w_{0}+{\sum_{n=1}^{N}}{w_{n}\,x_n}\right)$   </li>
+</ol>
+<p>Notice how the resulting basis function, i.e., $a\left(w_{0}+{\sum_{n=1}^{N}}{w_{n}\,x_n}\right)$, is both  <em>parameterized</em> (via the internal weights $w_0,\ldots,w_N$), and <em>nonlinear</em>, because of the nonlinear function $a$ which is usually referred to as the <em>activation</em> function (we discuss the origin of the name activation function later in this Section).</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="1.1.2-The-implementation">1.1.2 The implementation<a class="anchor-link" href="#1.1.2-The-implementation">&#182;</a></h3>
 </div>
 </div>
 </div>
@@ -11881,7 +11914,17 @@ f_i^{(1)}\left(x_1,x_2,\ldots,x_N\right)=a^{(1)}\left(w_{0,i}+\underset{n=1}{\ov
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="Example-1.--The-shape-of-single-layer-elements-with-$\text{tanh}$-activation"><span style="color:#a50e3e;">Example 1. </span> The shape of single-layer elements with $\text{tanh}$ activation<a class="anchor-link" href="#Example-1.--The-shape-of-single-layer-elements-with-$\text{tanh}$-activation">&#182;</a></h4>
+<h4 id="Example-1.--The-shape-of-single-layer-functions-with-$\text{tanh}$-activation"><span style="color:#a50e3e;">Example 1. </span> The shape of single-layer functions with $\text{tanh}$ activation<a class="anchor-link" href="#Example-1.--The-shape-of-single-layer-functions-with-$\text{tanh}$-activation">&#182;</a></h4>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>In the Python cell below we plot four instances of a single-layer basis function using $\text{tanh}$ as nonlinear activation function. The input here is one-dimensional (scalar) to facilitate visualization of the basis functions. In each instance. In each instance the internal parameters have been set randomly, giving each basis function a distinct shape.</p>
+
 </div>
 </div>
 </div>
@@ -11922,10 +11965,10 @@ f_i^{(1)}\left(x\right)=\text{tanh}\left(w_{0,i}+w_{1,i}\,x\right), \qquad i=1,2
 
 
 
-<div id="0f4a5a94-9551-48fe-94bd-af5a19a9817e"></div>
+<div id="e412b120-ef2d-4566-a449-f3cc43763ac8"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#0f4a5a94-9551-48fe-94bd-af5a19a9817e');
+var element = $('#e412b120-ef2d-4566-a449-f3cc43763ac8');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -12724,7 +12767,17 @@ if (IPython.notebook.kernel != null) {
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="Example-2.--The-shape-of-single-layer-elements-with-ReLU-activation"><span style="color:#a50e3e;">Example 2. </span> The shape of single-layer elements with ReLU activation<a class="anchor-link" href="#Example-2.--The-shape-of-single-layer-elements-with-ReLU-activation">&#182;</a></h4>
+<h4 id="Example-2.--The-shape-of-single-layer-functions-with-ReLU-activation"><span style="color:#a50e3e;">Example 2. </span> The shape of single-layer functions with ReLU activation<a class="anchor-link" href="#Example-2.--The-shape-of-single-layer-functions-with-ReLU-activation">&#182;</a></h4>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>We repeat the experiment in Example 1, only this time swapping $\text{tanh}$ for ReLU as activation.</p>
+
 </div>
 </div>
 </div>
@@ -12774,10 +12827,10 @@ f_i^{(1)}\left(x\right)=\text{max}\left(0,w_{0,i}+w_{1,i}\,x\right), \qquad i=1,
 
 
 
-<div id="aee87a96-5a91-472d-a4cf-46db57f75d01"></div>
+<div id="f3acc15a-b887-4242-9188-c7b411b768d0"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#aee87a96-5a91-472d-a4cf-46db57f75d01');
+var element = $('#f3acc15a-b887-4242-9188-c7b411b768d0');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -13576,7 +13629,7 @@ if (IPython.notebook.kernel != null) {
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="Flashback.--The-advent-of-artificial-neurons"><span style="color:#a50e3e;">Flashback. </span> The advent of artificial neurons<a class="anchor-link" href="#Flashback.--The-advent-of-artificial-neurons">&#182;</a></h4>
+<h4 id="Jargon-time.--A-brief-historical-overview-of-neural-networks-nomenclature"><span style="color:#a50e3e;">Jargon time. </span> A brief historical overview of neural networks nomenclature<a class="anchor-link" href="#Jargon-time.--A-brief-historical-overview-of-neural-networks-nomenclature">&#182;</a></h4>
 </div>
 </div>
 </div>
@@ -13585,10 +13638,9 @@ if (IPython.notebook.kernel != null) {
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Ever since Hippocrates argued, over two thousand years ago, that the brain was 'the seat of the mind,' scientists have been studying it with the hope of unlocking the secrets of human intelligence. After all, artificial intelligence (AI) would be long solved if we truly understood how human intelligence worked.</p>
-<p>The first artificial neurons were proposed in the 1940s <a href="#bib_cell">[1,2]</a>. These early simplistic models, invented to explain how biological neurons (brain cells) operate inside the brain, culminated in the introduction of the <em>perceptron</em> model <a href="#bib_cell">[3]</a> in 1957.</p>
-<p>Figure 1 shows a comparative illustration of a biological neuron in left panel along with a <em>perceptron</em> in the right panel. The biological neuron consists of three main parts: <em>dendrites</em> (the neuron's receivers), <em>soma</em> (the cell body), and <em>axon</em> (the neuron's transmitter). Closely mimicking the biological neuron's structure, an artificial neuron comprises a set of dendrite-like edges, each taking an input and multiplying it by a (synaptic) weight associated with that edge. These weighted inputs are summed up after going through a <em>summation unit</em> (shown by a small hollow circle). The result is subsequently fed to an <em>activation unit</em> (shown by a large blue circle) whose output is then transmitted to the outside via an axon-like projection. The perceptron, taken as a whole, can be thought of as a visual representation of the single-layer element in equation (4).</p>
-<p>From a biological perspective, neurons are believed to remain inactive until the net input to the cell body (soma) reaches a certain threshold, at which point the neuron gets <em>activated</em> and fires an electro-chemical signal. This is why the nonlinear function determining the shape of the output is referred to as the <em>activation function</em>.</p>
+<p>Ever since Hippocrates argued, over two thousand years ago, that the brain was 'the seat of the mind,' scientists have been studying it with the hope of unlocking the secrets of human intelligence. In fact the field we know today as Artificial Intelligence (AI) was born in an ambitious quest to mathematically model the complex human brain. The first attempts<a href="#bib_cell">[1,2]</a> were made in the 1940s by a group of psychologists and neuroscientists who proposed simplistic mathematical models for a single neuron (brain cell). These early models - later dubbed as artificial neurons - culminated in the introduction of the <em>perceptron</em> model <a href="#bib_cell">[3]</a> in 1957.</p>
+<p>Figure 1 shows a comparative illustration of a biological neuron (left) and a <em>perceptron</em> (right). The biological neuron consists of three main parts: <em>dendrites</em> (the neuron's receivers), <em>soma</em> (the cell body), and <em>axon</em> (the neuron's transmitter). Closely mimicking this structure, an artificial neuron comprises a set of dendrite-like edges, each taking an input and multiplying it by a (synaptic) weight associated with that edge. These weighted inputs are summed up after going through a <em>summation unit</em> (shown in the figure by a small hollow circle). The result is subsequently fed to an <em>activation unit</em> (shown by a large blue circle) whose output is then transmitted to the outside via an axon-like projection. Notice how the output of the perceptron model in the right panel of Figure 1 takes the same form as a single-layer basis function. In other words, the perceptron model is simply a visual representation of such basis function.</p>
+<p>From a biological perspective, neurons are believed to remain inactive until the net input to the cell body (soma) reaches a certain threshold, at which point the neuron gets <em>activated</em> and fires an electro-chemical signal, hence the name <em>activation function</em>.</p>
 
 </div>
 </div>
@@ -13600,7 +13652,7 @@ if (IPython.notebook.kernel != null) {
 <div class="text_cell_render border-box-sizing rendered_html">
 <figure>
 <img src="../../mlrefined_images/nonlinear_superlearn_images/biol_vs_art.png" width="100%" height="auto"/>
-<figcaption> <strong>Figure 1:</strong> <em> (left) A typical biological neuron. (right) A perceptron - an artificial neuron - is believed to be a simplistic mathematical model for the biological neuron. The perceptron consists of: (i) weighted edges that represent the individual multiplications (of $1$ by $w_{0,i}$, $x_1$ by $w_{1,i}$, etc.), (ii) a summation unit shown as a small hollow circle representing the sum $w_0+w_{1,i}\, x_1+\cdots+w_{N,i}\, x_N$, and (iii) an activation unit shown as a larger blue circle representing the sum evaluated by the nonlinear activation function $a\left(\cdot\right)$. The perceptron, taken as a whole, can be thought of as a visual representation of the single-layer element in equation (4). </em>
+<figcaption> <strong>Figure 1:</strong> <em> (left) A typical biological neuron. (right) An artificial neuron (perceptron). A perceptron is a simplistic mathematical model for the biological neuron consisting of: (i) weighted edges that represent the individual multiplications (of $1$ by $w_{0,i}$, $x_1$ by $w_{1,i}$, etc.), (ii) a summation unit shown as a small hollow circle representing the sum $w_0+w_{1,i}\, x_1+\cdots+w_{N,i}\, x_N$, and (iii) an activation unit shown as a larger blue circle representing the sum evaluated by the nonlinear activation function $a\left(\cdot\right)$. The perceptron, taken as a whole, can be thought of as a visual representation of the single-layer element in equation (4). </em>
 </figcaption>
 </figure>
 </div>
@@ -13726,10 +13778,10 @@ f_j^{\left(2\right)}\left(x\right)=\text{tanh}\left(w^{\left(2\right)}_{0,j}+\un
 
 
 
-<div id="34dbbeb4-d76f-4249-9379-ab5b4481bc30"></div>
+<div id="9d8116da-e7d8-4c7a-b84c-91c4d64c3c5e"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#34dbbeb4-d76f-4249-9379-ab5b4481bc30');
+var element = $('#9d8116da-e7d8-4c7a-b84c-91c4d64c3c5e');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -14630,10 +14682,10 @@ f_j^{\left(\ell+1\right)}\left(x_1,x_2,\ldots,x_N\right)=a\left(w_{0,j}^{\left(\
 
 
 
-<div id="89e3e22c-a38c-4860-bca9-2869185a7c1b"></div>
+<div id="13aa758b-e183-4a77-b680-6da55a57d8b9"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#89e3e22c-a38c-4860-bca9-2869185a7c1b');
+var element = $('#13aa758b-e183-4a77-b680-6da55a57d8b9');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -15764,10 +15816,10 @@ M = \text{dimension of output } y \,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,
 
 
 
-<div id="61be6394-be16-42dc-a99e-5fea3fe5721d"></div>
+<div id="5b0150da-8b40-45a6-9f5a-5105f139baea"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#61be6394-be16-42dc-a99e-5fea3fe5721d');
+var element = $('#5b0150da-8b40-45a6-9f5a-5105f139baea');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -16650,10 +16702,10 @@ if (IPython.notebook.kernel != null) {
 
 
 
-<div id="d448575d-29a9-4022-9e74-0d34b2606546"></div>
+<div id="ba89c04e-dd68-4d81-b6b4-a17bb6c2ac9a"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#d448575d-29a9-4022-9e74-0d34b2606546');
+var element = $('#ba89c04e-dd68-4d81-b6b4-a17bb6c2ac9a');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -17469,10 +17521,10 @@ if (IPython.notebook.kernel != null) {
 
 
 
-<div id="0dea7ee9-b2bb-4d48-81bc-c9e8b844b1bb"></div>
+<div id="5ef3a8d9-38f4-4717-bd39-2d5e5e2fbcbf"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#0dea7ee9-b2bb-4d48-81bc-c9e8b844b1bb');
+var element = $('#5ef3a8d9-38f4-4717-bd39-2d5e5e2fbcbf');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -18304,10 +18356,10 @@ if (IPython.notebook.kernel != null) {
 
 
 
-<div id="2d5eb69e-62d0-417a-ade3-a5251213463c"></div>
+<div id="23144153-7410-414b-919c-b6e5f2da45df"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#2d5eb69e-62d0-417a-ade3-a5251213463c');
+var element = $('#23144153-7410-414b-919c-b6e5f2da45df');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -19194,10 +19246,10 @@ if (IPython.notebook.kernel != null) {
 
 
 
-<div id="5012d76b-c232-434f-8187-87453c3bd83a"></div>
+<div id="d2e4b3ad-3f6a-46d1-a9dc-d71f70b618a4"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#5012d76b-c232-434f-8187-87453c3bd83a');
+var element = $('#d2e4b3ad-3f6a-46d1-a9dc-d71f70b618a4');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -20013,10 +20065,10 @@ if (IPython.notebook.kernel != null) {
 
 
 
-<div id="692464d5-3252-45eb-ab7b-960156dc360a"></div>
+<div id="7543b093-e1ce-413f-8c00-dad90837e277"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#692464d5-3252-45eb-ab7b-960156dc360a');
+var element = $('#7543b093-e1ce-413f-8c00-dad90837e277');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -20822,7 +20874,7 @@ if (IPython.notebook.kernel != null) {
  
 
 <script type="application/vnd.jupyter.widget-state+json">
-{"version_major": 1, "state": {}, "version_minor": 0}
+{"version_major": 1, "version_minor": 0, "state": {}}
 </script>
 
 
