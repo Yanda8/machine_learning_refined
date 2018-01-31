@@ -4,7 +4,7 @@ from mpl_toolkits.mplot3d import Axes3D
 import autograd.numpy as np
 from matplotlib import gridspec
 import copy
-from . import optimimzers as opts
+from . import old_optimimzers as opts
 
 '''
 tarball of simple demos for nonlinear supervised learning part 2

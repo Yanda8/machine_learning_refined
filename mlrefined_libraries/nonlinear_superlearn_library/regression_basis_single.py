@@ -6,12 +6,11 @@ from IPython.display import clear_output
 from matplotlib import gridspec
 import autograd.numpy as np
 from mlrefined_libraries.JSAnimation_slider_only import IPython_display_slider_only
-from . import optimimzers
 import copy
 import time
 import bisect
 from matplotlib.ticker import MaxNLocator
-
+from . import old_optimimzers as optimimzers
 
 class Visualizer:
     '''
@@ -376,7 +375,7 @@ class Visualizer:
             ax2.plot([v-1 for v in num_elements[:k+1]],cost_evals[:k+1],color = 'b',linewidth = 1.5,zorder = 1)
             ax2.scatter([v-1 for v in num_elements[:k+1]],cost_evals[:k+1],color = 'b',s = 70,edgecolor = 'w',linewidth = 1.5,zorder = 3)
 
-            ax2.set_xlabel('iteration',fontsize = 12)
+            ax2.set_xlabel('number of units',fontsize = 12)
             ax2.set_title('cost function plot',fontsize = 12)
             
             # cleanp panel

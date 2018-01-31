@@ -6,7 +6,7 @@ from IPython.display import clear_output
 from matplotlib import gridspec
 import autograd.numpy as np
 from mlrefined_libraries.JSAnimation_slider_only import IPython_display_slider_only
-from . import optimimzers
+from . import old_optimimzers as optimimzers
 import copy
 import time
 import bisect
