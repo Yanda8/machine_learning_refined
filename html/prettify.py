@@ -49,6 +49,9 @@ if 'classification' in series.lower() and 'linear' in series.lower():
 
 if 'nonlinear' in series.lower() and 'introduction' in series.lower():
     series_url = '12_Nonlinear_intro'   
+    
+if 'layer' in series.lower() and 'perceptron' in series.lower():
+    series_url = '13_Multilayer_perceptrons'     
 
 # This script adds navigation bar + sharing logos + title
 script_1 = '''

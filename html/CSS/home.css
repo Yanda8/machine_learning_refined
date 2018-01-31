@@ -232,6 +232,13 @@ line-height: 20px;
   transition: .3s ease-in;
 }
 
+.chapters-container input[type='checkbox']:checked ~ .one_col .description {
+  height:50px;
+}
+
+.chapters-container input[type='checkbox']:checked ~ .two_col .description {
+  height:80px;
+}
 
 .chapters-container input[type='checkbox']:checked ~ .three_col .description {
   height:110px;
