@@ -11954,50 +11954,6 @@ g\left(\mathbf{w}\right) = \frac{1}{P}\sum_{p=1}^{P}\left(\text{model}\left(\mat
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="Example-1.---The-'perfect'-dataset-for-linear-regression"><span style="color:#a50e3e;">Example 1. </span>  The 'perfect' dataset for linear regression<a class="anchor-link" href="#Example-1.---The-'perfect'-dataset-for-linear-regression">¶</a></h4>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>In a perfect world our desired approximations $\approx$ can attain a strict equality $=$  i.e., $\text{model}\left(\mathbf{x}_p,\mathbf{w}\right) =  y_p$.  In such a perfect instance the dataset lies precisely on a line (or more generally, a hyperplane).  The most perfect dataset we could possibly have for linear regression is then - ignoring computation - a line (or hyperplane) itself (as illustrated below in the animated gif).</p>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<figure>
-<p>
-<img alt="" height="70%" src="../../mlrefined_images/nonlinear_superlearn_images/linear_regression_to_funcapprox.gif" width="70%"/>
-</p>
-<figcaption> <strong>Figure 1:</strong> <em> 
-In this gif we start off by showing a realistic linear regression dataset (a small noisy set of points that can be roughly modeled by a line).  We then progress to remove all noise from those points (making them all lie perfectly on some line), and finally show the perfect linear regression scenario where we have infinitely many points lying perfectly on a line. 
-</em>
-</figcaption>
-</figure>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<hr/>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="12.1.2--Modeling-principles-of-general-nonlinear-regression">12.1.2  Modeling principles of general nonlinear regression<a class="anchor-link" href="#12.1.2--Modeling-principles-of-general-nonlinear-regression">¶</a></h2>
 </div>
 </div>
@@ -12069,41 +12025,6 @@ Shown here is the prototypical problem of nonlinear regression, which we achieve
 \end{equation}<p>where $f_1,\,f_2,\,...\,f_B$ are nonlinear parameterized or unparameterized functions - or <em>feature transformations</em> - and $w_0$ through $w_B$ (along with any additional weights internal to the nonlinear functions) are represented in the weight set $\mathbf{w}$ and must be tuned properly.   Nonetheless the steps we take to formally employ such a model, its ideal weight values, the derivation of a Least Squares cost function, etc., are entirely similar to what we have now seen in the simpler instance of nonlinear regression (which itself does not differ from the steps taken in modeling the linear case).</p>
 <blockquote><p>In extending linear to nonlinear regression we can use either parameterized or unparameterized nonlinear functions</p>
 </blockquote>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="Example-2.---The-perfect-dataset-for-nonlinear-regression"><span style="color:#a50e3e;">Example 2. </span>  The perfect dataset for nonlinear regression<a class="anchor-link" href="#Example-2.---The-perfect-dataset-for-nonlinear-regression">¶</a></h4>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>In complete analogy to the linear case, here our perfect dataset would consist of points where $\text{model}\left(\mathbf{x}_p, \mathbf{w}\right) = y_p$, i.e., points lying perfectly on the nonlinear curve (or in general the nonlinear surface) defined by $f$.   The most perfect dataset we could possibly have for nonlinear regression is then - ignoring computation - a curve (or surface) itself (as illustrated below in the animated gif).</p>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<figure>
-<p>
-<img alt="" height="50%" src="../../mlrefined_images/nonlinear_superlearn_images/nonlinear_regression_to_funcapprox.gif" width="50%"/>
-</p>
-<figcaption> <strong>Figure 2:</strong> <em> 
-In this gif we start off by showing a realistic nonlinear regression dataset (a small noisy set of points that can be roughly modeled by a nonlinear curve).  We then progress to remove all noise from those points (making them all lie perfectly on some curve), and finally show the perfect nonlinear regression scenario where we have infinitely many points lying perfectly on the curve itself.  
-</em>
-</figcaption>
-</figure>
 </div>
 </div>
 </div>
@@ -12199,7 +12120,7 @@ In this gif we start off by showing a realistic nonlinear regression dataset (a 
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="Example-3.--The-linear-case"><span style="color:#a50e3e;">Example 3. </span> The linear case<a class="anchor-link" href="#Example-3.--The-linear-case">¶</a></h4>
+<h4 id="Example-1.--The-linear-case"><span style="color:#a50e3e;">Example 1. </span> The linear case<a class="anchor-link" href="#Example-1.--The-linear-case">¶</a></h4>
 </div>
 </div>
 </div>
@@ -12234,10 +12155,10 @@ In this gif we start off by showing a realistic nonlinear regression dataset (a 
 <div class="output_wrapper">
 <div class="output">
 <div class="output_area"><div class="prompt"></div>
-<div id="569369e4-63e3-4044-88ec-205ccec3c7f3"></div>
+<div id="9658fdb2-7e0c-4851-86dc-884324f61db3"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#569369e4-63e3-4044-88ec-205ccec3c7f3');
+var element = $('#9658fdb2-7e0c-4851-86dc-884324f61db3');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -13068,8 +12989,8 @@ f\left(x \right) = \frac{x - \mu}{\sigma}
 <span class="n">w</span> <span class="o">=</span> <span class="mf">0.1</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">);</span> <span class="n">max_its</span> <span class="o">=</span> <span class="mi">500</span><span class="p">;</span> <span class="n">alpha_choice</span> <span class="o">=</span> <span class="mi">10</span><span class="o">**</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
 
 <span class="c1"># run on normalized data</span>
-<span class="n">run</span> <span class="o">=</span> <span class="n">nonlib</span><span class="o">.</span><span class="n">basic_runner</span><span class="o">.</span><span class="n">Setup</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">feature_transforms</span><span class="p">,</span><span class="s1">'least_squares'</span><span class="p">,</span><span class="n">normalize</span> <span class="o">=</span> <span class="s1">'standard'</span><span class="p">,</span><span class="n">w</span><span class="o">=</span><span class="n">w</span><span class="p">,</span><span class="n">alpha_choice</span> <span class="o">=</span> <span class="n">alpha_choice</span><span class="p">)</span>
-<span class="n">run</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">w</span><span class="o">=</span><span class="n">w</span><span class="p">)</span>
+<span class="n">run</span> <span class="o">=</span> <span class="n">nonlib</span><span class="o">.</span><span class="n">basic_runner</span><span class="o">.</span><span class="n">Setup</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">feature_transforms</span><span class="p">,</span><span class="s1">'least_squares'</span><span class="p">,</span><span class="n">normalize</span> <span class="o">=</span> <span class="s1">'standard'</span><span class="p">)</span>
+<span class="n">run</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">w</span><span class="o">=</span><span class="n">w</span><span class="p">,</span><span class="n">alpha_choice</span> <span class="o">=</span> <span class="n">alpha_choice</span><span class="p">,</span><span class="n">max_its</span> <span class="o">=</span> <span class="n">max_its</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -13101,10 +13022,10 @@ f\left(x \right) = \frac{x - \mu}{\sigma}
 <div class="output_wrapper">
 <div class="output">
 <div class="output_area"><div class="prompt"></div>
-<div id="40f3d54c-f859-4e32-9e19-38f1f42e19c5"></div>
+<div id="e7bdbf86-9f00-4282-bb34-23273204d360"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#40f3d54c-f859-4e32-9e19-38f1f42e19c5');
+var element = $('#e7bdbf86-9f00-4282-bb34-23273204d360');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -13888,7 +13809,7 @@ if (IPython.notebook.kernel != null) {
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="Example-4.--Modeling-a-familiar-wave-using-a-parameterized-feature-transformation"><span style="color:#a50e3e;">Example 4. </span> Modeling a familiar wave using a parameterized feature transformation<a class="anchor-link" href="#Example-4.--Modeling-a-familiar-wave-using-a-parameterized-feature-transformation">¶</a></h4>
+<h4 id="Example-2.--Modeling-a-familiar-wave-using-a-parameterized-feature-transformation"><span style="color:#a50e3e;">Example 2. </span> Modeling a familiar wave using a parameterized feature transformation<a class="anchor-link" href="#Example-2.--Modeling-a-familiar-wave-using-a-parameterized-feature-transformation">¶</a></h4>
 </div>
 </div>
 </div>
@@ -13922,10 +13843,10 @@ if (IPython.notebook.kernel != null) {
 <div class="output_wrapper">
 <div class="output">
 <div class="output_area"><div class="prompt"></div>
-<div id="38f20836-8803-4c66-89e4-7038f8d1cf67"></div>
+<div id="ddc6eea1-dd97-481c-888d-1e5cab5ecc64"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#38f20836-8803-4c66-89e4-7038f8d1cf67');
+var element = $('#ddc6eea1-dd97-481c-888d-1e5cab5ecc64');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -14792,10 +14713,10 @@ f\left(x,\mathbf{w}\right) = \text{sin}\left(w_0 + w_1x\right).
 <div class="output_wrapper">
 <div class="output">
 <div class="output_area"><div class="prompt"></div>
-<div id="8f315e90-6cac-4bf8-9fef-c0e2cff17246"></div>
+<div id="e8253e18-cb3d-48ba-b8e7-4b422c3c857f"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#8f315e90-6cac-4bf8-9fef-c0e2cff17246');
+var element = $('#e8253e18-cb3d-48ba-b8e7-4b422c3c857f');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -15600,10 +15521,10 @@ if (IPython.notebook.kernel != null) {
 <div class="output_wrapper">
 <div class="output">
 <div class="output_area"><div class="prompt"></div>
-<div id="497f5152-6966-4329-a90f-58cf359b0054"></div>
+<div id="6a6a699a-ab51-4170-a612-d9b2154f14ba"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#497f5152-6966-4329-a90f-58cf359b0054');
+var element = $('#6a6a699a-ab51-4170-a612-d9b2154f14ba');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -16429,10 +16350,10 @@ f\left(x,\mathbf{w}\right) = \text{sin}\left(w_0 + w_1\frac{x - \mu}{\sigma}\rig
 <div class="output_wrapper">
 <div class="output">
 <div class="output_area"><div class="prompt"></div>
-<div id="44a83047-62ea-40fe-b5f2-7dec9d45d5e4"></div>
+<div id="12d897cd-2b04-4361-acb8-69f1c6476346"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#44a83047-62ea-40fe-b5f2-7dec9d45d5e4');
+var element = $('#12d897cd-2b04-4361-acb8-69f1c6476346');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -17216,7 +17137,7 @@ if (IPython.notebook.kernel != null) {
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="Example-5.--Modeling-population-growth-using-a-parameterized-feature-transformation"><span style="color:#a50e3e;">Example 5. </span> Modeling population growth using a parameterized feature transformation<a class="anchor-link" href="#Example-5.--Modeling-population-growth-using-a-parameterized-feature-transformation">¶</a></h4>
+<h4 id="Example-3.--Modeling-population-growth-using-a-parameterized-feature-transformation"><span style="color:#a50e3e;">Example 3. </span> Modeling population growth using a parameterized feature transformation<a class="anchor-link" href="#Example-3.--Modeling-population-growth-using-a-parameterized-feature-transformation">¶</a></h4>
 </div>
 </div>
 </div>
@@ -17252,10 +17173,10 @@ if (IPython.notebook.kernel != null) {
 <div class="output_wrapper">
 <div class="output">
 <div class="output_area"><div class="prompt"></div>
-<div id="52572856-d198-4bde-b1c1-454c03805e37"></div>
+<div id="6cde08c0-4e4e-4f07-80a6-7125403cd65a"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#52572856-d198-4bde-b1c1-454c03805e37');
+var element = $('#6cde08c0-4e4e-4f07-80a6-7125403cd65a');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -18130,10 +18051,10 @@ f\left(x_p,\mathbf{w}\right) = \text{tanh}\left(w_0 + w_1\frac{x_p - \mu}{\sigma
 <div class="output_wrapper">
 <div class="output">
 <div class="output_area"><div class="prompt"></div>
-<div id="3a32503e-317c-429e-8120-92f93c629f1e"></div>
+<div id="21dffd0e-7baa-413e-9e74-8d2ed3855ed9"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#3a32503e-317c-429e-8120-92f93c629f1e');
+var element = $('#21dffd0e-7baa-413e-9e74-8d2ed3855ed9');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -18937,10 +18858,10 @@ if (IPython.notebook.kernel != null) {
 <div class="output_wrapper">
 <div class="output">
 <div class="output_area"><div class="prompt"></div>
-<div id="c52ed278-a09a-4329-9c99-d44f10c557a8"></div>
+<div id="44c6956a-5dec-4d72-837d-8199ddac50ac"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#c52ed278-a09a-4329-9c99-d44f10c557a8');
+var element = $('#44c6956a-5dec-4d72-837d-8199ddac50ac');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -19724,7 +19645,7 @@ if (IPython.notebook.kernel != null) {
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="Example-6.--Using-an-unparameterized-feature-transformation-to-model-a-classic-physics-dataset"><span style="color:#a50e3e;">Example 6. </span> Using an unparameterized feature transformation to model a classic physics dataset<a class="anchor-link" href="#Example-6.--Using-an-unparameterized-feature-transformation-to-model-a-classic-physics-dataset">¶</a></h4>
+<h4 id="Example-4.--Using-an-unparameterized-feature-transformation-to-model-a-classic-physics-dataset"><span style="color:#a50e3e;">Example 4. </span> Using an unparameterized feature transformation to model a classic physics dataset<a class="anchor-link" href="#Example-4.--Using-an-unparameterized-feature-transformation-to-model-a-classic-physics-dataset">¶</a></h4>
 </div>
 </div>
 </div>
@@ -19799,10 +19720,10 @@ $\frac{3}{4}$, and all the way down the ramp.  </em> </figcaption>
 <div class="output_wrapper">
 <div class="output">
 <div class="output_area"><div class="prompt"></div>
-<div id="e25a9f2a-ae82-48ef-b326-191c38102762"></div>
+<div id="d8843662-33d1-43ea-b56d-3b9b8bfd4960"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#e25a9f2a-ae82-48ef-b326-191c38102762');
+var element = $('#d8843662-33d1-43ea-b56d-3b9b8bfd4960');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -20679,10 +20600,10 @@ if (IPython.notebook.kernel != null) {
 <div class="output_wrapper">
 <div class="output">
 <div class="output_area"><div class="prompt"></div>
-<div id="63f3c82e-41a9-408f-b026-c28726027643"></div>
+<div id="7b7b7d8b-7040-4979-a918-cf9df7f68cd9"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#63f3c82e-41a9-408f-b026-c28726027643');
+var element = $('#7b7b7d8b-7040-4979-a918-cf9df7f68cd9');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -21477,6 +21398,6 @@ if (IPython.notebook.kernel != null) {
 </div>
 </body>
 <script type="application/vnd.jupyter.widget-state+json">
-{"state": {}, "version_major": 1, "version_minor": 0}
+{"version_minor": 0, "state": {}, "version_major": 1}
 </script>
 </html>
