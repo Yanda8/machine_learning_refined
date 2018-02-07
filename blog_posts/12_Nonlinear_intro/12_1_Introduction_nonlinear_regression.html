@@ -11975,7 +11975,7 @@ g\left(\mathbf{w}\right) = \frac{1}{P}\sum_{p=1}^{P}\left(\text{model}\left(\mat
 <p>So instead of using a linear model we could instead use a nonlinear one, involving a single nonlinear function $f$ that can be parameterized or unparameterized (e.g., tanh, a sine wave, etc.,) as</p>
 \begin{equation}
 \text{model}\left(\mathbf{x},\mathbf{w}\right)  = 
-w_0^{\,} + {w}_{1}^{\,}\,f\left(\mathbf{x}_p\right).
+w_0^{\,} + f\left(\mathbf{x}_p\right){w}_{1}^{\,}.
 \end{equation}<p>In the jargon of machine learning / deep learning the nonlinear function $f$ is often called a nonlinear <em>feature transformation</em>, since we it transforms our original input features $\mathbf{x}$.</p>
 <blockquote><p>In the jargon of machine learning / deep learning a nonlinear function $f$ used in any learning <code>model</code> is called a nonlinear <em>feature transformation</em>, since we it transforms our original input features $\mathbf{x}$.</p>
 </blockquote>
@@ -12021,7 +12021,7 @@ Shown here is the prototypical problem of nonlinear regression, which we achieve
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Indeed in general we could create a nonlinear model that is the weighted sum of $B$ nonlinear functions of our input as</p>
 \begin{equation}
-\text{model}\left(\mathbf{x},\mathbf{w}\right) = w_0 + {w}_{1}\,f_1\left(\mathbf{x}_p\right) +  {w}_{2}\,f_2\left(\mathbf{x}_p\right) + \cdots + w_B\,f_B\left(\mathbf{x}_p\right)  
+\text{model}\left(\mathbf{x},\mathbf{w}\right) = w_0 + f_1\left(\mathbf{x}_p\right){w}_{1} +  f_2\left(\mathbf{x}_p\right){w}_{2} + \cdots + f_B\left(\mathbf{x}_p\right)w_B
 \end{equation}<p>where $f_1,\,f_2,\,...\,f_B$ are nonlinear parameterized or unparameterized functions - or <em>feature transformations</em> - and $w_0$ through $w_B$ (along with any additional weights internal to the nonlinear functions) are represented in the weight set $\mathbf{w}$ and must be tuned properly.   Nonetheless the steps we take to formally employ such a model, its ideal weight values, the derivation of a Least Squares cost function, etc., are entirely similar to what we have now seen in the simpler instance of nonlinear regression (which itself does not differ from the steps taken in modeling the linear case).</p>
 <blockquote><p>In extending linear to nonlinear regression we can use either parameterized or unparameterized nonlinear functions</p>
 </blockquote>
@@ -12155,10 +12155,10 @@ Shown here is the prototypical problem of nonlinear regression, which we achieve
 <div class="output_wrapper">
 <div class="output">
 <div class="output_area"><div class="prompt"></div>
-<div id="9658fdb2-7e0c-4851-86dc-884324f61db3"></div>
+<div id="13a5f873-89ba-4471-a9a9-8d0db5b79ba5"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#9658fdb2-7e0c-4851-86dc-884324f61db3');
+var element = $('#13a5f873-89ba-4471-a9a9-8d0db5b79ba5');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -12944,13 +12944,13 @@ if (IPython.notebook.kernel != null) {
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Here we would propose to use the standard sort of linear model we saw in previous Chapters</p>
 \begin{equation}
-\text{model}\left(x,\mathbf{w}_{\!}\right) = w_0 + w_1x.
+\text{model}\left(x,\mathbf{w}_{\!}\right) = w_0 + xw_1.
 \end{equation}<p>Here - although we did not explicitly call it such - we are employing the simple linear feature transformation</p>
 \begin{equation}
 f\left(x\right) = x
 \end{equation}<p>and in this notation our <code>model</code> is then equivalently</p>
 \begin{equation}
-\text{model}\left(x,\mathbf{w}_{\!}\right) = w_0 + w_{1\,}f\left(x\right).
+\text{model}\left(x,\mathbf{w}_{\!}\right) = w_0 +f\left(x\right)w_{1\,}.
 \end{equation}<p>This is a rather trivial feature transformation to implement in <code>Python</code> - as we do below.  Notice here how the linear feature transformation is <em>unparameterized</em>.</p>
 </div>
 </div>
@@ -13022,10 +13022,10 @@ f\left(x \right) = \frac{x - \mu}{\sigma}
 <div class="output_wrapper">
 <div class="output">
 <div class="output_area"><div class="prompt"></div>
-<div id="e7bdbf86-9f00-4282-bb34-23273204d360"></div>
+<div id="59fb809c-7269-4dc2-8ede-c8117fae2357"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#e7bdbf86-9f00-4282-bb34-23273204d360');
+var element = $('#59fb809c-7269-4dc2-8ede-c8117fae2357');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -13843,10 +13843,10 @@ if (IPython.notebook.kernel != null) {
 <div class="output_wrapper">
 <div class="output">
 <div class="output_area"><div class="prompt"></div>
-<div id="ddc6eea1-dd97-481c-888d-1e5cab5ecc64"></div>
+<div id="0a2b5bba-116f-412b-b99a-e9d329b4975e"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#ddc6eea1-dd97-481c-888d-1e5cab5ecc64');
+var element = $('#0a2b5bba-116f-412b-b99a-e9d329b4975e');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -14632,10 +14632,10 @@ if (IPython.notebook.kernel != null) {
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>This dataset looks sinusoidal, so we can defensibly propose a <code>model</code> consisting of completely <em>parameterized</em> sine function or <em>feature transformation</em></p>
 \begin{equation}
-f\left(x,\mathbf{w}\right) = \text{sin}\left(w_0 + w_1x\right).
+f\left(x,\mathbf{w}\right) = \text{sin}\left(w_0 + xw_1\right).
 \end{equation}<p>We can then take as our model a linear combination of this nonlinear feature transformation as</p>
 \begin{equation}
-\text{model}\left(x,\mathbf{w}_{\!}\right) = w_2 + w_{3\,}f\left(x,\mathbf{w}\right).
+\text{model}\left(x,\mathbf{w}_{\!}\right) = w_2 + f\left(x,\mathbf{w}\right)w_{3\,}.
 \end{equation}<p>Note here we are using the notation $\mathbf{w}$ rather loosely to represent whatever weights are present in the respective formula - for example in the feature transformation $\mathbf{w}$ consists of $w_0$ and $w_1$, whereas with the <code>model</code> it contains these weights as well as $w_2$ and $w_3$.</p>
 <p>This seems like it could fit the data well if its parameters were all tuned properly via e.g., minimizing the associated Least Squares cost.  However first we need to implement our feature transformation in <code>Python</code>, which we will do below.</p>
 </div>
@@ -14713,10 +14713,10 @@ f\left(x,\mathbf{w}\right) = \text{sin}\left(w_0 + w_1x\right).
 <div class="output_wrapper">
 <div class="output">
 <div class="output_area"><div class="prompt"></div>
-<div id="e8253e18-cb3d-48ba-b8e7-4b422c3c857f"></div>
+<div id="1d6ea8fb-cce8-448d-8239-e120f2cf7763"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#e8253e18-cb3d-48ba-b8e7-4b422c3c857f');
+var element = $('#1d6ea8fb-cce8-448d-8239-e120f2cf7763');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -15521,10 +15521,10 @@ if (IPython.notebook.kernel != null) {
 <div class="output_wrapper">
 <div class="output">
 <div class="output_area"><div class="prompt"></div>
-<div id="6a6a699a-ab51-4170-a612-d9b2154f14ba"></div>
+<div id="1a09c9d8-109e-421c-a006-25cad2911a06"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#6a6a699a-ab51-4170-a612-d9b2154f14ba');
+var element = $('#1a09c9d8-109e-421c-a006-25cad2911a06');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -16310,7 +16310,7 @@ if (IPython.notebook.kernel != null) {
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Note as with the previous example that since we have used standard normalization to scale our input, we can write our feature transformation as</p>
 \begin{equation}
-f\left(x,\mathbf{w}\right) = \text{sin}\left(w_0 + w_1\frac{x - \mu}{\sigma}\right)
+f\left(x,\mathbf{w}\right) = \text{sin}\left(w_0 + \frac{x - \mu}{\sigma}w_1\right)
 \end{equation}<p>where $\mu$ and $\sigma$ are the mean and standard deviation of our input data respectively.  Once again we need not adjust our actual implementation <code>feature_transforms</code>, since we accomplish this formula in <code>Python</code> by composing the function with the standard <code>normalizer</code> function as <code>feature_transforms(normalizer(x))</code>.</p>
 </div>
 </div>
@@ -16350,10 +16350,10 @@ f\left(x,\mathbf{w}\right) = \text{sin}\left(w_0 + w_1\frac{x - \mu}{\sigma}\rig
 <div class="output_wrapper">
 <div class="output">
 <div class="output_area"><div class="prompt"></div>
-<div id="12d897cd-2b04-4361-acb8-69f1c6476346"></div>
+<div id="ab2e818b-138a-4eff-a250-07ce7e7ffdc4"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#12d897cd-2b04-4361-acb8-69f1c6476346');
+var element = $('#ab2e818b-138a-4eff-a250-07ce7e7ffdc4');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -17173,10 +17173,10 @@ if (IPython.notebook.kernel != null) {
 <div class="output_wrapper">
 <div class="output">
 <div class="output_area"><div class="prompt"></div>
-<div id="6cde08c0-4e4e-4f07-80a6-7125403cd65a"></div>
+<div id="ef96f3e3-3248-4575-a1e3-fae78ffed0bf"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#6cde08c0-4e4e-4f07-80a6-7125403cd65a');
+var element = $('#ef96f3e3-3248-4575-a1e3-fae78ffed0bf');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -17962,10 +17962,10 @@ if (IPython.notebook.kernel != null) {
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>If we take a moment and visually examine this dataset, it appears that some sort of logistic sigmoid / hyperbolic tangent nonlinearity would fit it quite well.  So using a <em>parameterized</em> tanh feature transformation</p>
 \begin{equation}
-f\left(x,\mathbf{w}\right) = \text{tanh}\left(w_0 + w_1x\right).
+f\left(x,\mathbf{w}\right) = \text{tanh}\left(w_0 + xw_1\right).
 \end{equation}<p>we can then take as our <code>model</code> a linear combination of this nonlinear feature transformation as</p>
 \begin{equation}
-\text{model}\left(x,\mathbf{w}_{\!}\right) = w_2 + w_{3\,}f\left(x,\mathbf{w}\right).
+\text{model}\left(x,\mathbf{w}_{\!}\right) = w_2 + f\left(x,\mathbf{w}\right)w_{3\,}.
 \end{equation}<p>Note here we are using the notation $\mathbf{w}$ rather loosely to represent whatever weights are present in the respective formula - for example in the feature transformation $\mathbf{w}$ consists of $w_0$ and $w_1$, whereas with the <code>model</code> it contains these weights as well as $w_2$ and $w_3$.</p>
 </div>
 </div>
@@ -18005,7 +18005,7 @@ f\left(x,\mathbf{w}\right) = \text{tanh}\left(w_0 + w_1x\right).
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Using the same functionality employed in the previous example, we normalize the input of this dataset (using standard normalization) since this virtually always helps speed up gradient descent significantly.  Note this means that our feature transformation can be written as</p>
 \begin{equation}
-f\left(x_p,\mathbf{w}\right) = \text{tanh}\left(w_0 + w_1\frac{x_p - \mu}{\sigma}\right)
+f\left(x_p,\mathbf{w}\right) = \text{tanh}\left(w_0 + \frac{x_p - \mu}{\sigma}w_1\right)
 \end{equation}<p>where $\mu$ and $\sigma$ are the mean and standard deviation of our input data respectively.  We do not need to alter our feature transformation code above make this change, since it can be accomplished by feeding in the normalized input for training and the corresponding normalization function while evaluating test points.</p>
 <p>Below we then form the corresponding Least Squares cost, and minimize it using gradient descent.</p>
 </div>
@@ -18051,10 +18051,10 @@ f\left(x_p,\mathbf{w}\right) = \text{tanh}\left(w_0 + w_1\frac{x_p - \mu}{\sigma
 <div class="output_wrapper">
 <div class="output">
 <div class="output_area"><div class="prompt"></div>
-<div id="21dffd0e-7baa-413e-9e74-8d2ed3855ed9"></div>
+<div id="a911d847-1bb9-4b98-81ca-cb9848bde4ae"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#21dffd0e-7baa-413e-9e74-8d2ed3855ed9');
+var element = $('#a911d847-1bb9-4b98-81ca-cb9848bde4ae');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -18858,10 +18858,10 @@ if (IPython.notebook.kernel != null) {
 <div class="output_wrapper">
 <div class="output">
 <div class="output_area"><div class="prompt"></div>
-<div id="44c6956a-5dec-4d72-837d-8199ddac50ac"></div>
+<div id="7f6c6d7e-88a2-4af6-91a0-54959e85c073"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#44c6956a-5dec-4d72-837d-8199ddac50ac');
+var element = $('#7f6c6d7e-88a2-4af6-91a0-54959e85c073');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -19720,10 +19720,10 @@ $\frac{3}{4}$, and all the way down the ramp.  </em> </figcaption>
 <div class="output_wrapper">
 <div class="output">
 <div class="output_area"><div class="prompt"></div>
-<div id="d8843662-33d1-43ea-b56d-3b9b8bfd4960"></div>
+<div id="3c7c4693-3ac6-43b3-b05b-6f59174e9881"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#d8843662-33d1-43ea-b56d-3b9b8bfd4960');
+var element = $('#3c7c4693-3ac6-43b3-b05b-6f59174e9881');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -20509,7 +20509,7 @@ if (IPython.notebook.kernel != null) {
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>The data here certainly displays a nonlinear relationship and by viewing it - and using his physical intuition Galileo - intuited a <em>quadratic</em> relationship.  Or in our jargon that for some $w_0$, $w_1$, and $w_2$ the modeling function</p>
 \begin{equation}
-\text{model}(x,\mathbf{w}) = w_0 + w_1x + w_2x^2
+\text{model}(x,\mathbf{w}) = w_0 + xw_1 + x^2w_2
 \end{equation}<p>provides the correct sort of nonlinearity to explain this data (albeit when the parameters are tuned correctly).</p>
 </div>
 </div>
@@ -20521,7 +20521,7 @@ if (IPython.notebook.kernel != null) {
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Notice here how we have two <em>unparameterized</em> feature transformations: the identity $f_1(x) = x$ and the quadratic term $f_2(x) = x^2$, and so we may write the above equivalently as</p>
 \begin{equation}
-\text{model}(x,\mathbf{w}) = w_0 + w_1\,f_1(x) + w_2\,f_2(x)
+\text{model}(x,\mathbf{w}) = w_0 + f_1(x)\,w_1 + f_2(x)\,w_2
 \end{equation}<p>which clearly shows how we are seeking out a proper linear relationship in the transformed feature space (which in this case is two-dimensional).  Note here - unlike the previous examples - neither of these feature transformations are <em>fixed</em> in that they take in no internal weights.</p>
 </div>
 </div>
@@ -20600,10 +20600,10 @@ if (IPython.notebook.kernel != null) {
 <div class="output_wrapper">
 <div class="output">
 <div class="output_area"><div class="prompt"></div>
-<div id="7b7b7d8b-7040-4979-a918-cf9df7f68cd9"></div>
+<div id="d3e98cd0-642e-48dd-bc80-f78391380c50"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#7b7b7d8b-7040-4979-a918-cf9df7f68cd9');
+var element = $('#d3e98cd0-642e-48dd-bc80-f78391380c50');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -21389,7 +21389,7 @@ if (IPython.notebook.kernel != null) {
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>This is true more generally speaking: the more feature transforms we use the higher the up we go in terms of the dimensions of our transformed feature space / linear fit!  In general if our original input has dimension $N$ - and is written as $\mathbf{x}$ - and we use a <code>model</code> function that employs $B$ nonlinear feature transformations as</p>
 \begin{equation}
-\text{model}\left(\mathbf{x},\mathbf{w}\right) = w_0 + {w}_{1}\,f_1\left(\mathbf{x}\right) +  {w}_{2}\,f_2\left(\mathbf{x}\right) + \cdots + w_B\,f_B\left(\mathbf{x}\right)  
+\text{model}\left(\mathbf{x},\mathbf{w}\right) = w_0 + f_1\left(\mathbf{x}\right){w}_{1} +  f_2\left(\mathbf{x}\right){w}_{2} + \cdots + f_B\left(\mathbf{x}\right)w_B
 \end{equation}<p>then our original space has $N$ dimensional input, while our transformed feature space is $B$ dimensional.  Note here that the set of all weights $\omega$ contains not only the weights $w_1,\,w_2,...,w_B$ from the linear combination, but also any features's internal parameters as well.</p>
 </div>
 </div>
@@ -21398,6 +21398,6 @@ if (IPython.notebook.kernel != null) {
 </div>
 </body>
 <script type="application/vnd.jupyter.widget-state+json">
-{"version_minor": 0, "state": {}, "version_major": 1}
+{"state": {}, "version_major": 1, "version_minor": 0}
 </script>
 </html>
