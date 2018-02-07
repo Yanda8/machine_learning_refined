@@ -24,7 +24,9 @@ class Visualizer:
     '''
     
     #### initialize ####
-    def __init__(self,data):                
+    def __init__(self,data):    
+        data = data.T
+        
         # define the input and output of our dataset
         self.x = np.asarray(data[:,:-1])
         self.x.shape = (len(self.x),np.shape(data)[1]-1); self.x = self.x.T;

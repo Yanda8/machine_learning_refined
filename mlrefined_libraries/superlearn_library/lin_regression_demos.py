@@ -23,8 +23,8 @@ class Visualizer:
     #### initialize ####
     def __init__(self,data):
         # grab input
-        self.x = data[:,:-1]
-        self.y = data[:,-1]
+        self.x = data[:-1,:].T
+        self.y = data[-1:,:].T
         
     def center_data(self):
         # center data
@@ -39,7 +39,7 @@ class Visualizer:
             x_p.shape = (len(x_p),1)
             y_p = self.y[p]
             cost +=(w[0] + np.dot(w[1:].T,x_p) - y_p)**2
-        return cost
+        return cost/float(np.size(self.y))
     
      ######## 3d animation function ########
     # animate gradient descent or newton's method
@@ -190,8 +190,8 @@ class Visualizer:
         self.colorspec = np.concatenate((self.colorspec,np.zeros((len(s),1))),1)
         
         # seed left panel plotting range
-        xmin = copy.deepcopy(min(self.x))
-        xmax = copy.deepcopy(max(self.x))
+        xmin = np.min(copy.deepcopy(self.x))
+        xmax = np.max(copy.deepcopy(self.x))
         xgap = (xmax - xmin)*0.1
         xmin-=xgap
         xmax+=xgap
@@ -298,14 +298,14 @@ class Visualizer:
         ax3 = plt.subplot(gs[2]); ax3.axis('off')
         
         # set plotting limits
-        xmax = copy.deepcopy(max(self.x))
-        xmin = copy.deepcopy(min(self.x))
+        xmin = np.min(copy.deepcopy(self.x))
+        xmax = np.max(copy.deepcopy(self.x))
         xgap = (xmax - xmin)*0.25
         xmin -= xgap
         xmax += xgap
 
-        ymax = max(self.y)
-        ymin = min(self.y)
+        ymin = np.min(copy.deepcopy(self.y))
+        ymax = np.max(copy.deepcopy(self.y))
         ygap = (ymax - ymin)*0.25
         ymin -= ygap
         ymax += ygap    
@@ -341,14 +341,14 @@ class Visualizer:
     def scatter_pts(self,ax):
         if np.shape(self.x)[1] == 1:
             # set plotting limits
-            xmax = copy.deepcopy(max(self.x))
-            xmin = copy.deepcopy(min(self.x))
+            xmin = np.min(copy.deepcopy(self.x))
+            xmax = np.max(copy.deepcopy(self.x))
             xgap = (xmax - xmin)*0.2
             xmin -= xgap
             xmax += xgap
             
-            ymax = max(self.y)
-            ymin = min(self.y)
+            ymin = np.min(copy.deepcopy(self.y))
+            ymax = np.max(copy.deepcopy(self.y))
             ygap = (ymax - ymin)*0.2
             ymin -= ygap
             ymax += ygap    
@@ -366,20 +366,20 @@ class Visualizer:
             
         if np.shape(self.x)[1] == 2:
             # set plotting limits
-            xmax1 = copy.deepcopy(max(self.x[:,0]))
-            xmin1 = copy.deepcopy(min(self.x[:,0]))
+            xmin1 = np.min(copy.deepcopy(self.x[:,0]))
+            xmax1 = np.max(copy.deepcopy(self.x[:,0])) 
             xgap1 = (xmax1 - xmin1)*0.35
             xmin1 -= xgap1
             xmax1 += xgap1
             
-            xmax2 = copy.deepcopy(max(self.x[:,0]))
-            xmin2 = copy.deepcopy(min(self.x[:,0]))
+            xmin2 = np.min(copy.deepcopy(self.x[:,1]))
+            xmax2 = np.max(copy.deepcopy(self.x[:,1])) 
             xgap2 = (xmax2 - xmin2)*0.35
             xmin2 -= xgap2
             xmax2 += xgap2
             
-            ymax = max(self.y)
-            ymin = min(self.y)
+            ymin = np.min(copy.deepcopy(self.y))
+            ymax = np.max(copy.deepcopy(self.y))
             ygap = (ymax - ymin)*0.2
             ymin -= ygap
             ymax += ygap    

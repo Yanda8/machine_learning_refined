@@ -50,28 +50,28 @@ def model(x,w):
 
     # compute linear combination and return
     a = np.dot(x.T,w)
-    return a
+    return a.T
 
 ###### cost functions #####
 # an implementation of the least squares cost function for linear regression
 def least_squares(w):
     cost = np.sum((model(x,w) - y)**2)
-    return cost/float(len(y))
+    return cost/float(np.size(y))
 
 # a compact least absolute deviations cost function
 def least_absolute_deviations(w):
     cost = np.sum(np.abs(model(x,w) - y))
-    return cost/float(len(y))
+    return cost/float(np.size(y))
 
 # the convex softmax cost function
 def softmax(w):
     cost = np.sum(np.log(1 + np.exp(-y*model(x,w))))
-    return cost/float(len(y))
+    return cost/float(np.size(y))
 
 # the convex relu cost function
 def relu(w):
     cost = np.sum(np.maximum(0,-y*model(x,w)))
-    return cost/float(len(y))
+    return cost/float(np.size(y))
 
 # the counting cost function
 def counting_cost(w):
@@ -82,37 +82,31 @@ def counting_cost(w):
 def multiclass_perceptron(w):        
     # pre-compute predictions on all points
     all_evals = model(x,w)
-
+    
     # compute maximum across data points
-    a =  np.max(all_evals,axis = 1)        
+    a = np.max(all_evals,axis = 0)    
 
     # compute cost in compact form using numpy broadcasting
-    b = all_evals[np.arange(len(y)),y.astype(int).flatten()]
+    b = all_evals[y.astype(int).flatten(),np.arange(np.size(y))]
     cost = np.sum(a - b)
 
-    # add regularizer
-    cost = cost + lam*np.linalg.norm(w[1:,:],'fro')**2
-
     # return average
-    return cost/float(len(y))
+    return cost/float(np.size(y))
 
 # multiclass softmax
 def multiclass_softmax(w):        
     # pre-compute predictions on all points
     all_evals = model(x,w)
-
+    
     # compute softmax across data points
-    a = np.log(np.sum(np.exp(all_evals),axis = 1)) 
-
+    a = np.log(np.sum(np.exp(all_evals),axis = 0)) 
+    
     # compute cost in compact form using numpy broadcasting
-    b = all_evals[np.arange(len(y)),y.astype(int).flatten()]
+    b = all_evals[y.astype(int).flatten(),np.arange(np.size(y))]
     cost = np.sum(a - b)
 
-    # add regularizer
-    cost = cost + lam*np.linalg.norm(w[1:,:],'fro')**2
-
     # return average
-    return cost/float(len(y))
+    return cost/float(np.size(y))
 
 # multiclass misclassification cost function - aka the fusion rule
 def multiclass_counting_cost(w):                
@@ -120,7 +114,7 @@ def multiclass_counting_cost(w):
     all_evals = model(x,w)
 
     # compute predictions of each input point
-    y_predict = (np.argmax(all_evals,axis = 1))[:,np.newaxis]
+    y_predict = (np.argmax(all_evals,axis = 0))[np.newaxis,:]
 
     # compare predicted label to actual label
     count = np.sum(np.abs(np.sign(y - y_predict)))

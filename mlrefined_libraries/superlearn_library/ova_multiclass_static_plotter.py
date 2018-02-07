@@ -49,13 +49,14 @@ class Visualizer:
         for c in range(C):
             # prepare temporary C vs notC sub-probem labels
             y_temp = copy.deepcopy(y)
-            ind = np.argwhere(y_temp.astype(int) == (c))
-            ind = ind[:,0]
-            ind2 = np.argwhere(y_temp.astype(int) != (c))
-            ind2 = ind2[:,0]
-            y_temp[ind] = 1
-            y_temp[ind2] = -1
-            g = cost_lib.Setup(x,y_temp,cost_name).cost_func
+            ind = np.argwhere(y_temp.astype(int) == c)
+            ind = ind[:,1]
+            ind2 = np.argwhere(y_temp.astype(int) != c)
+            ind2 = ind2[:,1]
+            y_temp[0,ind] = 1
+            y_temp[0,ind2] = -1
+            
+            g = cost_lib.choose_cost(x,y_temp,cost_name)
             
             # create panel
             ax = plt.subplot(gs[c])

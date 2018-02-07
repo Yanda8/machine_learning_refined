@@ -23,6 +23,7 @@ class Visualizer:
     #### initialize ####
     def __init__(self,data,g):
         # grab input
+        data = data.T
         self.data = data
         self.x = data[:,:-1]
         self.y = data[:,-1]

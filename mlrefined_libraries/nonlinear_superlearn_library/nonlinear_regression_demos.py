@@ -25,6 +25,7 @@ class Visualizer:
     #### initialize ####
     def __init__(self,data):
         # grab input
+        data = data.T
         self.x = data[:,:-1].T
         self.y = data[:,-1:] 
  
@@ -84,7 +85,7 @@ class Visualizer:
             normalizer = kwargs['normalizer']
 
         t = model(normalizer(s),w)
-        ax.plot(s.T,t,linewidth = 2,c = 'lime')
+        ax.plot(s.T,t.T,linewidth = 2,c = 'lime')
          
     # plot regression fits
     def plot_fit_and_feature_space(self,w,model,feat,**kwargs):        

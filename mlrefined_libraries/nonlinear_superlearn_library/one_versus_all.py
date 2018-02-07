@@ -34,11 +34,11 @@ def train(x,y,feature_transforms,**kwargs):
         # prepare temporary C vs notC sub-probem labels
         y_temp = copy.deepcopy(y)
         ind = np.argwhere(y_temp.astype(int) == c)
-        ind = ind[:,0]
+        ind = ind[:,1]
         ind2 = np.argwhere(y_temp.astype(int) != c)
-        ind2 = ind2[:,0]
-        y_temp[ind] = 1
-        y_temp[ind2] = -1
+        ind2 = ind2[:,1]
+        y_temp[0,ind] = 1
+        y_temp[0,ind2] = -1
         
         # run on normalized data
         run = basic_runner.Setup(x,y_temp,feature_transforms,cost_name,normalize = normalize)

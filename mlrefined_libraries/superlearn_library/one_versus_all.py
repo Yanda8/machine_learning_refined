@@ -11,7 +11,7 @@ optimizers = optlib.optimizers
 cost_lib = superlearn.cost_functions
 
 ### compare grad descent runs - given cost to counting cost ###
-def train(x,y,**kwargs):
+def train(x,y,**kwargs):    
     # get and run optimizer to solve two-class problem
     N = np.shape(x)[0]
     C = np.size(np.unique(y))
@@ -38,14 +38,14 @@ def train(x,y,**kwargs):
         # prepare temporary C vs notC sub-probem labels
         y_temp = copy.deepcopy(y)
         ind = np.argwhere(y_temp.astype(int) == c)
-        ind = ind[:,0]
+        ind = ind[:,1]
         ind2 = np.argwhere(y_temp.astype(int) != c)
-        ind2 = ind2[:,0]
-        y_temp[ind] = 1
-        y_temp[ind2] = -1
+        ind2 = ind2[:,1]
+        y_temp[0,ind] = 1
+        y_temp[0,ind2] = -1
 
         # store best weight for final classification 
-        cost = cost_lib.Setup(x,y_temp,cost_name).cost_func
+        cost = cost_lib.choose_cost(x,y_temp,cost_name)
         
         # run optimizer
         weight_history = 0; cost_history = 0;
@@ -55,7 +55,7 @@ def train(x,y,**kwargs):
             weight_history,cost_history = optimizers.newtons_method(cost,max_its,w=w,epsilon = epsilon)
 
         # store each weight history
-        weight_histories.append(weight_history)
+        weight_histories.append(copy.deepcopy(weight_history))
         
     # combine each individual classifier weights into single weight 
     # matrix per step
@@ -71,7 +71,7 @@ def train(x,y,**kwargs):
         
     # run combined weight matrices through fusion rule to calculate
     # number of misclassifications per step
-    counter = cost_lib.Setup(x,y,'multiclass_counter').cost_func
+    counter = cost_lib.choose_cost(x,y,'multiclass_counter')
     count_history = [counter(v) for v in combined_weights]
         
     return combined_weights, count_history

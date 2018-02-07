@@ -21,6 +21,7 @@ class Visualizer:
     def __init__(self,csvname):
         # grab input
         data = np.loadtxt(csvname,delimiter = ',')
+        data = data.T
         self.x = data[:,:-1]
         self.y = data[:,-1]
 
@@ -644,7 +645,7 @@ class Visualizer:
 
         g_vals = model(normalizer(h),w)
         g_vals = np.asarray(g_vals)
-        g_vals = np.argmax(g_vals,axis = 1)
+        g_vals = np.argmax(g_vals,axis = 0)
 
         # vals for cost surface
         w1_vals.shape = (len(r),len(r))
@@ -777,8 +778,8 @@ class Visualizer:
 
         g_vals = model(normalizer(h),w)
         g_vals = np.asarray(g_vals)
-        g_new = copy.deepcopy(g_vals)
-        g_vals = np.argmax(g_vals,axis = 1)
+        g_new = copy.deepcopy(g_vals).T
+        g_vals = np.argmax(g_vals,axis = 0)
 
         # vals for cost surface
         w1_vals.shape = (len(r),len(r))

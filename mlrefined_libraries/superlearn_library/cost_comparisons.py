@@ -21,6 +21,7 @@ class Visualizer:
     #### initialize ####
     def __init__(self,data):        
         # grab input
+        data = data.T
         self.data = data
         self.x = data[:,:-1]
         if self.x.ndim == 1:
