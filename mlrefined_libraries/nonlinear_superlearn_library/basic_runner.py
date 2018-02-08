@@ -15,19 +15,20 @@ class Setup:
             normalize = kwargs['normalize']
         if normalize == 'standard':
             # create normalizer
-            self.normalizer = self.standard_normalizer(x)
+            self.normalizer,self.inverse_normalizer = self.standard_normalizer(x)
 
             # normalize input 
             self.x = self.normalizer(x)
         elif normalize == 'sphere':
             # create normalizer
-            self.normalizer = self.PCA_sphereing(x)
+            self.normalizer,self.inverse_normalizer = self.PCA_sphereing(x)
 
             # normalize input 
             self.x = self.normalizer(x)
         else:
             self.x = x
             self.normalizer = lambda data: data
+            self.inverse_normalizer = lambda data: data
             
         # make any other variables not explicitly input into cost functions globally known
         self.y = y
@@ -58,6 +59,11 @@ class Setup:
             self.cost_func = self.multiclass_softmax
         if cost == 'multiclass_counter':
             self.cost_func = self.multiclass_counting_cost
+            
+        # for autoencoder
+        if cost == 'autoencoder':
+            self.feature_transforms_2 = kwargs['feature_transforms_2']
+            self.cost_func = self.autoencoder
 
     # run optimization
     def fit(self,**kwargs):
@@ -177,8 +183,43 @@ class Setup:
         # return number of misclassifications
         return count
     
-    ##### optimizer ####
+    ### for autoencoder ###
+    def encoder(self,x,w):    
+        # feature transformation 
+        f = self.feature_transforms(x,w[0])
 
+        # tack a 1 onto the top of each input point all at once
+        o = np.ones((1,np.shape(f)[1]))
+        f = np.vstack((o,f))
+
+        # compute linear combination and return
+        a = np.dot(f.T,w[1])
+        return a.T
+
+    def decoder(self,v,w):
+        # feature transformation 
+        f = self.feature_transforms_2(v,w[0])
+
+        # tack a 1 onto the top of each input point all at once
+        o = np.ones((1,np.shape(f)[1]))
+        f = np.vstack((o,f))
+
+        # compute linear combination and return
+        a = np.dot(f.T,w[1])
+        return a.T
+    
+    def autoencoder(self,w):
+        # encode input
+        a = self.encoder(self.x,w[0])
+        
+        # decode result
+        b = self.decoder(a,w[1])
+        
+        # compute Least Squares error
+        cost = np.sum((b - self.x)**2)
+        return cost/float(self.x.shape[1])
+    
+    ##### optimizer ####
     # gradient descent function - inputs: g (input function), alpha (steplength parameter), max_its (maximum number of iterations), w (initialization)
     def gradient_descent(self,g,alpha_choice,max_its,w):
         # flatten the input function to more easily deal with costs that have layers of parameters
@@ -227,8 +268,11 @@ class Setup:
         # create standard normalizer function
         normalizer = lambda data: (data - x_means)/x_stds
 
+        # create inverse standard normalizer
+        inverse_normalizer = lambda data: data*x_stds + x_means
+
         # return normalizer 
-        return normalizer
+        return normalizer,inverse_normalizer
 
     # compute eigendecomposition of data covariance matrix
     def PCA(self,x,**kwargs):
@@ -247,18 +291,20 @@ class Setup:
 
     # PCA-sphereing - use PCA to normalize input features
     def PCA_sphereing(self,x,**kwargs):
-        # standard normalize the input data
-        standard_normalizer = self.standard(x)
-        x_standard = standard_normalizer(x)
-        
-        # compute pca transform 
-        D,V = self.PCA(x_standard,**kwargs)
-        
-        # compute forward sphereing transform
-        D_ = np.array([1/d**(0.5) for d in D])
-        D_ = np.diag(D_)
-        W = np.dot(D_,V.T)
-        pca_sphere_normalizer = lambda data: np.dot(W,standard_normalizer(data))
+        # Step 1: mean-center the data
+        x_means = np.mean(x,axis = 1)[:,np.newaxis]
+        x_centered = x - x_means
+
+        # Step 2: compute pca transform on mean-centered data
+        d,V = self.PCA(x_centered,**kwargs)
+
+        # Step 3: divide off standard deviation of each (transformed) input, 
+        # which are equal to the returned eigenvalues in 'd'.  
+        stds = (d[:,np.newaxis])**(0.5)
+        normalizer = lambda data: np.dot(V.T,data - x_means)/stds
+
+        # create inverse normalizer
+        inverse_normalizer = lambda data: np.dot(V,data*stds) + x_means
 
         # return normalizer 
-        return pca_sphere_normalizer
+        return normalizer,inverse_normalizer
