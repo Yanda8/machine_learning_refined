@@ -12039,10 +12039,10 @@ g\left(\mathbf{C}\right) = \frac{1}{P}\sum_{p = 1}^P \left \Vert \,f_{\text{d}}\
 <div class="output_wrapper">
 <div class="output">
 <div class="output_area"><div class="prompt"></div>
-<div id="5e550fdf-5552-4b06-8f77-c1c0d7670f4d"></div>
+<div id="193a75b9-8b87-45ee-ad39-036c728420a3"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#5e550fdf-5552-4b06-8f77-c1c0d7670f4d');
+var element = $('#193a75b9-8b87-45ee-ad39-036c728420a3');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -12875,10 +12875,10 @@ if (IPython.notebook.kernel != null) {
 <div class="output_wrapper">
 <div class="output">
 <div class="output_area"><div class="prompt"></div>
-<div id="d7698916-823c-4e1d-97fd-4cec7d66459a"></div>
+<div id="c82a21f6-8abf-4179-a8f5-1b7f9f5b9daf"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#d7698916-823c-4e1d-97fd-4cec7d66459a');
+var element = $('#c82a21f6-8abf-4179-a8f5-1b7f9f5b9daf');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -13655,10 +13655,10 @@ if (IPython.notebook.kernel != null) {
 </div>
 </div>
 <div class="output_area"><div class="prompt"></div>
-<div id="3d012bdf-de8d-428d-8868-2f690b462cac"></div>
+<div id="f1469de8-05dd-4437-b88d-4348ac159a08"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#3d012bdf-de8d-428d-8868-2f690b462cac');
+var element = $('#f1469de8-05dd-4437-b88d-4348ac159a08');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -14532,6 +14532,37 @@ g\left(\mathbf{w}\right) = \frac{1}{P}\sum_{p = 1}^P \left \Vert \,f_{\text{d}}\
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
+<p>Then since each of our <code>encoder</code> and <code>decoder</code> function can in general be a linear combination of feature transformations, each can be written in general precisely as we implemented a single such combination of features for e.g., regression or classification in the previous two Sections.  For example, in general the <code>encoder</code> can be implemented as follows (and likewise for the general <code>decoder</code>).</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># an implementation of our model employing a nonlinear feature transformation</span>
+<span class="k">def</span> <span class="nf">encoder</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">w</span><span class="p">):</span>    
+    <span class="c1"># feature transformation </span>
+    <span class="n">f</span> <span class="o">=</span> <span class="n">feature_transforms</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">w</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+    
+    <span class="c1"># tack a 1 onto the top of each input point all at once</span>
+    <span class="n">o</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">((</span><span class="mi">1</span><span class="p">,</span><span class="n">np</span><span class="o">.</span><span class="n">shape</span><span class="p">(</span><span class="n">f</span><span class="p">)[</span><span class="mi">1</span><span class="p">]))</span>
+    <span class="n">f</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">vstack</span><span class="p">((</span><span class="n">o</span><span class="p">,</span><span class="n">f</span><span class="p">))</span>
+    
+    <span class="c1"># compute linear combination and return</span>
+    <span class="n">a</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">T</span><span class="p">,</span><span class="n">w</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+    <span class="k">return</span> <span class="n">a</span><span class="o">.</span><span class="n">T</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
 <p>In short, to use the nonlinear autoencoder we need only define <code>encoder</code> and <code>decoder</code> functions, since the above <code>autoencoder</code> cost function implementation is always the same regardless of the dataset/nonlinearities used and <code>model</code> functions will always be more or less the same.</p>
 </div>
 </div>
@@ -14590,10 +14621,10 @@ g\left(\mathbf{w}\right) = \frac{1}{P}\sum_{p = 1}^P \left \Vert \,f_{\text{d}}\
 <div class="output_wrapper">
 <div class="output">
 <div class="output_area"><div class="prompt"></div>
-<div id="335635c3-84ce-4a93-8ce5-7bd820381f0b"></div>
+<div id="3b9198e9-c69d-4c72-b07a-a5ca793c1dc1"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#335635c3-84ce-4a93-8ce5-7bd820381f0b');
+var element = $('#3b9198e9-c69d-4c72-b07a-a5ca793c1dc1');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -15498,10 +15529,10 @@ r_2\,\text{sin}(\theta_p)+w_2
 <div class="output_wrapper">
 <div class="output">
 <div class="output_area"><div class="prompt"></div>
-<div id="6e609d77-54cf-49ed-84af-64e094419efe"></div>
+<div id="54aa98a3-99d2-4550-8e61-fb5686124d2a"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#6e609d77-54cf-49ed-84af-64e094419efe');
+var element = $('#54aa98a3-99d2-4550-8e61-fb5686124d2a');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -16303,10 +16334,10 @@ if (IPython.notebook.kernel != null) {
 <div class="output_wrapper">
 <div class="output">
 <div class="output_area"><div class="prompt"></div>
-<div id="f85c9384-e304-4eaa-a6a0-b57d995371e3"></div>
+<div id="0ffefe00-963d-4c40-b6da-36021bacdab8"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#f85c9384-e304-4eaa-a6a0-b57d995371e3');
+var element = $('#0ffefe00-963d-4c40-b6da-36021bacdab8');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -17083,10 +17114,10 @@ if (IPython.notebook.kernel != null) {
 </div>
 </div>
 <div class="output_area"><div class="prompt"></div>
-<div id="08207b14-b39e-413f-810f-0c20d38b4fa5"></div>
+<div id="914fbeab-82c3-4c26-9995-d9e93bc6c2de"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#08207b14-b39e-413f-810f-0c20d38b4fa5');
+var element = $('#914fbeab-82c3-4c26-9995-d9e93bc6c2de');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -17869,6 +17900,6 @@ if (IPython.notebook.kernel != null) {
 </div>
 </body>
 <script type="application/vnd.jupyter.widget-state+json">
-{"version_major": 1, "version_minor": 0, "state": {}}
+{"version_major": 1, "state": {}, "version_minor": 0}
 </script>
 </html>
