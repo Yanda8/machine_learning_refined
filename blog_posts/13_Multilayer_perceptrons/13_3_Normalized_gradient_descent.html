@@ -11863,9 +11863,6 @@ div#notebook {
 <div class="output_area">
 <div class="prompt"></div>
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>The autoreload extension is already loaded. To reload it, use:
-  %reload_ext autoreload
-</pre>
 </div>
 </div>
 </div>
@@ -12008,8 +12005,9 @@ div#notebook {
             <span class="c1"># pick random direction and normalize to have unit legnth</span>
             <span class="n">grad_eval</span> <span class="o">=</span> <span class="mi">10</span><span class="o">**-</span><span class="mi">6</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">sign</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">w</span><span class="p">))</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
             <span class="n">grad_norm</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">grad_eval</span><span class="p">)</span>
-            <span class="n">grad_eval</span> <span class="o">/=</span> <span class="n">grad_norm</span>
-    
+            
+        <span class="n">grad_eval</span> <span class="o">/=</span> <span class="n">grad_norm</span>
+        
         <span class="c1"># take gradient descent step</span>
         <span class="n">w</span> <span class="o">=</span> <span class="n">w</span> <span class="o">-</span> <span class="n">alpha</span><span class="o">*</span><span class="n">grad_eval</span>
         
