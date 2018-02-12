@@ -11870,7 +11870,13 @@ div#notebook {
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Recursive-rescipe-for-single-layer-basis-functions">Recursive rescipe for single layer basis functions<a class="anchor-link" href="#Recursive-rescipe-for-single-layer-basis-functions">¶</a></h3>
+<h3 id="Recursive-rescipe-for-single-layer-perceptron-units">Recursive rescipe for single layer perceptron units<a class="anchor-link" href="#Recursive-rescipe-for-single-layer-perceptron-units">¶</a></h3><p></p><hr style="height:1px;border:none;color:#555;background-color:#555;"/>
+<p style="line-height: 1.7;">
+<strong>1:</strong>   <strong>input:</strong> Activation function $a\left(\cdot\right)$<br/>
+<strong>2:</strong>   Compute linear combination of input:  $w_{0}+{\sum_{n=1}^{N}}{w_{n}\,x_n}$ <br/>
+<strong>3:</strong>   Pass result through nonlinear activation: $f^{(1)}\left(\mathbf{x}\right) = a\left(w_{0}+{\sum_{n=1}^{N}}{w_{n}\,x_n}\right)$ <br/>
+<strong>5:</strong>   <strong>output:</strong> Single layer perceptron unit $f^{(1)}$<br/>
+</p><hr style="height:1px;border:none;color:#555;background-color:#555;"/>
 </div>
 </div>
 </div>
@@ -11879,11 +11885,6 @@ div#notebook {
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>A single-layer neural network basis function is built following a very simple two-step recipe:</p>
-<ol>
-<li>Take a linear combination of the <strong>input</strong> (plus a bias): $w_{0}+{\sum_{n=1}^{N}}{w_{n}\,x_n}$ </li>
-<li>Pass the result through a nonlinear function: $a\left(w_{0}+{\sum_{n=1}^{N}}{w_{n}\,x_n}\right)$   </li>
-</ol>
 <p>Notice how the resulting basis function, i.e., $a\left(w_{0}+{\sum_{n=1}^{N}}{w_{n}\,x_n}\right)$, is both  <em>parameterized</em> (via the internal weights $w_0,\ldots,w_N$ introduced in the first step), and <em>nonlinear</em>, because of the nonlinear function $a$ used in the second step, usually referred to as the <em>activation</em> function. In the next Subsection we discuss the origin of neural networks' nomenclature from a historical perspective.</p>
 </div>
 </div>
@@ -11926,10 +11927,10 @@ f^{(1)}(x) = \text{tanh}\left(w_0 + w_1x\right)
 <div class="output_wrapper">
 <div class="output">
 <div class="output_area"><div class="prompt"></div>
-<div id="e06db84e-372f-4fc0-8ae5-951a594974b4"></div>
+<div id="f9c83659-8bd8-4242-880a-c60425a3bcb5"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#e06db84e-372f-4fc0-8ae5-951a594974b4');
+var element = $('#f9c83659-8bd8-4242-880a-c60425a3bcb5');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -12755,10 +12756,10 @@ f^{(1)}(x) = \text{max}\left(0,w_0 + w_1x\right)
 <div class="output_wrapper">
 <div class="output">
 <div class="output_area"><div class="prompt"></div>
-<div id="16520030-3efd-4960-aa7e-fe6d01241923"></div>
+<div id="52f42a75-7a89-433d-aac1-2bd582a028be"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#16520030-3efd-4960-aa7e-fe6d01241923');
+var element = $('#52f42a75-7a89-433d-aac1-2bd582a028be');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -13594,7 +13595,7 @@ if (IPython.notebook.kernel != null) {
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>The algebraic representation of a single-layer basis function is quite simple. In fact we have already seen it in the previous Subsections:</p>
 \begin{equation}
-f\left(x_1,x_2,\ldots,x_N\right)=a\left(w_{0}+\underset{n=1}{\overset{N}{\sum}}{w_{n}\,x_n}\right)
+f^{(1)}_j\left(x_1,x_2,\ldots,x_N\right)=a\left(w^{\left(1\right)}_{0,\,j}+\underset{n=1}{\overset{N}{\sum}}{w^{\left(1\right)}_{n,\,j}\,x_n}\right)
 \end{equation}
 </div>
 </div>
@@ -13632,20 +13633,14 @@ f\left(x_1,x_2,\ldots,x_N\right)=a\left(w_{0}+\underset{n=1}{\overset{N}{\sum}}{
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Recursive-rescipe-for-three-layer-basis-functions">Recursive rescipe for three layer basis functions<a class="anchor-link" href="#Recursive-rescipe-for-three-layer-basis-functions">¶</a></h3>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>To build a two-layer neural network basis function:</p>
-<ol>
-<li>Take a linear combination of <strong>$U_1$ single-layer functions</strong> (plus a bias): $w_{0}+{\sum_{j=1}^{U_1}}{w_{j}\,f^{(1)}_j}$ </li>
-<li>Pass the result through the nonlinear activation function: $a\left(w_{0}+{\sum_{j=1}^{U_1}}{w_{j}\,f^{(1)}_j}\right)$   </li>
-</ol>
+<h3 id="Recursive-rescipe-for-two-layer-perceptron-units">Recursive rescipe for two layer perceptron units<a class="anchor-link" href="#Recursive-rescipe-for-two-layer-perceptron-units">¶</a></h3><p></p><hr style="height:1px;border:none;color:#555;background-color:#555;"/>
+<p style="line-height: 1.7;">
+<strong>1:</strong>   <strong>input:</strong> Activation function $a\left(\cdot\right)$, number of single layer units $U_1$<br/>
+<strong>2:</strong>    Construct single layer units $f^{(1)}_j\left(\mathbf{x}\right)$ for $j=1,\,...,U_1$ <br/>
+<strong>3:</strong>   Compute linear combination of single layer units: $w_{0}+{\sum_{j=1}^{U_1}}{w_{j}\,f^{(1)}_j}\left(\mathbf{x}\right)$  <br/>
+<strong>5:</strong>   Pass result through nonlinear activation: $f^{(2)}\left(\mathbf{x}\right) = a\left(w_{0}+{\sum_{j=1}^{U_1}}{w_{j}\,f^{(1)}_j}\left(\mathbf{x}\right)\right)$   <br/>
+<strong>6:</strong>   <strong>output:</strong> Two layer perceptron unit $f^{(2)}$<br/>
+</p><hr style="height:1px;border:none;color:#555;background-color:#555;"/>
 </div>
 </div>
 </div>
@@ -13699,10 +13694,10 @@ f^{(1)}(x) =  \text{tanh}\left(w_0 + w_1x\right)
 <div class="output_wrapper">
 <div class="output">
 <div class="output_area"><div class="prompt"></div>
-<div id="3f3547c1-229e-4353-8c3c-cb48ef5e6140"></div>
+<div id="4af13839-c456-4b68-9aa5-f7dcee392ba5"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#3f3547c1-229e-4353-8c3c-cb48ef5e6140');
+var element = $('#4af13839-c456-4b68-9aa5-f7dcee392ba5');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -14575,20 +14570,14 @@ f_j^{\left(2\right)}\left(x_1,x_2,\ldots,x_N\right)=a\left(w^{\left(2\right)}_{0
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Recursive-rescipe-for-three-layer-basis-functions">Recursive rescipe for three layer basis functions<a class="anchor-link" href="#Recursive-rescipe-for-three-layer-basis-functions">¶</a></h3>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>With $U_2$ two-layer neural network basis functions at hand we can create a three-layer function following the familiar two-step recipe:</p>
-<ol>
-<li>Take a linear combination of the <strong>$U_2$ two-layer functions</strong> (plus a bias): $w_{0}+{\sum_{j=1}^{U_2}}{w_{j}\,f^{(2)}_j}$ </li>
-<li>Pass the result through the activation function: $a\left(w_{0}+{\sum_{j=1}^{U_2}}{w_{j}\,f^{(2)}_j}\right)$ </li>
-</ol>
+<h3 id="Recursive-rescipe-for-three-layer-perceptron-units">Recursive rescipe for three layer perceptron units<a class="anchor-link" href="#Recursive-rescipe-for-three-layer-perceptron-units">¶</a></h3><p></p><hr style="height:1px;border:none;color:#555;background-color:#555;"/>
+<p style="line-height: 1.7;">
+<strong>1:</strong>   <strong>input:</strong> Activation function $a\left(\cdot\right)$, number of single and two layer units $U_1$ and $U_2$<br/>
+<strong>2:</strong>   Construct two layer units $f^{(2)}_j\left(\mathbf{x}\right)$ for $j=1,\,...,U_2$ <br/>
+<strong>3:</strong>   Compute linear combination of two layer units: $w_{0}+{\sum_{j=1}^{U_2}}{w_{j}\,f^{(2)}_j}\left(\mathbf{x}\right)$  <br/>
+<strong>4:</strong>   Pass result through nonlinear activation: $f^{(3)}\left(\mathbf{x}\right) = a\left(w_{0}+{\sum_{j=1}^{U_2}}{w_{j}\,f^{(2)}_j}\left(\mathbf{x}\right)\right)$   <br/>
+<strong>6:</strong>   <strong>output:</strong> Three layer perceptron unit $f^{(3)}$<br/>
+</p><hr style="height:1px;border:none;color:#555;background-color:#555;"/>
 </div>
 </div>
 </div>
@@ -14636,10 +14625,10 @@ f^{(1)}(x) =  \text{tanh}\left(w_0 + w_1x\right)
 <div class="output_wrapper">
 <div class="output">
 <div class="output_area"><div class="prompt"></div>
-<div id="3c90ed30-52f0-4885-b86f-76b42e18d5e6"></div>
+<div id="2abde0ae-f5d4-4095-b389-1edfa9160192"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#3c90ed30-52f0-4885-b86f-76b42e18d5e6');
+var element = $('#2abde0ae-f5d4-4095-b389-1edfa9160192');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -15484,20 +15473,14 @@ f_j^{\left(3\right)}\left(x_1,x_2,\ldots,x_N\right)=a_{\,}\left(w^{\left(3\right
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Recursive-recipe-for-multilayer-basis-functions">Recursive recipe for multilayer basis functions<a class="anchor-link" href="#Recursive-recipe-for-multilayer-basis-functions">¶</a></h3>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>In general, the same recipe we have been following so far can be used to form an $L$-layer neural network basis function from $(L-1)$-layer ones:</p>
-<ol>
-<li>Take a linear combination of the <strong>$(L-1)$-layer basis functions</strong> (plus a bias): $w_{0}+{\sum_{j=1}^{U_{L-1}}}{w_{j}\,f^{(L-1)}_j}$ </li>
-<li>Pass the result through the activation function: $a\left(w_{0}+{\sum_{j=1}^{U_{L-1}}}{w_{j}\,f^{(L-1)}_j}\right)$   </li>
-</ol>
+<h3 id="Recursive-rescipe-for-general-$L$-layer-perceptron-units">Recursive rescipe for general $L$ layer perceptron units<a class="anchor-link" href="#Recursive-rescipe-for-general-$L$-layer-perceptron-units">¶</a></h3><p></p><hr style="height:1px;border:none;color:#555;background-color:#555;"/>
+<p style="line-height: 1.7;">
+<strong>1:</strong>   <strong>input:</strong> Activation function $a\left(\cdot\right)$, desired number of units per layer $U_1,\,U_2,...,U_{L-1}$<br/>
+<strong>2:</strong>   Construct $L-1$ layer units $f^{(L-1)}_j\left(\mathbf{x}\right)$ for $j=1,\,...,U_{L-1}$ <br/>
+<strong>3:</strong>   Compute linear combination of $L-1$ layer units: $w_{0}+{\sum_{j=1}^{U_{L-1}}}{w_{j}\,f^{(L-1)}_j}\left(\mathbf{x}\right)$  <br/>
+<strong>4:</strong>   Pass result through nonlinear activation: $f^{(L)}\left(\mathbf{x}\right) = a\left(w_{0}+{\sum_{j=1}^{U_{L-1}}}{w_{j}\,f^{(L-1)}_j}\left(\mathbf{x}\right)\right)$   <br/>
+<strong>5:</strong>   <strong>output:</strong> $L$ layer perceptron unit $f^{(L)}$<br/>
+</p><hr style="height:1px;border:none;color:#555;background-color:#555;"/>
 </div>
 </div>
 </div>
@@ -15539,10 +15522,10 @@ f_{\text{d}}\left(\,f_{\text{e}}\left(\mathbf{x}_p\right)\right) \approx \mathbf
 <div class="output_wrapper">
 <div class="output">
 <div class="output_area"><div class="prompt"></div>
-<div id="04c8ae35-c6e5-4dd8-a7b3-84625b58ee62"></div>
+<div id="70e0853e-6bc9-4db6-a16a-f604e8bb7b2f"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#04c8ae35-c6e5-4dd8-a7b3-84625b58ee62');
+var element = $('#70e0853e-6bc9-4db6-a16a-f604e8bb7b2f');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -16464,10 +16447,10 @@ f_{U_L}^{\left(L\right)}\left(\mathbf{x}\right)
         <span class="n">o</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">((</span><span class="mi">1</span><span class="p">,</span><span class="n">np</span><span class="o">.</span><span class="n">shape</span><span class="p">(</span><span class="n">a</span><span class="p">)[</span><span class="mi">1</span><span class="p">]))</span>
         <span class="n">a</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">vstack</span><span class="p">((</span><span class="n">o</span><span class="p">,</span><span class="n">a</span><span class="p">))</span>
         
-        <span class="c1"># compute inner product with current layer weights</span>
+        <span class="c1"># compute linear combination of current layer units</span>
         <span class="n">a</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">W</span><span class="p">)</span><span class="o">.</span><span class="n">T</span>
     
-        <span class="c1"># output of layer activation</span>
+        <span class="c1"># pass through activation</span>
         <span class="n">a</span> <span class="o">=</span> <span class="n">activation</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">a</span>
 </pre></div>
@@ -16592,10 +16575,10 @@ M = \text{dimension of output } y \,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,
 <div class="output_wrapper">
 <div class="output">
 <div class="output_area"><div class="prompt"></div>
-<div id="354dd20e-e226-49e9-8464-a72f252b9947"></div>
+<div id="131ff03b-67fd-4624-8f06-d3177f58ed04"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#354dd20e-e226-49e9-8464-a72f252b9947');
+var element = $('#131ff03b-67fd-4624-8f06-d3177f58ed04');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -17450,10 +17433,10 @@ if (IPython.notebook.kernel != null) {
 <div class="output_wrapper">
 <div class="output">
 <div class="output_area"><div class="prompt"></div>
-<div id="d789d36f-ca39-4817-82d6-05f6c68e9381"></div>
+<div id="36b069e5-b38e-41ad-9457-ad8930d3f2da"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#d789d36f-ca39-4817-82d6-05f6c68e9381');
+var element = $('#36b069e5-b38e-41ad-9457-ad8930d3f2da');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -18258,10 +18241,10 @@ if (IPython.notebook.kernel != null) {
 <div class="output_wrapper">
 <div class="output">
 <div class="output_area"><div class="prompt"></div>
-<div id="8728e964-2d24-46c1-99c7-3189a9a4cdbf"></div>
+<div id="f3cbf655-3ae6-4b48-a95f-36a748f79e73"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#8728e964-2d24-46c1-99c7-3189a9a4cdbf');
+var element = $('#f3cbf655-3ae6-4b48-a95f-36a748f79e73');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -19077,10 +19060,10 @@ if (IPython.notebook.kernel != null) {
 <div class="output_wrapper">
 <div class="output">
 <div class="output_area"><div class="prompt"></div>
-<div id="2b0075d8-9083-4762-8adb-10697f38ccab"></div>
+<div id="41482052-31c1-4f2d-bc42-2d25b445782b"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#2b0075d8-9083-4762-8adb-10697f38ccab');
+var element = $('#41482052-31c1-4f2d-bc42-2d25b445782b');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -19936,10 +19919,10 @@ if (IPython.notebook.kernel != null) {
 <div class="output_wrapper">
 <div class="output">
 <div class="output_area"><div class="prompt"></div>
-<div id="1a180fc3-d3ac-4583-b92e-f0d21ede1083"></div>
+<div id="2e5e5204-499a-410b-bdee-b9ca31e439d1"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#1a180fc3-d3ac-4583-b92e-f0d21ede1083');
+var element = $('#2e5e5204-499a-410b-bdee-b9ca31e439d1');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -20743,10 +20726,10 @@ if (IPython.notebook.kernel != null) {
 <div class="output_wrapper">
 <div class="output">
 <div class="output_area"><div class="prompt"></div>
-<div id="08264e5c-55f6-4bf7-a5be-bf63590cfca0"></div>
+<div id="5168f50b-99df-4a10-98c1-deaf02199aee"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#08264e5c-55f6-4bf7-a5be-bf63590cfca0');
+var element = $('#5168f50b-99df-4a10-98c1-deaf02199aee');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -21565,10 +21548,10 @@ if (IPython.notebook.kernel != null) {
 <div class="output_wrapper">
 <div class="output">
 <div class="output_area"><div class="prompt"></div>
-<div id="b40b9c0f-9f74-4392-b2dd-20ecdae727b3"></div>
+<div id="fba406a4-78a8-4c23-ace3-55a44fb8a4d2"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#b40b9c0f-9f74-4392-b2dd-20ecdae727b3');
+var element = $('#fba406a4-78a8-4c23-ace3-55a44fb8a4d2');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -22419,10 +22402,10 @@ if (IPython.notebook.kernel != null) {
 <div class="output_wrapper">
 <div class="output">
 <div class="output_area"><div class="prompt"></div>
-<div id="2b28d3ba-be8d-4738-8c05-fa046b77fcb2"></div>
+<div id="a7e24030-3427-40f6-be2f-8d90fa7d928f"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#2b28d3ba-be8d-4738-8c05-fa046b77fcb2');
+var element = $('#a7e24030-3427-40f6-be2f-8d90fa7d928f');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -23224,10 +23207,10 @@ if (IPython.notebook.kernel != null) {
 <div class="output_wrapper">
 <div class="output">
 <div class="output_area"><div class="prompt"></div>
-<div id="f119869c-25de-49d9-9f01-389b72b10ca4"></div>
+<div id="aefcbedf-23b5-4de5-879d-133fd31df98d"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#f119869c-25de-49d9-9f01-389b72b10ca4');
+var element = $('#aefcbedf-23b5-4de5-879d-133fd31df98d');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -24004,10 +23987,10 @@ if (IPython.notebook.kernel != null) {
 </div>
 </div>
 <div class="output_area"><div class="prompt"></div>
-<div id="f6cfb8fc-91dd-4b8e-9960-84f6a41b8437"></div>
+<div id="30777e44-22a4-4842-8354-3e3e0ffa0f94"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#f6cfb8fc-91dd-4b8e-9960-84f6a41b8437');
+var element = $('#30777e44-22a4-4842-8354-3e3e0ffa0f94');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 

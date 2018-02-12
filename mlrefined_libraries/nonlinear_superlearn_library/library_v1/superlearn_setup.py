@@ -3,6 +3,7 @@ from . import optimizers
 from . import cost_functions
 from . import normalizers
 from . import multilayer_perceptron
+from . import stumps
 from . import history_plotters
 
 class Setup:
@@ -18,12 +19,24 @@ class Setup:
         
     #### define feature transformation ####
     def choose_features(self,name,**kwargs): 
-        # select from pre-made feature transforms
+        ### select from pre-made feature transforms ###
+        # multilayer perceptron #
         if name == 'multilayer_perceptron':
             transformer = multilayer_perceptron.Setup(**kwargs)
             self.feature_transforms = transformer.feature_transforms
             self.initializer = transformer.initializer
             self.layer_sizes = transformer.layer_sizes
+            
+        # stumps #
+        if name == 'stumps':
+            transformer = stumps.Setup(self.x,self.y,**kwargs)
+            self.feature_transforms = transformer.feature_transforms
+            self.initializer = transformer.initializer
+            
+        # input a custom feature transformation
+        if 'feature_transforms' in kwargs:
+            self.feature_transforms = kwargs['feature_transforms']
+            self.initializer = kwargs['initializer']
         self.feature_name = name
 
     #### define normalizer ####

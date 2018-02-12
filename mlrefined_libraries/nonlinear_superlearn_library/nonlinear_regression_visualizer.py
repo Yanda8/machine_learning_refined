@@ -22,6 +22,7 @@ class Visualizer:
     def __init__(self,csvname):
         # grab input
         data = np.loadtxt(csvname,delimiter = ',')
+        data = data.T
         self.x = data[:,:-1]
         self.y = data[:,-1]
 

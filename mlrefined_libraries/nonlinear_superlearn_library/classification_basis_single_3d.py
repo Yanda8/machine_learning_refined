@@ -20,7 +20,7 @@ class Visualizer:
 
     # load target function
     def load_data(self,csvname):
-        data = np.loadtxt(csvname,delimiter = ',')
+        data = np.loadtxt(csvname,delimiter = ',').T
         self.x = data[:,:-1]
         self.y = data[:,-1:]
         
