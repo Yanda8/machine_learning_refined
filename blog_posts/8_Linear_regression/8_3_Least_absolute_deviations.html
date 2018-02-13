@@ -11888,26 +11888,16 @@ div#notebook {
 <div class="input">
 <div class="prompt input_prompt">In [2]:</div>
 <div class="inner_cell">
-<div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># load in dataset</span>
-<span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">loadtxt</span><span class="p">(</span><span class="n">datapath</span> <span class="o">+</span> <span class="s1">'regression_outliers.csv'</span><span class="p">,</span><span class="n">delimiter</span> <span class="o">=</span> <span class="s1">','</span><span class="p">)</span>
-<span class="n">x</span> <span class="o">=</span> <span class="n">data</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">,:]</span>
-<span class="n">y</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">:,:]</span> 
 
-<span class="c1"># plot dataset</span>
-<span class="n">demo</span> <span class="o">=</span> <span class="n">regress_plotter</span><span class="o">.</span><span class="n">Visualizer</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
-<span class="n">demo</span><span class="o">.</span><span class="n">plot_data</span><span class="p">()</span>
-</pre></div>
-</div>
 </div>
 </div>
 <div class="output_wrapper">
 <div class="output">
 <div class="output_area"><div class="prompt"></div>
-<div id="9a69ebb6-2ee5-4a19-8c74-ac6f51523cb9"></div>
+<div id="270fdbe0-c705-4f72-ad39-e9729c7edef2"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#9a69ebb6-2ee5-4a19-8c74-ac6f51523cb9');
+var element = $('#270fdbe0-c705-4f72-ad39-e9729c7edef2');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -12736,22 +12726,16 @@ if (IPython.notebook.kernel != null) {
 <div class="input">
 <div class="prompt input_prompt">In [14]:</div>
 <div class="inner_cell">
-<div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># grab best weights from minimization of Least Squares cost</span>
-<span class="n">ind</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argmin</span><span class="p">(</span><span class="n">cost_history_1</span><span class="p">)</span>
-<span class="n">least_weights</span> <span class="o">=</span> <span class="n">weight_history_1</span><span class="p">[</span><span class="n">ind</span><span class="p">]</span>
-<span class="n">demo</span><span class="o">.</span><span class="n">plot_fit</span><span class="p">(</span><span class="n">plotting_weights</span> <span class="o">=</span> <span class="p">[</span><span class="n">least_weights</span><span class="p">])</span>
-</pre></div>
-</div>
+
 </div>
 </div>
 <div class="output_wrapper">
 <div class="output">
 <div class="output_area"><div class="prompt"></div>
-<div id="2e1ef0b2-f30c-413c-8f2c-7a80a59c46c7"></div>
+<div id="f15737ab-cb93-409a-b5d1-622511d0f657"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#2e1ef0b2-f30c-413c-8f2c-7a80a59c46c7');
+var element = $('#f15737ab-cb93-409a-b5d1-622511d0f657');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -13649,20 +13633,16 @@ if (IPython.notebook.kernel != null) {
 <div class="input">
 <div class="prompt input_prompt">In [6]:</div>
 <div class="inner_cell">
-<div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># show run in both three-dimensions and just the input space via the contour plot</span>
-<span class="n">static_plotter</span><span class="o">.</span><span class="n">two_input_surface_contour_plot</span><span class="p">(</span><span class="n">least_absolute_deviations</span><span class="p">,[],</span><span class="n">view</span> <span class="o">=</span> <span class="p">[</span><span class="mi">10</span><span class="p">,</span><span class="mi">70</span><span class="p">],</span><span class="n">xmin</span> <span class="o">=</span> <span class="o">-</span><span class="mf">4.5</span><span class="p">,</span> <span class="n">xmax</span> <span class="o">=</span> <span class="mf">4.5</span><span class="p">,</span> <span class="n">ymin</span> <span class="o">=</span> <span class="o">-</span><span class="mf">4.5</span><span class="p">,</span> <span class="n">ymax</span> <span class="o">=</span> <span class="mf">4.5</span><span class="p">,</span><span class="n">num_contours</span> <span class="o">=</span> <span class="mi">5</span><span class="p">)</span>
-</pre></div>
-</div>
+
 </div>
 </div>
 <div class="output_wrapper">
 <div class="output">
 <div class="output_area"><div class="prompt"></div>
-<div id="a50cf5cf-8786-4859-9b8e-39b9bb871c0a"></div>
+<div id="dc69e112-89c6-411f-99b8-8d3646e2ccf8"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#a50cf5cf-8786-4859-9b8e-39b9bb871c0a');
+var element = $('#dc69e112-89c6-411f-99b8-8d3646e2ccf8');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -14476,20 +14456,16 @@ if (IPython.notebook.kernel != null) {
 <div class="input">
 <div class="prompt input_prompt">In [16]:</div>
 <div class="inner_cell">
-<div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># plot the cost function history for a given run</span>
-<span class="n">static_plotter</span><span class="o">.</span><span class="n">plot_cost_histories</span><span class="p">([</span><span class="n">cost_history_1</span><span class="p">,</span><span class="n">cost_history_2</span><span class="p">],</span><span class="n">start</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span><span class="n">points</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span><span class="n">labels</span> <span class="o">=</span> <span class="p">[</span><span class="s1">'least squares'</span><span class="p">,</span><span class="s1">'least absolute deviations'</span><span class="p">])</span>
-</pre></div>
-</div>
+
 </div>
 </div>
 <div class="output_wrapper">
 <div class="output">
 <div class="output_area"><div class="prompt"></div>
-<div id="3755a127-7eea-48ab-8935-681f641c55a9"></div>
+<div id="baadeff4-761e-4dd8-b2b5-70a052a44e67"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#3755a127-7eea-48ab-8935-681f641c55a9');
+var element = $('#baadeff4-761e-4dd8-b2b5-70a052a44e67');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -15281,22 +15257,16 @@ if (IPython.notebook.kernel != null) {
 <div class="input">
 <div class="prompt input_prompt">In [17]:</div>
 <div class="inner_cell">
-<div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># find best set of weights from gradient descent run on Least Absolute Deviations cost </span>
-<span class="n">ind</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argmin</span><span class="p">(</span><span class="n">cost_history_2</span><span class="p">)</span>
-<span class="n">absolute_weights</span> <span class="o">=</span> <span class="n">weight_history_2</span><span class="p">[</span><span class="n">ind</span><span class="p">]</span>
-<span class="n">demo</span><span class="o">.</span><span class="n">plot_fit</span><span class="p">(</span><span class="n">plotting_weights</span> <span class="o">=</span> <span class="p">[</span><span class="n">least_weights</span><span class="p">,</span><span class="n">absolute_weights</span><span class="p">])</span>
-</pre></div>
-</div>
+
 </div>
 </div>
 <div class="output_wrapper">
 <div class="output">
 <div class="output_area"><div class="prompt"></div>
-<div id="88ed80fd-3c83-4b56-a531-ba88da65af74"></div>
+<div id="1397d59f-473e-4813-b5cd-a9683d7e2c79"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#88ed80fd-3c83-4b56-a531-ba88da65af74');
+var element = $('#1397d59f-473e-4813-b5cd-a9683d7e2c79');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -16079,6 +16049,6 @@ if (IPython.notebook.kernel != null) {
 </div>
 </body>
 <script type="application/vnd.jupyter.widget-state+json">
-{"state": {}, "version_minor": 0, "version_major": 1}
+{"version_major": 1, "state": {}, "version_minor": 0}
 </script>
 </html>
