@@ -12175,26 +12175,16 @@ y = \underset{j \,=\, 0,...,C-1} {\text{max}}\,\text{model}\left(\mathbf{x},\mat
 <div class="input">
 <div class="prompt input_prompt">In [5]:</div>
 <div class="inner_cell">
-<div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># load in dataset</span>
-<span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">loadtxt</span><span class="p">(</span><span class="n">datapath</span> <span class="o">+</span> <span class="s1">'3class_data.csv'</span><span class="p">,</span><span class="n">delimiter</span> <span class="o">=</span> <span class="s1">','</span><span class="p">)</span>
 
-<span class="c1"># create an instance of the ova demo</span>
-<span class="n">demo</span> <span class="o">=</span> <span class="n">superlearn</span><span class="o">.</span><span class="n">multiclass_illustrator</span><span class="o">.</span><span class="n">Visualizer</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
-
-<span class="c1"># visualize dataset</span>
-<span class="n">demo</span><span class="o">.</span><span class="n">show_dataset</span><span class="p">()</span>
-</pre></div>
-</div>
 </div>
 </div>
 <div class="output_wrapper">
 <div class="output">
 <div class="output_area"><div class="prompt"></div>
-<div id="eb1563ce-1e93-43bc-9cb9-6fcea1489307"></div>
+<div id="fa779b0d-12b8-4188-bd55-46b4dcc94b8b"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#eb1563ce-1e93-43bc-9cb9-6fcea1489307');
+var element = $('#fa779b0d-12b8-4188-bd55-46b4dcc94b8b');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -12978,51 +12968,7 @@ if (IPython.notebook.kernel != null) {
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Next, we parse out the input from output, and form the regularized cost function.</p>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In [40]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># get input/output pairs</span>
-<span class="n">x</span> <span class="o">=</span> <span class="n">data</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">,:]</span>
-<span class="n">y</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">:,:]</span> 
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>Since the cost is convex we can use gradient descent to minimize it.</p>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In [53]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># run gradient descent to minimize cost</span>
-<span class="n">g</span> <span class="o">=</span> <span class="n">multiclass_perceptron</span><span class="p">;</span> <span class="n">w</span> <span class="o">=</span> <span class="mf">0.1</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="mi">3</span><span class="p">);</span> <span class="n">max_its</span> <span class="o">=</span> <span class="mi">200</span><span class="p">;</span> <span class="n">alpha_choice</span> <span class="o">=</span> <span class="mi">10</span><span class="o">**</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">);</span>
-<span class="n">weight_history</span><span class="p">,</span><span class="n">cost_history</span> <span class="o">=</span> <span class="n">optimizers</span><span class="o">.</span><span class="n">gradient_descent</span><span class="p">(</span><span class="n">g</span><span class="p">,</span><span class="n">alpha_choice</span><span class="p">,</span><span class="n">max_its</span><span class="p">,</span><span class="n">w</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>With our multi-class classifier trained we now show how it classifies the entire input space. In the left panel we plot each individual two-class classifier. In the middle panel we show the fused multi-class decision boundary formed by combining these individual classifiers via the fusion rule. In the right panel we plot the cost function value over $200$ iterations of gradient descent.</p>
+<p>With our multi-class classifier trained by gradient descent we now show how it classifies the entire input space. In the left panel we plot each individual two-class classifier. In the middle panel we show the fused multi-class decision boundary formed by combining these individual classifiers via the fusion rule. In the right panel we plot the cost function value over $200$ iterations of gradient descent.</p>
 <p>Note in the left panel that because we did not train each individual classifier in an OvA sense - but trained them together all at once - each individual learned two-class classifier performs quite poorly.  This is fine as our cost function aimed at minimizing all errors of every class simultaneously and not two at a time as with OvA - so we need not expect each individual classifier to cut the space well. However since they were learned together their combination - using the fusion rule - provides a multi-class decision boundary with zero errors.</p>
 </div>
 </div>
@@ -13031,20 +12977,16 @@ if (IPython.notebook.kernel != null) {
 <div class="input">
 <div class="prompt input_prompt">In [54]:</div>
 <div class="inner_cell">
-<div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># plot classification of space, individual learned classifiers (left panel) and joint boundary (middle panel), and cost-function panel in the right panel</span>
-<span class="n">demo</span><span class="o">.</span><span class="n">show_complete_coloring</span><span class="p">(</span><span class="n">weight_history</span><span class="p">,</span> <span class="n">cost</span> <span class="o">=</span> <span class="n">multiclass_perceptron</span><span class="p">)</span>
-</pre></div>
-</div>
+
 </div>
 </div>
 <div class="output_wrapper">
 <div class="output">
 <div class="output_area"><div class="prompt"></div>
-<div id="c468dbb0-17e8-4be7-9b15-e8865efea267"></div>
+<div id="cbd1948b-b479-42ee-89a7-ede7a0c0b488"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#c468dbb0-17e8-4be7-9b15-e8865efea267');
+var element = $('#cbd1948b-b479-42ee-89a7-ede7a0c0b488');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -13845,28 +13787,16 @@ if (IPython.notebook.kernel != null) {
 <div class="input">
 <div class="prompt input_prompt">In [56]:</div>
 <div class="inner_cell">
-<div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># load in a toy dataset to illustrate the benefits of standard normalization </span>
-<span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">loadtxt</span><span class="p">(</span><span class="n">datapath</span> <span class="o">+</span> <span class="s1">'singleinput_multiclass_dataset.csv'</span><span class="p">,</span><span class="n">delimiter</span> <span class="o">=</span> <span class="s1">','</span><span class="p">)</span>
 
-<span class="c1"># get input/output pairs</span>
-<span class="n">x</span> <span class="o">=</span> <span class="n">data</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">,:]</span>
-<span class="n">y</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">:,:]</span> 
-
-<span class="c1"># multiclass single-input plotter</span>
-<span class="n">demo</span> <span class="o">=</span> <span class="n">classif_plotter</span><span class="o">.</span><span class="n">Visualizer</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
-<span class="n">demo</span><span class="o">.</span><span class="n">plot_data</span><span class="p">()</span>
-</pre></div>
-</div>
 </div>
 </div>
 <div class="output_wrapper">
 <div class="output">
 <div class="output_area"><div class="prompt"></div>
-<div id="d1eb002e-c5ca-4e38-a876-58e095630c7f"></div>
+<div id="7efebbf6-3ceb-44a5-ae00-c02c978f8965"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#d1eb002e-c5ca-4e38-a876-58e095630c7f');
+var element = $('#7efebbf6-3ceb-44a5-ae00-c02c978f8965');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -14665,42 +14595,18 @@ if (IPython.notebook.kernel != null) {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In [58]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># run newtons method to minimize cost</span>
-<span class="n">g</span> <span class="o">=</span> <span class="n">multiclass_perceptron</span><span class="p">;</span> <span class="n">w</span> <span class="o">=</span> <span class="mf">0.1</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">4</span><span class="p">);</span> <span class="n">max_its</span> <span class="o">=</span> <span class="mi">10000</span><span class="p">;</span> 
-<span class="n">alpha_choice</span> <span class="o">=</span> <span class="mi">10</span><span class="o">**</span><span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="p">)</span>
-<span class="n">weight_history</span><span class="p">,</span><span class="n">cost_history</span> <span class="o">=</span> <span class="n">optimizers</span><span class="o">.</span><span class="n">gradient_descent</span><span class="p">(</span><span class="n">g</span><span class="p">,</span><span class="n">alpha_choice</span><span class="p">,</span><span class="n">max_its</span><span class="p">,</span><span class="n">w</span><span class="p">)</span>
-
-<span class="c1"># compute misclassification history</span>
-<span class="n">counting_cost</span> <span class="o">=</span> <span class="n">cost_lib</span><span class="o">.</span><span class="n">choose_cost</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="s1">'multiclass_counter'</span><span class="p">)</span>
-<span class="n">count_history</span> <span class="o">=</span> <span class="p">[</span><span class="n">counting_cost</span><span class="p">(</span><span class="n">v</span><span class="p">)</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">weight_history</span><span class="p">]</span>  <span class="c1"># compute misclassification history</span>
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
 <div class="prompt input_prompt">In [59]:</div>
 <div class="inner_cell">
-<div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># plot the best learned representation from our run above</span>
-<span class="n">ind</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argmin</span><span class="p">(</span><span class="n">count_history</span><span class="p">)</span>
-<span class="n">best_weights</span> <span class="o">=</span> <span class="n">weight_history</span><span class="p">[</span><span class="n">ind</span><span class="p">]</span>
-<span class="n">demo</span><span class="o">.</span><span class="n">plot_fit</span><span class="p">(</span><span class="n">best_weights</span><span class="p">)</span>
-</pre></div>
-</div>
+
 </div>
 </div>
 <div class="output_wrapper">
 <div class="output">
 <div class="output_area"><div class="prompt"></div>
-<div id="2e8683f4-8289-4170-a19f-b97f692cc2b4"></div>
+<div id="557bab42-d61d-483c-8d85-b08d8fc7e077"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#2e8683f4-8289-4170-a19f-b97f692cc2b4');
+var element = $('#557bab42-d61d-483c-8d85-b08d8fc7e077');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -15492,20 +15398,16 @@ if (IPython.notebook.kernel != null) {
 <div class="input">
 <div class="prompt input_prompt">In [60]:</div>
 <div class="inner_cell">
-<div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># visualize each subproblem dataset and step function fit</span>
-<span class="n">demo</span><span class="o">.</span><span class="n">plot_subproblem_fits</span><span class="p">(</span><span class="n">best_weights</span><span class="p">)</span>
-</pre></div>
-</div>
+
 </div>
 </div>
 <div class="output_wrapper">
 <div class="output">
 <div class="output_area"><div class="prompt"></div>
-<div id="61f6dd04-8327-49e6-942d-5c0908e91474"></div>
+<div id="6006ad54-5ddb-4591-b87d-373851823ee1"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#61f6dd04-8327-49e6-942d-5c0908e91474');
+var element = $('#6006ad54-5ddb-4591-b87d-373851823ee1');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -16456,23 +16358,7 @@ w_0^{(\,C-1)} + \mathbf{x}_{p}^T\mathbf{w}_{\mathstrut}^{(\,C-1)}
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>In this example we run the multi-class softmax classifier on the same dataset used in the previous example, first using unnormalized gradient descent and then Newton's method.  In the next Python cell we implement a version of the multi-class softmax cost function complete with regularizer. The weights are formatted precisely as in our implementation of the multi-class perceptron, discussed in Example 1.</p>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In [62]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># load in dataset</span>
-<span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">loadtxt</span><span class="p">(</span><span class="n">datapath</span> <span class="o">+</span> <span class="s1">'3class_data.csv'</span><span class="p">,</span><span class="n">delimiter</span> <span class="o">=</span> <span class="s1">','</span><span class="p">)</span>
-
-<span class="c1"># get input/output pairs</span>
-<span class="n">x</span> <span class="o">=</span> <span class="n">data</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">,:]</span>
-<span class="n">y</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">:,:]</span> 
-</pre></div>
-</div>
+<p>In this example we run the multi-class softmax classifier on the same dataset used in the previous example, first using unnormalized gradient descent and then Newton's method.  In the next Python cell we implement a version of the multi-class softmax cost function complete with regularizer. The weights are formatted precisely as in our implementation of the multi-class perceptron, discussed in Example 1.  We then minimize the softmax cost function using gradient descent - for $200$ iterations using a fixed steplength value $\alpha = 10^{-2}$.</p>
 </div>
 </div>
 </div>
@@ -16481,29 +16367,7 @@ w_0^{(\,C-1)} + \mathbf{x}_{p}^T\mathbf{w}_{\mathstrut}^{(\,C-1)}
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Now we minimize this cost function using gradient descent - for $200$ iterations using a fixed steplength value $\alpha = 10^{-2}$.</p>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In [65]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># run gradient descent to minimize cost</span>
-<span class="n">g</span> <span class="o">=</span> <span class="n">multiclass_softmax</span><span class="p">;</span> <span class="n">w</span> <span class="o">=</span> <span class="mf">0.1</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="mi">3</span><span class="p">);</span> <span class="n">max_its</span> <span class="o">=</span> <span class="mi">200</span><span class="p">;</span> <span class="n">alpha_choice</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
-<span class="n">weight_history</span><span class="p">,</span><span class="n">cost_history</span> <span class="o">=</span> <span class="n">optimizers</span><span class="o">.</span><span class="n">gradient_descent</span><span class="p">(</span><span class="n">g</span><span class="p">,</span><span class="n">alpha_choice</span><span class="p">,</span><span class="n">max_its</span><span class="p">,</span><span class="n">w</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>In the next cell we plot the final classification over the entire space in the left and middle panels while the cost function plot from our run of gradient descent is plotted in the right panel. In the left panel are shown the final learned two-class classifiers individually, in the middle the multi-class boundary created using these two-class boundaries and the fusion rule. As with the multi-class perceptron, since the multi-class softmax cost focuses on optimizing the parameters of all $C$ two-class classifiers simultaneously to get the best multi-class fit, each one of the two-class decision boundaries need not perfectly distinguish its class from the rest of the data.</p>
+<p>Below we plot the final classification over the entire space in the left and middle panels while the cost function plot from our run of gradient descent is plotted in the right panel. In the left panel are shown the final learned two-class classifiers individually, in the middle the multi-class boundary created using these two-class boundaries and the fusion rule. As with the multi-class perceptron, since the multi-class softmax cost focuses on optimizing the parameters of all $C$ two-class classifiers simultaneously to get the best multi-class fit, each one of the two-class decision boundaries need not perfectly distinguish its class from the rest of the data.</p>
 </div>
 </div>
 </div>
@@ -16511,23 +16375,16 @@ w_0^{(\,C-1)} + \mathbf{x}_{p}^T\mathbf{w}_{\mathstrut}^{(\,C-1)}
 <div class="input">
 <div class="prompt input_prompt">In [66]:</div>
 <div class="inner_cell">
-<div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># create an instance of the ova demo</span>
-<span class="n">demo</span> <span class="o">=</span> <span class="n">superlearn</span><span class="o">.</span><span class="n">multiclass_illustrator</span><span class="o">.</span><span class="n">Visualizer</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
 
-<span class="c1"># plot classification of space, individual learned classifiers (left panel) and joint boundary (middle panel), and cost-function panel in the right panel</span>
-<span class="n">demo</span><span class="o">.</span><span class="n">show_complete_coloring</span><span class="p">(</span><span class="n">weight_history</span><span class="p">,</span> <span class="n">cost</span> <span class="o">=</span> <span class="n">multiclass_softmax</span><span class="p">)</span>
-</pre></div>
-</div>
 </div>
 </div>
 <div class="output_wrapper">
 <div class="output">
 <div class="output_area"><div class="prompt"></div>
-<div id="af168fd9-84e5-4277-86b6-872ac27f24c7"></div>
+<div id="73634fd2-ec60-4dab-9926-34c99069a62b"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#af168fd9-84e5-4277-86b6-872ac27f24c7');
+var element = $('#73634fd2-ec60-4dab-9926-34c99069a62b');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -17315,19 +17172,6 @@ if (IPython.notebook.kernel != null) {
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In [67]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># run newtons method to minimize cost</span>
-<span class="n">g</span> <span class="o">=</span> <span class="n">multiclass_softmax</span><span class="p">;</span> <span class="n">w</span> <span class="o">=</span> <span class="mf">0.1</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="mi">3</span><span class="p">);</span> <span class="n">max_its</span> <span class="o">=</span> <span class="mi">5</span><span class="p">;</span> 
-<span class="n">weight_history</span><span class="p">,</span><span class="n">cost_history</span> <span class="o">=</span> <span class="n">optimizers</span><span class="o">.</span><span class="n">newtons_method</span><span class="p">(</span><span class="n">g</span><span class="p">,</span><span class="n">max_its</span><span class="p">,</span><span class="n">w</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</div>
-</div>
 <div class="cell border-box-sizing text_cell rendered">
 <div class="prompt input_prompt">
 </div>
@@ -17341,20 +17185,16 @@ if (IPython.notebook.kernel != null) {
 <div class="input">
 <div class="prompt input_prompt">In [68]:</div>
 <div class="inner_cell">
-<div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># plot classification of space, individual learned classifiers (left panel) and joint boundary (middle panel), and cost-function panel in the right panel</span>
-<span class="n">demo</span><span class="o">.</span><span class="n">show_complete_coloring</span><span class="p">(</span><span class="n">weight_history</span><span class="p">,</span> <span class="n">cost</span> <span class="o">=</span> <span class="n">multiclass_softmax</span><span class="p">)</span>
-</pre></div>
-</div>
+
 </div>
 </div>
 <div class="output_wrapper">
 <div class="output">
 <div class="output_area"><div class="prompt"></div>
-<div id="b0e03697-f9c8-4d83-9a44-31d36c91db12"></div>
+<div id="cd6e57da-d5f8-4810-a449-43b707175607"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#b0e03697-f9c8-4d83-9a44-31d36c91db12');
+var element = $('#cd6e57da-d5f8-4810-a449-43b707175607');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -18155,20 +17995,16 @@ if (IPython.notebook.kernel != null) {
 <div class="input">
 <div class="prompt input_prompt">In [23]:</div>
 <div class="inner_cell">
-<div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># plot classification of space, individual learned classifiers (left panel) and joint boundary (middle panel), and cost-function panel in the right panel</span>
-<span class="n">demo</span><span class="o">.</span><span class="n">show_surface_fit</span><span class="p">(</span><span class="n">weight_history</span><span class="p">,</span><span class="n">view</span> <span class="o">=</span> <span class="p">[</span><span class="mi">15</span><span class="p">,</span><span class="mi">115</span><span class="p">])</span>
-</pre></div>
-</div>
+
 </div>
 </div>
 <div class="output_wrapper">
 <div class="output">
 <div class="output_area"><div class="prompt"></div>
-<div id="8f85b983-a19d-4f79-abdf-2d988bca4fa0"></div>
+<div id="7a5005f7-4989-44d6-ac5e-eb301fb8d00a"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#8f85b983-a19d-4f79-abdf-2d988bca4fa0');
+var element = $('#7a5005f7-4989-44d6-ac5e-eb301fb8d00a');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -18969,30 +18805,16 @@ if (IPython.notebook.kernel != null) {
 <div class="input">
 <div class="prompt input_prompt">In [69]:</div>
 <div class="inner_cell">
-<div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># load in dataset</span>
-<span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">loadtxt</span><span class="p">(</span><span class="n">datapath</span> <span class="o">+</span> <span class="s1">'4class_data.csv'</span><span class="p">,</span><span class="n">delimiter</span> <span class="o">=</span> <span class="s1">','</span><span class="p">)</span>
 
-<span class="c1"># get input/output pairs</span>
-<span class="n">x</span> <span class="o">=</span> <span class="n">data</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">,:]</span>
-<span class="n">y</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">:,:]</span> 
-
-<span class="c1"># create an instance of the ova demo</span>
-<span class="n">demo</span> <span class="o">=</span> <span class="n">superlearn</span><span class="o">.</span><span class="n">multiclass_illustrator</span><span class="o">.</span><span class="n">Visualizer</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
-
-<span class="c1"># visualize dataset</span>
-<span class="n">demo</span><span class="o">.</span><span class="n">show_dataset</span><span class="p">()</span>
-</pre></div>
-</div>
 </div>
 </div>
 <div class="output_wrapper">
 <div class="output">
 <div class="output_area"><div class="prompt"></div>
-<div id="51cccdd4-f40d-4f06-893a-79e01f914d11"></div>
+<div id="1818cf76-7f42-484c-90d7-d12bf05f4340"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#51cccdd4-f40d-4f06-893a-79e01f914d11');
+var element = $('#1818cf76-7f42-484c-90d7-d12bf05f4340');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -19776,28 +19598,6 @@ if (IPython.notebook.kernel != null) {
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>In the next cell we run Newton's method for 5 iterations.</p>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In [70]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># run gradient descent to minimize cost</span>
-<span class="n">g</span> <span class="o">=</span> <span class="n">multiclass_softmax</span><span class="p">;</span> <span class="n">w</span> <span class="o">=</span> <span class="mf">0.1</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">);</span> <span class="n">max_its</span> <span class="o">=</span> <span class="mi">5</span><span class="p">;</span> 
-<span class="n">weight_history</span><span class="p">,</span><span class="n">cost_history</span> <span class="o">=</span> <span class="n">optimizers</span><span class="o">.</span><span class="n">newtons_method</span><span class="p">(</span><span class="n">g</span><span class="p">,</span><span class="n">max_its</span><span class="p">,</span><span class="n">w</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
 <p>Finally, we plot our results, as in the previous Example.</p>
 </div>
 </div>
@@ -19806,20 +19606,16 @@ if (IPython.notebook.kernel != null) {
 <div class="input">
 <div class="prompt input_prompt">In [71]:</div>
 <div class="inner_cell">
-<div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># plot classification of space, individual learned classifiers (left panel) and joint boundary (middle panel), and cost-function panel in the right panel</span>
-<span class="n">demo</span><span class="o">.</span><span class="n">show_complete_coloring</span><span class="p">(</span><span class="n">weight_history</span><span class="p">,</span> <span class="n">cost</span> <span class="o">=</span> <span class="n">multiclass_softmax</span><span class="p">)</span>
-</pre></div>
-</div>
+
 </div>
 </div>
 <div class="output_wrapper">
 <div class="output">
 <div class="output_area"><div class="prompt"></div>
-<div id="c637ebb5-c8ac-4892-9b1d-ea5e654922ad"></div>
+<div id="51fed24d-daef-4861-b04b-5698aca8f642"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#c637ebb5-c8ac-4892-9b1d-ea5e654922ad');
+var element = $('#51fed24d-daef-4861-b04b-5698aca8f642');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -20706,26 +20502,16 @@ if (IPython.notebook.kernel != null) {
 <div class="input">
 <div class="prompt input_prompt">In [30]:</div>
 <div class="inner_cell">
-<div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># load in dataset</span>
-<span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">loadtxt</span><span class="p">(</span><span class="n">datapath</span> <span class="o">+</span> <span class="s1">'3class_data.csv'</span><span class="p">,</span><span class="n">delimiter</span> <span class="o">=</span> <span class="s1">','</span><span class="p">)</span>
 
-<span class="c1"># create an instance of the ova demo</span>
-<span class="n">demo</span> <span class="o">=</span> <span class="n">superlearn</span><span class="o">.</span><span class="n">multiclass_illustrator</span><span class="o">.</span><span class="n">Visualizer</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
-
-<span class="c1"># run demo</span>
-<span class="n">demo</span><span class="o">.</span><span class="n">compare_to_counting</span><span class="p">(</span><span class="n">num_runs</span> <span class="o">=</span> <span class="mi">3</span><span class="p">)</span>
-</pre></div>
-</div>
 </div>
 </div>
 <div class="output_wrapper">
 <div class="output">
 <div class="output_area"><div class="prompt"></div>
-<div id="7f7d4c27-c1dd-409e-a9d0-975a3b3138ba"></div>
+<div id="0ae27ad9-f90e-4b39-bfa6-fbf1ca95a6b5"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#7f7d4c27-c1dd-409e-a9d0-975a3b3138ba');
+var element = $('#0ae27ad9-f90e-4b39-bfa6-fbf1ca95a6b5');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -21966,6 +21752,6 @@ g\left(\lambda \mathbf{w}_1+\left(1-\lambda\right) \mathbf{w}_2\right)\leq \lamb
 </div>
 </body>
 <script type="application/vnd.jupyter.widget-state+json">
-{"version_major": 1, "state": {}, "version_minor": 0}
+{"version_major": 1, "version_minor": 0, "state": {}}
 </script>
 </html>

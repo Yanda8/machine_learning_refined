@@ -11882,26 +11882,16 @@ w_0 + \mathbf{x}_p^T\mathbf{w}^{\,}_{\,}
 <div class="input">
 <div class="prompt input_prompt">In [3]:</div>
 <div class="inner_cell">
-<div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># load in dataset</span>
-<span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">loadtxt</span><span class="p">(</span><span class="n">datapath</span> <span class="o">+</span> <span class="s1">'3class_data.csv'</span><span class="p">,</span><span class="n">delimiter</span> <span class="o">=</span> <span class="s1">','</span><span class="p">)</span>
 
-<span class="c1"># create an instance of the ova demo</span>
-<span class="n">demo1</span> <span class="o">=</span> <span class="n">superlearn</span><span class="o">.</span><span class="n">ova_illustrator</span><span class="o">.</span><span class="n">Visualizer</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
-
-<span class="c1"># visualize dataset</span>
-<span class="n">demo1</span><span class="o">.</span><span class="n">show_dataset</span><span class="p">()</span>
-</pre></div>
-</div>
 </div>
 </div>
 <div class="output_wrapper">
 <div class="output">
 <div class="output_area"><div class="prompt"></div>
-<div id="d8d2a705-933a-4225-9f0e-d0637579865e"></div>
+<div id="f03ebc56-4714-469f-a3ca-76e00e9c5dfe"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#d8d2a705-933a-4225-9f0e-d0637579865e');
+var element = $('#f03ebc56-4714-469f-a3ca-76e00e9c5dfe');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -12706,19 +12696,7 @@ if (IPython.notebook.kernel != null) {
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Doing this for our $C = 3$ dataset in this case we end up learning 3 linear classifiers - here we use logistic regression for each subproblem, solving each using Newton's method. This is performed by activating the next Python cell.</p>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># solve the 2-class subproblems</span>
-<span class="n">demo1</span><span class="o">.</span><span class="n">solve_2class_subproblems</span><span class="p">()</span>
-</pre></div>
-</div>
+<p>Doing this for our $C = 3$ dataset in this case we end up learning 3 linear classifiers - here we use logistic regression for each subproblem, solving each using Newton's method.</p>
 </div>
 </div>
 </div>
@@ -12727,7 +12705,7 @@ if (IPython.notebook.kernel != null) {
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>With our classifiers trained we can now illustrate our learned decision boundaries - each learned to distinguish a single class from the remainder of the data. The next Python cell plots two rows of images - in the top row our original dataset is plotted three times with each instance showing just one of the three two-class classifiers learned.  The single class being distinguished is colored with its original color - with the corresponding learned decision boundary colored similarly - and all other data is colored gray. In the bottom row the dataset is shown with along with all three learned decision boundaries all at once.</p>
+<p>With our classifiers trained we can now illustrate our learned decision boundaries - each learned to distinguish a single class from the remainder of the data. Below we plot two rows of images - in the top row our original dataset is plotted three times with each instance showing just one of the three two-class classifiers learned.  The single class being distinguished is colored with its original color - with the corresponding learned decision boundary colored similarly - and all other data is colored gray. In the bottom row the dataset is shown with along with all three learned decision boundaries all at once.</p>
 </div>
 </div>
 </div>
@@ -12735,20 +12713,16 @@ if (IPython.notebook.kernel != null) {
 <div class="input">
 <div class="prompt input_prompt">In [4]:</div>
 <div class="inner_cell">
-<div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># illustrate dataset with each subproblem and learned decision boundary</span>
-<span class="n">demo1</span><span class="o">.</span><span class="n">plot_data_and_subproblem_separators</span><span class="p">()</span>
-</pre></div>
-</div>
+
 </div>
 </div>
 <div class="output_wrapper">
 <div class="output">
 <div class="output_area"><div class="prompt"></div>
-<div id="6d536eb8-eccc-43fb-81d9-02a43f1ea91e"></div>
+<div id="3976c360-45d9-4e52-8a03-a7535b3aa4aa"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#6d536eb8-eccc-43fb-81d9-02a43f1ea91e');
+var element = $('#3976c360-45d9-4e52-8a03-a7535b3aa4aa');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -13591,20 +13565,16 @@ y =  \underset{j \,=\, 0,...,C-1}{\text{argmax}} \,\,\,w_0^{(\,j)} + \mathbf{x}_
 <div class="input">
 <div class="prompt input_prompt">In [5]:</div>
 <div class="inner_cell">
-<div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># color those points clearly belonging to each individual class - those lying near the points we already have on the positive side of only one classifier.</span>
-<span class="n">demo1</span><span class="o">.</span><span class="n">show_fusion</span><span class="p">(</span><span class="n">region</span> <span class="o">=</span> <span class="mi">1</span><span class="p">)</span>
-</pre></div>
-</div>
+
 </div>
 </div>
 <div class="output_wrapper">
 <div class="output">
 <div class="output_area"><div class="prompt"></div>
-<div id="95cb6840-71cf-448d-99f4-59766cdf19bf"></div>
+<div id="e27fb1d7-f376-46ea-85df-8223468304df"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#95cb6840-71cf-448d-99f4-59766cdf19bf');
+var element = $('#e27fb1d7-f376-46ea-85df-8223468304df');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -14415,20 +14385,16 @@ if (IPython.notebook.kernel != null) {
 <div class="input">
 <div class="prompt input_prompt">In [6]:</div>
 <div class="inner_cell">
-<div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># try examining a point and its distance to relevant decision boundaries</span>
-<span class="n">demo1</span><span class="o">.</span><span class="n">point_and_projection</span><span class="p">(</span><span class="n">point1</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.4</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span> <span class="p">,</span><span class="n">point2</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.6</span><span class="p">,</span><span class="mi">1</span><span class="p">])</span>
-</pre></div>
-</div>
+
 </div>
 </div>
 <div class="output_wrapper">
 <div class="output">
 <div class="output_area"><div class="prompt"></div>
-<div id="46d06b0f-29f8-47d5-b5d1-7f9ac2c8a7b7"></div>
+<div id="ff5b0be8-7cb2-4ce8-8834-f7d6e6a131b0"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#46d06b0f-29f8-47d5-b5d1-7f9ac2c8a7b7');
+var element = $('#ff5b0be8-7cb2-4ce8-8834-f7d6e6a131b0');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -15248,20 +15214,16 @@ if (IPython.notebook.kernel != null) {
 <div class="input">
 <div class="prompt input_prompt">In [7]:</div>
 <div class="inner_cell">
-<div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># color points belonging on the positive side of two or more classifiers</span>
-<span class="n">demo1</span><span class="o">.</span><span class="n">show_fusion</span><span class="p">(</span><span class="n">region</span> <span class="o">=</span> <span class="mi">2</span><span class="p">)</span>
-</pre></div>
-</div>
+
 </div>
 </div>
 <div class="output_wrapper">
 <div class="output">
 <div class="output_area"><div class="prompt"></div>
-<div id="ba8c964d-ec2d-408c-8e7d-fe0140a5cd32"></div>
+<div id="97819b68-4d23-45f4-9e94-73927c73dc35"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#ba8c964d-ec2d-408c-8e7d-fe0140a5cd32');
+var element = $('#97819b68-4d23-45f4-9e94-73927c73dc35');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -16102,20 +16064,16 @@ y =  \underset{j \,=\, 0,...,C-1}{\text{argmax}} \,\,\,w_0^{(\,j)} + \mathbf{x}_
 <div class="input">
 <div class="prompt input_prompt">In [8]:</div>
 <div class="inner_cell">
-<div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># try examining a point and its distance to relevant decision boundaries</span>
-<span class="n">demo1</span><span class="o">.</span><span class="n">point_and_projection</span><span class="p">(</span><span class="n">point1</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.4</span><span class="p">,</span><span class="mf">0.5</span><span class="p">]</span> <span class="p">,</span><span class="n">point2</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.45</span><span class="p">,</span><span class="mf">0.45</span><span class="p">])</span>
-</pre></div>
-</div>
+
 </div>
 </div>
 <div class="output_wrapper">
 <div class="output">
 <div class="output_area"><div class="prompt"></div>
-<div id="2fdfce41-7fa3-48d2-9abe-5344846a4ad1"></div>
+<div id="722f364f-d46f-4eb6-9087-7f5c557a06d0"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#2fdfce41-7fa3-48d2-9abe-5344846a4ad1');
+var element = $('#722f364f-d46f-4eb6-9087-7f5c557a06d0');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -16925,20 +16883,16 @@ if (IPython.notebook.kernel != null) {
 <div class="input">
 <div class="prompt input_prompt">In [9]:</div>
 <div class="inner_cell">
-<div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># color the region on which all classifiers are negative</span>
-<span class="n">demo1</span><span class="o">.</span><span class="n">show_fusion</span><span class="p">(</span><span class="n">region</span> <span class="o">=</span> <span class="mi">3</span><span class="p">);</span>
-</pre></div>
-</div>
+
 </div>
 </div>
 <div class="output_wrapper">
 <div class="output">
 <div class="output_area"><div class="prompt"></div>
-<div id="e3114fe1-5497-4bbf-bcef-73cf28de2869"></div>
+<div id="95fb6b59-e5ec-4c95-9c8c-d57b836433f0"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#e3114fe1-5497-4bbf-bcef-73cf28de2869');
+var element = $('#95fb6b59-e5ec-4c95-9c8c-d57b836433f0');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -17804,20 +17758,16 @@ y =  \underset{j \,=\, 0,...,C-1}{\text{argmax}} \,\,\,w_0^{(\,j)} + \mathbf{x}_
 <div class="input">
 <div class="prompt input_prompt">In [10]:</div>
 <div class="inner_cell">
-<div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># classify and color the entire space using our individual classifiers and the fusion rule</span>
-<span class="n">demo1</span><span class="o">.</span><span class="n">show_complete_coloring</span><span class="p">();</span>
-</pre></div>
-</div>
+
 </div>
 </div>
 <div class="output_wrapper">
 <div class="output">
 <div class="output_area"><div class="prompt"></div>
-<div id="261c59f2-adc9-419b-9a0b-4995184fa7df"></div>
+<div id="d761f82f-f5f1-4e9b-861c-0f7c7fda9cf6"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#261c59f2-adc9-419b-9a0b-4995184fa7df');
+var element = $('#d761f82f-f5f1-4e9b-861c-0f7c7fda9cf6');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -18706,26 +18656,16 @@ y = \underset{j \,=\, 0,...,C-1} {\text{max}}\,\text{model}\left(\mathbf{x},\mat
 <div class="input">
 <div class="prompt input_prompt">In [5]:</div>
 <div class="inner_cell">
-<div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># load in dataset</span>
-<span class="n">data3</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">loadtxt</span><span class="p">(</span><span class="n">datapath</span> <span class="o">+</span> <span class="s1">'4class_data.csv'</span><span class="p">,</span><span class="n">delimiter</span> <span class="o">=</span> <span class="s1">','</span><span class="p">);</span>
 
-<span class="c1"># create an instance of the ova demo</span>
-<span class="n">demo3</span> <span class="o">=</span> <span class="n">superlearn</span><span class="o">.</span><span class="n">ova_illustrator</span><span class="o">.</span><span class="n">Visualizer</span><span class="p">(</span><span class="n">data3</span><span class="p">);</span>
-
-<span class="c1"># visualize dataset</span>
-<span class="n">demo3</span><span class="o">.</span><span class="n">show_dataset</span><span class="p">();</span>
-</pre></div>
-</div>
 </div>
 </div>
 <div class="output_wrapper">
 <div class="output">
 <div class="output_area"><div class="prompt"></div>
-<div id="371fbb0f-bb21-4e0a-b030-0c04e2f9b333"></div>
+<div id="c51690b1-7755-47f7-a4f0-69c6dd551775"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#371fbb0f-bb21-4e0a-b030-0c04e2f9b333');
+var element = $('#c51690b1-7755-47f7-a4f0-69c6dd551775');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -19509,32 +19449,7 @@ if (IPython.notebook.kernel != null) {
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Note with this dataset that each class is <em>not</em> linearly separable from the remainder of the data. This is no matter - the OvA framework still produces an appropriate multi-class boundary.  We solve our $C$ two-class subproblems below.</p>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In [7]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># solve the 2-class subproblems</span>
-<span class="n">demo3</span><span class="o">.</span><span class="n">solve_2class_subproblems</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-</div>
-<div class="output_wrapper">
-<div class="output">
-<div class="output_area"><div class="prompt"></div>
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>solving sub-problem number 1
-solving sub-problem number 2
-solving sub-problem number 3
-solving sub-problem number 4
-</pre>
-</div>
-</div>
+<p>Note with this dataset that each class is <em>not</em> linearly separable from the remainder of the data. This is no matter - the OvA framework still produces an appropriate multi-class boundary.  We solve our $C$ two-class subproblems.</p>
 </div>
 </div>
 </div>
@@ -19551,20 +19466,16 @@ solving sub-problem number 4
 <div class="input">
 <div class="prompt input_prompt">In [8]:</div>
 <div class="inner_cell">
-<div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># classify and color the entire space using our individual classifiers and the fusion rule</span>
-<span class="n">demo3</span><span class="o">.</span><span class="n">show_complete_coloring</span><span class="p">()</span>
-</pre></div>
-</div>
+
 </div>
 </div>
 <div class="output_wrapper">
 <div class="output">
 <div class="output_area"><div class="prompt"></div>
-<div id="741a1446-f9e5-4c6b-82cb-991446770cac"></div>
+<div id="ca1cbf98-8387-4e13-8d2d-86d81e2d2959"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#741a1446-f9e5-4c6b-82cb-991446770cac');
+var element = $('#ca1cbf98-8387-4e13-8d2d-86d81e2d2959');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -20365,28 +20276,16 @@ if (IPython.notebook.kernel != null) {
 <div class="input">
 <div class="prompt input_prompt">In [11]:</div>
 <div class="inner_cell">
-<div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># load in a toy dataset to illustrate the benefits of standard normalization </span>
-<span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">loadtxt</span><span class="p">(</span><span class="n">datapath</span> <span class="o">+</span> <span class="s1">'singleinput_multiclass_dataset.csv'</span><span class="p">,</span><span class="n">delimiter</span> <span class="o">=</span> <span class="s1">','</span><span class="p">)</span>
 
-<span class="c1"># get input/output pairs</span>
-<span class="n">x</span> <span class="o">=</span> <span class="n">data</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">,:]</span>
-<span class="n">y</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">:,:]</span> 
-
-<span class="c1"># multiclass single-input plotter</span>
-<span class="n">demo</span> <span class="o">=</span> <span class="n">classif_plotter</span><span class="o">.</span><span class="n">Visualizer</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
-<span class="n">demo</span><span class="o">.</span><span class="n">plot_data</span><span class="p">()</span>
-</pre></div>
-</div>
 </div>
 </div>
 <div class="output_wrapper">
 <div class="output">
 <div class="output_area"><div class="prompt"></div>
-<div id="fe8ba253-ff92-4d4a-800d-55b862971870"></div>
+<div id="c95598a4-387f-4769-8509-417d0833fa46"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#fe8ba253-ff92-4d4a-800d-55b862971870');
+var element = $('#c95598a4-387f-4769-8509-417d0833fa46');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -21170,31 +21069,6 @@ if (IPython.notebook.kernel != null) {
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Below we solve each of two-class subproblem using a few steps of Newton's method (detailed in Chapter 7).</p>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In [74]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># load in OvA framework</span>
-<span class="n">ova</span> <span class="o">=</span> <span class="n">superlearn</span><span class="o">.</span><span class="n">one_versus_all</span>
-
-<span class="c1"># run OvA on dataset</span>
-<span class="n">w</span> <span class="o">=</span> <span class="mf">0.1</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">);</span> <span class="n">max_its</span> <span class="o">=</span> <span class="mi">10</span><span class="p">;</span> <span class="n">optimizer</span> <span class="o">=</span> <span class="s1">'newtons_method'</span><span class="p">;</span> <span class="n">epsilon</span> <span class="o">=</span> <span class="mi">10</span><span class="o">**</span><span class="p">(</span><span class="o">-</span><span class="mi">7</span><span class="p">)</span>
-<span class="n">weight_history_1</span><span class="p">,</span> <span class="n">count_history_1</span> <span class="o">=</span> <span class="n">ova</span><span class="o">.</span><span class="n">train</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">max_its</span> <span class="o">=</span> <span class="n">max_its</span><span class="p">,</span><span class="n">optimizer</span> <span class="o">=</span> <span class="n">optimizer</span><span class="p">,</span><span class="n">w</span> <span class="o">=</span> <span class="n">w</span><span class="p">,</span><span class="n">epsilon</span> <span class="o">=</span> <span class="n">epsilon</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
 <p>With each subproblem solved we combine these learners (employing the final trained weights in each instance) using the fusion rule, which provides a good fitting multistep step function (or <em>regressor</em>) for this dataset.  Here - with such a low-diomensional dataset - we can easily visualize the multilevel step regressor provided by the fusion rule by evaluating a finely sampled set of points over the input range of the dataset.  This is done below, with the fusion rule model colored blue.</p>
 <p>The fact that - geometrically speaking from the perspective of regression - the fusion rule produces a multilevel step function should not be too surprising given that the underlying model for two-class classification is a two-step function (as detailed in Section 9.1).  With multiple classes we need a step function with more than two steps!</p>
 </div>
@@ -21204,22 +21078,16 @@ if (IPython.notebook.kernel != null) {
 <div class="input">
 <div class="prompt input_prompt">In [76]:</div>
 <div class="inner_cell">
-<div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># plot the best learned representation from our run above</span>
-<span class="n">ind</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argmin</span><span class="p">(</span><span class="n">count_history_1</span><span class="p">)</span>
-<span class="n">best_weights</span> <span class="o">=</span> <span class="n">weight_history_1</span><span class="p">[</span><span class="n">ind</span><span class="p">]</span>
-<span class="n">demo</span><span class="o">.</span><span class="n">plot_fit</span><span class="p">(</span><span class="n">best_weights</span><span class="p">)</span>
-</pre></div>
-</div>
+
 </div>
 </div>
 <div class="output_wrapper">
 <div class="output">
 <div class="output_area"><div class="prompt"></div>
-<div id="c3b2d4b0-1bf3-4077-80d7-532895ff227b"></div>
+<div id="39eb886c-8374-41dc-a611-3966e2c99934"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#c3b2d4b0-1bf3-4077-80d7-532895ff227b');
+var element = $('#39eb886c-8374-41dc-a611-3966e2c99934');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -22011,20 +21879,16 @@ if (IPython.notebook.kernel != null) {
 <div class="input">
 <div class="prompt input_prompt">In [77]:</div>
 <div class="inner_cell">
-<div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># visualize each two-class subproblem</span>
-<span class="n">demo</span><span class="o">.</span><span class="n">plot_subproblem_data</span><span class="p">()</span>
-</pre></div>
-</div>
+
 </div>
 </div>
 <div class="output_wrapper">
 <div class="output">
 <div class="output_area"><div class="prompt"></div>
-<div id="3172cc9d-b4a4-4653-8af0-1fd7ce12a803"></div>
+<div id="efe8326a-3349-4d20-9fc8-660114a84b4b"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#3172cc9d-b4a4-4653-8af0-1fd7ce12a803');
+var element = $('#efe8326a-3349-4d20-9fc8-660114a84b4b');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -22807,20 +22671,16 @@ if (IPython.notebook.kernel != null) {
 <div class="input">
 <div class="prompt input_prompt">In [78]:</div>
 <div class="inner_cell">
-<div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># visualize each subproblem dataset and step function fit</span>
-<span class="n">demo</span><span class="o">.</span><span class="n">plot_subproblem_fits</span><span class="p">(</span><span class="n">best_weights</span><span class="p">);</span>
-</pre></div>
-</div>
+
 </div>
 </div>
 <div class="output_wrapper">
 <div class="output">
 <div class="output_area"><div class="prompt"></div>
-<div id="ae252649-5367-4026-8483-420ca8cb9b9a"></div>
+<div id="7f3a5b35-8423-4f18-8bee-97b01ba24ccc"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#ae252649-5367-4026-8483-420ca8cb9b9a');
+var element = $('#7f3a5b35-8423-4f18-8bee-97b01ba24ccc');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -23612,30 +23472,16 @@ if (IPython.notebook.kernel != null) {
 <div class="input">
 <div class="prompt input_prompt">In [82]:</div>
 <div class="inner_cell">
-<div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># load in dataset</span>
-<span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">loadtxt</span><span class="p">(</span><span class="n">datapath</span> <span class="o">+</span> <span class="s1">'3class_data.csv'</span><span class="p">,</span><span class="n">delimiter</span> <span class="o">=</span> <span class="s1">','</span><span class="p">)</span>
 
-<span class="c1"># get input/output pairs</span>
-<span class="n">x</span> <span class="o">=</span> <span class="n">data</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">,:]</span>
-<span class="n">y</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">:,:]</span> 
-
-<span class="c1"># create an instance of the ova demo</span>
-<span class="n">demo</span> <span class="o">=</span> <span class="n">superlearn</span><span class="o">.</span><span class="n">multiclass_illustrator</span><span class="o">.</span><span class="n">Visualizer</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
-
-<span class="c1"># visualize dataset</span>
-<span class="n">demo</span><span class="o">.</span><span class="n">show_dataset</span><span class="p">()</span>
-</pre></div>
-</div>
 </div>
 </div>
 <div class="output_wrapper">
 <div class="output">
 <div class="output_area"><div class="prompt"></div>
-<div id="ec96d97f-a9dc-4a83-b208-57fc39da3690"></div>
+<div id="3be541c5-05a6-4899-8c88-099d9d2943da"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#ec96d97f-a9dc-4a83-b208-57fc39da3690');
+var element = $('#3be541c5-05a6-4899-8c88-099d9d2943da');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -24423,22 +24269,6 @@ if (IPython.notebook.kernel != null) {
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In [83]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># load in OvA framework</span>
-<span class="n">ova</span> <span class="o">=</span> <span class="n">superlearn</span><span class="o">.</span><span class="n">one_versus_all</span>
-
-<span class="c1"># run OvA on dataset</span>
-<span class="n">w</span> <span class="o">=</span> <span class="mf">0.1</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="mi">1</span><span class="p">);</span> <span class="n">max_its</span> <span class="o">=</span> <span class="mi">10</span><span class="p">;</span> <span class="n">optimizer</span> <span class="o">=</span> <span class="s1">'newtons_method'</span><span class="p">;</span> <span class="n">epsilon</span> <span class="o">=</span> <span class="mi">10</span><span class="o">**</span><span class="p">(</span><span class="o">-</span><span class="mi">7</span><span class="p">)</span>
-<span class="n">weight_history</span><span class="p">,</span> <span class="n">count_history</span> <span class="o">=</span> <span class="n">ova</span><span class="o">.</span><span class="n">train</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">max_its</span> <span class="o">=</span> <span class="n">max_its</span><span class="p">,</span><span class="n">optimizer</span> <span class="o">=</span> <span class="n">optimizer</span><span class="p">,</span><span class="n">w</span> <span class="o">=</span> <span class="n">w</span><span class="p">,</span><span class="n">epsilon</span> <span class="o">=</span> <span class="n">epsilon</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</div>
-</div>
 <div class="cell border-box-sizing text_cell rendered">
 <div class="prompt input_prompt">
 </div>
@@ -24452,20 +24282,16 @@ if (IPython.notebook.kernel != null) {
 <div class="input">
 <div class="prompt input_prompt">In [84]:</div>
 <div class="inner_cell">
-<div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># plot classification of space, individual learned classifiers (left panel) and joint boundary (middle panel), and cost-function panel in the right panel</span>
-<span class="n">demo</span><span class="o">.</span><span class="n">show_surface_fit</span><span class="p">(</span><span class="n">weight_history</span><span class="p">,</span><span class="n">view</span> <span class="o">=</span> <span class="p">[</span><span class="mi">15</span><span class="p">,</span><span class="mi">115</span><span class="p">])</span>
-</pre></div>
-</div>
+
 </div>
 </div>
 <div class="output_wrapper">
 <div class="output">
 <div class="output_area"><div class="prompt"></div>
-<div id="92520860-5ab5-4b62-bf47-7b56a2c0c212"></div>
+<div id="f678ab98-9020-4be9-afe1-aae633722b05"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#92520860-5ab5-4b62-bf47-7b56a2c0c212');
+var element = $('#f678ab98-9020-4be9-afe1-aae633722b05');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -25293,6 +25119,6 @@ if (IPython.notebook.kernel != null) {
 </div>
 </body>
 <script type="application/vnd.jupyter.widget-state+json">
-{"version_minor": 0, "version_major": 1, "state": {}}
+{"version_minor": 0, "state": {}, "version_major": 1}
 </script>
 </html>
