@@ -73,15 +73,8 @@ class Visualizer:
         num_frames = len(inds)
         print ('starting animation rendering...')
         def animate(k):
-            # get current index to plot
-            current_ind = inds[k]
-            
             # clear panels
             ax.cla()
-            if show_history == True:
-                ax1.cla()
-                ax1.scatter(current_ind,cost_history[current_ind],s = 60,color = 'r',edgecolor = 'k',zorder = 3)
-                self.plot_cost_history(ax1,cost_history,start)
             
             # print rendering update
             if np.mod(k+1,25) == 0:
@@ -90,12 +83,24 @@ class Visualizer:
                 print ('animation rendering complete!')
                 time.sleep(1.5)
                 clear_output()
-                
+            
+            # get current index to plot
+            current_ind = inds[k]
+            
             # pluck out current weights 
             w_best = weight_history[current_ind]
             
             # produce static img
-            self.show_1d_regression(ax,w_best,run,scatter)
+            show_fit = False
+            if k > 0:
+                show_fit = True
+            self.show_1d_regression(ax,w_best,run,scatter,show_fit)
+            
+            # show cost function history
+            if show_history == True:
+                ax1.cla()
+                ax1.scatter(current_ind,cost_history[current_ind],s = 60,color = 'r',edgecolor = 'k',zorder = 3)
+                self.plot_cost_history(ax1,cost_history,start)
                 
             return artist,
 
@@ -104,7 +109,7 @@ class Visualizer:
         return(anim)
         
     # 1d regression demo
-    def show_1d_regression(self,ax,w_best,runner,scatter):
+    def show_1d_regression(self,ax,w_best,runner,scatter,show_fit):
         cost = runner.cost
         predict = runner.model
         feat = runner.feature_transforms
@@ -139,15 +144,17 @@ class Visualizer:
         ax.set_xlabel(r'$x$', fontsize = 16)
         ax.set_ylabel(r'$y$', rotation = 0,fontsize = 16,labelpad = 15)
         
-        # plot fit
-        s = np.linspace(xmin,xmax,2000)[np.newaxis,:]
-        if len(np.unique(self.y)) > 2:
-            t = predict(normalizer(s),w_best)
-        else:
-            t = np.tanh(predict(normalizer(s),w_best))
+        # plot current fit
+        if show_fit == True:
+            # plot fit
+            s = np.linspace(xmin,xmax,2000)[np.newaxis,:]
+            if len(np.unique(self.y)) > 2:
+                t = predict(normalizer(s),w_best)
+            else:
+                t = np.tanh(predict(normalizer(s),w_best))
 
-        ax.plot(s.T,t.T,linewidth = 4,c = 'k')
-        ax.plot(s.T,t.T,linewidth = 2,c = 'r')
+            ax.plot(s.T,t.T,linewidth = 4,c = 'k')
+            ax.plot(s.T,t.T,linewidth = 2,c = 'r')
         
         
     #### compare cost function histories ####

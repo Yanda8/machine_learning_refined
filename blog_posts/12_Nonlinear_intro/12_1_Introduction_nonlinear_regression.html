@@ -12137,28 +12137,16 @@ Shown here is the prototypical problem of nonlinear regression, which we achieve
 <div class="input">
 <div class="prompt input_prompt">In [17]:</div>
 <div class="inner_cell">
-<div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># load data</span>
-<span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">loadtxt</span><span class="p">(</span><span class="n">datapath</span> <span class="o">+</span> <span class="s1">'unnorm_linregress_data.csv'</span><span class="p">,</span><span class="n">delimiter</span> <span class="o">=</span> <span class="s1">','</span><span class="p">)</span>
 
-<span class="c1"># load input/output data</span>
-<span class="n">x</span> <span class="o">=</span> <span class="n">data</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">,:]</span>
-<span class="n">y</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">:,:]</span> 
-
-<span class="c1"># plot dataset</span>
-<span class="n">demo</span> <span class="o">=</span> <span class="n">regress_plotter</span><span class="o">.</span><span class="n">Visualizer</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
-<span class="n">demo</span><span class="o">.</span><span class="n">plot_data</span><span class="p">()</span>
-</pre></div>
-</div>
 </div>
 </div>
 <div class="output_wrapper">
 <div class="output">
 <div class="output_area"><div class="prompt"></div>
-<div id="6b8c6a98-320e-4ce9-b961-0984ad3e8b4a"></div>
+<div id="266ebb65-cf4d-49ed-a60f-34b08f1ae913"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#6b8c6a98-320e-4ce9-b961-0984ad3e8b4a');
+var element = $('#266ebb65-cf4d-49ed-a60f-34b08f1ae913');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -12984,15 +12972,7 @@ f\left(x \right) = \frac{x - \mu}{\sigma}
 <div class="input">
 <div class="prompt input_prompt">In [21]:</div>
 <div class="inner_cell">
-<div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># parameters for our two runs of gradient descent</span>
-<span class="n">w</span> <span class="o">=</span> <span class="mf">0.1</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">);</span> <span class="n">max_its</span> <span class="o">=</span> <span class="mi">500</span><span class="p">;</span> <span class="n">alpha_choice</span> <span class="o">=</span> <span class="mi">10</span><span class="o">**</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
 
-<span class="c1"># run on normalized data</span>
-<span class="n">run</span> <span class="o">=</span> <span class="n">nonlib</span><span class="o">.</span><span class="n">basic_runner</span><span class="o">.</span><span class="n">Setup</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">feature_transforms</span><span class="p">,</span><span class="s1">'least_squares'</span><span class="p">,</span><span class="n">normalize</span> <span class="o">=</span> <span class="s1">'standard'</span><span class="p">)</span>
-<span class="n">run</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">w</span><span class="o">=</span><span class="n">w</span><span class="p">,</span><span class="n">alpha_choice</span> <span class="o">=</span> <span class="n">alpha_choice</span><span class="p">,</span><span class="n">max_its</span> <span class="o">=</span> <span class="n">max_its</span><span class="p">)</span>
-</pre></div>
-</div>
 </div>
 </div>
 </div>
@@ -13009,23 +12989,16 @@ f\left(x \right) = \frac{x - \mu}{\sigma}
 <div class="input">
 <div class="prompt input_prompt">In [25]:</div>
 <div class="inner_cell">
-<div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># pluck out best weights - those that provided lowest cost, </span>
-<span class="c1"># and plot resulting fit</span>
-<span class="n">ind</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argmin</span><span class="p">(</span><span class="n">run</span><span class="o">.</span><span class="n">cost_history</span><span class="p">)</span>
-<span class="n">w_best</span> <span class="o">=</span> <span class="n">run</span><span class="o">.</span><span class="n">weight_history</span><span class="p">[</span><span class="n">ind</span><span class="p">]</span>
-<span class="n">demo</span><span class="o">.</span><span class="n">plot_fit</span><span class="p">(</span><span class="n">w_best</span><span class="p">,</span><span class="n">run</span><span class="o">.</span><span class="n">model</span><span class="p">,</span><span class="n">normalizer</span> <span class="o">=</span> <span class="n">run</span><span class="o">.</span><span class="n">normalizer</span><span class="p">);</span>
-</pre></div>
-</div>
+
 </div>
 </div>
 <div class="output_wrapper">
 <div class="output">
 <div class="output_area"><div class="prompt"></div>
-<div id="bb110022-fb9e-4e45-ba2b-5d615039ad30"></div>
+<div id="71d2efea-1e89-4edb-b74d-98795e885bad"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#bb110022-fb9e-4e45-ba2b-5d615039ad30');
+var element = $('#71d2efea-1e89-4edb-b74d-98795e885bad');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -13826,29 +13799,16 @@ if (IPython.notebook.kernel != null) {
 <div class="input">
 <div class="prompt input_prompt">In [27]:</div>
 <div class="inner_cell">
-<div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># load data</span>
-<span class="n">csvname</span> <span class="o">=</span> <span class="n">datapath</span> <span class="o">+</span> <span class="s1">'noisy_sin_sample.csv'</span>
-<span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">loadtxt</span><span class="p">(</span><span class="n">csvname</span><span class="p">,</span><span class="n">delimiter</span> <span class="o">=</span> <span class="s1">','</span><span class="p">)</span>
 
-<span class="c1"># load input/output data</span>
-<span class="n">x</span> <span class="o">=</span> <span class="n">data</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">,:]</span>
-<span class="n">y</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">:,:]</span> 
-
-<span class="c1"># plot dataset</span>
-<span class="n">demo</span> <span class="o">=</span> <span class="n">regress_plotter</span><span class="o">.</span><span class="n">Visualizer</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
-<span class="n">demo</span><span class="o">.</span><span class="n">plot_data</span><span class="p">()</span>
-</pre></div>
-</div>
 </div>
 </div>
 <div class="output_wrapper">
 <div class="output">
 <div class="output_area"><div class="prompt"></div>
-<div id="300949cf-7c2f-48de-868f-d18f611abee8"></div>
+<div id="5669604f-c832-4bca-9d25-e70c543f9164"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#300949cf-7c2f-48de-868f-d18f611abee8');
+var element = $('#5669604f-c832-4bca-9d25-e70c543f9164');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -14675,20 +14635,7 @@ f\left(x,\mathbf{w}\right) = \text{sin}\left(w_0 + xw_1\right).
 <div class="input">
 <div class="prompt input_prompt">In [33]:</div>
 <div class="inner_cell">
-<div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># parameters for our two runs of gradient descent</span>
-<span class="n">w</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">0.1</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">),</span><span class="mf">0.1</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">)])</span>
-<span class="n">max_its</span> <span class="o">=</span> <span class="mi">500</span><span class="p">;</span> <span class="n">alpha_choice</span> <span class="o">=</span> <span class="mi">10</span><span class="o">**</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
 
-<span class="c1"># run on original data</span>
-<span class="n">run1</span> <span class="o">=</span> <span class="n">nonlib</span><span class="o">.</span><span class="n">basic_runner</span><span class="o">.</span><span class="n">Setup</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">feature_transforms</span><span class="p">,</span><span class="s1">'least_squares'</span><span class="p">,</span><span class="n">normalize</span> <span class="o">=</span> <span class="s1">'None'</span><span class="p">)</span>
-<span class="n">run1</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">w</span><span class="o">=</span><span class="n">w</span><span class="p">,</span><span class="n">alpha_choice</span> <span class="o">=</span> <span class="n">alpha_choice</span><span class="p">,</span><span class="n">max_its</span><span class="o">=</span><span class="n">max_its</span><span class="p">)</span>
-
-<span class="c1"># run on normalized data</span>
-<span class="n">run2</span> <span class="o">=</span> <span class="n">nonlib</span><span class="o">.</span><span class="n">basic_runner</span><span class="o">.</span><span class="n">Setup</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">feature_transforms</span><span class="p">,</span><span class="s1">'least_squares'</span><span class="p">,</span><span class="n">normalize</span> <span class="o">=</span> <span class="s1">'standard'</span><span class="p">)</span>
-<span class="n">run2</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">w</span><span class="o">=</span><span class="n">w</span><span class="p">,</span><span class="n">alpha_choice</span> <span class="o">=</span> <span class="n">alpha_choice</span><span class="p">,</span><span class="n">max_its</span><span class="o">=</span><span class="n">max_its</span><span class="p">)</span>
-</pre></div>
-</div>
 </div>
 </div>
 </div>
@@ -14705,20 +14652,16 @@ f\left(x,\mathbf{w}\right) = \text{sin}\left(w_0 + xw_1\right).
 <div class="input">
 <div class="prompt input_prompt">In [34]:</div>
 <div class="inner_cell">
-<div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># plot the cost function history for a given run</span>
-<span class="n">static_plotter</span><span class="o">.</span><span class="n">plot_cost_histories</span><span class="p">([</span><span class="n">run1</span><span class="o">.</span><span class="n">cost_history</span><span class="p">,</span><span class="n">run2</span><span class="o">.</span><span class="n">cost_history</span><span class="p">],</span><span class="n">start</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span><span class="n">points</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span><span class="n">labels</span> <span class="o">=</span> <span class="p">[</span><span class="s1">'original data'</span><span class="p">,</span><span class="s1">'normalized'</span><span class="p">])</span>
-</pre></div>
-</div>
+
 </div>
 </div>
 <div class="output_wrapper">
 <div class="output">
 <div class="output_area"><div class="prompt"></div>
-<div id="dcb2b9bb-c709-47dc-b175-cf36ef40261c"></div>
+<div id="bafc8743-fc49-466f-95c2-776f39d6fad2"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#dcb2b9bb-c709-47dc-b175-cf36ef40261c');
+var element = $('#bafc8743-fc49-466f-95c2-776f39d6fad2');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -15510,23 +15453,16 @@ if (IPython.notebook.kernel != null) {
 <div class="input">
 <div class="prompt input_prompt">In [35]:</div>
 <div class="inner_cell">
-<div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># pluck out best weights - those that provided lowest cost, </span>
-<span class="c1"># and plot resulting fit</span>
-<span class="n">ind</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argmin</span><span class="p">(</span><span class="n">run2</span><span class="o">.</span><span class="n">cost_history</span><span class="p">)</span>
-<span class="n">w_best</span> <span class="o">=</span> <span class="n">run2</span><span class="o">.</span><span class="n">weight_history</span><span class="p">[</span><span class="n">ind</span><span class="p">]</span>
-<span class="n">demo</span><span class="o">.</span><span class="n">plot_fit</span><span class="p">(</span><span class="n">w_best</span><span class="p">,</span><span class="n">run2</span><span class="o">.</span><span class="n">model</span><span class="p">,</span><span class="n">normalizer</span> <span class="o">=</span> <span class="n">run2</span><span class="o">.</span><span class="n">normalizer</span><span class="p">);</span>
-</pre></div>
-</div>
+
 </div>
 </div>
 <div class="output_wrapper">
 <div class="output">
 <div class="output_area"><div class="prompt"></div>
-<div id="2c743dd4-fad8-4d39-be8d-8cc43344a614"></div>
+<div id="1cf457a8-9b91-4378-a622-cfd615b56b4c"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#2c743dd4-fad8-4d39-be8d-8cc43344a614');
+var element = $('#1cf457a8-9b91-4378-a622-cfd615b56b4c');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -16342,20 +16278,16 @@ f\left(x,\mathbf{w}\right) = \text{sin}\left(w_0 + \frac{x - \mu}{\sigma}w_1\rig
 <div class="input">
 <div class="prompt input_prompt">In [36]:</div>
 <div class="inner_cell">
-<div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># plot data and fit in original and feature transformed space</span>
-<span class="n">demo</span><span class="o">.</span><span class="n">plot_fit_and_feature_space</span><span class="p">(</span><span class="n">w_best</span><span class="p">,</span><span class="n">run2</span><span class="o">.</span><span class="n">model</span><span class="p">,</span><span class="n">run2</span><span class="o">.</span><span class="n">feature_transforms</span><span class="p">,</span><span class="n">normalizer</span> <span class="o">=</span> <span class="n">run2</span><span class="o">.</span><span class="n">normalizer</span><span class="p">)</span>
-</pre></div>
-</div>
+
 </div>
 </div>
 <div class="output_wrapper">
 <div class="output">
 <div class="output_area"><div class="prompt"></div>
-<div id="ae83f086-2616-4a9f-9581-e1d973df3d2b"></div>
+<div id="0ad54726-98a3-4f19-befc-328c3ad051db"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#ae83f086-2616-4a9f-9581-e1d973df3d2b');
+var element = $('#0ad54726-98a3-4f19-befc-328c3ad051db');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -17156,29 +17088,16 @@ if (IPython.notebook.kernel != null) {
 <div class="input">
 <div class="prompt input_prompt">In [38]:</div>
 <div class="inner_cell">
-<div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># load data</span>
-<span class="n">csvname</span> <span class="o">=</span> <span class="n">datapath</span> <span class="o">+</span> <span class="s1">'yeast.csv'</span>
-<span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">loadtxt</span><span class="p">(</span><span class="n">csvname</span><span class="p">,</span><span class="n">delimiter</span> <span class="o">=</span> <span class="s1">','</span><span class="p">)</span>
 
-<span class="c1"># get input/output pairs</span>
-<span class="n">x</span> <span class="o">=</span> <span class="n">data</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">,:]</span>
-<span class="n">y</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">:,:]</span> 
-
-<span class="c1"># plot dataset</span>
-<span class="n">demo</span> <span class="o">=</span> <span class="n">regress_plotter</span><span class="o">.</span><span class="n">Visualizer</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
-<span class="n">demo</span><span class="o">.</span><span class="n">plot_data</span><span class="p">()</span>
-</pre></div>
-</div>
 </div>
 </div>
 <div class="output_wrapper">
 <div class="output">
 <div class="output_area"><div class="prompt"></div>
-<div id="f0ff6f7f-ad46-411e-921c-ed0c9b725a4d"></div>
+<div id="e302866e-635a-4881-b972-74105e780053"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#f0ff6f7f-ad46-411e-921c-ed0c9b725a4d');
+var element = $('#e302866e-635a-4881-b972-74105e780053');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -18017,16 +17936,7 @@ f\left(x_p,\mathbf{w}\right) = \text{tanh}\left(w_0 + \frac{x_p - \mu}{\sigma}w_
 <div class="input">
 <div class="prompt input_prompt">In [42]:</div>
 <div class="inner_cell">
-<div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># parameters for our two runs of gradient descent</span>
-<span class="n">w</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">0.1</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">),</span><span class="mf">0.1</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">)])</span>
-<span class="n">max_its</span> <span class="o">=</span> <span class="mi">1000</span><span class="p">;</span> <span class="n">alpha_choice</span> <span class="o">=</span> <span class="mi">10</span><span class="o">**</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">);</span>
 
-<span class="c1"># run on original data</span>
-<span class="n">run1</span> <span class="o">=</span> <span class="n">nonlib</span><span class="o">.</span><span class="n">basic_runner</span><span class="o">.</span><span class="n">Setup</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">feature_transforms</span><span class="p">,</span><span class="s1">'least_squares'</span><span class="p">,</span><span class="n">normalize</span> <span class="o">=</span> <span class="s1">'standard'</span><span class="p">)</span>
-<span class="n">run1</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">w</span><span class="o">=</span><span class="n">w</span><span class="p">,</span><span class="n">alpha_choice</span> <span class="o">=</span> <span class="n">alpha_choice</span><span class="p">,</span><span class="n">max_its</span><span class="o">=</span><span class="n">max_its</span><span class="p">)</span>
-</pre></div>
-</div>
 </div>
 </div>
 </div>
@@ -18043,20 +17953,16 @@ f\left(x_p,\mathbf{w}\right) = \text{tanh}\left(w_0 + \frac{x_p - \mu}{\sigma}w_
 <div class="input">
 <div class="prompt input_prompt">In [43]:</div>
 <div class="inner_cell">
-<div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># plot the cost function history for a given run</span>
-<span class="n">static_plotter</span><span class="o">.</span><span class="n">plot_cost_histories</span><span class="p">([</span><span class="n">run1</span><span class="o">.</span><span class="n">cost_history</span><span class="p">],</span><span class="n">start</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span><span class="n">points</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span><span class="n">labels</span> <span class="o">=</span> <span class="p">[</span><span class="s1">'normalized'</span><span class="p">])</span>
-</pre></div>
-</div>
+
 </div>
 </div>
 <div class="output_wrapper">
 <div class="output">
 <div class="output_area"><div class="prompt"></div>
-<div id="9f51d425-3d83-4367-b90d-291cd041870e"></div>
+<div id="909f9bf2-93f3-43de-bf6f-d63c6fa55f27"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#9f51d425-3d83-4367-b90d-291cd041870e');
+var element = $('#909f9bf2-93f3-43de-bf6f-d63c6fa55f27');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -18848,22 +18754,16 @@ if (IPython.notebook.kernel != null) {
 <div class="input">
 <div class="prompt input_prompt">In [44]:</div>
 <div class="inner_cell">
-<div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># plot data and fit in original and feature transformed space</span>
-<span class="n">ind</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argmin</span><span class="p">(</span><span class="n">run1</span><span class="o">.</span><span class="n">cost_history</span><span class="p">)</span>
-<span class="n">w_best</span> <span class="o">=</span> <span class="n">run1</span><span class="o">.</span><span class="n">weight_history</span><span class="p">[</span><span class="n">ind</span><span class="p">]</span>
-<span class="n">demo</span><span class="o">.</span><span class="n">plot_fit_and_feature_space</span><span class="p">(</span><span class="n">w_best</span><span class="p">,</span><span class="n">run1</span><span class="o">.</span><span class="n">model</span><span class="p">,</span><span class="n">run1</span><span class="o">.</span><span class="n">feature_transforms</span><span class="p">,</span><span class="n">normalizer</span> <span class="o">=</span> <span class="n">run1</span><span class="o">.</span><span class="n">normalizer</span><span class="p">)</span>
-</pre></div>
-</div>
+
 </div>
 </div>
 <div class="output_wrapper">
 <div class="output">
 <div class="output_area"><div class="prompt"></div>
-<div id="0050efed-71a3-46e0-ae33-ab45e74a14f9"></div>
+<div id="ab980561-d7a5-4cc6-adfd-f2a545b4d138"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#0050efed-71a3-46e0-ae33-ab45e74a14f9');
+var element = $('#ab980561-d7a5-4cc6-adfd-f2a545b4d138');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -19703,29 +19603,16 @@ $\frac{3}{4}$, and all the way down the ramp.  </em> </figcaption>
 <div class="input">
 <div class="prompt input_prompt">In [46]:</div>
 <div class="inner_cell">
-<div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># load data</span>
-<span class="n">csvname</span> <span class="o">=</span> <span class="n">datapath</span> <span class="o">+</span> <span class="s1">'galileo_ramp_data.csv'</span>
-<span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">loadtxt</span><span class="p">(</span><span class="n">csvname</span><span class="p">,</span><span class="n">delimiter</span> <span class="o">=</span> <span class="s1">','</span><span class="p">)</span>
 
-<span class="c1"># get input/output pairs</span>
-<span class="n">x</span> <span class="o">=</span> <span class="n">data</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">,:]</span>
-<span class="n">y</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">:,:]</span> 
-
-<span class="c1"># plot dataset</span>
-<span class="n">demo</span> <span class="o">=</span> <span class="n">regress_plotter</span><span class="o">.</span><span class="n">Visualizer</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
-<span class="n">demo</span><span class="o">.</span><span class="n">plot_data</span><span class="p">()</span>
-</pre></div>
-</div>
 </div>
 </div>
 <div class="output_wrapper">
 <div class="output">
 <div class="output_area"><div class="prompt"></div>
-<div id="9d48fdb4-e5c4-475a-8032-99f5d202a043"></div>
+<div id="b79b8f97-b104-46da-9ab8-e4aee6328425"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#9d48fdb4-e5c4-475a-8032-99f5d202a043');
+var element = $('#b79b8f97-b104-46da-9ab8-e4aee6328425');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -20564,16 +20451,7 @@ if (IPython.notebook.kernel != null) {
 <div class="input">
 <div class="prompt input_prompt">In [50]:</div>
 <div class="inner_cell">
-<div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># parameters for our two runs of gradient descent</span>
-<span class="n">w</span> <span class="o">=</span> <span class="mf">0.1</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="mi">1</span><span class="p">);</span>
-<span class="n">max_its</span> <span class="o">=</span> <span class="mi">50</span><span class="p">;</span> <span class="n">alpha_choice</span> <span class="o">=</span> <span class="mi">10</span><span class="o">**</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">);</span>
 
-<span class="c1"># run on original data</span>
-<span class="n">run1</span> <span class="o">=</span> <span class="n">nonlib</span><span class="o">.</span><span class="n">basic_runner</span><span class="o">.</span><span class="n">Setup</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">feature_transforms</span><span class="p">,</span><span class="s1">'least_squares'</span><span class="p">,</span><span class="n">normalize</span> <span class="o">=</span> <span class="s1">'standard'</span><span class="p">)</span>
-<span class="n">run1</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">w</span><span class="o">=</span><span class="n">w</span><span class="p">,</span><span class="n">alpha_choice</span> <span class="o">=</span> <span class="n">alpha_choice</span><span class="p">,</span><span class="n">max_its</span><span class="o">=</span><span class="n">max_its</span><span class="p">)</span>
-</pre></div>
-</div>
 </div>
 </div>
 </div>
@@ -20590,22 +20468,16 @@ if (IPython.notebook.kernel != null) {
 <div class="input">
 <div class="prompt input_prompt">In [51]:</div>
 <div class="inner_cell">
-<div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># plot data and fit in original and feature transformed space</span>
-<span class="n">ind</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argmin</span><span class="p">(</span><span class="n">run1</span><span class="o">.</span><span class="n">cost_history</span><span class="p">)</span>
-<span class="n">w_best</span> <span class="o">=</span> <span class="n">run1</span><span class="o">.</span><span class="n">weight_history</span><span class="p">[</span><span class="n">ind</span><span class="p">]</span>
-<span class="n">demo</span><span class="o">.</span><span class="n">plot_fit_and_feature_space</span><span class="p">(</span><span class="n">w_best</span><span class="p">,</span><span class="n">run1</span><span class="o">.</span><span class="n">model</span><span class="p">,</span><span class="n">run1</span><span class="o">.</span><span class="n">feature_transforms</span><span class="p">,</span><span class="n">normalizer</span> <span class="o">=</span> <span class="n">run1</span><span class="o">.</span><span class="n">normalizer</span><span class="p">,</span><span class="n">view</span> <span class="o">=</span> <span class="p">[</span><span class="mi">25</span><span class="p">,</span><span class="mi">100</span><span class="p">])</span>
-</pre></div>
-</div>
+
 </div>
 </div>
 <div class="output_wrapper">
 <div class="output">
 <div class="output_area"><div class="prompt"></div>
-<div id="a0df16c0-e428-4d5a-929b-0c1901d6dfac"></div>
+<div id="0e14f3c8-e764-41a5-98e8-bbf5667d7ce7"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#a0df16c0-e428-4d5a-929b-0c1901d6dfac');
+var element = $('#0e14f3c8-e764-41a5-98e8-bbf5667d7ce7');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -21400,6 +21272,6 @@ if (IPython.notebook.kernel != null) {
 </div>
 </body>
 <script type="application/vnd.jupyter.widget-state+json">
-{"state": {}, "version_major": 1, "version_minor": 0}
+{"state": {}, "version_minor": 0, "version_major": 1}
 </script>
 </html>
