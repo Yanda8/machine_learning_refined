@@ -12120,51 +12120,12 @@ g\left(\mathbf{W},\mathbf{C}\right) = \frac{1}{P} \left \Vert \left.\left\{  \ma
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In [226]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># make a test matrix</span>
-<span class="n">N</span> <span class="o">=</span> <span class="mi">100</span><span class="p">;</span> <span class="n">P</span> <span class="o">=</span> <span class="mi">10</span><span class="p">;</span> <span class="n">remove_perc</span> <span class="o">=</span> <span class="mf">0.75</span><span class="p">;</span> 
-<span class="n">X_complete</span><span class="p">,</span> <span class="n">X_test</span> <span class="o">=</span> <span class="n">make_random_test_matrix</span><span class="p">(</span><span class="n">N</span><span class="p">,</span><span class="n">P</span><span class="p">,</span><span class="n">remove_perc</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</div>
-</div>
 <div class="cell border-box-sizing text_cell rendered">
 <div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>We then run our algorithm on this matrix and plot the cost function history to make sure everything is running properly.  Here we will use $K = 5$ basis elements, half of the number used in generating the data.  Remember: the cost function history here is showing only our approximation to the known entries of the ratings matrix, whose indices lie in the set $\Omega$.</p>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In [112]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># run gradient descent to minimize the Least Squares cost for linear regression</span>
-<span class="n">g</span> <span class="o">=</span> <span class="n">least_squares</span><span class="p">;</span> <span class="n">max_its</span> <span class="o">=</span> <span class="mi">100</span><span class="p">;</span> <span class="n">alpha_choice</span> <span class="o">=</span> <span class="mi">10</span><span class="o">**</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
-<span class="n">X</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="n">X_test</span><span class="p">);</span> <span class="n">Omega</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="n">Omega_test</span><span class="p">)</span>
-
-<span class="c1"># initialize both matrices of parameters</span>
-<span class="n">num_elements</span> <span class="o">=</span> <span class="mi">5</span><span class="p">;</span> <span class="n">scale</span> <span class="o">=</span> <span class="mf">0.1</span><span class="p">;</span>
-<span class="n">C</span> <span class="o">=</span> <span class="n">scale</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">num_elements</span><span class="p">)</span>
-<span class="n">W</span> <span class="o">=</span> <span class="n">scale</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="n">num_elements</span><span class="p">,</span><span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
-<span class="n">w</span> <span class="o">=</span> <span class="p">[</span><span class="n">C</span><span class="p">,</span><span class="n">W</span><span class="p">]</span>
-
-<span class="c1"># run gradient descent</span>
-<span class="n">weight_history</span><span class="p">,</span><span class="n">cost_history</span> <span class="o">=</span> <span class="n">optimizers</span><span class="o">.</span><span class="n">gradient_descent</span><span class="p">(</span><span class="n">g</span><span class="p">,</span><span class="n">alpha_choice</span><span class="p">,</span><span class="n">max_its</span><span class="p">,</span><span class="n">w</span><span class="p">)</span>
-
-<span class="c1"># error on full dataset</span>
-<span class="n">X</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="n">X_complete</span><span class="p">);</span> <span class="n">Omega</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="n">X_complete</span><span class="p">));</span>
-<span class="n">test_history</span> <span class="o">=</span> <span class="p">[</span><span class="n">least_squares</span><span class="p">(</span><span class="n">v</span><span class="p">)</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">weight_history</span><span class="p">]</span>
-</pre></div>
-</div>
 </div>
 </div>
 </div>
@@ -12181,20 +12142,16 @@ g\left(\mathbf{W},\mathbf{C}\right) = \frac{1}{P} \left \Vert \left.\left\{  \ma
 <div class="input">
 <div class="prompt input_prompt">In [114]:</div>
 <div class="inner_cell">
-<div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># plot the cost function history for a given run</span>
-<span class="n">static_plotter</span><span class="o">.</span><span class="n">plot_cost_histories</span><span class="p">([</span><span class="n">cost_history</span><span class="p">,</span><span class="n">test_history</span><span class="p">],</span><span class="n">start</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span><span class="n">points</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span><span class="n">labels</span> <span class="o">=</span> <span class="p">[</span><span class="s1">'train cost'</span><span class="p">,</span><span class="s1">'test cost'</span><span class="p">])</span>
-</pre></div>
-</div>
+
 </div>
 </div>
 <div class="output_wrapper">
 <div class="output">
 <div class="output_area"><div class="prompt"></div>
-<div id="de581adc-aa7f-49f9-a8de-003632050e78"></div>
+<div id="2e207796-38e3-47d6-9520-f0e43be7c410"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#de581adc-aa7f-49f9-a8de-003632050e78');
+var element = $('#2e207796-38e3-47d6-9520-f0e43be7c410');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -12977,36 +12934,7 @@ if (IPython.notebook.kernel != null) {
 <div class="input">
 <div class="prompt input_prompt">In [121]:</div>
 <div class="inner_cell">
-<div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># run loop over different K</span>
-<span class="n">partial_costs</span> <span class="o">=</span> <span class="p">[]</span>
-<span class="n">full_costs</span> <span class="o">=</span> <span class="p">[]</span>
 
-<span class="c1"># run gradient descent to minimize the Least Squares cost for linear regression</span>
-<span class="n">g</span> <span class="o">=</span> <span class="n">least_squares</span><span class="p">;</span> <span class="n">max_its</span> <span class="o">=</span> <span class="mi">50</span><span class="p">;</span> <span class="n">alpha_choice</span> <span class="o">=</span> <span class="mi">10</span><span class="o">**</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
-<span class="n">X</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="n">X_test</span><span class="p">);</span> <span class="n">Omega</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="n">Omega_test</span><span class="p">)</span>
-    
-<span class="c1"># make a test matrix</span>
-<span class="n">my_ks</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">6</span><span class="p">,</span><span class="mi">7</span><span class="p">,</span><span class="mi">8</span><span class="p">,</span><span class="mi">9</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">11</span><span class="p">,</span><span class="mi">12</span><span class="p">]</span>
-<span class="k">for</span> <span class="n">K</span> <span class="ow">in</span> <span class="n">my_ks</span><span class="p">:</span>
-    <span class="c1"># generate initialization for basis</span>
-    <span class="n">C</span> <span class="o">=</span> <span class="n">scale</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">K</span><span class="p">)</span>
-    <span class="n">W</span> <span class="o">=</span> <span class="n">scale</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="n">K</span><span class="p">,</span><span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
-    <span class="n">w</span> <span class="o">=</span> <span class="p">[</span><span class="n">C</span><span class="p">,</span><span class="n">W</span><span class="p">]</span>
-
-    <span class="c1"># run gradient descent</span>
-    <span class="n">X</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="n">X_test</span><span class="p">);</span> <span class="n">Omega</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="n">Omega_test</span><span class="p">)</span>
-    <span class="n">weight_history</span><span class="p">,</span><span class="n">cost_history</span> <span class="o">=</span> <span class="n">optimizers</span><span class="o">.</span><span class="n">gradient_descent</span><span class="p">(</span><span class="n">g</span><span class="p">,</span><span class="n">alpha_choice</span><span class="p">,</span><span class="n">max_its</span><span class="p">,</span><span class="n">w</span><span class="p">)</span>
-
-    <span class="c1"># error on full dataset</span>
-    <span class="n">X</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="n">X_complete</span><span class="p">);</span> <span class="n">Omega</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="n">X_complete</span><span class="p">));</span>
-    <span class="n">test_history</span> <span class="o">=</span> <span class="p">[</span><span class="n">least_squares</span><span class="p">(</span><span class="n">v</span><span class="p">)</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">weight_history</span><span class="p">]</span>
-    <span class="n">ind</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argmin</span><span class="p">(</span><span class="n">test_history</span><span class="p">)</span>
-    
-    <span class="n">partial_costs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">cost_history</span><span class="p">[</span><span class="n">ind</span><span class="p">])</span>
-    <span class="n">full_costs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">test_history</span><span class="p">[</span><span class="n">ind</span><span class="p">])</span>
-</pre></div>
-</div>
 </div>
 </div>
 </div>
@@ -13023,22 +12951,16 @@ if (IPython.notebook.kernel != null) {
 <div class="input">
 <div class="prompt input_prompt">In [122]:</div>
 <div class="inner_cell">
-<div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># plot cost function history</span>
-<span class="n">plotter</span> <span class="o">=</span> <span class="n">unsuplib</span><span class="o">.</span><span class="n">plot_utilities</span><span class="o">.</span><span class="n">Visualizer</span><span class="p">()</span>
-<span class="n">histories</span> <span class="o">=</span> <span class="p">[</span><span class="n">partial_costs</span><span class="p">,</span><span class="n">full_costs</span><span class="p">]</span>
-<span class="n">plotter</span><span class="o">.</span><span class="n">compare_histories</span><span class="p">(</span><span class="n">histories</span><span class="p">,</span><span class="n">label1</span> <span class="o">=</span> <span class="s1">'cost on given entries'</span><span class="p">,</span><span class="n">label2</span> <span class="o">=</span> <span class="s1">'cost on entire original matrix'</span><span class="p">,</span><span class="n">plot_range</span> <span class="o">=</span> <span class="n">my_ks</span><span class="p">)</span>
-</pre></div>
-</div>
+
 </div>
 </div>
 <div class="output_wrapper">
 <div class="output">
 <div class="output_area"><div class="prompt"></div>
-<div id="ae2249aa-00f5-4d74-a89a-facd5f76c6fd"></div>
+<div id="c363b4a6-5b66-4016-aa63-a10559c04261"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#ae2249aa-00f5-4d74-a89a-facd5f76c6fd');
+var element = $('#c363b4a6-5b66-4016-aa63-a10559c04261');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -13830,6 +13752,6 @@ if (IPython.notebook.kernel != null) {
 </div>
 </body>
 <script type="application/vnd.jupyter.widget-state+json">
-{"state": {}, "version_major": 1, "version_minor": 0}
+{"version_major": 1, "version_minor": 0, "state": {}}
 </script>
 </html>
