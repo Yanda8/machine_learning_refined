@@ -12,7 +12,6 @@ class Setup:
             # create normalizer
             self.normalizer, self.inverse_normalizer = self.PCA_sphereing(x)
         else:
-            print ('what the fuck')
             self.normalizer = lambda data: data
             self.inverse_normalizer = lambda data: data
             
@@ -21,6 +20,15 @@ class Setup:
         # compute the mean and standard deviation of the input
         x_means = np.mean(x,axis = 1)[:,np.newaxis]
         x_stds = np.std(x,axis = 1)[:,np.newaxis]   
+        
+        # check to make sure thta x_stds > small threshold, for those not
+        # divide by 1 instead of original standard deviation
+        ind = np.argwhere(x_stds < 10**(-2))
+        if len(ind) > 0:
+            ind = [v[0] for v in ind]
+            adjust = np.zeros((x_stds.shape))
+            adjust[ind] = 1.0
+            x_stds += adjust
 
         # create standard normalizer function
         normalizer = lambda data: (data - x_means)/x_stds
@@ -58,6 +66,16 @@ class Setup:
         # Step 3: divide off standard deviation of each (transformed) input, 
         # which are equal to the returned eigenvalues in 'd'.  
         stds = (d[:,np.newaxis])**(0.5)
+        
+        # check to make sure thta x_stds > small threshold, for those not
+        # divide by 1 instead of original standard deviation
+        ind = np.argwhere(stds < 10**(-2))
+        if len(ind) > 0:
+            ind = [v[0] for v in ind]
+            adjust = np.zeros((stds.shape))
+            adjust[ind] = 1.0
+            stds += adjust
+        
         normalizer = lambda data: np.dot(V.T,data - x_means)/stds
 
         # create inverse normalizer

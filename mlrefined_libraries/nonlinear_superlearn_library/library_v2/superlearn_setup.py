@@ -52,8 +52,8 @@ class Setup:
         self.x_train = self.x[:,self.train_inds]
         self.x_test = self.x[:,self.test_inds]
         
-        self.y_train = self.y[self.train_inds]
-        self.y_test = self.y[self.test_inds]
+        self.y_train = self.y[:,self.train_inds]
+        self.y_test = self.y[:,self.test_inds]
      
     #### define cost function ####
     def choose_cost(self,name,**kwargs):
