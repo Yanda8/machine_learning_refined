@@ -11,7 +11,7 @@ from autograd import hessian as compute_hess
 import math
 import time
 from matplotlib import gridspec
-from . import optimimzers
+from . import old_optimimzers as optimimzers
 import copy
 
 class Visualizer:
@@ -21,7 +21,7 @@ class Visualizer:
     #### initialize ####
     def __init__(self,csvname):
         # grab input
-        data = np.loadtxt(csvname,delimiter = ',')
+        data = np.loadtxt(csvname,delimiter = ',').T
         self.x = data[:,:-1]
         self.y = data[:,-1]
         self.y.shape = (len(self.y),1)

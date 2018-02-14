@@ -4,6 +4,7 @@ from . import cost_functions
 from . import normalizers
 from . import multilayer_perceptron
 from . import stumps
+from . import polys
 from . import history_plotters
 
 class Setup:
@@ -32,6 +33,13 @@ class Setup:
             transformer = stumps.Setup(self.x,self.y,**kwargs)
             self.feature_transforms = transformer.feature_transforms
             self.initializer = transformer.initializer
+            
+        # polynomials #
+        if name == 'polys':
+            transformer = polys.Setup(self.x,self.y,**kwargs)
+            self.feature_transforms = transformer.feature_transforms
+            self.initializer = transformer.initializer
+            self.degs = transformer.D
             
         # input a custom feature transformation
         if 'feature_transforms' in kwargs:
@@ -71,6 +79,9 @@ class Setup:
         # basic parameters for gradient descent run (default algorithm)
         max_its = 500; alpha_choice = 10**(-1);
         self.w_init = self.initializer()
+        optimizer = 'gradient descent'
+        if 'optimizer' in kwargs:
+            optimizer = kwargs['optimizer']
         
         # set parameters by hand
         if 'max_its' in kwargs:
@@ -78,9 +89,19 @@ class Setup:
         if 'alpha_choice' in kwargs:
             self.alpha_choice = kwargs['alpha_choice']
 
-        # run gradient descent
-        weight_history, cost_history = optimizers.gradient_descent(self.cost,self.alpha_choice,self.max_its,self.w_init)
+        # optimize
+        weight_history = []
+        cost_history = []
         
+        if optimizer == 'gradient descent':
+            # run gradient descent
+            weight_history, cost_history = optimizers.gradient_descent(self.cost,self.alpha_choice,self.max_its,self.w_init)
+        if optimizer == 'newtons method':
+            epsilon = 10**(-7)
+            if 'epsilon' in kwargs:
+                epsilon = kwargs['epsilon']
+            weight_history, cost_history = optimizers.newtons_method(self.cost,self.max_its,self.w_init,epsilon = epsilon)
+
          # store all new histories
         self.weight_histories.append(weight_history)
         self.cost_histories.append(cost_history)

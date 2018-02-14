@@ -19,7 +19,7 @@ class Visualizer:
 
     # load target function
     def load_data(self,csvname):
-        data = np.loadtxt(csvname,delimiter = ',')
+        data = np.loadtxt(csvname,delimiter = ',').T
         self.x = data[:,0]
         self.y = data[:,1]
         self.y.shape = (len(self.y),1)
@@ -196,16 +196,17 @@ class Visualizer:
         self.colors = [[1,0,0.4], [ 0, 0.4, 1],[0, 1, 0.5],[1, 0.7, 0.5],[0.7, 0.6, 0.5],'mediumaquamarine']
         
         # construct figure
-        fig = plt.figure(figsize = (9,3))
+        fig = plt.figure(figsize = (9,4))
         artist = fig
 
         # create subplot with 3 panels, plot input function in center plot
-        gs = gridspec.GridSpec(1, 2, width_ratios=[1,1]) 
+        gs = gridspec.GridSpec(1, 3, width_ratios=[2,1,0.25]) 
         ax1 = plt.subplot(gs[0]); ax1.axis('off');
         ax2 = plt.subplot(gs[1]); ax2.axis('off');
-        
+        ax3 = plt.subplot(gs[2]); ax3.axis('off');
+
         # set dials for tanh network and trees
-        num_elements = [v+1 for v in num_elements]
+        #num_elements = [v+1 for v in num_elements]
         self.num_elements = max(num_elements)
         opt = optimimzers.MyOptimizers()
 
@@ -218,14 +219,13 @@ class Visualizer:
             # collect poly and tanh weights over each desired level
             for element in num_elements:
                 # fit weights to data
-                w = np.linalg.lstsq(self.F[:,:element], self.y)[0]
+                w = np.linalg.lstsq(self.F[:,:element], self.y,rcond = 10**(-15))[0]
 
                 # store weights
                 weight_history.append(w)
                 
             self.predict = self.poly_predict
 
-                
         if basis == 'tanh':
             # random weights for tanh network, tanh transform 
             scale = 1
@@ -287,15 +287,16 @@ class Visualizer:
             cost_evals.append(cost)
      
         # plot cost path - scale to fit inside same aspect as classification plots
+        cost_evals = [v/float(np.size(self.y)) for v in cost_evals]
         num_iterations = len(weight_history)
         minxc = min(num_elements)-1
-        maxxc = max(num_elements)-1
+        maxxc = max(num_elements)+1
         gapxc = (maxxc - minxc)*0.1
         minxc -= gapxc
         maxxc += gapxc
         minc = min(copy.deepcopy(cost_evals))
         maxc = max(copy.deepcopy(cost_evals))
-        gapc = (maxc - minc)*0.5
+        gapc = (maxc - minc)*0.1
         minc -= gapc
         maxc += gapc
 
@@ -308,7 +309,7 @@ class Visualizer:
         xmin -= xgap
         ymax = max(copy.deepcopy(self.y))[0]
         ymin = min(copy.deepcopy(self.y))[0]
-        ygap = (ymax - ymin)*0.4
+        ygap = (ymax - ymin)*0.1
         ymax += ygap
         ymin -= ygap
 
@@ -357,10 +358,10 @@ class Visualizer:
             # produce learned predictor
             s = np.linspace(xmin,xmax,400)
             t = [self.predict(np.asarray([v]),w) for v in s]
+            ax1.plot(s,t,linewidth = 2.75,color = self.colors[0],zorder = 3)
 
             # plot approximation and data in panel
             ax1.scatter(self.x,self.y,c = 'k',edgecolor = 'w',s = 50,zorder = 1)
-            ax1.plot(s,t,linewidth = 2.75,color = self.colors[2],zorder = 3)
             #cs += 1
 
             # cleanup panel
@@ -369,11 +370,11 @@ class Visualizer:
             ax1.set_xlabel(r'$x$', fontsize = 14,labelpad = 10)
             ax1.set_ylabel(r'$y$', rotation = 0,fontsize = 14,labelpad = 10)
             ax1.set_xticks(np.arange(round(xmin), round(xmax)+1, 1.0))
-            ax1.set_yticks(np.arange(round(ymin), round(ymax)+1, 1.0))
+            #ax1.set_yticks(np.arange(round(ymin), round(ymax)+1, 1.0))
             
             # cost function value
-            ax2.plot([v-1 for v in num_elements[:k+1]],cost_evals[:k+1],color = 'b',linewidth = 1.5,zorder = 1)
-            ax2.scatter([v-1 for v in num_elements[:k+1]],cost_evals[:k+1],color = 'b',s = 70,edgecolor = 'w',linewidth = 1.5,zorder = 3)
+            ax2.plot(num_elements,cost_evals,color = 'k',linewidth = 2.5,zorder = 1)
+            ax2.scatter(num_elements[k],cost_evals[k],color = self.colors[0],s = 70,edgecolor = 'w',linewidth = 1.5,zorder = 3)
 
             ax2.set_xlabel('number of units',fontsize = 12)
             ax2.set_title('cost function plot',fontsize = 12)
@@ -381,7 +382,7 @@ class Visualizer:
             # cleanp panel
             ax2.set_xlim([minxc,maxxc])
             ax2.set_ylim([minc,maxc])
-            ax2.xaxis.set_major_locator(MaxNLocator(integer=True))
+            #ax2.xaxis.set_major_locator(MaxNLocator(integer=True))
             
             ### if basis == tree, show the most recently added element as well
             if basis == 'tree':

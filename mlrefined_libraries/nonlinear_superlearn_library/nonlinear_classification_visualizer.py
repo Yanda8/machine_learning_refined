@@ -374,7 +374,7 @@ class Visualizer:
     ######## show N = 2 static image ########
     # show coloring of entire space
     def static_N2_simple(self,w_best,runner,**kwargs):
-        cost = runner.cost_func
+        cost = runner.cost
         predict = runner.model
         feat = runner.feature_transforms
         normalizer = runner.normalizer

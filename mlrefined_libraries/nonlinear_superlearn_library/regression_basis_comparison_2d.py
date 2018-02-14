@@ -19,15 +19,13 @@ class Visualizer:
 
     # load target function
     def load_data(self,csvname):
-        data = np.loadtxt(csvname,delimiter = ',')
+        data = np.loadtxt(csvname,delimiter = ',').T
         self.x = data[:,0]
         self.y = data[:,1]
         self.y.shape = (len(self.y),1)
         
     # initialize after animation call
-    def dial_settings(self):
-        self.colors = [[1,0,0.4], [ 0, 0.4, 1],[0, 1, 0.5],[1, 0.7, 0.5],[0.7, 0.6, 0.5],'mediumaquamarine']
-        
+    def dial_settings(self):        
         #### initialize split points for trees ####
         # sort data by values of input
         self.x_t = copy.deepcopy(self.x)
@@ -190,10 +188,15 @@ class Visualizer:
     
     ###### fit and compare ######
     def brows_fits(self,**kwargs):
+        self.colors = [[1,0,0.4], [ 0, 0.4, 1],[0, 1, 0.5],[1, 0.7, 0.5],[0.7, 0.6, 0.5],'mediumaquamarine']
+
         # parse input args
         num_elements = [1,10,len(self.y)]
         if 'num_elements' in kwargs:
             num_elements = kwargs['num_elements']
+        scatter = 'off'
+        if 'scatter' in kwargs:
+            scatter = kwargs['scatter']
         
         # set dials for tanh network and trees
         num_elements = [v+1 for v in num_elements]
@@ -319,7 +322,11 @@ class Visualizer:
                 t = [self.predict(np.asarray([v]),w) for v in s]
     
                 # plot approximation and data in panel
-                ax.scatter(self.x,self.y,c = 'k',edgecolor = 'w',s = 50,zorder = 1)
+                if scatter == 'off':
+                    ax.scatter(self.x,self.y,c = 'k',s = 20,zorder = 1)
+                elif scatter == 'on':
+                    ax.scatter(self.x,self.y,c = 'k',edgecolor = 'w',s = 50,zorder = 1)
+
                 ax.plot(s,t,linewidth = 2.75,color = self.colors[cs],zorder = 3)
                 cs += 1
                 

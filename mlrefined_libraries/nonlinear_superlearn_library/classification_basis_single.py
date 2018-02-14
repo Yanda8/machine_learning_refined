@@ -20,7 +20,8 @@ class Visualizer:
 
     # load target function
     def load_data(self,csvname):
-        data = np.loadtxt(csvname,delimiter = ',')
+        data = np.loadtxt(csvname,delimiter = ',').T
+        print (data.shape)
         self.x = data[:,0]
         self.y = data[:,1]
         self.y.shape = (len(self.y),1)
