@@ -75,8 +75,8 @@ class Visualizer:
         self.colorspec = np.concatenate((self.colorspec,np.zeros((len(s),1))),1)
         
         # seed left panel plotting range
-        xmin = copy.deepcopy(min(self.x))
-        xmax = copy.deepcopy(max(self.x))
+        xmin = copy.deepcopy(np.min(self.x))
+        xmax = copy.deepcopy(np.max(self.x))
         xgap = (xmax - xmin)*0.1
         xmin-=xgap
         xmax+=xgap

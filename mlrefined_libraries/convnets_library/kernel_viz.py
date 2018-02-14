@@ -21,7 +21,7 @@ from sklearn.preprocessing import normalize
 import seaborn as sns
 
         
-def show_conv(image_path, kernels, **kwargs):
+def show_conv(image, kernels, **kwargs):
     
     contrast_normalization = True
     if 'contrast_normalization' in kwargs:
@@ -29,8 +29,8 @@ def show_conv(image_path, kernels, **kwargs):
     
     # load image 
     #image = cv2.imread(image_path, 0)
-    image = Image.open(image_path).convert('L')
-    image = np.array(image)
+    #image = Image.open(image_path).convert('L')
+    #image = np.array(image)
 
     
     # get number of kernels
@@ -78,7 +78,7 @@ def show_conv(image_path, kernels, **kwargs):
     
     
         # plot input image
-        ax3.imshow(image, cmap='gray')
+        ax3.imshow(image, cmap=plt.get_cmap('gray'), clim=(0, 255))
     
 
         # plot convolution
