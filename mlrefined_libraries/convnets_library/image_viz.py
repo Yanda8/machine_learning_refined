@@ -7,7 +7,7 @@ import matplotlib.cm as cm
 from matplotlib.colors import Normalize
 import matplotlib.patches as patches
 import copy
-import cv2
+#import cv2
 from PIL import Image
 from scipy import ndimage
 
@@ -229,7 +229,7 @@ def show_conv_images(image, **kwargs):
         fig.add_subplot(gs[int(i>4)*4+i+1])
         conv = myConv(image, kernels[str(i)])
         conv = np.round(255*conv/500)  
-        conv = cv2.dilate(conv, np.ones((11,11)), iterations=1)
+        #conv = cv2.dilate(conv, np.ones((11,11)), iterations=1)
         plt.imshow(conv, vmin=0, vmax=255, cmap=plt.get_cmap('gnuplot2'))
         plt.xticks([]), plt.yticks([])
         plt.title(directions[str(i)], fontsize = 16)
