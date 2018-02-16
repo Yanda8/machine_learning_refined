@@ -133,8 +133,12 @@ def show_encode_decode(x,wrapper,**kwargs):
 
         #### clean up and label panels ####
         for ax in [ax1]:
-            ax.set_xlim([xmin1 - xgap1*new_scale,xmax1 + xgap1*new_scale])
-            ax.set_ylim([xmin2 - xgap2*new_scale,xmax2 + xgap1*new_scale])
+            #ax.set_xlim([xmin1 - xgap1*new_scale,xmax1 + xgap1*new_scale])
+            #ax.set_ylim([xmin2 - xgap2*new_scale,xmax2 + xgap1*new_scale])
+            
+            ax.set_xlim([xmin1,xmax1])
+            ax.set_ylim([xmin2,xmax2])
+            
             ax.set_xlabel(r'$x_1$',fontsize = 16)
             ax.set_ylabel(r'$x_2$',fontsize = 16,rotation = 0,labelpad = 10)
 
