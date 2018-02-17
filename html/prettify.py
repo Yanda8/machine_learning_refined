@@ -217,8 +217,8 @@ soup.body.find_all('h2')[0].decompose()
 
 # remove code cells that contain the following message
 # 'in the HTML version'
-# for cell in soup.body.find_all(text=re.compile('in the HTML version')):
-#	cell.parent.parent.parent.parent.decompose()
+for cell in soup.body.find_all(text=re.compile('in the HTML version')):
+	cell.parent.parent.parent.parent.decompose()
 
 
 # finish by spiting out modified soup as html
