@@ -3,6 +3,7 @@ from . import optimizers
 from . import cost_functions
 from . import normalizers
 from . import multilayer_perceptron
+from . import multilayer_perceptron_batch_normalized
 from . import stumps
 from . import polys
 from . import history_plotters
@@ -24,6 +25,12 @@ class Setup:
         # multilayer perceptron #
         if name == 'multilayer_perceptron':
             transformer = multilayer_perceptron.Setup(**kwargs)
+            self.feature_transforms = transformer.feature_transforms
+            self.initializer = transformer.initializer
+            self.layer_sizes = transformer.layer_sizes
+            
+        if name == 'multilayer_perceptron_batch_normalized':
+            transformer = multilayer_perceptron_batch_normalized.Setup(**kwargs)
             self.feature_transforms = transformer.feature_transforms
             self.initializer = transformer.initializer
             self.layer_sizes = transformer.layer_sizes
@@ -88,6 +95,12 @@ class Setup:
             self.max_its = kwargs['max_its']
         if 'alpha_choice' in kwargs:
             self.alpha_choice = kwargs['alpha_choice']
+            
+        # batch size for gradient descent?
+        self.num_pts = np.size(self.y)
+        self.batch_size = np.size(self.y)
+        if 'batch_size' in kwargs:
+            self.batch_size = kwargs['batch_size']
 
         # optimize
         weight_history = []
@@ -95,7 +108,8 @@ class Setup:
         
         if optimizer == 'gradient descent':
             # run gradient descent
-            weight_history, cost_history = optimizers.gradient_descent(self.cost,self.alpha_choice,self.max_its,self.w_init)
+            weight_history = optimizers.gradient_descent(self.cost,self.alpha_choice,self.max_its,self.w_init,self.num_pts,self.batch_size)
+            cost_history = [self.cost(v,np.arange(self.num_pts)) for v in weight_history]
         if optimizer == 'newtons method':
             epsilon = 10**(-7)
             if 'epsilon' in kwargs:

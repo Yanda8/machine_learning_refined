@@ -85,8 +85,8 @@ class Visualizer:
         self.colors = ['cyan','magenta','lime','orange']
         
         # select inds of history to plot
-        weight_history = run.weight_history
-        cost_history = run.cost_history
+        weight_history = run.weight_histories[0]
+        cost_history = run.cost_histories[0]
         inds = np.arange(0,len(weight_history),int(len(weight_history)/float(frames)))
         weight_history_sample = [weight_history[v] for v in inds]
         cost_history_sample = [cost_history[v] for v in inds]

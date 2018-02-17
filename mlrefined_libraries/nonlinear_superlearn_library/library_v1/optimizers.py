@@ -41,6 +41,38 @@ def gradient_descent(g,alpha_choice,max_its,w):
     cost_history.append(g_flat(w))  
     return weight_history,cost_history
 
+# minibatch gradient descent
+def gradient_descent(g, alpha, max_its, w, num_pts, batch_size,**kwargs):    
+    # flatten the input function, create gradient based on flat function
+    g_flat, unflatten, w = flatten_func(g, w)
+    grad = value_and_grad(g_flat)
+
+    # record history
+    w_hist = []
+    w_hist.append(unflatten(w))
+   
+    # how many mini-batches equal the entire dataset?
+    num_batches = int(np.ceil(np.divide(num_pts, batch_size)))
+    # over the line
+    for k in range(max_its):   
+        # loop over each minibatch
+        for b in range(num_batches):
+            # collect indices of current mini-batch
+            batch_inds = np.arange(b*batch_size, min((b+1)*batch_size, num_pts))
+
+            # plug in value into func and derivative
+            cost_eval,grad_eval = grad(w,batch_inds)
+            grad_eval.shape = np.shape(w)
+            
+            # take descent step with momentum
+            w = w - alpha*grad_eval
+
+        # record weight update
+        w_hist.append(unflatten(w))
+
+    return w_hist
+
+
 # newtons method function - inputs: g (input function), max_its (maximum number of iterations), w (initialization)
 def newtons_method(g,max_its,w,**kwargs):
     # flatten input funciton, in case it takes in matrices of weights

@@ -71,25 +71,45 @@ class Setup:
     
     ###### regression costs #######
     # an implementation of the least squares cost function for linear regression
-    def least_squares(self,w):
-        cost = np.sum((self.model(self.x,w) - self.y)**2)
-        return cost/float(np.size(self.y))
+    def least_squares(self,w,iter):
+        # get batch of points
+        x_p = self.x[:,iter]
+        y_p = self.y[:,iter]
+        
+        # compute cost over batch
+        cost = np.sum((self.model(x_p,w) - y_p)**2)
+        return cost/float(np.size(y_p))
 
     # a compact least absolute deviations cost function
     def least_absolute_deviations(self,w):
-        cost = np.sum(np.abs(self.model(self.x,w) - self.y))
-        return cost/float(np.size(self.y))
+        # get batch of points
+        x_p = self.x[:,iter]
+        y_p = self.y[:,iter]
+        
+        # compute cost over batch
+        cost = np.sum(np.abs(self.model(x_p,w) - y_p))
+        return cost/float(np.size(y_p))
 
     ###### two-class classification costs #######
     # the convex softmax cost function
-    def softmax(self,w):
-        cost = np.sum(np.log(1 + np.exp(-self.y*self.model(self.x,w))))
-        return cost/float(np.size(self.y))
+    def softmax(self,w,iter):
+        # get batch of points
+        x_p = self.x[:,iter]
+        y_p = self.y[:,iter]
+        
+        # compute cost over batch
+        cost = np.sum(np.log(1 + np.exp(-y_p*self.model(x_p,w))))
+        return cost/float(np.size(y_p))
 
     # the convex relu cost function
-    def relu(self,w):
-        cost = np.sum(np.maximum(0,-self.y*self.model(self.x,w)))
-        return cost/float(np.size(self.y))
+    def relu(self,w,iter):
+        # get batch of points
+        x_p = self.x[:,iter]
+        y_p = self.y[:,iter]
+        
+        # compute cost over batch
+        cost = np.sum(np.maximum(0,-y_p*self.model(x_p,w)))
+        return cost/float(np.size(y_p))
 
     # the counting cost function
     def counting_cost(self,w):
@@ -98,34 +118,42 @@ class Setup:
 
     ###### multiclass classification costs #######
     # multiclass perceptron
-    def multiclass_perceptron(self,w):        
+    def multiclass_perceptron(self,w,iter):
+        # get subset of points
+        x_p = self.x[:,iter]
+        y_p = self.y[:,iter]
+
         # pre-compute predictions on all points
-        all_evals = self.model(self.x,w)
+        all_evals = self.model(x_p,w)
 
         # compute maximum across data points
-        a = np.max(all_evals,axis = 0)    
+        a =  np.max(all_evals,axis = 0)        
 
         # compute cost in compact form using numpy broadcasting
-        b = all_evals[self.y.astype(int).flatten(),np.arange(np.size(self.y))]
+        b = all_evals[y_p.astype(int).flatten(),np.arange(np.size(y_p))]
         cost = np.sum(a - b)
 
         # return average
-        return cost/float(np.size(self.y))
+        return cost/float(np.size(y_p))
 
     # multiclass softmax
-    def multiclass_softmax(self,w):        
+    def multiclass_softmax(self,w,iter):     
+        # get subset of points
+        x_p = self.x[:,iter]
+        y_p = self.y[:,iter]
+        
         # pre-compute predictions on all points
-        all_evals = self.model(self.x,w)
+        all_evals = self.model(x_p,w)
 
         # compute softmax across data points
         a = np.log(np.sum(np.exp(all_evals),axis = 0)) 
 
         # compute cost in compact form using numpy broadcasting
-        b = all_evals[self.y.astype(int).flatten(),np.arange(np.size(self.y))]
+        b = all_evals[y_p.astype(int).flatten(),np.arange(np.size(y_p))]
         cost = np.sum(a - b)
 
         # return average
-        return cost/float(np.size(self.y))
+        return cost/float(np.size(y_p))
 
     # multiclass misclassification cost function - aka the fusion rule
     def multiclass_counting_cost(self,w):                
