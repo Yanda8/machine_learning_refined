@@ -11894,10 +11894,10 @@ div#notebook {
 <div class="output_wrapper">
 <div class="output">
 <div class="output_area"><div class="prompt"></div>
-<div id="270fdbe0-c705-4f72-ad39-e9729c7edef2"></div>
+<div id="1f1e6361-6ebf-4e0c-bcf2-0c7b5453c2f5"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#270fdbe0-c705-4f72-ad39-e9729c7edef2');
+var element = $('#1f1e6361-6ebf-4e0c-bcf2-0c7b5453c2f5');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -12732,10 +12732,10 @@ if (IPython.notebook.kernel != null) {
 <div class="output_wrapper">
 <div class="output">
 <div class="output_area"><div class="prompt"></div>
-<div id="f15737ab-cb93-409a-b5d1-622511d0f657"></div>
+<div id="5837ec3b-9ff3-4af0-a26a-a29c9a81717a"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#f15737ab-cb93-409a-b5d1-622511d0f657');
+var element = $('#5837ec3b-9ff3-4af0-a26a-a29c9a81717a');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -13539,11 +13539,12 @@ if (IPython.notebook.kernel != null) {
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>How can we make our linear regression framework more robust to outliers?  If we return the original derivation of the Least Squares cost function in subsection 8.1.2, our aim in learning a linear regressor is to learn a set of ideal weights so that</p>
 \begin{equation}
-\mathbf{x}_{p}^T\mathbf{w} \approx y_{p} \,\,\,\,\,\,\,\, p=1,...,P
+\mathring{\mathbf{x}}_{p}^T\mathbf{w}^{\,} \approx \overset{\,}{y}_{p}^{\,}  \,\,\,\,\,\,\,\, p=1,...,P
 \end{equation}<p>for a dataset of $P$ points $\left \{ \mathbf{x}_p,\,y_p \right \}_{p=1}^P$.  To learn these ideal weights the first step we took there was to square the difference between both sides of each desired approximation above as</p>
 \begin{equation}
-\left(\mathbf{x}_{p}^{T}\mathbf{w} - y_{p}^{\,}\right)^2  \,\,\,\,\,\,\,\, p=1,...,P.
-\end{equation}<p>Each of these measures the <em>squared error</em> between model $w_0+\mathbf{x}_{p}^{T}\mathbf{w}$ and $y_{p}^{\,}$.  Taking the average of these $P$ squared error terms gave us the Least Squares cost function.</p>
+\left(\mathring{\mathbf{x}}_{p}^{T}\mathbf{w} - \overset{\,}{y}_p^{\,}\right)^2
+  \,\,\,\,\,\,\,\, p=1,...,P.
+\end{equation}<p>Each of these measures the <em>squared error</em> between model $\mathring{\mathbf{x}}_{p}^{T}\mathbf{w}$ and $\overset{\,}{y}_p^{\,}$.  Taking the average of these $P$ squared error terms gave us the Least Squares cost function.</p>
 </div>
 </div>
 </div>
@@ -13554,11 +13555,13 @@ if (IPython.notebook.kernel != null) {
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>As an alternative to forming the <em>squared</em> error of each desired approximation, we can instead measure the <em>absolute error</em> for each desired approximation</p>
 <p>\begin{equation}
-\left \vert \mathbf{x}<em>{p}^{T}\mathbf{w}^{\,} - y</em>{p}^{\,}\right \vert  \,\,\,\,\,\,\,\, p=1,...,P.
+\left \vert \mathring{\mathbf{x}}_{p}^{T}\mathbf{w} - \overset{\,}{y}_p^{\,}
+\right \vert  \,\,\,\,\,\,\,\, p=1,...,P.
 \end{equation}</p>
 <p>By using absolute error instead of the squared variety we do not exaggerate the importance of large errors greater than $1$ (since, of course, we do not square them).  If we form the average of these absolute error measurements we have the cousin of Least Squares, the so-called <em>Least Absolute Deviations</em> cost function</p>
 \begin{equation}
-\,g\left(\mathbf{w}\right)=\frac{1}{P}\sum_{p=1}^{P}\left\vert  \mathbf{x}_{p}^{T}\mathbf{w}^{\,}-y_{p}^{\,}\right\vert.
+\,g\left(\mathbf{w}\right)=\frac{1}{P}\sum_{p=1}^{P}\left \vert \mathring{\mathbf{x}}_{p}^{T}\mathbf{w} - \overset{\,}{y}_p^{\,}
+\right \vert.
 \end{equation}
 </div>
 </div>
@@ -13592,7 +13595,7 @@ if (IPython.notebook.kernel != null) {
 \,g\left(\mathbf{w}\right)=\frac{1}{P}\sum_{p=1}^{P}\left\vert\text{model}\left( \mathbf{x}_p,\mathbf{w}\right) -y_{p}^{\,}\right\vert.
 \end{equation}<p>where we have denoted our linear <code>model</code> of the input and weights as</p>
 \begin{equation}
-\text{model}\left(\mathbf{x}_p,\mathbf{w}\right) = \mathbf{x}^T_p \mathbf{w}.
+\text{model}\left(\mathbf{x}_p,\mathbf{w}\right) = \mathring{\mathbf{x}}_{p}^{T}\mathbf{w}.
 \end{equation}
 </div>
 </div>
@@ -13639,10 +13642,10 @@ if (IPython.notebook.kernel != null) {
 <div class="output_wrapper">
 <div class="output">
 <div class="output_area"><div class="prompt"></div>
-<div id="dc69e112-89c6-411f-99b8-8d3646e2ccf8"></div>
+<div id="cbb55137-598d-4308-ae58-bec4f979c62b"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#dc69e112-89c6-411f-99b8-8d3646e2ccf8');
+var element = $('#cbb55137-598d-4308-ae58-bec4f979c62b');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -14462,10 +14465,10 @@ if (IPython.notebook.kernel != null) {
 <div class="output_wrapper">
 <div class="output">
 <div class="output_area"><div class="prompt"></div>
-<div id="baadeff4-761e-4dd8-b2b5-70a052a44e67"></div>
+<div id="ff903421-bdab-4c7a-83dd-7995bbea72e8"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#baadeff4-761e-4dd8-b2b5-70a052a44e67');
+var element = $('#ff903421-bdab-4c7a-83dd-7995bbea72e8');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -15263,10 +15266,10 @@ if (IPython.notebook.kernel != null) {
 <div class="output_wrapper">
 <div class="output">
 <div class="output_area"><div class="prompt"></div>
-<div id="1397d59f-473e-4813-b5cd-a9683d7e2c79"></div>
+<div id="59351e49-5e67-422d-bb7f-8cff4070c60f"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#1397d59f-473e-4813-b5cd-a9683d7e2c79');
+var element = $('#59351e49-5e67-422d-bb7f-8cff4070c60f');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -16049,6 +16052,6 @@ if (IPython.notebook.kernel != null) {
 </div>
 </body>
 <script type="application/vnd.jupyter.widget-state+json">
-{"version_major": 1, "state": {}, "version_minor": 0}
+{"version_major": 1, "version_minor": 0, "state": {}}
 </script>
 </html>

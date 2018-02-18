@@ -11871,10 +11871,18 @@ consists of $C$ distinct classes of data. As with the two-class case we can in t
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p><strong>A note on notation:</strong> In this Section we will purposefully use <em>semi-compact notation</em> exclusively in our derivation.  This means we will not append a $1$ to the top of each input $\mathbf{x}_p$, and we separate the bias and normal weights.  For example when we form a linear combination of the an input point as</p>
+<p><strong>A note on notation:</strong> In this Section we will purposefully use the following <em>semi-compact notation</em> where we explicitly expose the bias $w_0$ by using $\mathbf{w}$ to denote</p>
 \begin{equation}
-w_0 + \mathbf{x}_p^T\mathbf{w}^{\,}_{\,}
-\end{equation}<p>we are <em>explicitly writing the bias term</em> $w_0$ and the <em>normal vector</em> $\mathbf{w} = \begin{bmatrix} w_1 \\ w_2 \\ \vdots \\ w_N\end{bmatrix}$.  We do this for the same reason this semi-compact notation was introduced in Subsection 9.1.5 - because we will naturally need to <em>regularize</em> normal vectors $\mathbf{w}$ and this is easier to express using non-compact notation.</p>
+\mathbf{w}=\begin{bmatrix}
+w_{1}\\
+w_{2}\\
+\vdots\\
+w_{N}
+\end{bmatrix}.
+\end{equation}<p>We can then write a linear model involving an input point $\mathbf{x}_p$ as</p>
+\begin{equation}
+w_0 + \mathbf{x}_p^T\mathbf{w}^{\,}_{\,}.
+\end{equation}<p>We do this for the same reason this semi-compact notation was introduced in Subsection 9.1.5 - because we will naturally need to <em>regularize</em> normal vectors $\mathbf{w}$ and this is easier to express using non-compact notation.</p>
 </div>
 </div>
 </div>
@@ -11888,10 +11896,10 @@ w_0 + \mathbf{x}_p^T\mathbf{w}^{\,}_{\,}
 <div class="output_wrapper">
 <div class="output">
 <div class="output_area"><div class="prompt"></div>
-<div id="f03ebc56-4714-469f-a3ca-76e00e9c5dfe"></div>
+<div id="f4c076e7-d01a-48f3-8908-ac84ca2fef3b"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#f03ebc56-4714-469f-a3ca-76e00e9c5dfe');
+var element = $('#f4c076e7-d01a-48f3-8908-ac84ca2fef3b');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -12719,10 +12727,10 @@ if (IPython.notebook.kernel != null) {
 <div class="output_wrapper">
 <div class="output">
 <div class="output_area"><div class="prompt"></div>
-<div id="3976c360-45d9-4e52-8a03-a7535b3aa4aa"></div>
+<div id="520c3527-fe50-43c5-8ff3-f52fb579909e"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#3976c360-45d9-4e52-8a03-a7535b3aa4aa');
+var element = $('#520c3527-fe50-43c5-8ff3-f52fb579909e');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -13532,7 +13540,7 @@ w_0^{(c)} + \mathbf{x}_{p}^T\mathbf{w}_{\mathstrut}^{(c)}  \begin{cases}   &gt; 
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>This implies that - when evaluated by each two-class classifier individually - the one learned to a point's true label always provides the largest evaluation, i.e.,</p>
 \begin{equation}
-\mathbf{x}_{p}^T\mathbf{w}_{\mathstrut}^{(c)} = \underset{j \,=\, 0,...,C-1}{\text{max}} \,\,\,w_0^{(\,j)} + \mathbf{x}_{p}^T\mathbf{w}_{\mathstrut}^{(\,j)}
+w_0^{(c)} + \mathbf{x}_{p}^T\mathbf{w}_{\mathstrut}^{(c)} = \underset{j \,=\, 0,...,C-1}{\text{max}} \,\,\,w_0^{(\,j)} + \mathbf{x}_{p}^T\mathbf{w}_{\mathstrut}^{(\,j)}
 \end{equation}
 </div>
 </div>
@@ -13553,7 +13561,7 @@ w_0^{(c)} + \mathbf{x}_{p}^T\mathbf{w}_{\mathstrut}^{(c)}  \begin{cases}   &gt; 
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>First, those points that lie solely on the positive side of the $c^{th}$ classifier only - like the points we already have - should clearly belong to the $c^{th}$ class.  Such a point $\mathbf{x}$ lies close to those we already have, also clearly satisfying the condition that</p>
 \begin{equation}
-\mathbf{x}_{\mathstrut}^T\mathbf{w}_{\mathstrut}^{(c)} = \underset{j \,=\, 0,...,C-1}{\text{max}} \,\,\,w_0^{(\,j)} + \mathbf{x}_{\mathstrut}^T\mathbf{w}_{\mathstrut}^{(\,j)}
+w_0^{(c)} + \mathbf{x}^T\mathbf{w}_{\mathstrut}^{(c)} = \underset{j \,=\, 0,...,C-1}{\text{max}} \,\,\,w_0^{(\,j)} + \mathbf{x}_{\mathstrut}^T\mathbf{w}_{\mathstrut}^{(\,j)}
 \end{equation}<p>Therefore to get the associated label $y$ we therefore want the <em>maximum argument</em> of the right hand side - since this gives the index associated with the largest classifier.  Formally then the predicted label $y$ for input point $\mathbf{x}$ here can be written as</p>
 \begin{equation}
 y =  \underset{j \,=\, 0,...,C-1}{\text{argmax}} \,\,\,w_0^{(\,j)} + \mathbf{x}_{\mathstrut}^T\mathbf{w}_{\mathstrut}^{(\,j)}
@@ -13571,10 +13579,10 @@ y =  \underset{j \,=\, 0,...,C-1}{\text{argmax}} \,\,\,w_0^{(\,j)} + \mathbf{x}_
 <div class="output_wrapper">
 <div class="output">
 <div class="output_area"><div class="prompt"></div>
-<div id="e27fb1d7-f376-46ea-85df-8223468304df"></div>
+<div id="b4907a40-2c21-47a5-800e-561d9ae71b91"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#e27fb1d7-f376-46ea-85df-8223468304df');
+var element = $('#b4907a40-2c21-47a5-800e-561d9ae71b91');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -14391,10 +14399,10 @@ if (IPython.notebook.kernel != null) {
 <div class="output_wrapper">
 <div class="output">
 <div class="output_area"><div class="prompt"></div>
-<div id="ff5b0be8-7cb2-4ce8-8834-f7d6e6a131b0"></div>
+<div id="dad4305b-3fca-410c-9df7-2a7c397c7df6"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#ff5b0be8-7cb2-4ce8-8834-f7d6e6a131b0');
+var element = $('#dad4305b-3fca-410c-9df7-2a7c397c7df6');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -15220,10 +15228,10 @@ if (IPython.notebook.kernel != null) {
 <div class="output_wrapper">
 <div class="output">
 <div class="output_area"><div class="prompt"></div>
-<div id="97819b68-4d23-45f4-9e94-73927c73dc35"></div>
+<div id="0006bddd-f8fb-442a-a661-7b19393d1d96"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#97819b68-4d23-45f4-9e94-73927c73dc35');
+var element = $('#0006bddd-f8fb-442a-a661-7b19393d1d96');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -16070,10 +16078,10 @@ y =  \underset{j \,=\, 0,...,C-1}{\text{argmax}} \,\,\,w_0^{(\,j)} + \mathbf{x}_
 <div class="output_wrapper">
 <div class="output">
 <div class="output_area"><div class="prompt"></div>
-<div id="722f364f-d46f-4eb6-9087-7f5c557a06d0"></div>
+<div id="552b88e5-52f5-4ed1-a68d-912b10340c2e"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#722f364f-d46f-4eb6-9087-7f5c557a06d0');
+var element = $('#552b88e5-52f5-4ed1-a68d-912b10340c2e');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -16889,10 +16897,10 @@ if (IPython.notebook.kernel != null) {
 <div class="output_wrapper">
 <div class="output">
 <div class="output_area"><div class="prompt"></div>
-<div id="95fb6b59-e5ec-4c95-9c8c-d57b836433f0"></div>
+<div id="719bb01d-81ea-408e-bcf0-042e06a62cf0"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#95fb6b59-e5ec-4c95-9c8c-d57b836433f0');
+var element = $('#719bb01d-81ea-408e-bcf0-042e06a62cf0');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -17764,10 +17772,10 @@ y =  \underset{j \,=\, 0,...,C-1}{\text{argmax}} \,\,\,w_0^{(\,j)} + \mathbf{x}_
 <div class="output_wrapper">
 <div class="output">
 <div class="output_area"><div class="prompt"></div>
-<div id="d761f82f-f5f1-4e9b-861c-0f7c7fda9cf6"></div>
+<div id="edfe79de-ef45-4dd2-ae55-3795c88a78f2"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#d761f82f-f5f1-4e9b-861c-0f7c7fda9cf6');
+var element = $('#edfe79de-ef45-4dd2-ae55-3795c88a78f2');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -18662,10 +18670,10 @@ y = \underset{j \,=\, 0,...,C-1} {\text{max}}\,\text{model}\left(\mathbf{x},\mat
 <div class="output_wrapper">
 <div class="output">
 <div class="output_area"><div class="prompt"></div>
-<div id="c51690b1-7755-47f7-a4f0-69c6dd551775"></div>
+<div id="bc3d412c-a9bf-4335-9ced-7c18489e7244"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#c51690b1-7755-47f7-a4f0-69c6dd551775');
+var element = $('#bc3d412c-a9bf-4335-9ced-7c18489e7244');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -19472,10 +19480,10 @@ if (IPython.notebook.kernel != null) {
 <div class="output_wrapper">
 <div class="output">
 <div class="output_area"><div class="prompt"></div>
-<div id="ca1cbf98-8387-4e13-8d2d-86d81e2d2959"></div>
+<div id="04b664f1-f22b-44f3-881c-cfadb47e10dd"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#ca1cbf98-8387-4e13-8d2d-86d81e2d2959');
+var element = $('#04b664f1-f22b-44f3-881c-cfadb47e10dd');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -20282,10 +20290,10 @@ if (IPython.notebook.kernel != null) {
 <div class="output_wrapper">
 <div class="output">
 <div class="output_area"><div class="prompt"></div>
-<div id="c95598a4-387f-4769-8509-417d0833fa46"></div>
+<div id="69695cc6-15dc-4027-9788-ba46b766bc29"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#c95598a4-387f-4769-8509-417d0833fa46');
+var element = $('#69695cc6-15dc-4027-9788-ba46b766bc29');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -21084,10 +21092,10 @@ if (IPython.notebook.kernel != null) {
 <div class="output_wrapper">
 <div class="output">
 <div class="output_area"><div class="prompt"></div>
-<div id="39eb886c-8374-41dc-a611-3966e2c99934"></div>
+<div id="90ee2026-164e-48c7-9147-7a172a67e12f"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#39eb886c-8374-41dc-a611-3966e2c99934');
+var element = $('#90ee2026-164e-48c7-9147-7a172a67e12f');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -21885,10 +21893,10 @@ if (IPython.notebook.kernel != null) {
 <div class="output_wrapper">
 <div class="output">
 <div class="output_area"><div class="prompt"></div>
-<div id="efe8326a-3349-4d20-9fc8-660114a84b4b"></div>
+<div id="72fbb4fe-15e5-4b6b-87ef-0d4a86403c55"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#efe8326a-3349-4d20-9fc8-660114a84b4b');
+var element = $('#72fbb4fe-15e5-4b6b-87ef-0d4a86403c55');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -22677,10 +22685,10 @@ if (IPython.notebook.kernel != null) {
 <div class="output_wrapper">
 <div class="output">
 <div class="output_area"><div class="prompt"></div>
-<div id="7f3a5b35-8423-4f18-8bee-97b01ba24ccc"></div>
+<div id="9bf5389c-9b62-4667-9cf9-adbd886edcfc"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#7f3a5b35-8423-4f18-8bee-97b01ba24ccc');
+var element = $('#9bf5389c-9b62-4667-9cf9-adbd886edcfc');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -23478,10 +23486,10 @@ if (IPython.notebook.kernel != null) {
 <div class="output_wrapper">
 <div class="output">
 <div class="output_area"><div class="prompt"></div>
-<div id="3be541c5-05a6-4899-8c88-099d9d2943da"></div>
+<div id="5b7bd398-dc66-4b50-8b38-11f9bf663d20"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#3be541c5-05a6-4899-8c88-099d9d2943da');
+var element = $('#5b7bd398-dc66-4b50-8b38-11f9bf663d20');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -24288,10 +24296,10 @@ if (IPython.notebook.kernel != null) {
 <div class="output_wrapper">
 <div class="output">
 <div class="output_area"><div class="prompt"></div>
-<div id="f678ab98-9020-4be9-afe1-aae633722b05"></div>
+<div id="3e3d4f32-edbd-44ea-815e-8c5f06b2bf1b"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#f678ab98-9020-4be9-afe1-aae633722b05');
+var element = $('#3e3d4f32-edbd-44ea-815e-8c5f06b2bf1b');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -25119,6 +25127,6 @@ if (IPython.notebook.kernel != null) {
 </div>
 </body>
 <script type="application/vnd.jupyter.widget-state+json">
-{"version_minor": 0, "state": {}, "version_major": 1}
+{"version_major": 1, "state": {}, "version_minor": 0}
 </script>
 </html>

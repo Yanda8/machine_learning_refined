@@ -11861,12 +11861,12 @@ div#notebook {
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>As we saw in subsection 8.1.1, we built our linear regression model on the fundamental assumption that the relationship between input and output variables is (approximately) linear. That is, we have for all $P$ input/output pairs of data that $w_0+\mathbf{x}_{p}^T\mathbf{w} \approx y_{p}$. Denoting the difference between $y_p$ and $w_0+\mathbf{x}_{p}^T\mathbf{w}$ as $\varepsilon_p$, we can replace these <em>approximate</em> equalities with <em>exact</em> equalities of the form</p>
+<p>As we saw in subsection 8.1.1, we built our linear regression model on the fundamental assumption that the relationship between input and output variables is (approximately) linear. That is, we have for all $P$ input/output pairs of data that $\mathring{\mathbf{x}}_{p}^T\mathbf{w} \approx \overset{\,}{y}_{p}$. Denoting the difference between $\overset{\,}{y}_{p}$ and $\mathring{\mathbf{x}}_{p}^T\mathbf{w}$ as $\varepsilon_p$, we can replace these <em>approximate</em> equalities with <em>exact</em> equalities of the form</p>
 \begin{equation}
-w_0+\mathbf{x}_{p}^T\mathbf{w} +\varepsilon_p = y_{p} ,\quad p=1,...,P
+\mathring{\mathbf{x}}_{p}^T\mathbf{w} +\overset{\,}{\varepsilon}_p^{\,} = \overset{\,}{y}_{p} ,\quad p=1,...,P
 \end{equation}<p>where $\varepsilon_p$'s can be interpreted as error or noise in the data. With this new notation, the Least Squares cost for linear regression can be written, in terms of $\varepsilon_p$'s, as</p>
 \begin{equation}
-\,g\left(w_0,\mathbf{w}\right) = \frac{1}{P}\sum_{p=1}^{P}\left(w_0^{\,}+\mathbf{x}_{p}^{T}\mathbf{w}^{\,}-y_{p}^{\,}\right)^{2} = \frac{1}{P}\sum_{p=1}^{P} \varepsilon_p^2
+\,g\left(\mathbf{w}\right) = \frac{1}{P}\sum_{p=1}^{P}\left(\mathring{\mathbf{x}}_{p}^T\mathbf{w} - \overset{\,}{y}_{p}\right)^{2} = \frac{1}{P}\sum_{p=1}^{P} \overset{\,}{\varepsilon}_p^2
 \end{equation}<p>Put into words, with linear regression we aim to find the parameters $w_0$ and $\mathbf{w}$ that minimize the total squared noise - a quantity that is referred to as <em>the noise energy</em> in signal processing contexts.</p>
 <p>Now one might rightfully ask: what is the point of introducing $P$ new variables $\left\{ \varepsilon_p \right\} _{p=1}^{P}$ to our model when their values are unknown to begin with? While it is true that we do not know the exact $\varepsilon_p$ values, we can nonetheless make assumptions about their distribution that enable us to find $w_0$ and $\mathbf{w}$ (and $\varepsilon_p$'s successively) in a probabilistic framework.  Specifically we make the assumption that $\left\{ \varepsilon_p \right\} _{p=1}^{P}$ are drawn from a zero-mean Gaussian distribution.  In other words, we assume that the noise is normally distributed with an <em>expected value</em> of $0$. Before getting into why this assumption is necessary to make from a theoretical standpoint, let us examine its validity using a number of real regression datasets.</p>
 </div>
@@ -11900,10 +11900,10 @@ w_0+\mathbf{x}_{p}^T\mathbf{w} +\varepsilon_p = y_{p} ,\quad p=1,...,P
 <div class="output_wrapper">
 <div class="output">
 <div class="output_area"><div class="prompt"></div>
-<div id="0fe3b7af-2805-4690-b6eb-d8473fb16efd"></div>
+<div id="95cc57f2-c392-4b35-b1a2-51b29c893a1e"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#0fe3b7af-2805-4690-b6eb-d8473fb16efd');
+var element = $('#95cc57f2-c392-4b35-b1a2-51b29c893a1e');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -12710,10 +12710,10 @@ if (IPython.notebook.kernel != null) {
 <div class="output_wrapper">
 <div class="output">
 <div class="output_area"><div class="prompt"></div>
-<div id="c51ec55d-ebba-4d53-9930-accc62c297d1"></div>
+<div id="af746c36-7f1a-456d-9741-a77221d0e6b4"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#c51ec55d-ebba-4d53-9930-accc62c297d1');
+var element = $('#af746c36-7f1a-456d-9741-a77221d0e6b4');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -13498,9 +13498,9 @@ if (IPython.notebook.kernel != null) {
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>In both cases as you can see it looks like that the noise does follow a zero-mean Gaussian distribution, and hence our assumption is not far-fetched.</p>
-<p>Since we have $y_p = w_0+\mathbf{x}_{p}^T\mathbf{w} +\varepsilon_p$ for all $p$, this means that, given the values of $\mathbf{x}_{p}$, $w_0$, and $\mathbf{w}$, each $y_p$ is also Gaussian with the same variance as the noise distribution - which we denote by $\sigma^2$ - and a (shifted) mean value of $w_0+\mathbf{x}_{p}^T\mathbf{w}$. Hence, with our first assumption, we have</p>
+<p>Since we have $\overset{\,}{y}_{p} = \mathring{\mathbf{x}}_{p}^T\mathbf{w} +\varepsilon_p$ for all $p$, this means that, given the values of $\mathbf{x}_{p}$ and $\mathbf{w}$, each $y_p$ is also Gaussian with the same variance as the noise distribution - which we denote by $\sigma^2$ - and a (shifted) mean value of $\mathring{\mathbf{x}}_{p}^T\mathbf{w}$. Hence, with our first assumption, we have</p>
 \begin{equation}
-{\cal P}\left(y=y_{p}\,|\,\mathbf{x}_{p},w_0,\mathbf{w}\right)=\frac{1}{\sqrt{2\pi}\,\sigma}e^{\,\frac{-1}{2\sigma^{2}}\left(y-\left(w_0+\mathbf{x}_{p}^{T}\mathbf{w}\right)\right)^{2}} ,\quad p=1,...,P
+{\cal P}\left(y=y_{p}\,|\,\mathbf{x}_{p},\mathbf{w}\right)=\frac{1}{\sqrt{2\pi}\,\sigma}e^{\,\frac{-1}{2\sigma^{2}}\left(y- \mathring{\mathbf{x}}_{p}^T\mathbf{w}\right)^{2}} ,\quad p=1,...,P
 \end{equation}
 </div>
 </div>
@@ -13530,13 +13530,13 @@ if (IPython.notebook.kernel != null) {
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>With these two assumptions we can now form the (joint) likelihood of our data and maximize it to recover model parameters.  Specifically, using the independence assumption we can write the likelihood as</p>
 \begin{equation}
-{\cal L}=\prod_{p=1}^{P}{\cal P}\left(y=y_{p}\,|\,\mathbf{x}_{p},w_0,\mathbf{w}\right)
+{\cal L}=\prod_{p=1}^{P}{\cal P}\left(y=y_{p}\,|\,\mathbf{x}_{p},\mathbf{w}\right)
 \end{equation}<p></p>
 <p>Recall, as discussed in our series on <em>the fundamentals of probability and statistics</em>, that maximizing the likelihood is mathematically equivalent to minimizing its negative log-likelihood, giving the probabilistic cost function</p>
 \begin{equation}
-g\left(w_0,\mathbf{w},\sigma\right)=-\sum_{p=1}^{P}\text{log}\,{\cal P}\left(y=y_{p}\,|\,\mathbf{x}_{p},w_0,\mathbf{w}\right)
+g\left(\mathbf{w},\sigma\right)=-\sum_{p=1}^{P}\text{log}\,{\cal P}\left(y=y_{p}\,|\,\mathbf{x}_{p},\mathbf{w}\right)
 \end{equation}<p></p>
-<p>to be minimized over $w_0$, $\mathbf{w}$, and the noise standard deviation $\sigma$.</p>
+<p>to be minimized over $\mathbf{w}$, and the noise standard deviation $\sigma$.</p>
 </div>
 </div>
 </div>
@@ -13547,20 +13547,8 @@ g\left(w_0,\mathbf{w},\sigma\right)=-\sum_{p=1}^{P}\text{log}\,{\cal P}\left(y=y
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Our first assumption on the distribution of noise makes it possible to write the exact form of $g$, with some algebra, as</p>
 \begin{equation}
-g\left(\widetilde{\mathbf{w}},\sigma\right)=P\,\text{log}\left(\sqrt{2\pi}\,\sigma\right)+\frac{1}{2\sigma^{2}}\sum_{p=1}^{P} \left(y_p-\widetilde{\mathbf{x}}_{p}^{T}\widetilde{\mathbf{w}}\right)^{2}
+g\left(\mathbf{w},\sigma\right)=P\,\text{log}\left(\sqrt{2\pi}\,\sigma\right)+\frac{1}{2\sigma^{2}}\sum_{p=1}^{P} \left(y_p -  \mathring{\mathbf{x}}_{p}^T\mathbf{w}\right)^{2}.
 \end{equation}<p></p>
-<p>where we have used the notation</p>
-\begin{equation}
-\widetilde{\mathbf{w}}=\left[\begin{array}{c}
-w_{0}\\
-\mathbf{w}
-\end{array}\right]
-\,\,\,\,\text{and}\,\,\,\,\,
-\widetilde{\mathbf{x}}_{p}=\left[\begin{array}{c}
-1\\
-\mathbf{x}_{p}
-\end{array}\right]
-\end{equation}<p>to write $g$ more compactly.</p>
 </div>
 </div>
 </div>
@@ -13572,8 +13560,8 @@ w_{0}\\
 <p>Checking the first order condition for optimality we have</p>
 $$
 \begin{array}{c}
-\nabla_{\widetilde{\mathbf{w}}}g\left(\widetilde{\mathbf{w}},\sigma\right)= \frac{1}{\sigma^{2}}\sum_{p=1}^{P} \mathbf{x}_p\left(y_p-\widetilde{\mathbf{x}}_{p}^{T}\widetilde{\mathbf{w}}\right)=\mathbf{0}\\
-\frac{\partial}{\partial\sigma}g\left(\widetilde{\mathbf{w}},\sigma\right)= \frac{P}{\sigma}-\frac{1}{\sigma^{3}}\sum_{p=1}^{P} \left(y_p-\widetilde{\mathbf{x}}_{p}^{T}\widetilde{\mathbf{w}}\right)^{2}=0
+\nabla_{{\mathbf{w}}}g\left({\mathbf{w}},\sigma\right)= \frac{1}{\sigma^{2}}\sum_{p=1}^{P}  \mathring{\mathbf{x}}_{p}^{\,}\left(\overset{\,}{y}_p - \mathring{\mathbf{x}}_{p}^T\mathbf{w}\right)=\mathbf{0}\\
+\frac{\partial}{\partial\sigma}g\left({\mathbf{w}},\sigma\right)= \frac{P}{\sigma}-\frac{1}{\sigma^{3}}\sum_{p=1}^{P} \left(\overset{\,}{y}_p  - \mathring{\mathbf{x}}_{p}^T\mathbf{w}\right)^{2}=0
 \end{array}
 $$
 </div>
@@ -13586,10 +13574,10 @@ $$
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>The first equation gives the linear system</p>
 \begin{equation}
-\left(\sum_{p=1}^{P} \widetilde{\mathbf{x}}_p^{\,}\widetilde{\mathbf{x}}_p^T \right) \widetilde{\mathbf{w}}_{\,}^{\,} =  \sum_{p=1}^{P} \widetilde{\mathbf{x}}_p^{\,} y_p^{\,}
+\left(\sum_{p=1}^{P}  \mathring{\mathbf{x}}_{p}^{\,} \mathring{\mathbf{x}}_{p}^T \right) \mathbf{w}_{\,}^{\,} =  \sum_{p=1}^{P}  \mathring{\mathbf{x}}_{p}^{\,} \overset{\,}{y}_p^{\,}
 \end{equation}<p>whose solution $\widetilde{\mathbf{w}}^\star$ can be used in the second equation to find the optimal value for the noise variance, as</p>
 \begin{equation}
-\sigma^2 = \frac{1}{P}\sum_{p=1}^{P} \left(y_p-\widetilde{\mathbf{x}}_{p}^{T}\widetilde{\mathbf{w}}^{\star}\right)^{2}
+\sigma^2 = \frac{1}{P}\sum_{p=1}^{P} \left(\overset{\,}{y}_p^{\,} -  \mathring{\mathbf{x}}_{p}^{\,}\mathbf{w}^{\star}\right)^{2}
 \end{equation}
 </div>
 </div>
@@ -13650,10 +13638,10 @@ $$
 <div class="output_wrapper">
 <div class="output">
 <div class="output_area"><div class="prompt"></div>
-<div id="29b7714b-d644-47b4-9a59-463bdcea6657"></div>
+<div id="4ea99fd0-e9b8-436c-84e6-6f758ce32b0e"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#29b7714b-d644-47b4-9a59-463bdcea6657');
+var element = $('#4ea99fd0-e9b8-436c-84e6-6f758ce32b0e');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
