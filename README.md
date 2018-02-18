@@ -10,7 +10,7 @@ Many of these notebooks also require the Automatic Differentiator [autograd](htt
       
       pip install autograd
 
-To pull a minimial sized clone of this repo (including only the most recent commit) use a shallow pull as follows
+Note: to pull a minimial sized clone of this repo (including only the most recent commit) use a shallow pull as follows
       
       git clone --depth 1 https://github.com/jermwatt/mlrefined.git
       
