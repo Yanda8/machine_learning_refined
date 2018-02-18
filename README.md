@@ -1,4 +1,4 @@
-# Machine Learning Refined Jupyter notebooks and Python files
+# Machine Learning Refined Blog
 
 This repository contains Jupyter notebooks and Python files associated with [the Machine Learning Refined blog](https://jermwatt.github.io/mlrefined/index.html), a set of supplementary resources for the textbook Machine Learning Refined (Cambridge University Press). Visit [http://www.mlrefined.com](http://www.mlrefined.com) for free chapter downloads and tutorials, and [our Amazon site for details regarding a hard copy of the text](https://www.amazon.com/Machine-Learning-Refined-Foundations-Applications/dp/1107123526/ref=sr_1_1?ie=UTF8&qid=1471025359&sr=8-1&keywords=machine+learning+refined).
 
