@@ -7,6 +7,10 @@ Python 3 and a number of standard Python packages for scientific computing (nump
 Many of these notebooks also require the Automatic Differentiator [autograd](https://github.com/HIPS/autograd) which can be installed by typing the following command at your terminal
       
       pip install autograd
+      
+Note: to pull a minimial sized clone of this repo (including only the most recent commit) use a shallow pull as follows
+      
+      git clone --depth 1 https://github.com/jermwatt/mlrefined.git
         
 - - -
 This repository contains various supplementary Jupyter notebooks, Python and MATLAB files, presentations associated with the textbook Machine Learning Refined (Cambridge University Press). Visit [http://www.mlrefined.com](http://www.mlrefined.com) for free chapter downloads and tutorials, and [our Amazon site here for details regarding a hard copy of the text](https://www.amazon.com/Machine-Learning-Refined-Foundations-Applications/dp/1107123526/ref=sr_1_1?ie=UTF8&qid=1471025359&sr=8-1&keywords=machine+learning+refined).
