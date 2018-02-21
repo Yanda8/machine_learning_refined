@@ -48,16 +48,22 @@ class Setup:
             # make weight matrix
             weight = self.scale*np.random.randn(U_k+1,U_k_plus_1)
             weights.append(weight)
+       
 
         # re-express weights so that w_init[0] = omega_inner contains all 
         # internal weight matrices, and w_init = w contains weights of 
         # final linear combination in predict function
         w_init = [weights[:-1],weights[-1]]
+        
+        print(np.shape(w_init))
+        print(np.shape(w_init[0][0]))
+        print(np.shape(w_init[0][1]))
+        print(np.shape(w_init[1]))
 
         return w_init
 
     # fully evaluate our network features using the tensor of weights in w
-    def feature_transforms(self,a, w):    
+    def feature_transforms(self, a, w):    
         # loop through each layer matrix
         for W in w:
             #  pad with ones (to compactly take care of bias) for next layer computation        

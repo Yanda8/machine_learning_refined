@@ -4,6 +4,7 @@ from . import cost_functions
 from . import normalizers
 from . import multilayer_perceptron
 from . import history_plotters
+from . import convolutional_net
 
 class Setup:
     def __init__(self,x,y,**kwargs):
@@ -15,6 +16,7 @@ class Setup:
         self.weight_histories = []
         self.cost_histories = []
         self.count_histories = []
+    
         
     #### define feature transformation ####
     def choose_features(self,name,**kwargs): 
@@ -24,6 +26,13 @@ class Setup:
             self.feature_transforms = transformer.feature_transforms
             self.initializer = transformer.initializer
             self.layer_sizes = transformer.layer_sizes
+            
+        if name == 'convolutional_net':
+            transformer = convolutional_net.Setup(**kwargs)
+            self.feature_transforms = transformer.feature_transforms
+            self.initializer = transformer.initializer
+            self.layer_sizes = transformer.layer_sizes     
+           
         self.feature_name = name
 
     #### define normalizer ####
