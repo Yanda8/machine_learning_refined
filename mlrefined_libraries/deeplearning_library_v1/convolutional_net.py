@@ -1,9 +1,10 @@
 import autograd.numpy as np    
     
-class Setup:
-    
+class Setup:   
+       
     def __init__(self,**kwargs):        
-        # set default values for layer sizes, activation, and scale
+        
+        # set default values for nonlinear activation function
         activation = 'relu'
 
         # decide on these parameters via user input
@@ -16,70 +17,69 @@ class Setup:
         elif activation == 'tanh':
             self.activation = lambda data: np.tanh(data)
         elif activation == 'relu':
-            self.activation = lambda data: np.maximum(0,data)
+            self.activation = lambda data: np.maximum(0, data)
         elif activation == 'sinc':
             self.activation = lambda data: np.sinc(data)
         elif activation == 'sin':
             self.activation = lambda data: np.sin(data)
-        else: # user-defined activation
-            self.activation = kwargs['activation']
                         
-        # select layer sizes and scale
-        N = 1; M = 1;
-        U = 10;
+        # set default values for convolution layer parameters
+        self.kernel_size = 3
+        self.num_kernels = 8
+        self.pool_size = 3
+        self.stride = 3
+        
+        if 'kernel_size' in kwargs:
+            self.kernel_size = kwargs['kernel_size']              
+        if 'num_kernels' in kwargs:
+            self.num_kernels = kwargs['num_kernels']
+        if 'pool_size' in kwargs:
+            self.pool_size = kwargs['pool_size']              
+        if 'num_kernels' in kwargs:
+            self.stride = kwargs['stride']                   
+        
+        # set default values for MLP layer sizes and scale
+        N = 1; U = 10; M = 1;
         self.layer_sizes = [N,U,M]
         self.scale = 0.1
         if 'layer_sizes' in kwargs:
             self.layer_sizes = kwargs['layer_sizes']
         if 'scale' in kwargs:
             self.scale = kwargs['scale']
-            
-        # convolution layer params
-        self.kernel_size = 3
-        self.num_kernels = 8
-        
-        if 'kernel_size' in kwargs:
-            self.kernel_size = kwargs['kernel_size']  
-            
-        if 'num_kernels' in kwargs:
-            self.num_kernels = kwargs['num_kernels']       
-            
-    
+ 
+
     # create initial weights for kernels and MLP weights
     def initializer(self):
         
         # container for entire weight tensor
         weights = []
-   
+        
+        # create initial kernel weights
+        kernels = self.scale*np.random.randn(self.num_kernels, self.kernel_size, self.kernel_size)      
 
         # loop over desired layer sizes and create appropriately sized initial 
-        # weight matrix for each layer
+        # weight matrix for each MLP layer
         for k in range(len(self.layer_sizes)-1):
             # get layer sizes for current weight matrix
             U_k = self.layer_sizes[k]
             U_k_plus_1 = self.layer_sizes[k+1]
 
             # make weight matrix
-            weight = self.scale*np.random.randn(U_k+1,U_k_plus_1)
+            weight = self.scale*np.random.randn(self.kernel_size, self.kernel_size)
             weights.append(weight)
-
-        
-        
-        # initialize kernels
-        kernels = self.scale*np.random.randn(self.num_kernels, self.kernel_size, self.kernel_size) 
-        
-        # ??????
-        weights = [kernels, weights]
-        
-        print(np.shape(weights))
-        print(np.shape(weights[0]))
-        print(np.shape(weights[1]))
         
         # re-express weights so that w_init[0] = omega_inner contains all 
         # internal weight matrices, and w_init = w contains weights of 
         # final linear combination in predict function
-        w_init = [weights[:-1], weights[-1]]
+        #w_init = [weights[:-1], weights[-1]]  
+        w_init = [kernels, weights[:-1], weights[-1]]
         
+        #print('w_init', np.shape(w_init))
+        #print('kernels', np.shape(w_init[0]))
+        #print('inner_MLP', np.shape(w_init[1]))
+        #print('inner_MLP_first', np.shape(w_init[1][0]))
+        #print('inner_MLP_second', np.shape(w_init[1][1]))
+        #print('model', np.shape(w_init[2]))
 
         return w_init
         
@@ -190,7 +190,10 @@ class Setup:
         
     
     # fully evaluate our network features using the tensor of weights in w
-    def feature_transforms(self, a, w):    
+    def feature_transforms(self, a, w):
+        
+        
+        
         # loop through each layer matrix
         for W in w:
             #  pad with ones (to compactly take care of bias) for next layer computation        

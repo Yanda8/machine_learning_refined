@@ -37,7 +37,7 @@ class Setup:
     def initializer(self):
         # container for entire weight tensor
         weights = []
-
+        
         # loop over desired layer sizes and create appropriately sized initial 
         # weight matrix for each layer
         for k in range(len(self.layer_sizes)-1):
@@ -53,12 +53,14 @@ class Setup:
         # re-express weights so that w_init[0] = omega_inner contains all 
         # internal weight matrices, and w_init = w contains weights of 
         # final linear combination in predict function
-        w_init = [weights[:-1],weights[-1]]
+        w_init =  [weights[:-1], weights[-1]]
         
-        print(np.shape(w_init))
-        print(np.shape(w_init[0][0]))
-        print(np.shape(w_init[0][1]))
-        print(np.shape(w_init[1]))
+        #print('w_init', np.shape(w_init))
+        #print('kernels', np.shape(w_init[0]))
+        #print('inner_MLP', np.shape(w_init[1]))
+        #print('inner_MLP_first', np.shape(w_init[1][0]))
+        #print('inner_MLP_second', np.shape(w_init[1][1]))
+        #print('model', np.shape(w_init[2]))
 
         return w_init
 

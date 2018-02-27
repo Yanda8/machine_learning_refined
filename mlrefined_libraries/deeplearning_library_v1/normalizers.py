@@ -83,3 +83,34 @@ class Setup:
 
         # return normalizer 
         return normalizer,inverse_normalizer
+    
+
+    # PCA-sphereing - use PCA to normalize input features
+    def ZCA_sphereing(self,x,**kwargs):
+        # Step 1: mean-center the data
+        x_means = np.mean(x,axis = 1)[:,np.newaxis]
+        x_centered = x - x_means
+
+        # Step 2: compute pca transform on mean-centered data
+        d,V = self.PCA(x_centered,**kwargs)
+
+        # Step 3: divide off standard deviation of each (transformed) input, 
+        # which are equal to the returned eigenvalues in 'd'.  
+        stds = (d[:,np.newaxis])**(0.5)
+        
+        # check to make sure thta x_stds > small threshold, for those not
+        # divide by 1 instead of original standard deviation
+        ind = np.argwhere(stds < 10**(-2))
+        if len(ind) > 0:
+            ind = [v[0] for v in ind]
+            adjust = np.zeros((stds.shape))
+            adjust[ind] = 1.0
+            stds += adjust
+        
+        normalizer = lambda data: np.dot(V, np.dot(V.T,data - x_means)/stds)
+
+        # create inverse normalizer
+        inverse_normalizer = lambda data: np.dot(V,np.dot(V.T,data)*stds) + x_means
+
+        # return normalizer 
+        return normalizer,inverse_normalizer    
