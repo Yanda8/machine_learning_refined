@@ -5,7 +5,7 @@ from . import normalizers
 from . import multilayer_perceptron
 from . import history_plotters
 
-class Runner:
+class Setup:
     def __init__(self,X,**kwargs):
         # link in data
         self.x = X

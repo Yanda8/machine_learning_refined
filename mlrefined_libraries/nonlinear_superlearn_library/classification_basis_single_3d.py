@@ -11,7 +11,7 @@ import copy
 import time
 import bisect
 from matplotlib.ticker import MaxNLocator
-
+from . import old_optimimzers as optimimzers
 
 class Visualizer:
     '''
@@ -21,7 +21,7 @@ class Visualizer:
     # load target function
     def load_data(self,csvname):
         data = np.loadtxt(csvname,delimiter = ',').T
-        self.x = data[:,:-1]
+        self.x = data[:,:-1:]
         self.y = data[:,-1:]
         
         # center input
@@ -103,7 +103,7 @@ class Visualizer:
         for deg in range(D+1):
             F.append(self.x**deg)
         F = np.asarray(F)
-        F.shape = (D+1,len(self.x))
+        F.shape = (D+1,self.x.shape[1])
         return F.T
     
     # tanh features

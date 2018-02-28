@@ -367,6 +367,89 @@ class Visualizer:
         
         return(anim)
     
+    ####### two-class animator for cross-val #######
+    def animate_static_N2_simple(self,run,frames,**kwargs):      
+        # select inds of history to plot
+        weight_history = run.weight_histories[0]
+        cost_history = run.cost_histories[0]
+        inds = np.arange(0,len(weight_history),int(len(weight_history)/float(frames)))
+        weight_history_sample = [weight_history[v] for v in inds]
+        cost_history_sample = [cost_history[v] for v in inds]
+        start = inds[0]
+        
+        show_history = False
+        if 'show_history' in kwargs:
+            show_history = kwargs['show_history']
+            
+        scatter = 'on'
+        if 'scatter' in kwargs:
+            scatter = kwargs['scatter']
+            
+        view = [30,155]
+        if 'view' in kwargs:
+            view = kwargs['view']
+            
+        # construct figure
+        fig = plt.figure(figsize=(10,4))
+        artist = fig
+        
+        # create subplot with 1 active panel
+        gs = gridspec.GridSpec(1, 2, width_ratios=[0.75,1]) 
+        ax = plt.subplot(gs[0]); 
+        ax1 = plt.subplot(gs[1],projection='3d')
+
+        if show_history == True:
+            # create subplot with 2 active panels
+            gs = gridspec.GridSpec(1, 3, width_ratios=[2,3,1]) 
+            ax = plt.subplot(gs[0]); 
+            ax1 = plt.subplot(gs[1],projection='3d')
+            ax2 = plt.subplot(gs[2]);
+            
+        # start animation
+        self.move_axis_left(ax1,view)
+
+        num_frames = len(inds)
+        print ('starting animation rendering...')
+        def animate(k):        
+            # get current index to plot
+            current_ind = inds[k]
+
+            # clear panels
+            ax.cla()
+            ax1.cla()
+            self.move_axis_left(ax1,view)
+
+            if show_history == True:
+                ax2.cla()
+                ax2.scatter(current_ind,cost_history[current_ind],s = 60,color = 'r',edgecolor = 'k',zorder = 3)
+                self.plot_cost_history(ax2,cost_history,start)
+
+            # print rendering update
+            if np.mod(k+1,25) == 0:
+                print ('rendering animation frame ' + str(k+1) + ' of ' + str(num_frames))
+            if k == num_frames - 1:
+                print ('animation rendering complete!')
+                time.sleep(1.5)
+                clear_output()
+
+            # pluck out current weights 
+            w_best = weight_history[current_ind]
+
+            # plot data
+            self.scatter_2d_classification_data(ax,scatter)
+            self.scatter_3d_classification_data(ax1,scatter,view)
+
+            # plot surface / boundary
+            if k > 0:
+                self.show_2d_classifier(ax,w_best,run)
+                self.show_3d_classifier(ax1,w_best,run)
+            return artist,
+
+        anim = animation.FuncAnimation(fig, animate,frames=num_frames,interval = 25,blit=False)
+        
+        return(anim)
+    
+    ###### multiclass animators ######
     def multiclass_animator(self,run,frames,**kwargs):
         # select inds of history to plot
         weight_history = run.weight_histories[0]

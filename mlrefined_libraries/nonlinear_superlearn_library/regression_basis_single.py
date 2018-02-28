@@ -566,6 +566,10 @@ class Visualizer:
             test_error = self.least_squares(w)
             test_errors.append(test_error)
      
+        # normalize training and validation errors
+        train_errors = [v/float(np.size(self.y_train)) for v in train_errors]
+        test_errors = [v/float(np.size(self.y_test)) for v in test_errors]
+
         # plot cost path - scale to fit inside same aspect as classification plots
         num_iterations = len(weight_history)
         minxc = min(num_elements)-1
@@ -574,18 +578,18 @@ class Visualizer:
         minxc -= gapxc
         maxxc += gapxc
         minc = min(min(copy.deepcopy(train_errors)),min(copy.deepcopy(test_errors)))
-        maxc = max(max(copy.deepcopy(train_errors[:4])),max(copy.deepcopy(test_errors[:4])))
+        maxc = max(max(copy.deepcopy(train_errors[:5])),max(copy.deepcopy(test_errors[:5])))
         gapc = (maxc - minc)*0.5
         minc -= gapc
         maxc += gapc
 
         ### plot it
         # construct figure
-        fig = plt.figure(figsize = (11,3))
+        fig = plt.figure(figsize = (5,5))
         artist = fig
 
         # create subplot with 3 panels, plot input function in center plot
-        gs = gridspec.GridSpec(1, 4, width_ratios=[1,1,1,1]) 
+        gs = gridspec.GridSpec(2, 2)#, width_ratios=[1,1,1,1]) 
         ax = plt.subplot(gs[0]); ax.axis('off');
         ax1 = plt.subplot(gs[1]); ax1.axis('off');
         ax2 = plt.subplot(gs[2]); ax2.axis('off');
@@ -602,7 +606,7 @@ class Visualizer:
         ygap = (ymax - ymin)*0.4
         ymax += ygap
         ymin -= ygap
-
+        
         # animate
         print ('beginning animation rendering...')
         def animate(k):
@@ -630,31 +634,31 @@ class Visualizer:
             # cleanup panels
             ax.set_xlim([xmin,xmax])
             ax.set_ylim([ymin,ymax])
-            ax.set_xlabel(r'$x$', fontsize = 14,labelpad = 10)
-            ax.set_ylabel(r'$y$', rotation = 0,fontsize = 14,labelpad = 10)
+            ax.set_xlabel(r'$x$', fontsize = 14,labelpad = 0)
+            ax.set_ylabel(r'$y$', rotation = 0,fontsize = 14,labelpad = 5)
             ax.set_xticks(np.arange(round(xmin), round(xmax)+1, 1.0))
             ax.set_yticks(np.arange(round(ymin), round(ymax)+1, 1.0))
-            ax.set_title('orig data',fontsize = 12)
+            ax.set_title('original data',fontsize = 15)
 
             ax1.set_xlim([xmin,xmax])
             ax1.set_ylim([ymin,ymax])
-            ax1.set_xlabel(r'$x$', fontsize = 14,labelpad = 10)
-            ax1.set_ylabel(r'$y$', rotation = 0,fontsize = 14,labelpad = 10)
+            ax1.set_xlabel(r'$x$', fontsize = 14,labelpad = 0)
+            ax1.set_ylabel(r'$y$', rotation = 0,fontsize = 14,labelpad = 5)
             ax1.set_xticks(np.arange(round(xmin), round(xmax)+1, 1.0))
             ax1.set_yticks(np.arange(round(ymin), round(ymax)+1, 1.0))
-            ax1.set_title('train data',fontsize = 12)
+            ax1.set_title('training data',fontsize = 15)
 
             ax2.set_xlim([xmin,xmax])
             ax2.set_ylim([ymin,ymax])
-            ax2.set_xlabel(r'$x$', fontsize = 14,labelpad = 10)
-            ax2.set_ylabel(r'$y$', rotation = 0,fontsize = 14,labelpad = 10)
+            ax2.set_xlabel(r'$x$', fontsize = 14,labelpad = 0)
+            ax2.set_ylabel(r'$y$', rotation = 0,fontsize = 14,labelpad = 5)
             ax2.set_xticks(np.arange(round(xmin), round(xmax)+1, 1.0))
             ax2.set_yticks(np.arange(round(ymin), round(ymax)+1, 1.0))
-            ax2.set_title('test data',fontsize = 12)
+            ax2.set_title('validation data',fontsize = 15)
                           
              # cleanup
             ax3.set_xlabel('number of units',fontsize = 12)
-            ax3.set_title('errors',fontsize = 12)
+            ax3.set_title('errors',fontsize = 15)
            
             # cleanp panel
             ax3.set_xlim([minxc,maxxc])
@@ -700,14 +704,14 @@ class Visualizer:
                 cs += 1
 
                 ### plot training and testing errors  
-                ax3.plot([v-1 for v in num_elements[:k]],train_errors[:k],color = [0,0.7,1],linewidth = 1.5,zorder = 1,label = 'train error')
+                ax3.plot([v-1 for v in num_elements[:k]],train_errors[:k],color = [0,0.7,1],linewidth = 1.5,zorder = 1,label = 'training')
                 ax3.scatter([v-1 for v in num_elements[:k]],train_errors[:k],color = [0,0.7,1],s = 70,edgecolor = 'w',linewidth = 1.5,zorder = 3)
 
-                ax3.plot([v-1 for v in num_elements[:k]],test_errors[:k],color = [1,0.8,0.5],linewidth = 1.5,zorder = 1,label = 'test error')
+                ax3.plot([v-1 for v in num_elements[:k]],test_errors[:k],color = [1,0.8,0.5],linewidth = 1.5,zorder = 1,label = 'validation')
                 ax3.scatter([v-1 for v in num_elements[:k]],test_errors[:k],color= [1,0.8,0.5],s = 70,edgecolor = 'w',linewidth = 1.5,zorder = 3)
 
 
-                legend = ax3.legend(loc='upper right')
+                #legend = ax3.legend(loc='upper right')
 
             
         anim = animation.FuncAnimation(fig, animate,frames = len(num_elements)+1, interval = len(num_elements)+1, blit=True)

@@ -49,7 +49,7 @@ class Setup:
             self.degs = transformer.D
             
         # input a custom feature transformation
-        if 'feature_transforms' in kwargs:
+        if name == 'custom':
             self.feature_transforms = kwargs['feature_transforms']
             self.initializer = kwargs['initializer']
         self.feature_name = name
@@ -109,14 +109,16 @@ class Setup:
         if optimizer == 'gradient descent':
             # run gradient descent
             weight_history = optimizers.gradient_descent(self.cost,self.alpha_choice,self.max_its,self.w_init,self.num_pts,self.batch_size)
-            cost_history = [self.cost(v,np.arange(self.num_pts)) for v in weight_history]
         if optimizer == 'newtons method':
             epsilon = 10**(-7)
             if 'epsilon' in kwargs:
                 epsilon = kwargs['epsilon']
-            weight_history, cost_history = optimizers.newtons_method(self.cost,self.max_its,self.w_init,epsilon = epsilon)
+            weight_history = optimizers.newtons_method(self.cost,self.max_its,self.w_init,self.num_pts,self.batch_size,epsilon = epsilon)
 
-         # store all new histories
+        # compute cost history
+        cost_history = [self.cost(v,np.arange(self.num_pts)) for v in weight_history]
+        
+        # store all new histories
         self.weight_histories.append(weight_history)
         self.cost_histories.append(cost_history)
         
