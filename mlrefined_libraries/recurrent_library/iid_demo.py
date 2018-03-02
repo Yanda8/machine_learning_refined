@@ -141,27 +141,25 @@ class Visualizer:
     # animate the method
     def single_plot(self,x,y,**kwargs):      
         # initialize figure
-        fig = plt.figure(figsize = (12,4))
+        fig = plt.figure(figsize = (10,4))
         artist = fig
         
         # create subplot with 3 panels, plot input function in center plot
-        gs = gridspec.GridSpec(1,3,width_ratios = [1,4,1]) 
-        ax = plt.subplot(gs[0]); ax.axis('off')
-        ax1 = plt.subplot(gs[1]); 
-        ax2 = plt.subplot(gs[2]); ax2.axis('off')
+        gs = gridspec.GridSpec(1,1) 
+        ax1 = plt.subplot(gs[0]);# ax1.set_aspect('equal')
         artist = fig
         
         ### setup viewing area for left and right plot
         # for right plot - of regression data
         xmin_right = min(copy.deepcopy(x))
         xmax_right = max(copy.deepcopy(x))
-        xgap_right = abs(xmax_right - xmin_right)*0.5
+        xgap_right = abs(xmax_right - xmin_right)*0.25
         xmin_right -= xgap_right
         xmax_right += xgap_right
         
         ymin_right = min(copy.deepcopy(y))
         ymax_right = max(copy.deepcopy(y))
-        ygap_right = abs(ymax_right - ymin_right)*0.5    
+        ygap_right = abs(ymax_right - ymin_right)*0.4
         ymin_right -= ygap_right
         ymax_right += ygap_right  
         
@@ -179,7 +177,7 @@ class Visualizer:
             
             #### plot data ####
             # plot sequence in left panel, as regression data in right
-            ax1.scatter(x[:k],y[:k],c = 'k',zorder = 2,s=100,edgecolor = 'w',linewidth=2)
+            ax1.scatter(x[:k],y[:k],c = 'k',zorder = 2,s=120,edgecolor = 'w',linewidth=2)
                 
             # fix viewing limits
             ax1.set_xlim([xmin_right,xmax_right])
