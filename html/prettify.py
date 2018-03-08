@@ -54,7 +54,10 @@ if 'layer' in series.lower() and 'perceptron' in series.lower():
     series_url = '13_Multilayer_perceptrons'
     
 if 'convolution' in series.lower() and 'network' in series.lower():
-    series_url = '14_Convolutional_networks'            
+    series_url = '14_Convolutional_networks'   
+
+if 'recurrent' in series.lower() and 'network' in series.lower():
+    series_url = '15_Recurrent_Networks'            
 
 # This script adds navigation bar + sharing logos + title
 script_1 = '''
