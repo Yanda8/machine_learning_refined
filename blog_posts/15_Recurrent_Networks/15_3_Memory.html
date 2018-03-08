@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head><meta charset="utf-8" />
-<title>markov_word_scratchpad</title><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
+<title>15_3_Memory</title><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
 
 <style type="text/css">
@@ -11748,13 +11748,57 @@ div#notebook {
   <div tabindex="-1" id="notebook" class="border-box-sizing">
     <div class="container" id="notebook-container">
 
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Chapter-15:-Recurrent-networks">Chapter 15: Recurrent networks<a class="anchor-link" href="#Chapter-15:-Recurrent-networks">&#182;</a></h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="15.3--Dynamic-systems-with-memory">15.3  Dynamic systems with memory<a class="anchor-link" href="#15.3--Dynamic-systems-with-memory">&#182;</a></h1>
+</div>
+</div>
+</div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 <div class="prompt input_prompt">In&nbsp;[1]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">text_parsing_utils</span> <span class="k">as</span> <span class="nn">util</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">## This code cell will not be shown in the HTML version of this notebook</span>
+<span class="c1"># imports from custom library</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;../../&#39;</span><span class="p">)</span>
+<span class="kn">from</span> <span class="nn">mlrefined_libraries</span> <span class="k">import</span> <span class="n">math_optimization_library</span> <span class="k">as</span> <span class="n">optlib</span>
+<span class="kn">from</span> <span class="nn">mlrefined_libraries</span> <span class="k">import</span> <span class="n">nonlinear_superlearn_library</span> <span class="k">as</span> <span class="n">nonlib</span>
+<span class="kn">from</span> <span class="nn">mlrefined_libraries</span> <span class="k">import</span> <span class="n">recurrent_library</span> <span class="k">as</span> <span class="n">recurlib</span>
+
+<span class="c1"># demos for this notebook</span>
+<span class="n">regress_plotter</span> <span class="o">=</span> <span class="n">nonlib</span><span class="o">.</span><span class="n">nonlinear_regression_demos</span>
+<span class="n">static_plotter</span> <span class="o">=</span> <span class="n">optlib</span><span class="o">.</span><span class="n">static_plotter</span><span class="o">.</span><span class="n">Visualizer</span><span class="p">()</span>
+<span class="n">basic_runner</span> <span class="o">=</span> <span class="n">nonlib</span><span class="o">.</span><span class="n">basic_runner</span>
+<span class="n">datapath</span> <span class="o">=</span> <span class="s1">&#39;../../mlrefined_datasets/nonlinear_superlearn_datasets/&#39;</span>
+
+<span class="c1"># import autograd functionality to bulid function&#39;s properly for optimizers</span>
+<span class="kn">import</span> <span class="nn">autograd.numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="c1"># import timer</span>
+<span class="kn">from</span> <span class="nn">datetime</span> <span class="k">import</span> <span class="n">datetime</span> 
+<span class="kn">import</span> <span class="nn">copy</span>
+
+<span class="c1"># this is needed to compensate for %matplotlib notebook&#39;s tendancy to blow up images when plotted inline</span>
+<span class="o">%</span><span class="k">matplotlib</span> notebook
+<span class="kn">from</span> <span class="nn">matplotlib</span> <span class="k">import</span> <span class="n">rcParams</span>
+<span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;figure.autolayout&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
+
+<span class="o">%</span><span class="k">load_ext</span> autoreload
+<span class="o">%</span><span class="k">autoreload</span> 2
 </pre></div>
 
 </div>
@@ -11767,198 +11811,56 @@ div#notebook {
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="load-in-text,-preprocess,-and-parse-into-words">load in text, preprocess, and parse into words<a class="anchor-link" href="#load-in-text,-preprocess,-and-parse-into-words">&#182;</a></h1>
+<h2 id="15.1.1--Order-is-a-kind-of-structure-we-have-yet-to-leverage">15.1.1  Order is a kind of structure we have yet to leverage<a class="anchor-link" href="#15.1.1--Order-is-a-kind-of-structure-we-have-yet-to-leverage">&#182;</a></h2>
 </div>
 </div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[2]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># load in and preprocess text</span>
-<span class="n">csvname</span> <span class="o">=</span> <span class="s2">&quot;war_of_the_worlds.txt&quot;</span>
-<span class="n">text</span> <span class="o">=</span> <span class="n">util</span><span class="o">.</span><span class="n">load_preprocess</span><span class="p">(</span><span class="n">csvname</span><span class="p">)</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[3]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># parse into individual words</span>
-<span class="n">tokens</span><span class="p">,</span><span class="n">keys</span><span class="p">,</span><span class="n">words_to_keys</span><span class="p">,</span><span class="n">keys_to_words</span> <span class="o">=</span> <span class="n">util</span><span class="o">.</span><span class="n">parse_words</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
 </div>
 <div class="cell border-box-sizing text_cell rendered">
 <div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="Markov-model---words">Markov model - words<a class="anchor-link" href="#Markov-model---words">&#182;</a></h1>
+<h4 id="Example-1.--Financial-time-series"><span style="color:#a50e3e;">Example 1. </span> Financial time series<a class="anchor-link" href="#Example-1.--Financial-time-series">&#182;</a></h4>
 </div>
 </div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[4]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># get unique keys - for dimension of transition matrix </span>
-<span class="n">unique_keys</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">keys</span><span class="p">)</span>
-<span class="n">num_unique_words</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">unique_keys</span><span class="p">)</span>
-<span class="n">num_words</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">tokens</span><span class="p">)</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[10]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># generate initial zeros order N transition matrix</span>
-<span class="c1"># use a dictionary - or else this for sure won&#39;t scale </span>
-<span class="c1"># to any order &gt; 1</span>
-<span class="n">transition_matrix</span> <span class="o">=</span> <span class="p">{}</span>
-
-<span class="c1"># sweep through tokens list, update each individual distribution</span>
-<span class="c1"># as you go - each one a column</span>
-<span class="n">order</span> <span class="o">=</span> <span class="mi">1</span>
-<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">order</span><span class="p">,</span><span class="n">num_words</span><span class="p">):</span>
-    <span class="c1"># grab current key, and previous order keys</span>
-    <span class="n">next_key</span> <span class="o">=</span> <span class="n">keys</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
-    <span class="n">prev_keys</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">keys</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="n">order</span><span class="p">:</span><span class="n">i</span><span class="p">])</span>
-    
-    <span class="c1">## update transition matrix</span>
-    <span class="c1"># we&#39;ve seen current key already</span>
-    <span class="k">if</span> <span class="n">prev_keys</span> <span class="ow">in</span> <span class="n">transition_matrix</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
-        <span class="k">if</span> <span class="n">next_key</span> <span class="ow">in</span> <span class="n">transition_matrix</span><span class="p">[</span><span class="n">prev_keys</span><span class="p">]</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
-            <span class="n">transition_matrix</span><span class="p">[</span><span class="n">prev_keys</span><span class="p">][</span><span class="n">next_key</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="n">transition_matrix</span><span class="p">[</span><span class="n">prev_keys</span><span class="p">][</span><span class="n">next_key</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
-    <span class="k">else</span><span class="p">:</span>      <span class="c1"># we haven&#39;t seen key already, so create new subdict</span>
-        <span class="n">transition_matrix</span><span class="p">[</span><span class="n">prev_keys</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
-        <span class="n">transition_matrix</span><span class="p">[</span><span class="n">prev_keys</span><span class="p">][</span><span class="n">next_key</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[11]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># use transition matrix to generate sentence of desired length</span>
-<span class="c1"># starting at randomly chosen word (all of this is done using</span>
-<span class="c1"># the associated keys, then re-translated into words)</span>
-<span class="n">starter_ind</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">permutation</span><span class="p">(</span><span class="n">keys</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
-<span class="n">generated_keys</span> <span class="o">=</span> <span class="n">keys</span><span class="p">[</span><span class="n">starter_ind</span><span class="p">:</span><span class="n">starter_ind</span><span class="o">+</span><span class="n">order</span><span class="p">]</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[12]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">num_produce</span> <span class="o">=</span> <span class="mi">100</span>   <span class="c1"># number of words to produce</span>
-<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_produce</span><span class="p">):</span>
-    <span class="c1"># get current key</span>
-    <span class="n">prev_keys</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">generated_keys</span><span class="p">[</span><span class="n">i</span><span class="p">:</span><span class="n">i</span><span class="o">+</span><span class="n">order</span><span class="p">])</span>
-    
-    <span class="c1"># use maximum index of this distribution in transition matrix</span>
-    <span class="c1"># to get next key</span>
-    <span class="n">stats</span> <span class="o">=</span> <span class="n">transition_matrix</span><span class="p">[</span><span class="n">prev_keys</span><span class="p">]</span>
-    <span class="n">next_key</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">stats</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">key</span><span class="p">:</span> <span class="n">stats</span><span class="p">[</span><span class="n">key</span><span class="p">])</span>
-    
-    <span class="c1"># store next key</span>
-    <span class="n">generated_keys</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">next_key</span><span class="p">)</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[13]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># translate generated keys back into words and print</span>
-<span class="n">generated_words</span> <span class="o">=</span> <span class="p">[]</span>
-<span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">generated_keys</span><span class="p">:</span>
-    <span class="n">word</span> <span class="o">=</span> <span class="n">keys_to_words</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
-    <span class="n">generated_words</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">word</span><span class="p">)</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[14]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="s1">&#39; &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">generated_words</span><span class="p">)</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area"><div class="prompt output_prompt">Out[14]:</div>
-
-
-<div class="output_text output_subarea output_execute_result">
-<pre>&#39;garden there was the martians were the martians were the martians were the martians were the martians were the martians were the martians were the martians were the martians were the martians were the martians were the martians were the martians were the martians were the martians were the martians were the martians were the martians were the martians were the martians were the martians were the martians were the martians were the martians were the martians were the martians were the martians were the martians were the martians were the martians were the martians were the martians were the martians&#39;</pre>
-</div>
-
-</div>
-
-</div>
-</div>
-
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 <div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span> 
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># animate order</span>
+<span class="c1"># for stock data</span>
+<span class="n">demo</span><span class="o">.</span><span class="n">single_plot</span><span class="p">(</span><span class="n">xc</span><span class="p">,</span><span class="n">yc</span><span class="p">)</span>
 </pre></div>
 
 </div>
 </div>
 </div>
 
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>If we closely analyze the update step for any given dynamic system like the ones above, we can see that <em>absolutely every point is directly related to the initial condition $x_1$</em>.  How?  If we know that $x_3$ is related to its predecssor as</p>
+\begin{equation}
+x_3 = f\left(x_2\right)
+\end{equation}<p>and $x_2$ is related to the initial condition similarly as</p>
+\begin{equation}
+x_2 = f\left(x_1\right)
+\end{equation}<p>then plugging in the form of $x_2$ above into the relationship describing $x_3$ we have that</p>
+\begin{equation}
+x_3 = f\left(x_2\right) = f\left(\,f\left(x_1\right)\right).
+\end{equation}<p>In other words, the third point $x_3$ is precisely the initial condition $x_1$ passed through $f$ twice.</p>
+<p>This relationship holds more generally as well.  By the same logic we the $p^{th}$ point $x_p$ is directly related to the initial condition by passing it through the function $p-1$ times as</p>
+\begin{equation}
+x_p = f\left(\,f\left(\,\cdots f\left(x_1\right)\right)\cdots\right).
+\end{equation}<p>In other words, every point generated by a dynamic system without memory is in fact directly related to the initial condition $x_1$ alone.</p>
+
+</div>
+</div>
 </div>
     </div>
   </div>
