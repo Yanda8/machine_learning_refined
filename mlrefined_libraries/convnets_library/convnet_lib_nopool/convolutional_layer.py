@@ -1,5 +1,6 @@
 import autograd.numpy as np
 from timeit import default_timer as timer
+import copy
 
 class Setup:
     def __init__(self,kernel_sizes,**kwargs):
@@ -13,8 +14,8 @@ class Setup:
             self.conv_stride = kwargs['conv_stride']
                 
     # convolution function
-    def conv_function(self,tensor_window):
-        a = np.tensordot(tensor_window,self.kernels.T).T
+    def conv_function(self,tensor_windows,kernels):
+        a = np.tensordot(tensor_windows,kernels.T)
         return a
 
     # activation 
@@ -22,36 +23,53 @@ class Setup:
         return np.maximum(0,tensor_window)
     
     # sliding window for image augmentation
-    def sliding_window_tensor(self,tensor,window_size,stride,func):
+    def sliding_window_tensor(self,tensor,window_size,stride):
         # grab image size, set container for results
-        image_size = np.shape(tensor)[1]
+        image_size = tensor.shape[1]
+        num_images = tensor.shape[0]
+        num_kernels = self.kernels.shape[0]
         results = []
-        
+
+        #### gather indices for all tensor blocks ####
+        batch_x = []
+        batch_y = []
         # slide window over input image with given window size / stride and function
         for i in np.arange(0, image_size - window_size + 1, stride):
             for j in np.arange(0, image_size - window_size + 1, stride):
                 # take a window of input tensor
-                tensor_window =  tensor[:,i:i+window_size, j:j+window_size]
-                
-                # now process entire windowed tensor at once
-                tensor_window = np.array(tensor_window)
-                yo = func(tensor_window)
+                batch_x.append(i)
+                batch_y.append(j)
+        batch_inds = np.asarray([batch_x,batch_y])
 
-                # store weight
-                results.append(yo)
-        
-        # re-shape properly
-        results = np.array(results)
-        results = results.swapaxes(0,1)
-        if func == self.conv_function:
-            results = results.swapaxes(1,2)
+        # grab indecies for single image
+        b,m,n = tensor.shape
+        K = int(np.floor(window_size/2.0))
+        R = np.arange(0,K+2)     
+        extractor_inds = R[:,None]*n + R + (batch_inds[0]*n+batch_inds[1])[:,None,None]
+
+        # extend to the entire tensor
+        base = [copy.deepcopy(extractor_inds)]
+        ind_size = image_size**2
+        for i in range(tensor.shape[0] - 1):
+            base.append(extractor_inds + ((i+1)*ind_size))
+        base = np.array(base) 
+
+        # extract windows using numpy (to avoid for loops involving kernel weights)
+        # tensor_windows = np.take(tensor,base)
+        tensor_windows = tensor.flatten()[base]
+
+        # process tensor windows
+        results = self.conv_function(tensor_windows,self.kernels)
+        results = results.swapaxes(0,2)
+        results = results.swapaxes(1,2)
+
         return results 
 
     # make feature map
     def make_feature_tensor(self,tensor):
         # create feature map via convolution --> returns flattened convolution calculations
-        feature_tensor = self.sliding_window_tensor(tensor,self.kernel_size,self.conv_stride,self.conv_function) 
-
+        feature_tensor = self.sliding_window_tensor(tensor,self.kernel_size,self.conv_stride) 
+        
         # shove feature map through nonlinearity
         downsampled_feature_map = self.activation(feature_tensor)
 
@@ -59,7 +77,7 @@ class Setup:
         return downsampled_feature_map
 
     # convolution layer
-    def conv_layer(self,tensor,kernels):
+    def conv_layer(self,tensor,kernels): 
         #### prep input tensor #####
         # pluck out dimensions for image-tensor reshape
         num_images = np.shape(tensor)[0]
@@ -78,8 +96,11 @@ class Setup:
         #### compute convolution feature maps / downsample via pooling one map at a time over entire tensor #####
         # compute feature map for current image using current convolution kernel
         feature_tensor = self.make_feature_tensor(tensor)   
+        #print ('----')
+       # print (feature_tensor.shape)
         feature_tensor = feature_tensor.swapaxes(0,1)
         feature_tensor = np.reshape(feature_tensor, (np.shape(feature_tensor)[0],np.shape(feature_tensor)[1]*np.shape(feature_tensor)[2]),order = 'F')
+        #print (feature_tensor.shape)
         
         return feature_tensor
         

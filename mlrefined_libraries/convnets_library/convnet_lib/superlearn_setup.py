@@ -16,9 +16,9 @@ class Setup:
         # make containers for all histories
         self.weight_histories = []
         self.train_cost_histories = []
-        self.train_count_histories = []
+        self.train_accuracy_histories = []
         self.val_cost_histories = []
-        self.val_count_histories = []
+        self.val_accuracy_histories = []
         self.train_costs = []
         self.train_counts = []
         self.val_costs = []
@@ -189,19 +189,19 @@ class Setup:
         
         # if classification produce count history
         if self.cost_name == 'softmax' or self.cost_name == 'perceptron' or self.cost_name == 'multiclass_softmax' or self.cost_name == 'multiclass_perceptron':
-            train_count_history = [1 - self.train_counter(v)/float(self.train_num) for v in weight_history]
-            val_count_history = [1 - self.val_counter(v)/float(self.val_num) for v in weight_history]
+            train_accuracy_history = [1 - self.train_counter(v)/float(self.train_num) for v in weight_history]
+            val_accuracy_history = [1 - self.val_counter(v)/float(self.val_num) for v in weight_history]
 
             # store count history
-            self.train_count_histories.append(train_count_history)
-            self.val_count_histories.append(val_count_history)
+            self.train_accuracy_histories.append(train_accuracy_history)
+            self.val_accuracy_histories.append(val_accuracy_history)
  
     #### plot histories ###
     def show_histories(self,**kwargs):
         start = 0
         if 'start' in kwargs:
             start = kwargs['start']
-        history_plotters.Setup(self.train_cost_histories,self.train_count_histories,self.val_cost_histories,self.val_count_histories,start)
+        history_plotters.Setup(self.train_cost_histories,self.train_accuracy_histories,self.val_cost_histories,self.val_accuracy_histories,start)
         
     #### for batch normalized multilayer architecture only - set normalizers to desired settings ####
     def fix_normalizers(self,w):

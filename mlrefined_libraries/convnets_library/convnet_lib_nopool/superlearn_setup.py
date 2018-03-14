@@ -28,6 +28,7 @@ class Setup:
     #### define convolution layer ####
     def choose_convolutions(self,kernel_sizes,**kwargs):
         # setup convolution layer
+        #img_size = int(self.x.shape[0]**(0.5))
         transformer = convolutional_layer.Setup(kernel_sizes,**kwargs)
         self.conv_layer = transformer.conv_layer
         self.conv_initializer = transformer.conv_initializer

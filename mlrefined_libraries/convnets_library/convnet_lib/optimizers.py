@@ -33,7 +33,7 @@ def gradient_descent(g, g_val, alpha, max_its, w, num_train, num_val, batch_size
         for b in range(num_batches):
             # collect indices of current mini-batch
             batch_inds = np.arange(b*batch_size, min((b+1)*batch_size, num_train))
-
+            
             # plug in value into func and derivative
             cost_eval,grad_eval = grad(w,batch_inds)
             grad_eval.shape = np.shape(w)

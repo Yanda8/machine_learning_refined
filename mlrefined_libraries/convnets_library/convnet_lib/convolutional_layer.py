@@ -1,38 +1,114 @@
 import autograd.numpy as np
-
+from timeit import default_timer as timer
+import copy
 
 class Setup:
     def __init__(self,kernel_sizes,**kwargs):
         # select kernel sizes and scale
         self.kernel_sizes = kernel_sizes
+        self.o = np.ones((kernel_sizes[-1],kernel_sizes[-1]))
         self.scale = 0.1
         self.conv_stride = 1
         self.pool_stride = 2
-        self.pool_window_size = 3
         if 'scale' in kwargs:
             self.scale = kwargs['scale'] 
         if 'conv_stride' in kwargs:
             self.conv_stride = kwargs['conv_stride']
         if 'pool_stride' in kwargs:
             self.pool_stride = kwargs['pool_stride']
-        if 'pool_window_size' in kwargs:
-            self.pool_window_size = kwargs['pool_window_size']
-                
+            
     # convolution function
-    def conv_function(self,tensor_window):
-        tensor_window = np.reshape(tensor_window,(np.shape(tensor_window)[0],np.shape(tensor_window)[1]*np.shape(tensor_window)[2]))
-        t = np.dot(self.kernels,tensor_window.T)
-        return t
+    def conv_function(self,tensor_windows):
+        # compute convolutions
+        a = np.tensordot(tensor_windows,self.kernels.T)
 
+        # swap axes to match up with earlier versions
+        a = a.swapaxes(0,2)
+        a = a.swapaxes(1,2)
+        return a
+    
     # pooling / downsampling parameters
-    def pool_function(self,tensor_window):
-        t = np.max(tensor_window,axis = (1,2))
+    def pool_function(self,tensor_windows):
+        #t = np.max(tensor_windows,axis = (2,3))
+        t = np.tensordot(tensor_windows,self.o)/float(np.size(self.o))
         return t
 
     # activation 
-    def activation(self,tensor_window):
-        return np.maximum(0,tensor_window)
+    def activation(self,tensor_windows):
+        return np.maximum(0,tensor_windows)
 
+    # sliding window for image augmentation
+    def sliding_window_tensor(self,tensor,window_size,stride,operation):
+        # grab image size, set container for results
+        image_size = tensor.shape[1]
+        num_images = tensor.shape[0]
+        num_kernels = self.kernels.shape[0]
+        results = []
+
+        #### gather indices for all tensor blocks ####
+        batch_x = []
+        batch_y = []
+        # slide window over input image with given window size / stride and function
+        for i in np.arange(0, image_size - window_size + 1, stride):
+            for j in np.arange(0, image_size - window_size + 1, stride):
+                # take a window of input tensor
+                batch_x.append(i)
+                batch_y.append(j)
+        batch_inds = np.asarray([batch_x,batch_y])
+
+        # grab indecies for single image
+        b,m,n = tensor.shape
+        K = int(np.floor(window_size/2.0))
+        R = np.arange(0,K+2)     
+        extractor_inds = R[:,None]*n + R + (batch_inds[0]*n+batch_inds[1])[:,None,None]
+
+        # extend to the entire tensor
+        base = [copy.deepcopy(extractor_inds)]
+        ind_size = image_size**2
+        for i in range(tensor.shape[0] - 1):
+            base.append(extractor_inds + ((i+1)*ind_size))
+        base = np.array(base) 
+
+        # extract windows using numpy (to avoid for loops involving kernel weights)
+        tensor_windows = tensor.flatten()[base]
+
+        # process tensor windows
+        results = []
+        if operation == 'convolution':
+            results = self.conv_function(tensor_windows)
+        if operation == 'pool':
+            #print (tensor_windows.shape)
+            results = self.pool_function(tensor_windows)
+            #print (results.shape)
+        return results 
+
+    # make feature map
+    def make_feature_tensor(self,tensor):
+        ##### convolution #####
+        window_size = self.kernel_sizes[1]
+        stride = self.conv_stride
+        operation = 'convolution'
+        feature_tensor = self.sliding_window_tensor(tensor,window_size,stride,operation)
+        
+        ##### take maximum of convolution output #####
+        feature_tensor = self.activation(feature_tensor)
+        
+        ##### pooling step #####
+        # re-shape convolution output ---> append all feature maps together
+        num_filters = self.kernel_sizes[0]
+        num_images = tensor.shape[0]
+        square_dim = int((feature_tensor.shape[2]**(0.5)))
+        feature_tensor = np.reshape(feature_tensor,(num_filters*num_images,square_dim,square_dim),order = 'C')    
+        
+        # pooling step
+        window_size = self.kernel_sizes[1]
+        stride = self.pool_stride
+        operation = 'pool'
+        downsampled_feature_map = self.sliding_window_tensor(feature_tensor,window_size,stride,operation)
+        
+        # return downsampled feature map --> flattened
+        return downsampled_feature_map
+    
     # pad image with appropriate number of zeros for convolution
     def pad_tensor(self,tensor,kernel_size):
         odd_nums = np.array([int(2*n + 1) for n in range(100)])
@@ -41,59 +117,8 @@ class Setup:
         tensor_padded[:,pad_val:-pad_val,pad_val:-pad_val] = tensor
         return tensor_padded    
     
-    # sliding window for image augmentation
-    def sliding_window_tensor(self,tensor,window_size,stride,func):
-        # grab image size, set container for results
-        image_size = np.shape(tensor)[1]
-        results = []
-        
-        # slide window over input image with given window size / stride and function
-        for i in np.arange(0, image_size - window_size + 1, stride):
-            for j in np.arange(0, image_size - window_size + 1, stride):
-                # take a window of input tensor
-                tensor_window =  tensor[:,i:i+window_size, j:j+window_size]
-                
-                # now process entire windowed tensor at once
-                tensor_window = np.array(tensor_window)
-                yo = func(tensor_window)
-
-                # store weight
-                results.append(yo)
-        
-        # re-shape properly
-        results = np.array(results)
-        results = results.swapaxes(0,1)
-        if func == self.conv_function:
-            results = results.swapaxes(1,2)
-        return results 
-
-    # make feature map
-    def make_feature_tensor(self,tensor):
-        # create feature map via convolution --> returns flattened convolution calculations
-        feature_tensor = self.sliding_window_tensor(tensor,self.kernel_size,self.conv_stride,self.conv_function) 
-
-        # re-shape convolution output ---> to square of same size as original input
-        num_filters = np.shape(feature_tensor)[0]
-        num_images = np.shape(feature_tensor)[1]
-        square_dim = int((np.shape(feature_tensor)[2])**(0.5))
-        feature_tensor = np.reshape(feature_tensor,(num_filters,num_images,square_dim,square_dim))
-        
-        # shove feature map through nonlinearity
-        feature_tensor = self.activation(feature_tensor)
-
-        # pool feature map --- i.e., downsample it
-        downsampled_feature_map = []
-        for t in range(np.shape(feature_tensor)[0]):
-            temp_tens = feature_tensor[t,:,:,:]
-            d = self.sliding_window_tensor(temp_tens,self.pool_window_size,self.pool_stride,self.pool_function)
-            downsampled_feature_map.append(d)
-        downsampled_feature_map = np.array(downsampled_feature_map)
-
-        # return downsampled feature map --> flattened
-        return downsampled_feature_map
-
     # convolution layer
-    def conv_layer(self,tensor,kernels):
+    def conv_layer(self,tensor,kernels): 
         #### prep input tensor #####
         # pluck out dimensions for image-tensor reshape
         num_images = np.shape(tensor)[0]
@@ -101,20 +126,22 @@ class Setup:
         
         # create tensor out of input images (assumed to be stacked vertically as columns)
         tensor = np.reshape(tensor,(np.shape(tensor)[0],int((np.shape(tensor)[1])**(0.5)),int( (np.shape(tensor)[1])**(0.5))),order = 'F')
-
+        
         # pad tensor
-        kernel = kernels[0]
-        self.kernel_size = np.shape(kernel)[0]
-        padded_tensor = self.pad_tensor(tensor,self.kernel_size)
-
-        #### prep kernels - reshape into array for more effecient computation ####
-        self.kernels = np.reshape(kernels,(np.shape(kernels)[0],np.shape(kernels)[1]*np.shape(kernels)[2]))
+        padded_tensor = self.pad_tensor(tensor,kernels.shape[2])
+                
+        # make kernels universal element in class
+        self.kernels = kernels 
         
         #### compute convolution feature maps / downsample via pooling one map at a time over entire tensor #####
         # compute feature map for current image using current convolution kernel
-        feature_tensor = self.make_feature_tensor(padded_tensor)
-        feature_tensor = feature_tensor.swapaxes(0,1)
-        feature_tensor = np.reshape(feature_tensor, (np.shape(feature_tensor)[0],np.shape(feature_tensor)[1]*np.shape(feature_tensor)[2]),order = 'F')
+        feature_tensor = self.make_feature_tensor(padded_tensor)   
+
+        # reshape appropriately
+        
+        ind1 = int(feature_tensor.shape[0]/float(self.kernels.shape[0]))
+        ind2 = feature_tensor.shape[1]*self.kernels.shape[0]
+        feature_tensor = np.reshape(feature_tensor,(ind1,ind2),order = 'F')
         
         return feature_tensor
         
