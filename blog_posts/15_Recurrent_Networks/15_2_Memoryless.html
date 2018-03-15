@@ -11876,10 +11876,10 @@ x_{3} = f\left(x_{2}\right).
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>And likewise, in general we can say that the point $x_p$ follows the point $x_{p-1}$ mathematically as</p>
+<p>And likewise, in general we can say that the point $x_{p+1}$ follows the point $x_{p}$ mathematically as</p>
 \begin{equation}
-x_{p} = f\left(x_{p-1}\right) 
-\end{equation}<p>for p = 2,...,P.</p>
+x_{p+1} = f\left(x_{p}\right) 
+\end{equation}<p>for p = 1,...,P-1.</p>
 </div>
 </div>
 </div>
@@ -11929,7 +11929,7 @@ x_{p} = f\left(x_{p-1}\right)
 \begin{array}
 \
 x_1 = \gamma \\
-x_{p} = w_0 + w_1x_{p-1}   
+x_{p+1} = w_0 + w_1x_{p}   
 \end{array}
 \end{equation}
 </div>
@@ -11963,10 +11963,10 @@ x_{p} = w_0 + w_1x_{p-1}
 <div class="output_wrapper">
 <div class="output">
 <div class="output_area"><div class="prompt"></div>
-<div id="39b7264e-7d0f-4151-9a58-1f11624a77ad"></div>
+<div id="c7f09bf3-a044-4e25-b3f8-fb9ddf373f41"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#39b7264e-7d0f-4151-9a58-1f11624a77ad');
+var element = $('#c7f09bf3-a044-4e25-b3f8-fb9ddf373f41');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -12766,7 +12766,7 @@ if (IPython.notebook.kernel != null) {
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>More generally the formula for compound interest (when none of the principal or interest is repaid at each period) on an initial loan of $x_1$ dollars is a version of the linear growth model above</p>
 \begin{equation}
-x_p = \left(1 + \text{interest rate}\right)x_{p-1}.
+x_{p+1} = \left(1 + \text{interest rate}\right)x_{p}.
 \end{equation}<p>In other words, it is the exponential growth model with $w_0 = 0$ and $w_1 = \left(1 + \text{interest rate}\right)$.</p>
 </div>
 </div>
@@ -12779,7 +12779,7 @@ x_p = \left(1 + \text{interest rate}\right)x_{p-1}.
 <p>This sort of model is also used as a simple model for uncapped <em>population growth</em>.  For example, suppose a single species of creature (bacteria, bunny rabbits, humans, whatever) live alone on a planet that has an infinite amount of space, resources, etc.,  Suppose at the start of the universe there are $2$ creatures, and after each period of time (e.g., a day) they reproduce at a rate of $100\%$.  Since there are infinite resources in this universe they can go on reproducing forever, reproducing at an exponential rate.  This scenario can also be interpreted as the example in the left panel above (where $x_1 = 2$ denotes the initial number of creatures and $w_1 = 2$ the growth rate).</p>
 <p>Just like compound interest, the uncapped population growth model falls into the same kind of framework as we saw above as</p>
 \begin{equation}
-x_p = \left(\text{growth rate per period}\right)x_{p-1}.
+x_{p+1} = \left(\text{growth rate per period}\right)x_{p}.
 \end{equation}<p>In other words, it is the exponential growth model with $w_0 = 0$ and $w_1 = \left(1 + \text{growth rate per period}\right)$.</p>
 </div>
 </div>
@@ -12811,7 +12811,7 @@ x_p = \left(\text{growth rate per period}\right)x_{p-1}.
 \begin{array}
 \
 x_1 = \gamma \\
-x_{p} = w x_{p-1}\left(1 - x_{p-1} \right).
+x_{p+1} = w x_{p}\left(1 - x_{p} \right).
 \end{array}
 \end{equation}<p>In other words, this is a dynamic system with update function  $f\left(x\right) = wx\left(1 - x\right)$.</p>
 </div>
@@ -12822,7 +12822,7 @@ x_{p} = w x_{p-1}\left(1 - x_{p-1} \right).
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>It is called a <em>logistic system</em> because (like <em>logistic functions themselves</em>) it arises in the modeling of population growth under the assumption that resources in an environment are limited.  The modeling idea is basically this: if $x_p$ denotes the population of a single species of creature (e.g., bacterium, bunny rabbits, humans, whatever) in a closed system with a maximum amount of space / resources the growth rate of a population cannot follow the exponential rate detailed in the previous example forever.  In the beginning, when there are not too many of the creatures, the growth can indeed be exponential - thus the first part of the equation above $wx_{p-1}$ (the exponential growth we saw previously).  But at a certain point, when space and resources become limited, competition for survival causes the growth rate to slow down.  Here this concept is modeled by the second portion of the equation above: $\left(1 - x_{p-1}\right)$.  Here $1$ denotes the maximum population permitted by the limited resources of the environment (this could be set to some other number, but for simplicity we have left it at $1$).  As the population $x_p$ approaches this maximum level this second term tempers the exponential growth pursued by the first term, and the population levels off.</p>
+<p>It is called a <em>logistic system</em> because (like <em>logistic functions themselves</em>) it arises in the modeling of population growth under the assumption that resources in an environment are limited.  The modeling idea is basically this: if $x_p$ denotes the population of a single species of creature (e.g., bacterium, bunny rabbits, humans, whatever) in a closed system with a maximum amount of space / resources the growth rate of a population cannot follow the exponential rate detailed in the previous example forever.  In the beginning, when there are not too many of the creatures, the growth can indeed be exponential - thus the first part of the equation above $wx_{p}$ (the exponential growth we saw previously).  But at a certain point, when space and resources become limited, competition for survival causes the growth rate to slow down.  Here this concept is modeled by the second portion of the equation above: $\left(1 - x_{p}\right)$.  Here $1$ denotes the maximum population permitted by the limited resources of the environment (this could be set to some other number, but for simplicity we have left it at $1$).  As the population $x_p$ approaches this maximum level this second term tempers the exponential growth pursued by the first term, and the population levels off.</p>
 <p>For the right settings we can generate our familiar logistic 's' shape curve - as shown below for $P = 30$ points using an initialization of $x_1 = 10^{-4}$ and $w = 1.75$.</p>
 </div>
 </div>
@@ -12837,10 +12837,10 @@ x_{p} = w x_{p-1}\left(1 - x_{p-1} \right).
 <div class="output_wrapper">
 <div class="output">
 <div class="output_area"><div class="prompt"></div>
-<div id="ce64a471-265c-468a-ad9d-47d8d33e0f82"></div>
+<div id="13c24523-e6da-4b0b-8ed5-ed7dd7621a97"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#ce64a471-265c-468a-ad9d-47d8d33e0f82');
+var element = $('#13c24523-e6da-4b0b-8ed5-ed7dd7621a97');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -13643,10 +13643,10 @@ if (IPython.notebook.kernel != null) {
 <div class="output_wrapper">
 <div class="output">
 <div class="output_area"><div class="prompt"></div>
-<div id="9ad591fb-d2dd-4bff-b75d-189e1fe1f412"></div>
+<div id="3948e34e-3a9f-487c-832b-986ccda2010c"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#9ad591fb-d2dd-4bff-b75d-189e1fe1f412');
+var element = $('#3948e34e-3a9f-487c-832b-986ccda2010c');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -14446,12 +14446,12 @@ if (IPython.notebook.kernel != null) {
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>In the first Subsection above we translated the notion that the sequence of points $x_1,\,x_2,...,x_P$ is ordered mathematically into</p>
 \begin{equation}
-x_{p} = f\left(x_{p-1}\right) 
+x_{p+1} = f\left(x_{p}\right) 
 \end{equation}<p>i.e., that each point (after the initial condition $x_1$ is based entirely off its direct predecessor.  More generally we can translate the 'ordered' notion to mean that every point is derived from its previous $\mathcal{O} \geq 1$ predecessors as</p>
 \begin{equation}
-x_{p} = f\left(x_{p-1},\,x_{p-2},\,...,x_{p-\mathcal{O}}\right)   
+x_{p+1} = f\left(x_{p},\,x_{p-1},\,...,x_{p-\mathcal{O}+1}\right)   
 \end{equation}<p>for $p = \mathcal{O},...,P$.  This value $\mathcal{O}$ is often called the <em>order</em> of a dynamic system.  So for example, the instances detailed in the previous Subsections all have order $1$.</p>
-<p>Notice that a general order $\mathcal{O}$ dynamic system must have $\mathcal{O}$ initial conditions, since in order to generate the first point $x_\mathcal{O}$ all previous values $x_{\mathcal{O}-1} = \gamma_{\mathcal{O}-1}$ through $x_1 = \gamma_1$ must already be set (or 'initialized').</p>
+<p>Notice that a general order $\mathcal{O}$ dynamic system must have $\mathcal{O}$ initial conditions, since in order to generate the first point $x_\mathcal{O}$ all previous values $x_{\mathcal{O}} = \gamma_{\mathcal{O}}$ through $x_1 = \gamma_1$ must already be set (or 'initialized').</p>
 </div>
 </div>
 </div>
@@ -14475,7 +14475,7 @@ x_{p} = f\left(x_{p-1},\,x_{p-2},\,...,x_{p-\mathcal{O}}\right)
 \
 x_1 = 0 \\
 x_2 = 1 \\
-x_{p} = x_{p-1} + x_{p-2}
+x_{p+1} = x_{p} + x_{p-1}
 \end{array}
 \end{equation}
 </div>
@@ -14661,13 +14661,13 @@ x_{p} = x_{p-1} + x_{p-2}
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>More generally, if we denote by $x_{p-1}$ the $\left(p-1\right)^{th}$ word in a sentence, and $u$ any particular word than the probability $\mathscr{p}$ above of $x_p$ occuring (following $x_{p-1}$) (often called the <em>transition probability</em>) than the histogram can be written more generally as</p>
+<p>More generally, if we denote by $x_{p}$ the $\left(p\right)^{th}$ word in a sentence, and $u$ any particular word than the probability $\mathscr{p}$ above of $x_{p+1}$ occuring (following $x_{p}$) (often called the <em>transition probability</em>) than the histogram can be written more generally as</p>
 \begin{equation}
-\text{histogram}\left(x_{p-1}\right) = 
+\text{histogram}\left(x_{p}\right) = 
 u \,\,\,\,\text{with probability} \,\,\,\mathscr{p}.
-\end{equation}<p>Then the choice of the next word $x_p$ can likewise be written in general as</p>
+\end{equation}<p>Then the choice of the next word $x_{p+1}$ can likewise be written in general as</p>
 \begin{equation}
-x_{p} = \underset{\mathscr{p}}{\text{argmax}}\,\, \text{histogram}\left(x_{p-1}\right).
+x_{p+1} = \underset{\mathscr{p}}{\text{argmax}}\,\, \text{histogram}\left(x_{p}\right).
 \end{equation}
 </div>
 </div>
@@ -14679,12 +14679,12 @@ x_{p} = \underset{\mathscr{p}}{\text{argmax}}\,\, \text{histogram}\left(x_{p-1}\
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>We can perhaps now see how this model of written text is indeed a dynamic system.  If we in general denote</p>
 \begin{equation}
-\underset{\mathscr{p}}{\text{argmax}}\,\, \text{histogram}\left(x_{p-1}\right) = f\left(x_{p-1}\right) 
-\end{equation}<p>and the first word in a sentence as $x_0 = \gamma$.  Then the order $\mathcal{O} = 1$ model of text we have detailed above does indeed fit our general dynamic system update as</p>
+\underset{\mathscr{p}}{\text{argmax}}\,\, \text{histogram}\left(x_{p}\right) = f\left(x_{p}\right) 
+\end{equation}<p>and the first word in a sentence as $x_1 = \gamma$.  Then the order $\mathcal{O} = 1$ model of text we have detailed above does indeed fit our general dynamic system update as</p>
 \begin{array}
 \
 x_1 = \gamma \\
-x_p = f\left(x_{p-1}\right).
+x_{p+1} = f\left(x_{p}\right).
 \end{array}
 </div>
 </div>
@@ -14696,7 +14696,7 @@ x_p = f\left(x_{p-1}\right).
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>We could then likewise define general order $\mathcal{O}$ model as well.  Here the $p^{th}$ update would depend on its $\mathcal{O}$ predecessors but be similarly defined as</p>
 \begin{equation}
-x_{p} = f\left(x_{p-1},\,x_{p-2},\,...,x_{p-\mathcal{O}}\right).
+x_{p+1} = f\left(x_{p},\,x_{p-1},\,...,x_{p-\mathcal{O}+1}\right).
 \end{equation}<p>Regardless of order, a <em>stochastic dynamic system without memory</em> like this is called called a <em>Markov Chain</em>.</p>
 </div>
 </div>
@@ -15003,11 +15003,11 @@ tte of maybury hill, with its tree-tops and roofs black and sharp against the re
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>From the very definition of an order $\mathcal{O} = 1$ system - with generic update step given as</p>
 \begin{equation}
-x_{p} = f\left(x_{p-1}\right)   
-\end{equation}<p>we can see that each $x_p$ is dependent on only the value $x_{p-1}$ that comes before it, and <em>no prior point</em> (like e.g., $x_{p-2}$).  Likewise an order $\mathcal{O}$ system with generic update steps</p>
+x_{p+1} = f\left(x_{p}\right)   
+\end{equation}<p>we can see that each $x_{p+1}$ is dependent on only the value $x_{p}$ that comes before it, and <em>no prior point</em> (like e.g., $x_{p-1}$).  Likewise an order $\mathcal{O}$ system with generic update steps</p>
 \begin{equation}
-x_{p} = f\left(x_{p-1},\,x_{p-2},\,...,x_{p-\mathcal{O}}\right)   
-\end{equation}<p>says that the update for any $x_p$ is <em>only</em> on dependent $x_{p-1}$ through $x_{p-\mathcal{O}}$, and <em>no point</em> coming before $x_{p-\mathcal{O}}$.  So - regardless of order - the range of values used to build each subsequent step is <em>limited by the order of the system</em>.  This property of the dynamic systems is often called <em>memoryless</em>.  Perhaps it is a bit of a misnomer - since such systems do have memory, it is just restricted to the systems's order - but nonetheless it is a commonplace term.</p>
+x_{p+1} = f\left(x_{p},\,x_{p-1},\,...,x_{p-\mathcal{O}+1}\right)   
+\end{equation}<p>says that the update for any $x_{p+1}$ is <em>only</em> on dependent $x_{p}$ through $x_{p-\mathcal{O}+1}$, and <em>no point</em> coming before $x_{p-\mathcal{O}}$.  So - regardless of order - the range of values used to build each subsequent step is <em>limited by the order of the system</em>.  This property of the dynamic systems is often called <em>memoryless</em>.  Perhaps it is a bit of a misnomer - since such systems do have memory, it is just restricted to the systems's order - but nonetheless it is a commonplace term.</p>
 </div>
 </div>
 </div>
@@ -15097,7 +15097,7 @@ y_p = f\left(x_p,x_{p-1},...,x_{p-\mathcal{O}}\right).
 <p>As an alternative we could construct a dynamic system input sequence, and pass it through another function to create an output sequence like this</p>
 \begin{array}
 \
-x_p = f\left(x_{p-1}\right) \\
+x_{p+1} = f\left(x_{p}\right) \\
 y_p = g\left(x_p\right)
 \end{array}<p>where the functions $f\left(\cdot \right)$ and $g\left(\cdot\right)$ are any two functions.</p>
 </div>
@@ -15250,6 +15250,6 @@ y_{p} = \frac{1}{T}\sum_{j=p-T}^p x_j.
 </div>
 </body>
 <script type="application/vnd.jupyter.widget-state+json">
-{"version_minor": 0, "state": {}, "version_major": 1}
+{"version_minor": 0, "version_major": 1, "state": {}}
 </script>
 </html>
