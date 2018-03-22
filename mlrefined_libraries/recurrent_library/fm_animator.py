@@ -21,15 +21,17 @@ class Visualizer:
     animate the modulation of a sine wave signal given frequency information
     '''
     #### single dimension regression animation ####
-    def animate_fm_modulation(self,t,f,signal,frames,**kwargs):
+    def animate_fm_modulation(self,t,f,fc,signal,frames,**kwargs):
         # select subset of time points to animate generation over
         inds = np.arange(0,len(t),int(len(t)/float(frames)))
         
         # produce figure
-        fig = plt.figure(figsize = (9,4))
-        gs = gridspec.GridSpec(2, 1) 
+        fig = plt.figure(figsize = (9,5))
+        gs = gridspec.GridSpec(3, 1) 
         ax1 = plt.subplot(gs[0]); 
-        ax2 = plt.subplot(gs[1]); 
+        ax = plt.subplot(gs[1]); 
+        ax2 = plt.subplot(gs[2]); 
+
         artist = fig
         
         ### set view limits
@@ -42,6 +44,12 @@ class Visualizer:
         ygap1 = (ymax1 - ymin1)*0.15
         ymin1 -= ygap1
         ymax1 += ygap1
+        
+        yminc = np.min(fc)
+        ymaxc = np.max(fc) 
+        ygapc = (ymaxc - yminc)*0.15
+        yminc -= ygapc
+        ymaxc += ygapc
         
         # for signal panel
         ymin2 = np.min(signal)
@@ -71,6 +79,8 @@ class Visualizer:
             
             # plot
             ax1.plot(t[:time_step],f[:time_step],color = 'b')
+            ax.plot(t[:time_step],fc[:time_step],color = 'g')
+
             ax2.plot(t[:time_step],signal[:time_step],color = 'fuchsia')
 
             # label axes and fix viewing limits
@@ -79,6 +89,11 @@ class Visualizer:
             ax1.set_ylabel('frequency')
             ax1.set_xlim([xmin,xmax])
             ax1.set_ylim([ymin1,ymax1])
+            
+            ax.set_title('cumulative frequency')
+            ax.set_xlabel('time')
+            ax.set_xlim([xmin,xmax])
+            ax.set_ylim([yminc,ymaxc])
             
             ax2.set_xlabel('time')
             ax2.set_ylabel('amplitude')
