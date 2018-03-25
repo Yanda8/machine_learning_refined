@@ -15,7 +15,7 @@ Note: to pull a minimial sized clone of this repo (including only the most recen
       git clone --depth 1 https://github.com/jermwatt/mlrefined.git
       
 --- 
-This repository is in active development by [Jeremy Watt](jeremy@dgsix.com) and [Reza Borhani](reza@dgsix.com) - please do not hesitate to reach out with comments / questions / typos / etc.,
+This repository is in active development by [Jeremy Watt](mailto:jeremy@dgsix.com) and [Reza Borhani](mailto:reza@dgsix.com) - please do not hesitate to reach out with comments, questions, typos, etc.
 
         
 
