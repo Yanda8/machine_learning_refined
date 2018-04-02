@@ -5,6 +5,7 @@ from autograd.misc.flatten import flatten_func
 from IPython.display import clear_output
 from timeit import default_timer as timer
 import time
+
 # minibatch gradient descent
 def gradient_descent(g, g_val, alpha, max_its, w, num_train, num_val, batch_size,verbose):        
     # flatten the input function, create gradient based on flat function

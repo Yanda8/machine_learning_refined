@@ -12160,7 +12160,7 @@ a.anchor-link {
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <ul>
-<li>in this class you will learn how to <strong>build</strong> your own deep learning library</li>
+<li>in this class you will learn how to <strong>build</strong> your own deep learning library using Python: <strong>autograd</strong> and / or <strong>PyTorch</strong></li>
 </ul>
 
 </div>
@@ -12201,10 +12201,12 @@ a.anchor-link {
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>0)  <strong>In depth review of linear based learners</strong></p>
-
-<pre><code>- linear regression and classification schemes
-- Principal component analysis, sphereing</code></pre>
+<p>0)  <strong>Automatic differentiation and backpropagation</strong></p>
+<ul>
+<li>Computation graphs and efficient derivative calculating</li>
+<li>The forward mode of automatic differentiators</li>
+<li>The backward mode (backpropagation) of automatic differentiators</li>
+</ul>
 
 </div>
 </div>
@@ -12214,7 +12216,22 @@ a.anchor-link {
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>1)  <strong>Feedforward networks / multilayer perceptrons</strong></p>
+<p>1)  <strong>Nonlinear learning - foundational concepts</strong></p>
+<ul>
+<li>Universal approximators: kernels, trees, and neural networks</li>
+<li>Boosting and regularization techniques</li>
+<li>Bagging and model averaging techniques</li>
+</ul>
+
+</div>
+</div>
+</div></section><section>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>2)  <strong>Feedforward networks / multilayer perceptrons</strong></p>
 
 <pre><code>- General nonlinear comparison / intro to function approximation
 - Basics of kernels (why they fail) and feedforward nets
@@ -12230,7 +12247,21 @@ a.anchor-link {
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>2) <strong>Convolutional networks</strong></p>
+<p>3)  <strong>Kernels and trees - how do they compare?</strong></p>
+
+<pre><code>- classic kernelized models 
+- scaling issues with kernels
+- tree-based learners: gradient boosting</code></pre>
+
+</div>
+</div>
+</div></section><section>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>4) <strong>Convolutional networks</strong></p>
 
 <pre><code>- Convolutions, edge detection, histogram features and pooling
 - From fixed feature extractors to convolutional network
@@ -12245,22 +12276,7 @@ a.anchor-link {
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>3) <strong>Recurrent networks</strong></p>
-
-<pre><code>- Dynamical systems and modeling approaches
-- Simple solution methods
-- Popular architectures (e.g., LSTM)
-- Applications in e.g., natural language processing, control systems (system identification)...</code></pre>
-
-</div>
-</div>
-</div></section><section>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>4) <strong>First order optimization methods and tricks</strong></p>
+<p>5) <strong>Optimization tricks for deep learning</strong></p>
 
 <pre><code>- **methods:** gradient descent, stochastic descent, normalized versiions
 - **tricks:** many e.g., feature scaling, batch normalization, early stopping / regularization, activation functions</code></pre>
