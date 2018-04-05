@@ -11942,10 +11942,10 @@ x_{t} = w_0 + w_1x_{t-1}
 <div class="output_wrapper">
 <div class="output">
 <div class="output_area"><div class="prompt"></div>
-<div id="ac5f650f-d2d7-4af8-a694-0aaa2d7e67bd"></div>
+<div id="c673a002-1f63-4802-a8a9-e5b8848721e2"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#ac5f650f-d2d7-4af8-a694-0aaa2d7e67bd');
+var element = $('#c673a002-1f63-4802-a8a9-e5b8848721e2');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -12837,10 +12837,10 @@ x_{t} = w_0 + w_1x_{t-1} + w_2x_{t-2} + \cdots + w_{\mathcal{O}}x_{t- \mathcal{O
 <div class="output_wrapper">
 <div class="output">
 <div class="output_area"><div class="prompt"></div>
-<div id="98d60e09-8a70-4ebc-a52c-0e9d9e744af3"></div>
+<div id="40def453-8a93-4345-a538-fca685b122db"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#98d60e09-8a70-4ebc-a52c-0e9d9e744af3');
+var element = $('#40def453-8a93-4345-a538-fca685b122db');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -13677,10 +13677,10 @@ x_{t} = w x_{t-1}\left(1 - x_{t-1} \right).
 <div class="output_wrapper">
 <div class="output">
 <div class="output_area"><div class="prompt"></div>
-<div id="b72dcfdf-3d46-4b8f-ac24-ae0032f55dd5"></div>
+<div id="9d9049b5-5fa2-43b0-90b5-6e14a55f4847"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#b72dcfdf-3d46-4b8f-ac24-ae0032f55dd5');
+var element = $('#9d9049b5-5fa2-43b0-90b5-6e14a55f4847');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -14483,10 +14483,10 @@ if (IPython.notebook.kernel != null) {
 <div class="output_wrapper">
 <div class="output">
 <div class="output_area"><div class="prompt"></div>
-<div id="23709194-9b63-48fc-96a6-afd8b1c7b642"></div>
+<div id="7c113bee-b7fb-49e5-95f2-211d5112ca76"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#23709194-9b63-48fc-96a6-afd8b1c7b642');
+var element = $('#7c113bee-b7fb-49e5-95f2-211d5112ca76');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -15384,8 +15384,23 @@ x_{t} = f\left(\,f\left(x_{t-2}\right)\right).
 <p>If we continue to roll back, substituting in the same formula for $x_{t-2}$, and then $x_{t-3}$, etc., we can eventually represent the term $x_t$ strictly in terms of $x_1$ as</p>
 \begin{equation}
 x_t = f\left(\,f\left(\,\cdots f\left(x_1\right)\right)\cdots\right).
-\end{equation}<p>Note here we compose $f$ with itself $t$ times, and could write it more compactly as $x_t = f^{(t-1)}\left(x_1\right)$.</p>
-<p>So indeed we can see that every point created by such a recurrence relation is <em>completely determined by its initial condition</em>.  The same kind of relation also holds for more general order $\mathcal{O}$ systems as well.</p>
+\end{equation}<p>Note here we compose $f$ with itself $t$ times, and could write it more compactly as $x_t = f^{(t-1)}\left(x_1\right)$.  So indeed we can see that every point created by such a recurrence relation is <em>completely determined by its initial condition</em>.  We illustrate this fact graphically below.  The same kind of relation also holds for more general order $\mathcal{O}$ systems as well.</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<figure>
+<p>
+<img alt="" height="70%" src="../../mlrefined_images/recurrent_images/without_memory.png" width="70%"/>
+</p>
+<figcaption> <strong>Figure 1:</strong> <em> Graphical model representations of a fixed order generative model (of order $\mathcal{O} = 1$).  Here when we 'roll back' the recursion we see - in the end - that every point in the system depends entirely on the system's initial condition(s). 
+</em>
+</figcaption>
+</figure>
 </div>
 </div>
 </div>
@@ -16019,6 +16034,6 @@ x_{t} = f\left(x_{t-1},\,...,x_{t-\mathcal{O}}\right)
 </div>
 </body>
 <script type="application/vnd.jupyter.widget-state+json">
-{"version_minor": 0, "version_major": 1, "state": {}}
+{"state": {}, "version_minor": 0, "version_major": 1}
 </script>
 </html>

@@ -11771,37 +11771,29 @@ div#notebook {
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>This Chapter describes in significant detail how you can build your own Automatic Differentiator calculator.  However in the interest of making this text as modular as possible, outside of Chapter 3 we will be using the professional grade Automatic Differentiation calculator <a href="https://github.com/HIPS/autograd">autorad</a>.  This is a free professioally built and maintained derivative calculator that works with a large swath of the <code>numpy</code> based library, i.e., it allows you to automatically compute the derivative of functions built with the <code>numpy</code> library.  It has a very nice user-interface and pairs extremely well with standard <code>numpy</code> commands, and is easy to pick up and use (due of course to the extensive work that has been put into making it by its developers).</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>In this short Section we show off a few examples highlighting the basic usage of the <code>autograd</code> automatic differentiator (which by default employs the <em>backward mode</em> of automatic differentiation - i.e., <em>backpropogation</em>).  This includes</p>
-<ul>
-<li>a short tutorial on how to use <code>autograd</code>'s <code>grad_and_val</code> method, which creates a function that returns the gradient and function evaluations for any function written in <code>numpy</code> </li>
-</ul>
-<ul>
-<li>a short tutorial on how to use <code>autograd</code>'s <code>grad</code> method, which creates a function that returns <em>only</em> gradient evaluations for any function written in <code>numpy</code></li>
-</ul>
-<p>If you follow along in the <code>Jupyter</code> notebook version of this Section you can also see how to use the <code>matplotlib</code> plotting library to produce two-dimensional and three-dimensional plots.</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p><strong>Install instructions:</strong>  We highly recommended that you install the Anaconda <code>Python</code> 3 distribution - which you can <a href="https://www.anaconda.com/download/">find here</a>.  This standard <code>Python</code>  distribution includes a number of useful libraries - including <code>numpy</code>, <code>matplotlib</code>, and <code>Jupyter</code> itself - and makes it considerably easier to install additional libraries as well.</p>
-<p>You can then install <code>autograd</code> by <a href="https://github.com/HIPS/autograd">clicking here</a> and by following the install instructions provided on the landing <code>readme</code> page.  Alternatively you can simply type</p>
+<p>This Chapter describes in significant detail how you can build your own Automatic Differentiator calculator.  However in the interest of making this text as modular as possible, outside of Chapter 3 we will be using the professional grade Automatic Differentiation calculator <a href="https://github.com/HIPS/autograd">autorad</a>.  This is a free professioally built and maintained derivative calculator that works with a large swath of the <code>numpy</code> based library, i.e., it allows you to automatically compute the derivative of functions built with the <code>numpy</code> library.  It has a very nice user-interface and pairs extremely well with standard <code>numpy</code> commands, and is very easy to pick up and use (due of course to the extensive work that has been put into making it by its developers).  You can then install <code>autograd</code> by <a href="https://github.com/HIPS/autograd">clicking here</a> and by following the install instructions provided on the landing <code>readme</code> page.  Alternatively you can simply type</p>
 <p><code>pip install autograd</code></p>
 <p>to install the entire package at your terminal.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>In this short Section we show off a few examples highlighting the basic usage of the <code>autograd</code> automatic differentiator (which by default employs the <em>reverse-mode</em> of automatic differentiation - i.e., <em>backpropogation</em>) - including how to compute derivatives of single input functions, and partial derivatives / complete gradients of multi-input functions.  Note: If you follow along in the <code>Jupyter</code> notebook version of this Section you can also see how to use the <code>matplotlib</code> plotting library to produce two-dimensional and three-dimensional plots.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><strong>Note:</strong>  We highly recommended that you install the Anaconda <code>Python</code> 3 distribution - which you can <a href="https://www.anaconda.com/download/">find here</a>.  This standard <code>Python</code>  distribution includes a number of useful libraries - including <code>numpy</code>, <code>matplotlib</code>, and <code>Jupyter</code> itself - and makes it considerably easier to install additional libraries as well.</p>
 
 </div>
 </div>
@@ -14165,10 +14157,10 @@ g\left(w_1,w_2\right) = \text{tanh}\left(w_1w_2\right).
 
 
 
-<div id="2b4528f1-9eca-43e4-8669-7f2135885252"></div>
+<div id="899695b8-f99b-435d-a835-bab2a3f7bec7"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#2b4528f1-9eca-43e4-8669-7f2135885252');
+var element = $('#899695b8-f99b-435d-a835-bab2a3f7bec7');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -15082,10 +15074,10 @@ if (IPython.notebook.kernel != null) {
 
 
 
-<div id="42b1b4d9-d1b9-4348-ae25-9be5d51137cb"></div>
+<div id="9d6e32b6-a530-445d-9b4b-c16f7724ce1a"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#42b1b4d9-d1b9-4348-ae25-9be5d51137cb');
+var element = $('#9d6e32b6-a530-445d-9b4b-c16f7724ce1a');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -16026,7 +16018,7 @@ g\left(\mathbf{a},\mathbf{b}\right) = \mathbf{a}^T\mathbf{b}
  
 
 <script type="application/vnd.jupyter.widget-state+json">
-{"version_major": 1, "version_minor": 0, "state": {}}
+{"version_minor": 0, "state": {}, "version_major": 1}
 </script>
 
 
