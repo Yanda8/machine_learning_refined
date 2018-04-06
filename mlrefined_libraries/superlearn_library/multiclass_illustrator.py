@@ -15,7 +15,7 @@ from matplotlib.collections import PatchCollection
 from scipy.spatial import ConvexHull
 
 # import optimizer class from same library
-from . import optimimzers
+from . import optimizers
 
 class Visualizer:
     '''

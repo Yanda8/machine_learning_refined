@@ -11750,7 +11750,7 @@ div#notebook {
 
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[1]:</div>
+<div class="prompt input_prompt">In&nbsp;[45]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1">## This code cell will not be shown in the HTML version of this notebook</span>
@@ -11776,6 +11776,7 @@ div#notebook {
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 <span class="kn">from</span> <span class="nn">matplotlib</span> <span class="k">import</span> <span class="n">gridspec</span>
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">from</span> <span class="nn">autograd.misc.flatten</span> <span class="k">import</span> <span class="n">flatten_func</span>
 
 <span class="c1"># this is needed to compensate for %matplotlib notebook&#39;s tendancy to blow up images when plotted inline</span>
 <span class="o">%</span><span class="k">matplotlib</span> notebook
@@ -11793,6 +11794,21 @@ div#notebook {
 </div>
 </div>
 
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt"></div>
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>The autoreload extension is already loaded. To reload it, use:
+  %reload_ext autoreload
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
 </div>
 <div class="cell border-box-sizing text_cell rendered">
 <div class="prompt input_prompt">
@@ -11805,7 +11821,7 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[2]:</div>
+<div class="prompt input_prompt">In&nbsp;[16]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">h</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">):</span>
@@ -11821,7 +11837,7 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[3]:</div>
+<div class="prompt input_prompt">In&nbsp;[17]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">100</span><span class="p">)</span>
@@ -11835,7 +11851,7 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[4]:</div>
+<div class="prompt input_prompt">In&nbsp;[18]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">blah</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">h_y</span><span class="p">(</span><span class="n">v</span><span class="p">,</span><span class="n">y</span><span class="p">)</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">x</span><span class="p">])</span>
@@ -11848,7 +11864,7 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[5]:</div>
+<div class="prompt input_prompt">In&nbsp;[19]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="o">%</span><span class="k">matplotlib</span> inline
@@ -11862,7 +11878,7 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[6]:</div>
+<div class="prompt input_prompt">In&nbsp;[20]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">blah</span><span class="p">)</span>
@@ -12060,7 +12076,7 @@ jqSAEhERR1JAiYiIIymgRETEkRRQIiLiSAooERFxpP8DdkiAvb23g6wAAAAASUVORK5CYII=
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[12]:</div>
+<div class="prompt input_prompt">In&nbsp;[54]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># compute linear combination of input point</span>
@@ -12093,16 +12109,20 @@ jqSAEhERR1JAiYiIIymgRETEkRRQIiLiSAooERFxpP8DdkiAvb23g6wAAAAASUVORK5CYII=
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[13]:</div>
+<div class="prompt input_prompt">In&nbsp;[95]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># load in data</span>
 <span class="n">datapath</span> <span class="o">=</span> <span class="s1">&#39;../../mlrefined_datasets/superlearn_datasets/&#39;</span>
 <span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">loadtxt</span><span class="p">(</span><span class="n">datapath</span> <span class="o">+</span> <span class="s1">&#39;2d_linregress_data.csv&#39;</span><span class="p">,</span><span class="n">delimiter</span> <span class="o">=</span> <span class="s1">&#39;,&#39;</span><span class="p">)</span>
 
-<span class="c1"># tack on a one for bias</span>
+<span class="c1"># load in input/output data</span>
 <span class="n">x</span> <span class="o">=</span> <span class="n">data</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">,:]</span>
 <span class="n">y</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">:,:]</span> 
+
+<span class="c1"># stack a 1 onto the top of each input point all at once</span>
+<span class="n">o</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">((</span><span class="mi">1</span><span class="p">,</span><span class="n">np</span><span class="o">.</span><span class="n">shape</span><span class="p">(</span><span class="n">x</span><span class="p">)[</span><span class="mi">1</span><span class="p">]))</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">vstack</span><span class="p">((</span><span class="n">o</span><span class="p">,</span><span class="n">x</span><span class="p">))</span>
 </pre></div>
 
 </div>
@@ -12112,10 +12132,98 @@ jqSAEhERR1JAiYiIIymgRETEkRRQIiLiSAooERFxpP8DdkiAvb23g6wAAAAASUVORK5CYII=
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[14]:</div>
+<div class="prompt input_prompt">In&nbsp;[96]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">gradient</span> <span class="o">=</span> <span class="n">value_and_grad</span><span class="p">(</span><span class="n">least_squares</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">gradient</span> <span class="o">=</span> <span class="n">grad</span><span class="p">(</span><span class="n">least_squares</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[97]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">w</span> <span class="o">=</span> <span class="mf">0.1</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">grad_eval</span> <span class="o">=</span> <span class="n">gradient</span><span class="p">(</span><span class="n">w</span><span class="p">,</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[98]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">grad_eval</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt output_prompt">Out[98]:</div>
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>array([[-1.33494019],
+       [-0.75804499]])</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[99]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">grad_eval</span><span class="o">.</span><span class="n">shape</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt output_prompt">Out[99]:</div>
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>(2, 1)</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[118]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">g_flat</span><span class="p">,</span> <span class="n">unflatten</span><span class="p">,</span> <span class="n">w</span> <span class="o">=</span> <span class="n">flatten_func</span><span class="p">(</span><span class="n">least_squares</span><span class="p">,</span> <span class="n">w</span><span class="p">)</span>
+<span class="n">gradient</span> <span class="o">=</span> <span class="n">grad</span><span class="p">(</span><span class="n">g_flat</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">grad_eval</span> <span class="o">=</span> <span class="n">gradient</span><span class="p">(</span><span class="n">w</span><span class="p">,</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">)</span>
 </pre></div>
 
 </div>
@@ -12128,24 +12236,162 @@ jqSAEhERR1JAiYiIIymgRETEkRRQIiLiSAooERFxpP8DdkiAvb23g6wAAAAASUVORK5CYII=
 <div class="prompt input_prompt">In&nbsp;[119]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">w</span> <span class="o">=</span> <span class="mf">0.1</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="mi">1</span><span class="p">)</span>
-<span class="n">cost_eval</span><span class="p">,</span><span class="n">grad_eval</span> <span class="o">=</span> <span class="n">gradient</span><span class="p">(</span><span class="n">w</span><span class="p">,</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">grad_eval</span>
 </pre></div>
 
 </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt output_prompt">Out[119]:</div>
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>array([[ 0.0049544 ,  0.00224242,  0.00134187,  0.00091782,  0.00376347,
+         0.00214039,  0.00396518,  0.00234734,  0.00193499,  0.00291687,
+         0.00282956,  0.00369674,  0.00135858,  0.00648854,  0.00030313,
+         0.0051545 ,  0.0036697 ,  0.00293436,  0.00466464,  0.00248924,
+         0.00479583,  0.00411204,  0.0040933 ,  0.0042716 ,  0.00604954,
+         0.00271158,  0.00474241,  0.00564299,  0.00109406,  0.00106587,
+         0.00517086,  0.00508453,  0.00404933,  0.00571015,  0.00199768,
+         0.0028044 ,  0.00252757,  0.00497822,  0.00486531,  0.00132617,
+         0.00093718,  0.0035151 ,  0.00101396,  0.00117707,  0.0066251 ,
+         0.00337019,  0.00583096,  0.0015069 ,  0.00419994,  0.00608835],
+       [ 0.00935242,  0.004233  ,  0.00253305,  0.00173256,  0.0071043 ,
+         0.00404041,  0.00748506,  0.00443108,  0.00365268,  0.00550617,
+         0.00534135,  0.00697834,  0.0025646 ,  0.01224841,  0.00057222,
+         0.00973014,  0.00692729,  0.00553918,  0.00880544,  0.00469894,
+         0.00905308,  0.00776229,  0.00772692,  0.0080635 ,  0.0114197 ,
+         0.00511865,  0.00895225,  0.01065227,  0.00206525,  0.00201204,
+         0.00976102,  0.00959805,  0.00764392,  0.01077904,  0.00377101,
+         0.00529385,  0.00477128,  0.00939738,  0.00918424,  0.00250341,
+         0.00176911,  0.00663544,  0.00191404,  0.00222196,  0.01250619,
+         0.00636189,  0.0110071 ,  0.00284458,  0.00792822,  0.01149296]])</pre>
+</div>
+
+</div>
+
 </div>
 </div>
 
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[121]:</div>
+<div class="prompt input_prompt">In&nbsp;[115]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">w</span> <span class="o">=</span> <span class="n">w</span> <span class="o">-</span> <span class="n">grad_eval</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">grad_eval</span><span class="o">.</span><span class="n">shape</span>
 </pre></div>
 
 </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt output_prompt">Out[115]:</div>
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>(2,)</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[116]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">inspect</span> <span class="k">import</span> <span class="n">signature</span>
+<span class="n">signature</span><span class="p">(</span><span class="n">least_squares</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt output_prompt">Out[116]:</div>
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>&lt;Signature (w, x, y)&gt;</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[117]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">signature</span><span class="p">(</span><span class="n">g_flat</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt output_prompt">Out[117]:</div>
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>&lt;Signature (_x, *args)&gt;</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[112]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">g_flat</span><span class="p">(</span><span class="n">w</span><span class="p">,</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt output_prompt">Out[112]:</div>
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>array([ 0.55624937])</pre>
+</div>
+
+</div>
+
 </div>
 </div>
 
@@ -12161,7 +12407,7 @@ jqSAEhERR1JAiYiIIymgRETEkRRQIiLiSAooERFxpP8DdkiAvb23g6wAAAAASUVORK5CYII=
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[123]:</div>
+<div class="prompt input_prompt">In&nbsp;[36]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># using an automatic differentiator - like the one imported via the statement below - makes coding up gradient descent a breeze</span>
@@ -12196,7 +12442,7 @@ jqSAEhERR1JAiYiIIymgRETEkRRQIiLiSAooERFxpP8DdkiAvb23g6wAAAAASUVORK5CYII=
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[124]:</div>
+<div class="prompt input_prompt">In&nbsp;[37]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">g</span> <span class="o">=</span> <span class="n">least_squares</span>
@@ -12222,7 +12468,7 @@ jqSAEhERR1JAiYiIIymgRETEkRRQIiLiSAooERFxpP8DdkiAvb23g6wAAAAASUVORK5CYII=
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[132]:</div>
+<div class="prompt input_prompt">In&nbsp;[47]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">autograd</span> <span class="k">import</span> <span class="n">value_and_grad</span> 
@@ -12252,7 +12498,49 @@ jqSAEhERR1JAiYiIIymgRETEkRRQIiLiSAooERFxpP8DdkiAvb23g6wAAAAASUVORK5CYII=
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[146]:</div>
+<div class="prompt input_prompt">In&nbsp;[53]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">w</span> <span class="o">=</span> <span class="mf">0.1</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">g_flat</span><span class="p">,</span> <span class="n">unflatten</span><span class="p">,</span> <span class="n">w</span> <span class="o">=</span> <span class="n">flatten_func</span><span class="p">(</span><span class="n">least_squares</span><span class="p">,</span> <span class="n">w</span><span class="p">)</span>
+<span class="n">gradient</span> <span class="o">=</span> <span class="n">grad</span><span class="p">(</span><span class="n">least_squares</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">cost_eval</span><span class="p">,</span><span class="n">grad_eval</span> <span class="o">=</span> <span class="n">gradient</span><span class="p">(</span><span class="n">w</span><span class="p">,</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[48]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># minibatch gradient descent</span>
@@ -12288,7 +12576,7 @@ jqSAEhERR1JAiYiIIymgRETEkRRQIiLiSAooERFxpP8DdkiAvb23g6wAAAAASUVORK5CYII=
     
             <span class="c1"># take descent step with momentum</span>
             <span class="n">w</span> <span class="o">=</span> <span class="n">w</span> <span class="o">-</span> <span class="n">alpha</span><span class="o">*</span><span class="n">grad_eval</span>
-
+        <span class="nb">print</span> <span class="p">(</span><span class="n">w</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
         <span class="n">end</span> <span class="o">=</span> <span class="n">timer</span><span class="p">()</span>
         
         <span class="c1"># update training and validation cost</span>
@@ -12317,7 +12605,7 @@ jqSAEhERR1JAiYiIIymgRETEkRRQIiLiSAooERFxpP8DdkiAvb23g6wAAAAASUVORK5CYII=
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[147]:</div>
+<div class="prompt input_prompt">In&nbsp;[49]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># create training and validation datasets</span>
@@ -12331,7 +12619,7 @@ jqSAEhERR1JAiYiIIymgRETEkRRQIiLiSAooERFxpP8DdkiAvb23g6wAAAAASUVORK5CYII=
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[150]:</div>
+<div class="prompt input_prompt">In&nbsp;[50]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">x_train</span> <span class="o">=</span> <span class="n">x</span><span class="p">[:,</span><span class="n">r</span><span class="p">[:</span><span class="mi">40</span><span class="p">]]</span>
@@ -12348,13 +12636,13 @@ jqSAEhERR1JAiYiIIymgRETEkRRQIiLiSAooERFxpP8DdkiAvb23g6wAAAAASUVORK5CYII=
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[153]:</div>
+<div class="prompt input_prompt">In&nbsp;[51]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">g</span> <span class="o">=</span> <span class="n">least_squares</span>
 <span class="n">w</span> <span class="o">=</span> <span class="mf">0.1</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="mi">1</span><span class="p">)</span>
 <span class="n">alpha</span> <span class="o">=</span> <span class="mi">10</span><span class="o">**</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
-<span class="n">max_its</span> <span class="o">=</span> <span class="mi">50</span>
+<span class="n">max_its</span> <span class="o">=</span> <span class="mi">2</span>
 <span class="n">batch_size</span> <span class="o">=</span> <span class="mi">10</span>
 <span class="n">weight_hist</span><span class="p">,</span><span class="n">train_hist</span><span class="p">,</span><span class="n">val_hist</span> <span class="o">=</span> <span class="n">gradient_descent</span><span class="p">(</span><span class="n">g</span><span class="p">,</span><span class="n">w</span><span class="p">,</span><span class="n">x_train</span><span class="p">,</span><span class="n">y_train</span><span class="p">,</span><span class="n">x_val</span><span class="p">,</span><span class="n">y_val</span><span class="p">,</span><span class="n">alpha</span><span class="p">,</span><span class="n">max_its</span><span class="p">,</span><span class="n">batch_size</span><span class="p">)</span>
 </pre></div>
@@ -12369,57 +12657,11 @@ jqSAEhERR1JAiYiIIymgRETEkRRQIiLiSAooERFxpP8DdkiAvb23g6wAAAAASUVORK5CYII=
 
 <div class="output_area"><div class="prompt"></div>
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>step 1 done in 0.0 secs, train cost = 0.0798, val cost = 0.0558
-step 2 done in 0.0 secs, train cost = 0.0507, val cost = 0.0553
-step 3 done in 0.0 secs, train cost = 0.044, val cost = 0.0565
-step 4 done in 0.0 secs, train cost = 0.0402, val cost = 0.0545
-step 5 done in 0.0 secs, train cost = 0.0371, val cost = 0.0514
-step 6 done in 0.0 secs, train cost = 0.0343, val cost = 0.048
-step 7 done in 0.0 secs, train cost = 0.0318, val cost = 0.0447
-step 8 done in 0.0 secs, train cost = 0.0294, val cost = 0.0416
-step 9 done in 0.0 secs, train cost = 0.0273, val cost = 0.0387
-step 10 done in 0.0 secs, train cost = 0.0253, val cost = 0.0361
-step 11 done in 0.0 secs, train cost = 0.0234, val cost = 0.0336
-step 12 done in 0.0 secs, train cost = 0.0217, val cost = 0.0313
-step 13 done in 0.0 secs, train cost = 0.0202, val cost = 0.0293
-step 14 done in 0.0 secs, train cost = 0.0187, val cost = 0.0273
-step 15 done in 0.0 secs, train cost = 0.0174, val cost = 0.0255
-step 16 done in 0.0 secs, train cost = 0.0162, val cost = 0.0239
-step 17 done in 0.0 secs, train cost = 0.0151, val cost = 0.0223
-step 18 done in 0.0 secs, train cost = 0.0141, val cost = 0.0209
-step 19 done in 0.0 secs, train cost = 0.0131, val cost = 0.0196
-step 20 done in 0.0 secs, train cost = 0.0122, val cost = 0.0184
-step 21 done in 0.0 secs, train cost = 0.0114, val cost = 0.0173
-step 22 done in 0.0 secs, train cost = 0.0107, val cost = 0.0163
-step 23 done in 0.0 secs, train cost = 0.01, val cost = 0.0153
-step 24 done in 0.0 secs, train cost = 0.0094, val cost = 0.0144
-step 25 done in 0.0 secs, train cost = 0.0088, val cost = 0.0136
-step 26 done in 0.0 secs, train cost = 0.0082, val cost = 0.0129
-step 27 done in 0.0 secs, train cost = 0.0077, val cost = 0.0122
-step 28 done in 0.0 secs, train cost = 0.0073, val cost = 0.0115
-step 29 done in 0.0 secs, train cost = 0.0069, val cost = 0.0109
-step 30 done in 0.0 secs, train cost = 0.0065, val cost = 0.0103
-step 31 done in 0.0 secs, train cost = 0.0061, val cost = 0.0098
-step 32 done in 0.0 secs, train cost = 0.0058, val cost = 0.0094
-step 33 done in 0.0 secs, train cost = 0.0055, val cost = 0.0089
-step 34 done in 0.0 secs, train cost = 0.0052, val cost = 0.0085
-step 35 done in 0.0 secs, train cost = 0.005, val cost = 0.0081
-step 36 done in 0.0 secs, train cost = 0.0047, val cost = 0.0078
-step 37 done in 0.0 secs, train cost = 0.0045, val cost = 0.0075
-step 38 done in 0.0 secs, train cost = 0.0043, val cost = 0.0071
-step 39 done in 0.0 secs, train cost = 0.0041, val cost = 0.0069
-step 40 done in 0.0 secs, train cost = 0.004, val cost = 0.0066
-step 41 done in 0.0 secs, train cost = 0.0038, val cost = 0.0064
-step 42 done in 0.0 secs, train cost = 0.0037, val cost = 0.0061
-step 43 done in 0.0 secs, train cost = 0.0035, val cost = 0.0059
-step 44 done in 0.0 secs, train cost = 0.0034, val cost = 0.0057
-step 45 done in 0.0 secs, train cost = 0.0033, val cost = 0.0056
-step 46 done in 0.0 secs, train cost = 0.0032, val cost = 0.0054
-step 47 done in 0.0 secs, train cost = 0.0031, val cost = 0.0052
-step 48 done in 0.0 secs, train cost = 0.003, val cost = 0.0051
-step 49 done in 0.0 secs, train cost = 0.0029, val cost = 0.005
-step 50 done in 0.0 secs, train cost = 0.0029, val cost = 0.0048
-finished all 50 steps
+<pre>(2,)
+step 1 done in 0.0 secs, train cost = 0.0726, val cost = 0.0796
+(2,)
+step 2 done in 0.0 secs, train cost = 0.0449, val cost = 0.0636
+finished all 2 steps
 </pre>
 </div>
 </div>
@@ -12430,7 +12672,7 @@ finished all 50 steps
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[141]:</div>
+<div class="prompt input_prompt">In&nbsp;[52]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">w</span> <span class="o">=</span> <span class="mf">0.1</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="mi">1</span><span class="p">)</span>
@@ -12623,10 +12865,10 @@ finished all 50 steps
 
 
 
-<div id="076fda4c-9588-49fc-b80b-7e14b0e94d93"></div>
+<div id="b2c9981e-8055-4c1c-9e63-618727f77be2"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#076fda4c-9588-49fc-b80b-7e14b0e94d93');
+var element = $('#b2c9981e-8055-4c1c-9e63-618727f77be2');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -13487,10 +13729,10 @@ if (IPython.notebook.kernel != null) {
 
 
 
-<div id="b7f6125b-b77f-4e03-9aed-80ea5e643053"></div>
+<div id="be5ed18c-397f-4809-a2e6-f62c1ddefd7e"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#b7f6125b-b77f-4e03-9aed-80ea5e643053');
+var element = $('#be5ed18c-397f-4809-a2e6-f62c1ddefd7e');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -14440,7 +14682,7 @@ if (IPython.notebook.kernel != null) {
  
 
 <script type="application/vnd.jupyter.widget-state+json">
-{"version_minor": 0, "state": {}, "version_major": 1}
+{"version_major": 1, "version_minor": 0, "state": {}}
 </script>
 
 

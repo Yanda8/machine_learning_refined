@@ -15,7 +15,7 @@ import math
 import time
 from matplotlib import gridspec
 import copy
-from . import optimimzers
+from . import optimizers
 
 class Visualizer:
     '''
