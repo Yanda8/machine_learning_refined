@@ -12,6 +12,7 @@ def gradient_descent(g, alpha, max_its, w, num_pts, batch_size,**kwargs):
     # record history
     w_hist = []
     w_hist.append(unflatten(w))
+    cost_hist = [g_flat(w)]
    
     # how many mini-batches equal the entire dataset?
     num_batches = int(np.ceil(np.divide(num_pts, batch_size)))
@@ -31,8 +32,8 @@ def gradient_descent(g, alpha, max_its, w, num_pts, batch_size,**kwargs):
 
         # record weight update
         w_hist.append(unflatten(w))
-
-    return w_hist
+        cost_hist.append(g_flat(w))
+    return w_hist,cost_hist
 
 
 # newtons method function - inputs: g (input function), max_its (maximum number of iterations), w (initialization)
@@ -56,7 +57,8 @@ def newtons_method(g,max_its,w,num_pts,batch_size,**kwargs):
     # record history
     w_hist = []
     w_hist.append(unflatten(w))
-    
+    cost_hist = [g_flat(w)]
+
     # how many mini-batches equal the entire dataset?
     num_batches = int(np.ceil(np.divide(num_pts, batch_size)))
     
@@ -85,5 +87,6 @@ def newtons_method(g,max_its,w,num_pts,batch_size,**kwargs):
             
         # record weights after each epoch
         w_hist.append(unflatten(w))
-    
-    return w_hist
+        cost_hist.append(g_flat(w))
+
+    return w_hist,cost_hist

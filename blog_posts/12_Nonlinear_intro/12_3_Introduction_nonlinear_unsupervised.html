@@ -12028,10 +12028,10 @@ g\left(\mathbf{C}\right) = \frac{1}{P}\sum_{p = 1}^P \left \Vert \,f_{\text{d}}\
 <div class="output_wrapper">
 <div class="output">
 <div class="output_area"><div class="prompt"></div>
-<div id="dabcf64a-c87d-406b-b3ac-97ebcd87348f"></div>
+<div id="ca55e0ef-efa2-4b85-aa1d-b52f38c77bf8"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#dabcf64a-c87d-406b-b3ac-97ebcd87348f');
+var element = $('#ca55e0ef-efa2-4b85-aa1d-b52f38c77bf8');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -12855,10 +12855,10 @@ if (IPython.notebook.kernel != null) {
 <div class="output_wrapper">
 <div class="output">
 <div class="output_area"><div class="prompt"></div>
-<div id="c65a8764-b268-417e-96e0-18e0b293fb2c"></div>
+<div id="c32f6396-e9c1-4f36-af12-b029f51de474"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#c65a8764-b268-417e-96e0-18e0b293fb2c');
+var element = $('#c32f6396-e9c1-4f36-af12-b029f51de474');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -13635,10 +13635,10 @@ if (IPython.notebook.kernel != null) {
 </div>
 </div>
 <div class="output_area"><div class="prompt"></div>
-<div id="9fbe8360-d7f3-42bb-8083-34461bea32f4"></div>
+<div id="febd7fb9-325f-47d7-9a2f-9929d05d31a0"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#9fbe8360-d7f3-42bb-8083-34461bea32f4');
+var element = $('#febd7fb9-325f-47d7-9a2f-9929d05d31a0');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -14518,7 +14518,7 @@ g\left(\mathbf{w}\right) = \frac{1}{P}\sum_{p = 1}^P \left \Vert \,f_{\text{d}}\
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
+<div class="prompt input_prompt">In [2]:</div>
 <div class="inner_cell">
 <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># an implementation of our model employing a nonlinear feature transformation</span>
@@ -14526,12 +14526,8 @@ g\left(\mathbf{w}\right) = \frac{1}{P}\sum_{p = 1}^P \left \Vert \,f_{\text{d}}\
     <span class="c1"># feature transformation </span>
     <span class="n">f</span> <span class="o">=</span> <span class="n">feature_transforms</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">w</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
     
-    <span class="c1"># tack a 1 onto the top of each input point all at once</span>
-    <span class="n">o</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">((</span><span class="mi">1</span><span class="p">,</span><span class="n">np</span><span class="o">.</span><span class="n">shape</span><span class="p">(</span><span class="n">f</span><span class="p">)[</span><span class="mi">1</span><span class="p">]))</span>
-    <span class="n">f</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">vstack</span><span class="p">((</span><span class="n">o</span><span class="p">,</span><span class="n">f</span><span class="p">))</span>
-    
     <span class="c1"># compute linear combination and return</span>
-    <span class="n">a</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">T</span><span class="p">,</span><span class="n">w</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+    <span class="n">a</span> <span class="o">=</span> <span class="n">w</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">T</span><span class="p">,</span><span class="n">w</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">1</span><span class="p">:])</span>
     <span class="k">return</span> <span class="n">a</span><span class="o">.</span><span class="n">T</span>
 </pre></div>
 </div>
@@ -14589,10 +14585,10 @@ g\left(\mathbf{w}\right) = \frac{1}{P}\sum_{p = 1}^P \left \Vert \,f_{\text{d}}\
 <div class="output_wrapper">
 <div class="output">
 <div class="output_area"><div class="prompt"></div>
-<div id="d2d75bae-d451-4f05-8167-7ea4ce982c55"></div>
+<div id="98396e9f-701f-4cff-8a0c-802172d87c04"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#d2d75bae-d451-4f05-8167-7ea4ce982c55');
+var element = $('#98396e9f-701f-4cff-8a0c-802172d87c04');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -15483,10 +15479,10 @@ r_2\,\text{sin}(\theta_p)+w_2
 <div class="output_wrapper">
 <div class="output">
 <div class="output_area"><div class="prompt"></div>
-<div id="f7167c1c-e79a-4c4e-b08c-3f7f3a093225"></div>
+<div id="fdc29f09-3f51-410c-b58a-bfef34c47875"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#f7167c1c-e79a-4c4e-b08c-3f7f3a093225');
+var element = $('#fdc29f09-3f51-410c-b58a-bfef34c47875');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -16284,10 +16280,10 @@ if (IPython.notebook.kernel != null) {
 <div class="output_wrapper">
 <div class="output">
 <div class="output_area"><div class="prompt"></div>
-<div id="8cbe482a-2c2b-41d0-9819-676147685277"></div>
+<div id="56d1e9f7-7cc3-4659-80f1-288e84fe2e41"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#8cbe482a-2c2b-41d0-9819-676147685277');
+var element = $('#56d1e9f7-7cc3-4659-80f1-288e84fe2e41');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -17064,10 +17060,10 @@ if (IPython.notebook.kernel != null) {
 </div>
 </div>
 <div class="output_area"><div class="prompt"></div>
-<div id="f1f1e75f-787f-4a41-abfd-e4593aa34b0f"></div>
+<div id="2cc39724-d777-4235-9f36-e54359999a97"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#f1f1e75f-787f-4a41-abfd-e4593aa34b0f');
+var element = $('#2cc39724-d777-4235-9f36-e54359999a97');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -17850,6 +17846,6 @@ if (IPython.notebook.kernel != null) {
 </div>
 </body>
 <script type="application/vnd.jupyter.widget-state+json">
-{"version_minor": 0, "state": {}, "version_major": 1}
+{"version_minor": 0, "version_major": 1, "state": {}}
 </script>
 </html>

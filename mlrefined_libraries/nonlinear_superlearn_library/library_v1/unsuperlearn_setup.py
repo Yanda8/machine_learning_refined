@@ -68,8 +68,8 @@ class Setup:
             self.w_init = kwargs['w']
 
         # run gradient descent
-        self.weight_history, self.cost_history = optimizers.gradient_descent(self.cost,self.alpha_choice,self.max_its,self.w_init)
-        
+        weight_history,cost_history = optimizers.gradient_descent(self.cost,self.alpha_choice,self.max_its,self.w_init,self.num_pts,self.batch_size)
+            
          # store all new histories
         self.weight_histories.append(self.weight_history)
         self.cost_histories.append(self.cost_history)

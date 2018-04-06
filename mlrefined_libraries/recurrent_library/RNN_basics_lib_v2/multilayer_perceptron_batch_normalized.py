@@ -121,15 +121,11 @@ class Setup:
         # loop through each layer matrix
         self.normalizers = []
         for W in w:
-            #  pad with ones (to compactly take care of bias) for next layer computation        
-            o = np.ones((1,np.shape(a)[1]))
-            a = np.vstack((o,a))
+            # compute inner product with current layer weights
+            a = W[0] + np.dot(a.T, W[1:])
 
-            # compute linear combination of current layer units
-            a = np.dot(a.T, W).T
-
-            # pass through activation
-            a = self.activation(a)
+            # output of layer activation
+            a = self.activation(a).T
 
             # NEW - perform standard normalization to the activation outputs
             normalizer = self.standard_normalizer(a)
@@ -145,15 +141,11 @@ class Setup:
         # loop through each layer matrix
         self.normalizers = []
         for W1,W2 in w:
-            #  pad with ones (to compactly take care of bias) for next layer computation        
-            o = np.ones((1,np.shape(a)[1]))
-            a = np.vstack((o,a))
+            # compute inner product with current layer weights
+            a1 = W1[0][:,np.newaxis] + np.dot(a.T, W1[1:]).T
+            a2 = W2[0][:,np.newaxis] + np.dot(a.T, W2[1:]).T
 
-            # compute linear combination of current layer units
-            a1 = np.dot(a.T, W1).T
-            a2 = np.dot(a.T, W2).T
-
-            # pass through activation
+            # output of layer activation
             a = self.activation(a1,a2)
 
             # NEW - perform standard normalization to the activation outputs

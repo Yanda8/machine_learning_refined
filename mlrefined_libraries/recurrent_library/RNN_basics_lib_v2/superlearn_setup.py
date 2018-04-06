@@ -38,10 +38,6 @@ class Setup:
         
         # normalize input 
         self.x = self.normalizer(self.x)
-        
-        ### stack a 1 onto the top of each input to deal with bias ###
-        o = np.ones((1,np.shape(self.x)[1]))
-        self.x = np.vstack((o,self.x))
        
     #### split data into training and validation sets ####
     def make_train_val_split(self,train_portion):
@@ -80,7 +76,7 @@ class Setup:
             layer_sizes = kwargs['layer_sizes']
         
         # add input and output layer sizes
-        input_size = self.x.shape[0]-1
+        input_size = self.x.shape[0]
         layer_sizes.insert(0, input_size)
       
         # add output size
@@ -92,8 +88,6 @@ class Setup:
                 layer_sizes.append(1)
             else:
                 layer_sizes.append(num_labels)
-
-        kwargs['layer_sizes'] = layer_sizes
         
         # multilayer perceptron #
         feature_name = 'multilayer_perceptron'

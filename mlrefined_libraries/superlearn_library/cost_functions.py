@@ -44,12 +44,7 @@ def choose_cost(x_in,y_in,cost,**kwargs):
 ###### basic model ######
 # compute linear combination of input point
 def model(x,w):
-    # tack a 1 onto the top of each input point all at once
-    o = np.ones((1,np.shape(x)[1]))
-    x = np.vstack((o,x))
-
-    # compute linear combination and return
-    a = np.dot(x.T,w)
+    a = w[0] + np.dot(x.T,w[1:])
     return a.T
 
 ###### cost functions #####

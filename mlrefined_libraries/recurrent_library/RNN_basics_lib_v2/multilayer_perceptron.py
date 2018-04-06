@@ -97,14 +97,10 @@ class Setup:
         # loop through each layer matrix
         for W in w:
             # compute inner product with current layer weights
-            a = np.dot(a.T, W).T
+            a = W[0] + np.dot(a.T, W[1:])
 
             # output of layer activation
-            a = self.activation(a)
-            
-            #  pad with ones (to compactly take care of bias) for next layer computation        
-            o = np.ones((1,np.shape(a)[1]))
-            a = np.vstack((o,a))
+            a = self.activation(a).T
         return a
     
     # fully evaluate our network features using the tensor of weights in w
@@ -112,13 +108,9 @@ class Setup:
         # loop through each layer matrix
         for W1,W2 in w:
             # compute inner product with current layer weights
-            a1 = np.dot(a.T, W1).T
-            a2 = np.dot(a.T, W2).T
+            a1 = W1[0][:,np.newaxis] + np.dot(a.T, W1[1:]).T
+            a2 = W2[0][:,np.newaxis] + np.dot(a.T, W2[1:]).T
 
             # output of layer activation
             a = self.activation(a1,a2)
-            
-            #  pad with ones (to compactly take care of bias) for next layer computation        
-            o = np.ones((1,np.shape(a)[1]))
-            a = np.vstack((o,a))
         return a
