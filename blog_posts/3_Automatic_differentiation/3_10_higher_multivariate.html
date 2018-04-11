@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head><meta charset="utf-8"/>
-<title>3.9  The Hessian and higher order derivatives</title><script src="https://unpkg.com/jupyter-js-widgets@2.0.*/dist/embed.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
+<title>3.10  The Hessian and higher order derivatives</title><script src="https://unpkg.com/jupyter-js-widgets@2.0.*/dist/embed.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
 <style type="text/css">
     /*!
@@ -11790,7 +11790,7 @@ div#notebook {
 <div class="logo-share"></div>
 <div class="logo-share">
 <!-- github -->
-<a href="https://github.com/jermwatt/mlrefined/blob/gh-pages/blog_posts/3_Automatic_differentiation/3_9_higher_multivariate.ipynb" target="_blank">
+<a href="https://github.com/jermwatt/mlrefined/blob/gh-pages/blog_posts/3_Automatic_differentiation/3_10_higher_multivariate.ipynb" target="_blank">
 <img height="28" onmouseout="this.src='../../html/pics/github.png';" onmouseover="this.src='../../html/pics/github_filled.png';" src="../../html/pics/github.png" width="28"/>
 </a>
 </div>
@@ -11803,21 +11803,21 @@ div#notebook {
 <div class="logo-share"></div>
 <div class="logo-share">
 <!-- linkedin -->
-<a href="https://www.linkedin.com/cws/share?url=https%3A%2F%2Fjermwatt.github.io%2Fmlrefined%2Fblog_posts%2F3_Automatic_differentiation%2F3_9_higher_multivariate.html" target="_blank">
+<a href="https://www.linkedin.com/cws/share?url=https%3A%2F%2Fjermwatt.github.io%2Fmlrefined%2Fblog_posts%2F3_Automatic_differentiation%2F3_10_higher_multivariate.html" target="_blank">
 <img height="28" onmouseout="this.src='../../html/pics/linkedin.png';" onmouseover="this.src='../../html/pics/linkedin_filled.png';" src="../../html/pics/linkedin.png" width="28"/>
 </a>
 </div>
 <div class="logo-share"></div>
 <div class="logo-share">
 <!-- twitter -->
-<a href="https://twitter.com/intent/tweet?ref_src=twsrc%5Etfw&amp;tw_p=tweetbutton&amp;url=https%3A%2F%2Fjermwatt.github.io%2Fmlrefined%2Fblog_posts%2F3_Automatic_differentiation%2F3_9_higher_multivariate.html" target="_blank">
+<a href="https://twitter.com/intent/tweet?ref_src=twsrc%5Etfw&amp;tw_p=tweetbutton&amp;url=https%3A%2F%2Fjermwatt.github.io%2Fmlrefined%2Fblog_posts%2F3_Automatic_differentiation%2F3_10_higher_multivariate.html" target="_blank">
 <img height="28" onmouseout="this.src='../../html/pics/twitter.png';" onmouseover="this.src='../../html/pics/twitter_filled.png';" src="../../html/pics/twitter.png" width="28"/>
 </a>
 </div>
 <div class="logo-share"></div>
 <div class="logo-share">
 <!-- facebook -->
-<a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fjermwatt.github.io%2Fmlrefined%2Fblog_posts%2F3_Automatic_differentiation%2F3_9_higher_multivariate.html" target="_blank">
+<a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fjermwatt.github.io%2Fmlrefined%2Fblog_posts%2F3_Automatic_differentiation%2F3_10_higher_multivariate.html" target="_blank">
 <img height="28" onmouseout="this.src='../../html/pics/facebook.png';" onmouseover="this.src='../../html/pics/facebook_filled.png';" src="../../html/pics/facebook.png" width="28"/>
 </a>
 </div>
@@ -11830,7 +11830,7 @@ div#notebook {
 <span style="font-size: 80%;">► </span><a href="https://jermwatt.github.io/mlrefined/index.html" style="color: black; cursor: pointer; text-transform: uppercase; font-weight:bold;" target="_blank">Chapter 3: Derivatives and Automatic Differentiation</a>
 </span>
 <br/><br/>
-<mark style="padding: 0px; background-color: #f9f3c2;">3.9  The Hessian and higher order derivatives</mark>
+<mark style="padding: 0px; background-color: #f9f3c2;">3.10  The Hessian and higher order derivatives</mark>
 </div>
 <br/>
 <div class="border-box-sizing" id="notebook" tabindex="-1">
@@ -11871,7 +11871,7 @@ div#notebook {
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="3.9.1--Second-order-derivatives">3.9.1  Second order derivatives<a class="anchor-link" href="#3.9.1--Second-order-derivatives">¶</a></h2>
+<h2 id="3.10.1--Second-order-derivatives">3.10.1  Second order derivatives<a class="anchor-link" href="#3.10.1--Second-order-derivatives">¶</a></h2>
 </div>
 </div>
 </div>
@@ -11970,10 +11970,10 @@ $\frac{\partial}{\partial w_m} \frac{\partial}{\partial w_n}g = \frac{\partial}{
 <div class="output">
 <div class="output_area">
 <div class="prompt"></div>
-<div id="0765b7de-34e0-491a-b872-b6f4638127f7"></div>
+<div id="5512e640-576a-4b4e-9281-0de76e5449bc"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#0765b7de-34e0-491a-b872-b6f4638127f7');
+var element = $('#5512e640-576a-4b4e-9281-0de76e5449bc');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -12790,7 +12790,7 @@ if (IPython.notebook.kernel != null) {
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="3.9.2--Higher-order-derivatives">3.9.2  Higher order derivatives<a class="anchor-link" href="#3.9.2--Higher-order-derivatives">¶</a></h2>
+<h2 id="3.10.2--Higher-order-derivatives">3.10.2  Higher order derivatives<a class="anchor-link" href="#3.10.2--Higher-order-derivatives">¶</a></h2>
 </div>
 </div>
 </div>
@@ -12808,6 +12808,6 @@ if (IPython.notebook.kernel != null) {
 </div>
 </body>
 <script type="application/vnd.jupyter.widget-state+json">
-{"state": {}, "version_minor": 0, "version_major": 1}
+{"version_minor": 0, "version_major": 1, "state": {}}
 </script>
 </html>

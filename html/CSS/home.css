@@ -276,6 +276,10 @@ line-height: 20px;
   height:350px;
 }
 
+.chapters-container input[type='checkbox']:checked ~ .twelve_col .description {
+  height:380px;
+}
+
 
 .chapters-container input[type='checkbox']{
   width: 100%;
