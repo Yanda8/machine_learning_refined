@@ -1,8 +1,9 @@
 <!DOCTYPE html>
 <html>
-<head><meta charset="utf-8"/>
-<title>3.9 The reverse mode of automatic differentiation</title><script src="https://unpkg.com/jupyter-js-widgets@2.0.*/dist/embed.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
+<head><meta charset="utf-8" />
+<title>Untitled</title><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
 <style type="text/css">
     /*!
 *
@@ -11713,6 +11714,8 @@ ul.typeahead-list > li > a {
 .ansi-bold { font-weight: bold; }
 
     </style>
+
+
 <style type="text/css">
 /* Overrides of notebook CSS for static HTML export */
 body {
@@ -11738,15 +11741,16 @@ div#notebook {
   }
 }
 </style>
+
 <!-- Custom stylesheet, it must be in the same directory as the html file -->
-<link href="custom.css" rel="stylesheet"/>
+<link rel="stylesheet" href="custom.css">
+
 <!-- Loading mathjax macro -->
 <!-- Load mathjax -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS_HTML"></script>
-<!-- MathJax configuration -->
-<script type="text/x-mathjax-config">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS_HTML"></script>
+    <!-- MathJax configuration -->
+    <script type="text/x-mathjax-config">
     MathJax.Hub.Config({
-    	TeX: { equationNumbers: { autoNumber: "AMS" } },
         tex2jax: {
             inlineMath: [ ['$','$'], ["\\(","\\)"] ],
             displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
@@ -11757,88 +11761,37 @@ div#notebook {
         // we use CSS to left justify single line equations in code cells.
         displayAlign: 'center',
         "HTML-CSS": {
-            availableFonts: ["TeX"],
-            preferredFont: "TeX",
             styles: {'.MathJax_Display': {"margin": 0}},
             linebreaks: { automatic: true }
         }
     });
     </script>
-<link href="../../html/CSS/custom.css" rel="stylesheet"/>
-<style>
-        p {
-            text-align: justify !important;
-            text-justify: inter-word !important;
-        }
-    </style>
-<!-- End of mathjax configuration --></head>
+    <!-- End of mathjax configuration --></head>
 <body>
-<!-- uncomment to add back menu
-<div style="text-align:center !important; padding-top:58px;">
+  <div tabindex="-1" id="notebook" class="border-box-sizing">
+    <div class="container" id="notebook-container">
 
-				<a href="../../../index.html" style="font-family: inherit; font-weight: 200; letter-spacing: 1.5px; color: #222; font-size: 97%;">HOME</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="../../../about.html" style="font-family: inherit; font-weight: 200; letter-spacing: 1.5px; color: #222; font-size: 97%;">ABOUT</a>
-
-
-</div> -->
-<br/><br/><br/>
-<!-- share buttons -->
-<div style="width: 53%; margin:auto;">
-<div id="1" style="width: 75%; float:left;">
-<span style="color:black; font-family:'lato', sans-serif; font-size: 18px;">code</span>
-<div style="width: 95px; border-bottom: solid 1px; border-color:black;">
-<div class="logo-share"></div>
-<div class="logo-share"></div>
-<div class="logo-share">
-<!-- github -->
-<a href="https://github.com/jermwatt/mlrefined/blob/gh-pages/blog_posts/3_Automatic_differentiation/3_9_AD_reverse_mode.ipynb" target="_blank">
-<img height="28" onmouseout="this.src='../../html/pics/github.png';" onmouseover="this.src='../../html/pics/github_filled.png';" src="../../html/pics/github.png" width="28"/>
-</a>
-</div>
-</div>
-</div>
-<div id="2" style="width: 25%; float:left;">
-<span style="color:black; font-family:'lato', sans-serif; font-size: 18px;">share</span>
-<div style="width: 210px; border-bottom: solid 1px; border-color:black;">
-<div class="logo-share"></div>
-<div class="logo-share"></div>
-<div class="logo-share">
-<!-- linkedin -->
-<a href="https://www.linkedin.com/cws/share?url=https%3A%2F%2Fjermwatt.github.io%2Fmlrefined%2Fblog_posts%2F3_Automatic_differentiation%2F3_9_AD_reverse_mode.html" target="_blank">
-<img height="28" onmouseout="this.src='../../html/pics/linkedin.png';" onmouseover="this.src='../../html/pics/linkedin_filled.png';" src="../../html/pics/linkedin.png" width="28"/>
-</a>
-</div>
-<div class="logo-share"></div>
-<div class="logo-share">
-<!-- twitter -->
-<a href="https://twitter.com/intent/tweet?ref_src=twsrc%5Etfw&amp;tw_p=tweetbutton&amp;url=https%3A%2F%2Fjermwatt.github.io%2Fmlrefined%2Fblog_posts%2F3_Automatic_differentiation%2F3_9_AD_reverse_mode.html" target="_blank">
-<img height="28" onmouseout="this.src='../../html/pics/twitter.png';" onmouseover="this.src='../../html/pics/twitter_filled.png';" src="../../html/pics/twitter.png" width="28"/>
-</a>
-</div>
-<div class="logo-share"></div>
-<div class="logo-share">
-<!-- facebook -->
-<a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fjermwatt.github.io%2Fmlrefined%2Fblog_posts%2F3_Automatic_differentiation%2F3_9_AD_reverse_mode.html" target="_blank">
-<img height="28" onmouseout="this.src='../../html/pics/facebook.png';" onmouseover="this.src='../../html/pics/facebook_filled.png';" src="../../html/pics/facebook.png" width="28"/>
-</a>
-</div>
-</div>
-</div>
-</div>
-<br/><br/>
-<div class="page-title" style="text-align: center !important;">
-<span style="color: #333; font-size: 40%; letter-spacing: 3px;">
-<span style="font-size: 80%;">► </span><a href="https://jermwatt.github.io/mlrefined/index.html" style="color: black; cursor: pointer; text-transform: uppercase; font-weight:bold;" target="_blank">Chapter 3: Derivatives and Automatic Differentiation</a>
-</span>
-<br/><br/>
-<mark style="padding: 0px; background-color: #f9f3c2;">3.9 The reverse mode of automatic differentiation</mark>
-</div>
-<br/>
-<div class="border-box-sizing" id="notebook" tabindex="-1">
-<div class="container" id="notebook-container">
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Chapter-X:-Kernel-methods">Chapter X: Kernel methods<a class="anchor-link" href="#Chapter-X:-Kernel-methods">&#182;</a></h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="X.1--Motivation-and-basic-examples">X.1  Motivation and basic examples<a class="anchor-link" href="#X.1--Motivation-and-basic-examples">&#182;</a></h1>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>In this Chapter we describe fixed feature kernels, which is a method of representing fixed basis features so that they scale more gracefully when applied to vector valued input.</p>
 
 </div>
 </div>
@@ -11847,6 +11800,14 @@ div#notebook {
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
+<p>A serious practical issue presents itself when applying fixed basis features to vector valued input: even with a moderate sized input dimension $N$, the corresponding dimension
+$M$ of the transformed features grows rapidly with $N$ and quickly becomes prohibitively
+large in terms of storage and computation. For example, the precise number $M$ of non-
+bias features/feature weights of a degree $D$ polynomial of an input with dimension
+$N$ is $\left(\begin{array}{c}
+N+D\\
+D
+\end{array}\right)-1=\frac{\left(N+D\right)!}{N!D!}-1$. Even if the input dimension is of reasonably small size, for instance $N=100$ or $N=500$, then just the associated degree $D=5$ polynomial feature map of these input dimensions has dimension $M= 96,560,645$ and $M=268,318,178,226$ respectively! In the latter case we cannot even hold the feature vectors in memory on a modern computer.</p>
 
 </div>
 </div>
@@ -11855,7 +11816,8 @@ div#notebook {
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>The automatic differentiator we have been discussing so far operates in the forward mode, meaning that all function and derivative/gradient calculations are done in one sweep (the forward sweep) traversing the computational graph forward, as shown in the left panel of Figure 1 for the quadratic function $w_1^2+w_2^2$. Notice, however, that in this case calculating the full gradient at each node is redundant/wasteful because some gradient entries will always be zero, regardless of how the AD is initialized. In this example, the second gradient entry at nodes $w_1$ and $a$, as well as the first gradient entry at nodes $w_2$ and $b$ are always zero, as depicted in the right panel of Figure 1.</p>
+<p>The corresponding number of transformed features with a Fourier basis/map is even more gargantuan: the degree $D$ Fourier feature map of arbitrary input dimension $N$ has $\left(2D + 1\right)^N$ associated/feature weights. When $D=5$ and $N=80$ this is $11^{80}$, a number larger than current estimates of the number of atoms in the visible universe!</p>
+
 </div>
 </div>
 </div>
@@ -11863,7 +11825,8 @@ div#notebook {
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p><img height="auto" src="../../mlrefined_images/calculus_images/forward_2.png" width="100%"/></p>
+<p>This crucial issue, of not being able to effectively store high dimensional fixed basis feature transformations, motivates the search for more efficient representations of fixed bases. Here we introduce kernels or kernelized representations of fixed feature transformations, which are clever ways of constructing them that do not require explicit construction of the fixed features themselves. Kernels allow us to avoid this combinatorial storage problem and use fixed features with vector input (at the cost, as we will see, of scaling poorly with the size of a dataset). Additionally they provide a way of generating new fixed feature maps defined solely through such a kernelized representation.</p>
+
 </div>
 </div>
 </div>
@@ -11871,7 +11834,7 @@ div#notebook {
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>This computational waste in computing, storing, and propagating zeros forward through the graph is more accentuated when considering functions with larger number of input variables. In Figure 2 we show the computational graph for another simple quadratic function, this time one that takes in four inputs, i.e., $w_1^2+w_2^2+w_3^2+w_4^2$. In this case more than half of all gradient entries need not be evaluated as they are always zero.</p>
+<h2 id="The-fundamental-theorem-of-linear-algebra">The fundamental theorem of linear algebra<a class="anchor-link" href="#The-fundamental-theorem-of-linear-algebra">&#182;</a></h2>
 </div>
 </div>
 </div>
@@ -11879,7 +11842,8 @@ div#notebook {
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p><img height="auto" src="../../mlrefined_images/calculus_images/forward_4.png" width="100%"/></p>
+<p>Before discussing the concept of kernelization, it will be helpful to first recall a useful fact, generally referred to as the fundamental theorem of linear algebra. This is a simple statement about how to deconstruct an $M$ length vector $\mathbf{w} \in \mathbb{R}^{M}$ over the columns of a given matrix.</p>
+
 </div>
 </div>
 </div>
@@ -11887,37 +11851,13 @@ div#notebook {
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>To remedy this inefficiency, automatic differentiation can also be done in what is typically referred to as the reverse mode, consisting of a forward sweep and a backward sweep. The forward sweep of the reverse mode is essentially similar to the forward mode of AD in that the computational graph is traversed once in the forward direction, i.e, from left (input side) to right (output side). The only difference is that we no longer compute the full gradient at each node going forward through the graph (as was the case with the forward mode). Instead, we only compute and collect the partial derivatives of each parent with respect to its children during the forward sweep. Once the forward sweep is complete, we change course and go backwards through graph, visiting all nodes once more, precisely in the reverse order of the forward mode, this time  updating the partial derivatives computed at each node by multiplying each by the (relevant) partial derivative of its parent. When the backward sweep is completed, the derivative attribute of each input variable will contain the corresponding entry of the full gradient.</p>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="Example-3.--Computing-the-gradient-of-a-simple-quadratic-using-the-reverse-mode"><span style="color:#a50e3e;">Example 3. </span> Computing the gradient of a simple quadratic using the reverse mode<a class="anchor-link" href="#Example-3.--Computing-the-gradient-of-a-simple-quadratic-using-the-reverse-mode">¶</a></h4>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>Starting the forward pass, we first visit node $a$ and compute the partial derivative of $a$ with respect to its only child, in this case $w_1$.</p>
+<p>Recall that a set of $M$-dimensional vectors $\left\{\mathbf{f}_p\right\}_{p=1}^P$ spans a subspace of dimension $P$, where $P \leq M$, and that any vector $\mathbf{w}$ in this subspace can be written as some linear combination of the vectors as</p>
 \begin{equation}
-\frac{\partial}{\partial w_{1}}a = 2w_1
-\end{equation}<p><img height="auto" src="../../mlrefined_images/calculus_images/R_f_0.png" width="55%"/></p>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>Next, we move on to node $b$ and compute its partial derivative with respect to its only child, $w_2$.</p>
+\mathbf{w} = \sum_{p=1}^{P} \mathbf{f}_p\,z_p
+\end{equation}<p>where $z_p$ are weights associated with $\mathbf{w}$. By stacking the vectors $\mathbf{f}_p$ column-wise into an $M \times P$ matrix $\mathbf{F}$ and the $z_{p}$'s together into a $P \times 1$ vector $\mathbf{z}$ this relationship can be written more compactly as</p>
 \begin{equation}
-\frac{\partial}{\partial w_{2}}b = 2w_2
-\end{equation}<p><img height="auto" src="../../mlrefined_images/calculus_images/R_f_1.png" width="55%"/></p>
+\mathbf{w} = \mathbf{F}\mathbf{z}
+\end{equation}
 </div>
 </div>
 </div>
@@ -11925,11 +11865,11 @@ div#notebook {
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Finally, we visit node $c=a+b$ where we compute its partial derivatives with respect to all its children, here $a$ and $b$.</p>
+<p>As illustrated in Figure 1, any vector $\mathbf{w} \in \mathbb{R}^{M}$ can then be decomposed into two pieces: the portion of $\mathbf{w}$ belonging to the subspace spanned by the columns of $\mathbf{F}$ and an orthogonal component $\mathbf{r}$. Formally this decomposition is written as</p>
 \begin{equation}
-\frac{\partial}{\partial a}c = 1\\
-\frac{\partial}{\partial b}c = 1
-\end{equation}<p><img height="auto" src="../../mlrefined_images/calculus_images/R_f_3.png" width="55%"/></p>
+\mathbf{w} = \mathbf{F}\mathbf{z}+\mathbf{r}
+\end{equation}<p>Note that $\mathbf{r}$ being orthogonal to the span of $\mathbf{F}$’s columns means formally that $\mathbf{F}^T\mathbf{r}=\mathbf{0}_{P \times 1}$.</p>
+
 </div>
 </div>
 </div>
@@ -11937,8 +11877,15 @@ div#notebook {
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Once the forward pass is complete, we traverse the graph backwards, visiting each node in the reverse order.</p>
-<p><img height="auto" src="../../mlrefined_images/calculus_images/R_f_2.png" width="55%"/></p>
+<figure>
+  <img src= '../../mlrefined_images/kernel_images/Fig_7_1.png' width="40%"/>
+  <figcaption> 
+      <strong>Figure 1:</strong> 
+      <em> 
+An illustration of the fundamental theorem of linear algebra which states that any vector $\mathbf{w}$ in an $M$-dimensional space can be decomposed as $\mathbf{w} = \mathbf{F}\mathbf{z}+\mathbf{r}$. Here the vector $\mathbf{F}\mathbf{z}$ belongs in the subspace determined by the columns of the matrix $\mathbf{F}$ and $\mathbf{r}$ is orthogonal to this subspace.
+      </em>
+  </figcaption>
+</figure>
 </div>
 </div>
 </div>
@@ -11946,8 +11893,8 @@ div#notebook {
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>At every step of the process we update the partial derivative of each child by multiplying it by the partial derivative of the parent node with respect to that child. Starting from the last node in our forward sweep, i.e., node $c$, we observe that $c$ has two children: $a$ and $b$. Therefore we update the derivative at $a$ by (left) multiplying it by $\frac{\partial}{\partial a}c$, and similarly update the derivative at $b$ by (left) multiplying it by $\frac{\partial}{\partial b}c$.</p>
-<p><img height="auto" src="../../mlrefined_images/calculus_images/R_r_0.png" width="55%"/></p>
+<p>As we will now see this simple statement is the key to representing fixed basis features more effectively (when used to transform vector valued input for use) with every cost function discussed in this book.</p>
+
 </div>
 </div>
 </div>
@@ -11955,22 +11902,27 @@ div#notebook {
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Following the reverse order of our backward sweep, the next node in the graph to visit is $w_2$ where its derivative (which is simply $1$) gets multiplied by the derivative of its parent $b$, giving</p>
+<h2 id="Kernelizing-cost-functions">Kernelizing cost functions<a class="anchor-link" href="#Kernelizing-cost-functions">&#182;</a></h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Suppose that we have a dataset of $P$ points  $\left\{\left(\mathbf{x}_p,y_p\right)\right\}_{p=1}^P$ where each input $\mathbf{x}_p$ has dimension $N$. Recall, when employing any fixed feature basis we learn proper parameters by minimizing the Least Squares regression cost</p>
 \begin{equation}
-\frac{\partial}{\partial b}c \frac{\partial}{\partial w_2}b \times 1
-\end{equation}<p><img height="auto" src="../../mlrefined_images/calculus_images/R_r_1.png" width="55%"/></p>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>Notice, this is precisely the partial derivative of $c$ with respect to $w_2$, or in other words, the second element of our desired gradient. To finish the backward sweep we finally visit node $w_1$ - at which forward sweep started - where  we multiply its derivative, i.e., $1$, by the derivative of its parent $a$</p>
+g\left(b,\mathbf{w}\right) = \sum_{p=1}^{P} \left(b+\mathbf{f}_p^T\mathbf{w}-y_p\right)^2
+\end{equation}<p>where we have used the vector notation</p>
 \begin{equation}
-\frac{\partial}{\partial a}c \frac{\partial}{\partial w_1}a \times 1
-\end{equation}<p>which is precisely $\frac{\partial}{\partial w_1}c$ or the first element of our desired gradient.</p>
-<p><img height="auto" src="../../mlrefined_images/calculus_images/R_r_2.png" width="55%"/></p>
+\mathbf{f}_{p}=\left[\begin{array}{c}
+f_{1}\left(\mathbf{x}_{p}\right)\\
+f_{1}\left(\mathbf{x}_{p}\right)\\
+\vdots\\
+f_{1}\left(\mathbf{x}_{p}\right)
+\end{array}\right]
+\end{equation}<p>to denote the $M$ fixed basis feature transformations of the input $\mathbf{x}_p$.</p>
+
 </div>
 </div>
 </div>
@@ -11978,7 +11930,13 @@ div#notebook {
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Which-mode-of-auto-differentiator-should-one-choose?">Which mode of auto-differentiator should one choose?<a class="anchor-link" href="#Which-mode-of-auto-differentiator-should-one-choose?">¶</a></h2>
+<p>Denote by $\mathbf{F}$ the $M \times P$ matrix $\mathbf{F}$ formed by stacking the vectors $\mathbf{f}_p$ column-wise. Now, employing the fundamental theorem of linear algebra discussed in the previous section we may write $\mathbf{w}$ here as</p>
+\begin{equation}
+\mathbf{w} = \mathbf{F}\mathbf{z}+\mathbf{r}
+\end{equation}<p>where $\mathbf{r}$ satisfies $\mathbf{F}^T\mathbf{r}=\mathbf{0}_{P \times 1}$.  Plugging this representation of $\mathbf{w}$ back into the cost function then gives</p>
+\begin{equation}
+\sum_{p=1}^{P} \left(b+\mathbf{f}_p^T\left(\mathbf{F}\mathbf{z}+\mathbf{r}\right)-y_p\right)^2 = \sum_{p=1}^{P} \left(b+\mathbf{f}_p^T\mathbf{F}\mathbf{z}-y_p\right)^2 
+\end{equation}
 </div>
 </div>
 </div>
@@ -11986,14 +11944,648 @@ div#notebook {
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Although both forward and reverse modes of auto-differentiator are valid to use for any cost function formed using elementary functions and operations, one of the two can be considerably more efficient than the other depending on the structure and number of inputs/outputs to the cost function. In general, the cost of the forward mode of AD is dependent on the number of input variables while that of the reverse mode is dependent on the number of output variables. Since the cost functions of interest in machine learning, and particularly deep learning, typically consist of a large number of input variables (sometimes in hundreds of millions) with only one or few output variables, it therefore makes practical sense to use the reverse mode of AD to avoid wastefully carrying extremely large and sparse gradients through the computational graph.</p>
+<p>Finally, denoting the symmetric matrix $\mathbf{H} = \mathbf{F}^T\mathbf{F}$ (and where $\mathbf{h}_p = \mathbf{F}^T\mathbf{f}_p$ is the $p^{th}$ column of this matrix), referred to as a fixed basis <em>kernel matrix</em>, our original cost function becomes equivalently</p>
+\begin{equation}
+g\left(b,\mathbf{z}\right) = \sum_{p=1}^{P} \left(b+\mathbf{h}_p^T\mathbf{z}-y_p\right)^2
+\end{equation}
 </div>
 </div>
 </div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Note that we have changed the arguments of the cost function from $g\left(b,\mathbf{w}\right)$ to $g\left(b,\mathbf{z}\right)$ due to our substitution of $\mathbf{w}$. The original problem of minimizing the Least Squares cost may now be written equivalently in this <em>kernelized form</em> as</p>
+\begin{equation}
+\underset{b,\,\mathbf{z}}{\text{minimize}}\,\, \sum_{p=1}^{P} \left(b+\mathbf{h}_p^T\mathbf{z}-y_p\right)^2
+\end{equation}
 </div>
 </div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Using precisely the same argument given here we may kernelize all of the cost functions discussed in this book including: the softmax cost/logistic regression classifier, the squared margin-perceptron/soft-margin SVMs, the multiclass softmax cost function, as well as any $\ell_2$ regularized version of these models. We show both the original and kernelized forms of these formulae in Table 1 for easy reference.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>TABLE 7.1</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="The-value-of-kernelization">The value of kernelization<a class="anchor-link" href="#The-value-of-kernelization">&#182;</a></h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>The real value of kernelizing any cost function is that for many fixed feature maps, including polynomials and Fourier features, the kernel matrix $\mathbf{H}$ may be constructed without first building the matrix $\mathbf{F}$, that is we need not construct it explicitly as $\mathbf{H}=\mathbf{F}^T\mathbf{F}$, but this matrix may be constructed entry-wise via simple formulae. In fact, as we will see, thinking about constructing kernel matrices in this way leads to the construction of fixed feature bases by defining the kernel matrix first (that is, not by beginning with an explicit feature transformation). As we see in the next section this can be done for both degree $D$ polynomial and Fourier feature bases, as well as many other fixed maps. This is highly advantageous since, as discussed previously, even with moderate sized input dimension $N$ the dimension of a fixed feature transformation $M$ will likely be gargantuan, so large that we may not even be able to store the matrix $\mathbf{F}$, let alone compute with it.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>However, note that the non-bias optimization variable from the original to kernelized form has changed from $\mathbf{w}$, which had dimension $M$ in Equation (4), to $\mathbf{z}$, which has dimension $P$ in the kernelized version shown in Equation (8). This is precisely how the dimension of the non-bias optimization variable changes with kernelized cost functions as well, like those shown in Table 1.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>While it is true that for large datasets (that is large values of $P$, e.g., in the thousands or tens of thousands) the minimization of a kernelized cost function becomes more challenging, the main obstacle is storing the $P \times P$ kernel matrix itself, which for large values of $P$ is difficult or even impossible to do completely. For example, with $P=10,000$ the corresponding kernel matrix will be of size $10,000 \times 10,000$, with $10^8$ values to store, far more than a modern computer can store all at once. Moreover, the amount of computation required to perform, e.g. gradient descent, grows dramatically with the size of a kernel matrix due to its explosive size.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Common ways of dealing with these issues for large datasets include: 1) using advanced first order methods such as stochastic gradient descent, discussed in Chapter 13, so that only a small number of the kernelized points are dealt with at a time when optimizing; 2) reducing the dimension of data using techniques like Principal Component Analysis and hence avoiding the need for kernelized versions of fixed bases; 3) using the explicit structure of certain problems (see e.g., <a href="#bib_cell">[1,2]</a>); and 4) employing the tools from function approximation to avoid explicit construction of the kernel matrix <a href="#bib_cell">[3,4,5]</a>).</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Examples-of-kernels">Examples of kernels<a class="anchor-link" href="#Examples-of-kernels">&#182;</a></h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Here we present a list of examples of kernels for popular fixed feature transformations that may be built without first constructing the explicit feature transformation itself. While these are the most commonly used kernels in practice, the reader can see e.g., <a href="#bib_cell">[6,7]</a>) for a more exhaustive list of kernels and their properties.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="Example-1.--The-polynomial-kernel"><span style="color:#a50e3e;">Example 1. </span> The polynomial kernel<a class="anchor-link" href="#Example-1.--The-polynomial-kernel">&#182;</a></h4>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Consider the following second degree polynomial mapping from $N=2$ to $M=5$ dimensional space given by</p>
+\begin{equation}
+\mathbf{f}\left(\left[\begin{array}{c}
+x_{1}\\
+x_{2}
+\end{array}\right]\right)=\left[\begin{array}{ccccc}
+\sqrt{2}x_{1}^{\,} &amp; \sqrt{2}x_{2}^{\,} &amp; x_{1}^{2} &amp; \sqrt{2}x_{1}^{\,}x_{2}^{\,} &amp; x_{2}^{2}\end{array}\right]^{T}
+\end{equation}<p>This is entirely equivalent to a standard degree $2$ polynomial, as the $\sqrt{2}$ attached to several of the terms can be absorbed by their associated weights when taking the corresponding weighted sum $\underset{m=1}{\overset{5}{\sum}}f_{m}\left(\mathbf{x}\right)w_{m}$.</p>
+<p>Denoting briefly by $\mathbf{u}=\mathbf{x}_{i}$ and $\mathbf{v}=\mathbf{x}_{j}$
+the $i^{\textrm{th}}$ and $j^{\textrm{th}}$ input data points respectively,
+the $\left(i,j\right)^{\textrm{th}}$ element of the kernel matrix
+for a degree 2 polynomial $\mathbf{H}=\mathbf{F}^{T}\mathbf{F}$ may
+be written as</p>
+\begin{equation}
+\begin{array}{c}
+\mathbf{H}_{ij}=\left[\begin{array}{ccccc}
+\sqrt{2}u_{1} &amp; \sqrt{2}u_{2} &amp; u_{1}^{2} &amp; \sqrt{2}u_{1}u_{2} &amp; u_{2}^{2}\end{array}\right]\left[\begin{array}{c}
+\sqrt{2}v_{1}\\
+\sqrt{2}v_{2}\\
+v_{1}^{2}\\
+\sqrt{2}v_{1}v_{2}\\
+v_{2}^{2}
+\end{array}\right]\end{array}
+\\
+=\left(1+2u_{1}v_{1}+2u_{2}v_{2}+u_{1}^{2}v_{1}^{2}+2u_{1}u_{2}v_{1}v_{2}+u_{2}^{2}v_{2}^{2}\right)-1
+\\
+=\left(1+u_{1}v_{1}+u_{2}v_{2}\right)^{2}-1=\left(1+\mathbf{u}^{T}\mathbf{v}\right)^{2}-1
+\end{equation}<p>In short, the <em>polynomial kernel</em> matrix $\mathbf{H}$ may be built without first constructing the explicit features in Equation (10), and may be simply defined
+entry-wise as</p>
+\begin{equation}
+\mathbf{H}_{ij}=\left(1+\mathbf{x}_{i}^{T}\mathbf{x}_{j}\right)^{2}-1
+\end{equation}<p>Again note that with the polynomial kernel defined above we only require access to the original input data, not the explicit polynomial features themselves.</p>
+<p>Although the kernel construction rule in Equation (12) was derived specifically for $N=2$ and a degree two polynomial, one can show that a polynomial kernel can be defined entry-wise for general $N$ and degree $D$ analogously as</p>
+\begin{equation}
+\mathbf{H}_{ij}=\left(1+\mathbf{x}_{i}^{T}\mathbf{x}_{j}\right)^{D}-1
+\end{equation}
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="Example-2.---The-Fourier-kernel"><span style="color:#a50e3e;">Example 2. </span>  The Fourier kernel<a class="anchor-link" href="#Example-2.---The-Fourier-kernel">&#182;</a></h4>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>The degree $D$ Fourier feature transformation from $N=1$ to $M=2D$ dimensional
+space is given as</p>
+\begin{equation}
+\mathbf{f}_{p}=\left[\begin{array}{ccccc}
+\sqrt{2}\mbox{cos}\left(2\pi x_{p}\right) &amp; \sqrt{2}\mbox{sin}\left(2\pi x_{p}\right) &amp; \cdots &amp; \sqrt{2}\mbox{cos}\left(2D\pi x_{p}\right) &amp; \sqrt{2}\mbox{sin}\left(2D\pi x_{p}\right)\end{array}\right]^{T}
+\end{equation}<p>For a dataset of $P$ points the corresponding $\left(i,j\right)^{th}$
+element of the corresponding kernel matrix $\mathbf{H}$ can be written
+as</p>
+\begin{equation}
+\mathbf{H}_{ij}=\mathbf{f}_{i}^{T}\mathbf{f}_{j}=2 \sum_{m=1}^{D}\mbox{cos}\left(2\pi mx_{i}\right)\mbox{cos}\left(2\pi mx_{j}\right)+\mbox{sin}\left(2\pi mx_{i}\right)\mbox{sin}\left(2\pi mx_{j}\right)
+\end{equation}<p>Using trigonometric identities one can show (see Section \ref{subsec:Fourier-kernel-calculations-scalar})
+that this may equivalently be written as</p>
+\begin{equation}
+\mathbf{H}_{ij}=\frac{\mbox{sin}\left(\left(2D+1\right)\pi\left(x_{i}-x_{j}\right)\right)}{\mbox{sin}\left(\pi\left(x_{i}-x_{j}\right)\right)}-1.
+\end{equation}<p>Note that whenever $x_{i}-x_{j}$ is integer valued the term $\frac{\text{sin}\left(\left(2D+1\right)\pi\left(x_{i}-x_{j}\right)\right)}{\text{sin}\left(\pi\left(x_{i}-x_{j}\right)\right)}$
+is not technically defined. In these case it is simply replaced by
+its associated limit which, regardless of the integer value $x_{i}-x_{j}$,
+is always equal to $2D+1$ meaning that $\mathbf{H}_{ij}=2D$.</p>
+<p>Moreover for general $N$ dimensional input the corresponding kernel
+can be written similarly entry-wise as</p>
+\begin{equation}
+\mathbf{H}_{ij}=\underset{n=1}{\overset{N}{\prod}}\frac{\mbox{sin}\left(\left(2D+1\right)\pi\left(x_{in}-x_{jn}\right)\right)}{\mbox{sin}\left(\pi\left(x_{in}-x_{jn}\right)\right)}-1.
+\end{equation}<p>As with the one dimensional version whenever $x_{in}-x_{jn}$ is integer
+valued the associated term $\frac{\mbox{sin}\left(\left(2D+1\right)\pi\left(x_{in}-x_{jn}\right)\right)}{\mbox{sin}\left(\pi\left(x_{in}-x_{jn}\right)\right)}$
+in the product is replaced by its limit which, regardless of the value
+of $x_{in}-x_{jn}$, is always equal to $2D+1$. See Section \ref{subsec:Fourier-kernel-calculations-vector-input}
+for further details.</p>
+<p>With this formula we may compute the degree $D$ Fourier features
+for arbitrary $N$ dimensional input vectors without calculating the
+enormous number (see footnote \ref{fn:high-dim-fourier-basis}) of
+basis features explicitly.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="Example-3.---Kernel-representation-of-radial-basis-function-(RBF)-features"><span style="color:#a50e3e;">Example 3. </span>  Kernel representation of radial basis function (RBF) features<a class="anchor-link" href="#Example-3.---Kernel-representation-of-radial-basis-function-(RBF)-features">&#182;</a></h4>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Another popular choice of kernel is the\emph{ radial basis function
+}(RBF) kernel which is typically defined explicitly as a kernel matrix
+over the input data as</p>
+\begin{equation}
+\mathbf{H}_{ij}=e^{-\beta\left\Vert \mathbf{x}_{i}-\mathbf{x}_{j}\right\Vert _{2}^{2}}
+\end{equation}<p>Here the kernel parameter $\beta$ is tuned to the data in practice
+via cross-validation.</p>
+<p>While the RBF kernel is typically defined directly as above, it can be traced back to an explicit fixed feature basis as with the polynomial and Fourier kernels i.e., we have that</p>
+\begin{equation}
+\mathbf{H}_{ij}=\mathbf{f}_{i}^{T}\mathbf{f}_{j},
+\end{equation}<p>where $\mathbf{f}_{i}$ is the fixed feature transformation of the input $\mathbf{x}_{i}$ based on a fixed basis. While the length of a feature transformation corresponding to a degree $D$ polynomial/Fourier kernel matrix can be extremely large (as discussed in the introduction to this Section), with the RBF kernel the associated feature transformation is always \emph{infinite }dimensional. For example when $N=1$ the feature vector $\mathbf{f}_{i}$ takes the form $\mathbf{f}_{i}=\left[\begin{array}{cccc}
+f_{1}\left(x_{i}\right) &amp; f_{2}\left(x_{i}\right) &amp; f_{3}\left(x_{i}\right) &amp; \cdots\end{array}\right]^{T}$, where the $m^{th}$ fixed basis feature is defined as</p>
+\begin{equation}
+f_{m}\left(x_{i}\right)=e^{-\beta x_{i}^{2}}\sqrt{\frac{\left(2\beta\right)^{m-1}}{\left(m-1\right)!}}x_{i}^{m-1}\quad\textrm{for all }m\geq1
+\end{equation}<p>When $N&gt;1$ the corresponding feature vector takes on an analogous form (and is also infinite in length), but regardless of the input dimension it would impossible to even construct and store a single $\mathbf{f}_{i}$ let alone such transformations of the entire dataset.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>The polynomial, Fourier, and RBF kernel matrices introduced earlier are all similarity matrices, essentially encoding how close or similar a collection of data points are to one another, with points in proximity to one another receiving a high value and those far apart receiving a low value. In this sense all three kernels discussed here, and hence all three corresponding fixed feature bases, define some kind of similarity between data points xi and xj from different geometric perspectives.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>In Figure \ref{fig:kernels} we compare these three kernels geometrically
+by fixing a point $\mathbf{x}_{p}=\left[\begin{array}{cc}
+0.5 &amp; 0.5\end{array}\right]^{T}$ and plotting $\mathbf{H}\left(\mathbf{x},\mathbf{x}_{p}\right)$
+over the range $\mathbf{x}\in\left[0,1\right]^{2}$, producing a color-coded
+surface showing how each kernel treats points near $\mathbf{x}_{p}$.
+Analyzing this Figure we can judge more generally how the three kernels
+define 'similarity' between points.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<figure>
+  <img src= '../../mlrefined_images/kernel_images/Fig_7_2.png' width="80%"/>
+  <figcaption> 
+      <strong>Figure 2:</strong> 
+      <em> 
+Surfaces generated by polynomial, Fourier, and RBF kernels centered at xp =   0.5 0.5  T with the surfaces color-coded based on their similarity to xp. (left panel) A degree 2 polynomial kernel, (middle panel) degree 3 Fourier kernel, and (right panel) RBF kernel with β = 10. See text for further details.
+      </em>
+  </figcaption>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Firstly, we can see that a polynomial kernel treats data points xi and xj similarly if their inner product is high or, in other words, they highly correlate with each other. Likewise the points are treated as dissimilar when they are orthogonal to one another. On the other hand, the Fourier kernel treats points as similar if they lie close together, but their similarity differs like a “sinc” function as their distance from each other grows. Finally an RBF kernel provides a smooth similarity between points. If they are close to each other in a Euclidean sense they are highly similar; however, once the distance between them passes a certain threshold they are deemed rapidly dissimilar.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Further-kernel-calculations">Further kernel calculations<a class="anchor-link" href="#Further-kernel-calculations">&#182;</a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="Kernelizing-various-cost-functions">Kernelizing various cost functions<a class="anchor-link" href="#Kernelizing-various-cost-functions">&#182;</a></h4>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Here we derive the kernelization of the three core classification models: softmax cost/logistic regression, soft-margin SVMs, and the multiclass softmax classifier. Although we will only describe how to kernelize the $\ell_{2}$ regularizer along with the SVM model, precisely the same argument can be made in combination with either the two or multiclass softmax classifiers. As with the derivation
+for Least Squares regression shown in Section \ref{subsec:Kernelizing-cost-functions}
+here the main tool for kernelizing these models is again the <em>Fundamental Theorem of Linear Algebra</em> described in Section \ref{subsec:The-fundamental-theorem-linear-algebra}.</p>
+<p>Throughout this Section we will suppose that an arbitrary $M$ dimensional fixed feature vector has been taken of the input of $P$ points $\left\{ \left(\mathbf{x}_{p},y_{p}\right)\right\} _{p=1}^{P}$
+giving feature vectors $\mathbf{f}_{p}=\left[\begin{array}{cccc}
+f_{1}\left(\mathbf{x}_{p}\right) &amp; f_{2}\left(\mathbf{x}_{p}\right) &amp; \cdots &amp; f_{M}\left(\mathbf{x}_{p}\right)\end{array}\right]^{T}$ for each $\mathbf{x}_{p}$.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="Example-?.--Kernelizing-two-class-softmax-classification/logistic-regression"><span style="color:#a50e3e;">Example ?. </span> Kernelizing two-class softmax classification/logistic regression<a class="anchor-link" href="#Example-?.--Kernelizing-two-class-softmax-classification/logistic-regression">&#182;</a></h4>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Recall the softmax perceptron cost function using with fixed feature
+mapped input is given as</p>
+\begin{equation}
+g\left(b,\mathbf{w}\right)=\underset{p=1}{\overset{P}{\sum}}\mbox{log}\left(1+e^{-y_{p}\left(b+\mathbf{f}_{p}^{T}\mathbf{w}\right)}\right)
+\end{equation}<p>Using the fundamental theorem of linear algebra for any $\mathbf{w}$
+we can then write $\mathbf{w}=\mathbf{F}\mathbf{z}+\mathbf{r}$ where
+$\mathbf{F}^{T}\mathbf{r}=\mathbf{0}_{P\times1}$. Making this substitution
+into the above and simplifying gives</p>
+\begin{equation}
+g\left(b,\mathbf{z}\right)=\begin{aligned}\underset{p=1}{\overset{P}{\sum}}\mbox{log}\left(1+e^{-y_{p}\left(b+\mathbf{f}_{p}^{T}\mathbf{F}\mathbf{z}\right)}\right)\end{aligned}
+\end{equation}<p>and denoting the kernel matrix $\mathbf{H}=\mathbf{F}^{T}\mathbf{F}$
+(where $\mathbf{h}_{p}=\mathbf{F}^{T}\mathbf{f}_{p}$ is the $p^{th}$
+column of $\mathbf{H}$) we can then write the above in kernelized
+form as</p>
+\begin{equation}
+g\left(b,\mathbf{z}\right)=\begin{aligned}\underset{p=1}{\overset{P}{\sum}}\mbox{log}\left(1+e^{-y_{p}\left(b+\mathbf{h}_{p}^{T}\mathbf{z}\right)}\right)\end{aligned}
+\end{equation}<p>This is the kernelized form of logistic regression shown in Table
+\ref{tab:kernelized-versions}.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="Example-?.--Kernelizing-soft-margin-SVM/regularized-margin-perceptron"><span style="color:#a50e3e;">Example ?. </span> Kernelizing soft-margin SVM/regularized margin-perceptron<a class="anchor-link" href="#Example-?.--Kernelizing-soft-margin-SVM/regularized-margin-perceptron">&#182;</a></h4>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Recall the soft-margin SVM cost/regularized margin-perceptron cost</p>
+\begin{equation}
+g\left(b,\mathbf{w}\right)=\underset{p=1}{\overset{P}{\sum}}\mbox{max}^{2}\left(0,1-y_{p}^{\,}\left(b+\mathbf{f}_{p}^{T}\mathbf{w}\right)\right)+\lambda\left\Vert \mathbf{w}\right\Vert _{2}^{2}
+\end{equation}<p>Applying the fundamental theorem of linear algebra we may then write
+$\mathbf{w}$ as $\mathbf{w}=\mathbf{F}\mathbf{z}+\mathbf{r}$ where
+$\mathbf{F}^{T}\mathbf{r}=\mathbf{0}_{P\times1}$. Substituting this
+into the cost and noting that then $\mathbf{w}^{T}\mathbf{w}=\left(\mathbf{F}\mathbf{z}+\mathbf{r}\right)^{T}\left(\mathbf{F}\mathbf{z}+\mathbf{r}\right)=\mathbf{z}^{T}\mathbf{F}^{T}\mathbf{F}\mathbf{z}+\mathbf{r}^{T}\mathbf{r}=\mathbf{z}^{T}\mathbf{H}\mathbf{z}+\left\Vert \mathbf{r}\right\Vert _{2}^{2}$
+denoting $\mathbf{H}=\mathbf{F}^{T}\mathbf{F}$ as the kernel matrix
+we may rewrite the above equivalently as</p>
+\begin{equation}
+\begin{aligned}g\left(b,\mathbf{z},\mathbf{r}\right)=\underset{p=1}{\overset{P}{\sum}}\mbox{max}^{2}\left(0,1-y_{p}^{\,}\left(b+\mathbf{h}_{p}^{T}\mathbf{z}\right)\right)+\lambda\mathbf{z}^{T}\mathbf{H}\mathbf{z}+\lambda\left\Vert \mathbf{r}\right\Vert _{2}^{2}\end{aligned}
+\end{equation}<p>Notice that since we are aiming to minimize the quantity above over
+$\left(b,\mathbf{z},\mathbf{r}\right)$, and since the only term with
+$\mathbf{r}$ remaining is $\left\Vert \mathbf{r}\right\Vert _{2}^{2}$,
+that the optimal value of $\mathbf{r}$ is zero for otherwise the
+value of the cost function would be larger than necessary. Therefore
+we can ignore $\mathbf{r}$ and write the cost function above in kernelized
+form as</p>
+\begin{equation}
+g\left(b,\mathbf{z}\right)=\underset{p=1}{\overset{P}{\sum}}\mbox{max}^{2}\left(0,1-y_{p}^{\,}\left(b+\mathbf{h}_{p}^{T}\mathbf{z}\right)\right)+\lambda\mathbf{z}^{T}\mathbf{H}\mathbf{z}
+\end{equation}<p>as originally shown in Table \ref{tab:kernelized-versions}.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="Example-?.---Kernelizing-the-multiclass-softmax-loss"><span style="color:#a50e3e;">Example ?. </span>  Kernelizing the multiclass softmax loss<a class="anchor-link" href="#Example-?.---Kernelizing-the-multiclass-softmax-loss">&#182;</a></h4>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Recall that the multiclass softmax cost function is written as</p>
+\begin{equation}
+g\left(b_{1},...,b_{C},\mathbf{w}_{1},...,\mathbf{w}_{C}\right)=\underset{c=1}{\overset{C}{\sum}}\underset{p\in\Omega_{c}}{\sum}\mbox{log}\left(1+\underset{\underset{j\neq c}{j=1}}{\overset{C}{\sum}}e^{\left(b_{j}^{\,}-b_{c}^{\,}\right)+\mathbf{f}_{p}^{T}\left(\mathbf{w}_{j}^{\,}-\mathbf{w}_{c}^{\,}\right)}\right)
+\end{equation}<p>Rewriting each $\mathbf{w}_{j}$ as $\mathbf{w}_{j}=\mathbf{F}\mathbf{z}_{j}+\mathbf{r}_{j}$
+where $\mathbf{F}^{T}\mathbf{r}_{j}=\mathbf{0}_{P\times1}$ for all
+$j$ we can rewrite each $\mathbf{f}_{p}^{T}\left(\mathbf{w}_{j}^{\,}-\mathbf{w}_{c}^{\,}\right)$
+term as $\mathbf{f}_{p}^{T}\left(\mathbf{w}_{j}^{\,}-\mathbf{w}_{c}^{\,}\right)=\mathbf{f}_{p}^{T}\left(\mathbf{F}\left(\mathbf{z}_{j}-\mathbf{z}_{c}\right)+\left(\mathbf{r}_{j}-\mathbf{r}_{c}\right)\right)=\mathbf{f}_{p}^{T}\mathbf{F}\left(\mathbf{z}_{j}-\mathbf{z}_{c}\right)$.
+And denoting $\mathbf{H}=\mathbf{F}^{T}\mathbf{F}$ the kernel matrix
+this we have that $\mathbf{f}_{p}^{T}\left(\mathbf{w}_{j}^{\,}-\mathbf{w}_{c}^{\,}\right)=\mathbf{h}_{p}^{T}\left(\mathbf{z}_{j}-\mathbf{z}_{c}\right)$, and so the cost may be written eqvuivalently (kernelized) as</p>
+\begin{equation}
+g\left(b_{1},...,b_{C},\mathbf{z}_{1},...,\mathbf{z}_{C}\right)=\underset{c=1}{\overset{C}{\sum}}\underset{p\in\Omega_{c}}{\sum}\mbox{log}\left(1+\underset{\underset{j\neq c}{j=1}}{\overset{C}{\sum}}e^{\left(b_{j}^{\,}-b_{c}^{\,}\right)+\mathbf{h}_{p}^{T}\left(\mathbf{z}_{j}-\mathbf{z}_{c}\right)}\right)
+\end{equation}<p>as shown in Table \ref{tab:kernelized-versions}.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="Fourier-kernel-calculations---scalar-input">Fourier kernel calculations - scalar input<a class="anchor-link" href="#Fourier-kernel-calculations---scalar-input">&#182;</a></h4>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>From Example \ref{Fourier-kernel} the $\left(i,j\right)^{th}$ element
+of the kernel matrix $\mathbf{H}$ is given as</p>
+\begin{equation}
+\begin{array}{c}
+\mathbf{H}_{ij}=2\underset{m=1}{\overset{D}{\sum}}\mbox{cos}\left(2\pi mx_{i}\right)\mbox{cos}\left(2\pi mx_{j}\right)+\mbox{sin}\left(2\pi mx_{i}\right)\mbox{sin}\left(2\pi mx_{j}\right)\end{array}
+\end{equation}<p>Writing this using the complex exponential notation (see Exercise
+\ref{exercise-complex-Fourier-representation}) we have equivalently</p>
+\begin{equation}
+\begin{array}{c}
+\mathbf{H}_{ij}=\underset{m=-D}{\overset{D}{\sum}}e^{2\pi im\left(x_{i}-x_{j}\right)}-1\end{array}
+\end{equation}<p>If $x_{i}-x_{j}$ is an integer then $e^{2\pi im\left(x_{i}-x_{j}\right)}=1$
+and so clearly the above sums to $2D$. Supposing this is not the
+case, examining the summation alone we may write</p>
+\begin{equation}
+\underset{m=-D}{\overset{D}{\sum}}e^{2\pi im\left(x_{i}-x_{j}\right)}=e^{-2\pi iD\left(x_{i}-x_{j}\right)}\underset{m=0}{\overset{2D}{\sum}}e^{2\pi im\left(x_{i}-x_{j}\right)}
+\end{equation}<p>Now, the sum on the right hand side above is a geometric series, thus
+we have the above is equal to</p>
+\begin{equation}
+e^{-2\pi iD\left(x_{i}-x_{j}\right)}\frac{1-e^{2\pi i\left(x_{i}-x_{j}\right)\left(2D+1\right)}}{1-e^{2\pi i\left(x_{i}-x_{j}\right)}}=\frac{\mbox{sin}\left(\left(2D+1\right)\pi\left(x_{i}-x_{j}\right)\right)}{\mbox{sin}\left(\pi\left(x_{i}-x_{j}\right)\right)}
+\end{equation}<p>where final equality follows from the definition of the complex exponential.
+Because in the limit as $t$ approaches any integer value $\frac{\mbox{sin}\left(\left(2D+1\right)\pi t\right)}{\mbox{sin}\left(\pi t\right)}=2D+1$,
+which one can show using L'Hospital's rule from basic calculus, we
+may therefore generally write in conclusion that</p>
+\begin{equation}
+\mathbf{H}_{ij}=\frac{\mbox{sin}\left(\left(2D+1\right)\pi\left(x_{i}-x_{j}\right)\right)}{\mbox{sin}\left(\pi\left(x_{i}-x_{j}\right)\right)}-1
+\end{equation}<p>where at integer values of the input it is defined by the associated limit.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="Fourier-kernel-calculations---vector-input">Fourier kernel calculations - vector input<a class="anchor-link" href="#Fourier-kernel-calculations---vector-input">&#182;</a></h4>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Like the multidimensional polynomial basis element (see Footnote \ref{fn:N-dim-input-poly/fourier})
+with the complex exponential notation for a general $N$ dimensional
+input each Fourier basis element takes the form $f_{\mathbf{m}}\left(\mathbf{x}\right)=e^{2\pi im_{1}x_{1}}e^{2\pi im_{2}x_{2}}\cdots e^{2\pi im_{N}x_{N}}=e^{2\pi i\mathbf{m}^{T}\mathbf{x}}$
+where $\mathbf{m}=\left[\begin{array}{cccc}
+m_{1} &amp; m_{2} &amp; \cdots &amp; m_{N}\end{array}\right]^{T}$, a product of one dimensional basis elements. Further a 'degree $D$'
+sum contains all such basis elements where $-D\leq m_{1},\,m_{2},\,\cdots,\,m_{N}\leq D$,
+and one may deduce that there are $M=\left(2D+1\right)^{N}-1$ non
+constant basis elements in this sum.</p>
+<p>The the corresponding $\left(i,j\right)$th entry of the kernel matrix
+in this instance takes the form</p>
+\begin{equation}
+\mathbf{H}_{ij}=\mathbf{f}{}_{i}^{T}\overline{\mathbf{f}_{j}}=\left(\underset{-D\leq m_{1},\,m_{2},\,\cdots,\,m_{N}\leq D}{\sum}e^{2\pi i\mathbf{m}^{T}\left(\mathbf{x}_{i}-\mathbf{x}_{j}\right)}\right)-1
+\end{equation}<p>Since $e^{a+b}=e^{a}e^{b}$ we may write each summand above as $e^{2\pi i\mathbf{m}^{T}\left(\mathbf{x}_{i}-\mathbf{x}_{j}\right)}=\underset{n=1}{\overset{N}{\prod}}e^{2\pi im_{n}\left(x_{in}-x_{jn}\right)}$,
+and the entire summation as</p>
+\begin{equation}
+\underset{-D\leq m_{1},\,m_{2},\,\cdots,\,m_{N}\leq D}{\sum}\,\,\,\underset{n=1}{\overset{N}{\prod}}e^{2\pi im_{n}\left(x_{in}-x_{jn}\right)}
+\end{equation}<p>Finally one can show that the above can be written simply as</p>
+\begin{equation}
+\underset{-D\leq m_{1},\,m_{2},\,\cdots,\,m_{N}\leq D}{\sum}\,\,\,\underset{n=1}{\overset{N}{\prod}}e^{2\pi im_{n}\left(x_{in}-x_{jn}\right)}=\underset{n=1}{\overset{N}{\prod}}\left(\underset{m=-D}{\overset{D}{\sum}}e^{2\pi im\left(x_{in}-x_{jn}\right)}\right)
+\end{equation}<p>Since we already have that $\underset{m=-D}{\overset{D}{\sum}}e^{2\pi im\left(x_{in}-x_{jn}\right)}=\frac{\sin\left(\left(2D+1\right)\pi\left(x_{in}-x_{jn}\right)\right)}{\sin\left(\pi\left(x_{in}-x_{jn}\right)\right)}$,
+the $\left(i,j\right)$th entry of the kernel matrix can easily be
+calculated as</p>
+\begin{equation}
+\mathbf{H}_{ij}=\underset{n=1}{\overset{N}{\prod}}\frac{\mbox{sin}\left(\left(2D+1\right)\pi\left(x_{in}-x_{jn}\right)\right)}{\mbox{sin}\left(\pi\left(x_{in}-x_{jn}\right)\right)}-1
+\end{equation}
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[6]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">kernel_visualizer</span><span class="p">():</span>
+
+    <span class="n">beta</span> <span class="o">=</span> <span class="mi">10</span>
+    <span class="n">poly_deg</span> <span class="o">=</span> <span class="mi">2</span>
+    <span class="n">fourier_deg</span> <span class="o">=</span> <span class="mi">3</span>
+    <span class="n">o</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">])</span>
+    
+    <span class="n">types</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;poly&#39;</span><span class="p">,</span> <span class="s1">&#39;Fourier&#39;</span><span class="p">,</span> <span class="s1">&#39;Gauss&#39;</span><span class="p">]</span>
+    
+    <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">types</span><span class="p">:</span>
+        <span class="c1"># plot determined surface in 3d space</span>
+        <span class="n">s</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">50</span><span class="p">)</span>
+        <span class="n">s1</span><span class="p">,</span> <span class="n">s2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">meshgrid</span><span class="p">(</span><span class="n">s</span><span class="p">,</span><span class="n">s</span><span class="p">)</span>
+        <span class="n">s1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">s1</span><span class="p">,</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">s1</span><span class="p">),</span><span class="mi">1</span><span class="p">))</span>
+        <span class="n">s2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">s2</span><span class="p">,</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">s2</span><span class="p">),</span><span class="mi">1</span><span class="p">))</span>
+        <span class="n">f</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="nb">len</span><span class="p">(</span><span class="n">s1</span><span class="p">),</span><span class="mi">1</span><span class="p">))</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">s1</span><span class="p">)):</span>
+            <span class="n">p</span> <span class="o">=</span> <span class="p">[</span><span class="n">s1</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">s2</span><span class="p">[</span><span class="n">i</span><span class="p">]]</span>
+            <span class="k">if</span> <span class="n">t</span><span class="o">==</span><span class="s1">&#39;poly&#39;</span><span class="p">:</span>
+                <span class="n">d</span> <span class="o">=</span> <span class="p">(</span><span class="n">p</span><span class="s1">&#39;*o + 1).^poly_deg</span>
+                <span class="n">f</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="o">=</span> <span class="n">d</span>                
+                <span class="n">case</span> <span class="mi">2</span><span class="p">;</span> <span class="o">%</span> <span class="n">Fourier</span>
+                    <span class="n">dist</span> <span class="o">=</span> <span class="n">p</span> <span class="o">-</span> <span class="n">o</span><span class="p">;</span>
+                    <span class="n">ind</span> <span class="o">=</span> <span class="n">find</span><span class="p">(</span><span class="n">dist</span> <span class="o">==</span> <span class="mi">0</span><span class="p">);</span>
+                    <span class="n">dist1</span> <span class="o">=</span> <span class="n">sin</span><span class="p">((</span><span class="mi">2</span><span class="o">*</span><span class="n">fourier_deg</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="n">pi</span><span class="o">*</span><span class="n">dist</span><span class="p">);</span>
+                    <span class="n">dist2</span> <span class="o">=</span> <span class="n">sin</span><span class="p">(</span><span class="n">pi</span><span class="o">*</span><span class="n">dist</span><span class="p">);</span>
+                    <span class="n">dist</span> <span class="o">=</span> <span class="n">dist1</span><span class="o">./</span><span class="n">dist2</span><span class="p">;</span>
+                    <span class="n">dist</span><span class="p">(</span><span class="n">ind</span><span class="p">)</span> <span class="o">=</span> <span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">fourier_deg</span> <span class="o">+</span> <span class="mi">1</span><span class="p">);</span>
+                    <span class="n">d</span> <span class="o">=</span> <span class="n">prod</span><span class="p">(</span><span class="n">dist</span><span class="p">,</span><span class="mi">1</span><span class="p">);</span>
+                    <span class="n">f</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="o">=</span> <span class="n">d</span><span class="p">;</span>                
+                <span class="n">case</span> <span class="mi">3</span><span class="p">;</span> <span class="o">%</span> <span class="n">Gauss</span>
+                    <span class="n">d</span> <span class="o">=</span> <span class="n">p</span> <span class="o">-</span> <span class="n">o</span><span class="p">;</span>
+                    <span class="n">d</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">d</span><span class="o">.*</span><span class="n">d</span><span class="p">,</span><span class="mi">1</span><span class="p">);</span>
+                    <span class="n">d</span> <span class="o">=</span> <span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">beta</span><span class="o">*</span><span class="n">d</span><span class="p">)</span><span class="s1">&#39;;</span>
+                    <span class="n">f</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="o">=</span> <span class="n">d</span><span class="p">;</span>
+            <span class="n">end</span>
+        <span class="n">end</span>
+        <span class="n">s1</span> <span class="o">=</span> <span class="n">reshape</span><span class="p">(</span><span class="n">s1</span><span class="p">,[</span><span class="n">length</span><span class="p">(</span><span class="n">s</span><span class="p">),</span><span class="n">length</span><span class="p">(</span><span class="n">s</span><span class="p">)]);</span>
+        <span class="n">s2</span> <span class="o">=</span> <span class="n">reshape</span><span class="p">(</span><span class="n">s2</span><span class="p">,[</span><span class="n">length</span><span class="p">(</span><span class="n">s</span><span class="p">),</span><span class="n">length</span><span class="p">(</span><span class="n">s</span><span class="p">)]);</span>
+        <span class="n">f</span> <span class="o">=</span> <span class="n">reshape</span><span class="p">(</span><span class="n">f</span><span class="p">,[</span><span class="n">length</span><span class="p">(</span><span class="n">s</span><span class="p">),</span><span class="n">length</span><span class="p">(</span><span class="n">s</span><span class="p">)]);</span>  
+        <span class="n">subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="nb">type</span><span class="p">)</span>
+        <span class="n">mesh</span><span class="p">(</span><span class="n">s1</span><span class="p">,</span> <span class="n">s2</span><span class="p">,</span> <span class="n">f</span><span class="p">);</span>
+        <span class="n">colormap</span> <span class="n">winter</span>
+
+        <span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;x_1&#39;</span><span class="p">,</span><span class="s1">&#39;Fontsize&#39;</span><span class="p">,</span><span class="mi">18</span><span class="p">,</span><span class="s1">&#39;FontName&#39;</span><span class="p">,</span><span class="s1">&#39;cmmi9&#39;</span><span class="p">)</span>
+        <span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;x_2&#39;</span><span class="p">,</span><span class="s1">&#39;Fontsize&#39;</span><span class="p">,</span><span class="mi">18</span><span class="p">,</span><span class="s1">&#39;FontName&#39;</span><span class="p">,</span><span class="s1">&#39;cmmi9&#39;</span><span class="p">)</span>
+        <span class="nb">set</span><span class="p">(</span><span class="n">get</span><span class="p">(</span><span class="n">gca</span><span class="p">,</span><span class="s1">&#39;YLabel&#39;</span><span class="p">),</span><span class="s1">&#39;Rotation&#39;</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span>
+        <span class="nb">set</span><span class="p">(</span><span class="n">gcf</span><span class="p">,</span><span class="s1">&#39;color&#39;</span><span class="p">,</span><span class="s1">&#39;w&#39;</span><span class="p">);</span>
+        <span class="n">axis</span> <span class="n">square</span>
+
+    <span class="n">end</span>
+    <span class="n">end</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+<div class="prompt"></div>
+
+
+<div class="output_subarea output_text output_error">
+<pre>
+<span class="ansi-cyan-fg">  File </span><span class="ansi-green-fg">&#34;&lt;ipython-input-6-5b4c1f0f50e9&gt;&#34;</span><span class="ansi-cyan-fg">, line </span><span class="ansi-green-fg">17</span>
+<span class="ansi-red-fg">    for i = 1:length(s1)</span>
+          ^
+<span class="ansi-red-fg">SyntaxError</span><span class="ansi-red-fg">:</span> invalid syntax
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><a id='bib_cell'></a></p>
+<h2 id="References">References<a class="anchor-link" href="#References">&#182;</a></h2><p>[1] Léon Bottou and Chih-Jen Lin. Support vector machine solvers. Large Scale Kernel Machines, pp. 301–320, MIT Press, 2007.</p>
+<p>[2] Zhiyun Lu, Avner May, Kuan Liu, et al. How to scale up kernel methods to be as good as
+deep neural nets. arXiv preprint arXiv:1411.4000, 2014.</p>
+<p>[3] Jeffrey Pennington, Felix Yu, and Sanjiv Kumar. Spherical random features for polynomial kernels. In Advances in Neural Information Processing Systems, pages 1837–1845, NIPS, 2015.</p>
+<p>[4] Ali Rahimi and Benjamin Recht. Random features for large-scale kernel machines. In Advances in Neural Information Processing Systems, pp. 1177–1184, NIPS, 2007.</p>
+<p>[5] Ali Rahimi and Benjamin Recht. Uniform approximation of functions with random bases. In Communication, Control, and Computing, 2008 46th Annual Allerton Conference on, pp. 555–561. IEEE, 2008.</p>
+<p>[6] Christopher M Bishop et al. Pattern Recognition and Machine Learning, volume 4. Springer, 2006.</p>
+<p>[7] David J C MacKay. Introduction to gaussian processes. NATO ASI Series F Computer and
+Systems Sciences, 168 133–166, 1998.</p>
+
+</div>
+</div>
+</div>
+    </div>
+  </div>
 </body>
-<script type="application/vnd.jupyter.widget-state+json">
-{"state": {}, "version_minor": 0, "version_major": 1}
-</script>
+
+ 
+
+
 </html>
