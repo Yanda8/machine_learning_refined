@@ -44,14 +44,15 @@ class Visualizer:
         valid_errors = [valid_errors[v] for v in inds]
        
         # construct figure
-        fig = plt.figure(figsize = (9,3))
+        fig = plt.figure(figsize = (6,6))
         artist = fig
 
-        # create subplot with 3 panels, plot input function in center plot
-        gs = gridspec.GridSpec(1, 3)
-        ax1 = plt.subplot(gs[0]); 
-        ax2 = plt.subplot(gs[1]); 
-        ax3 = plt.subplot(gs[2]); 
+        # create subplot with 4 panels, plot input function in center plot
+        gs = gridspec.GridSpec(2, 2)
+        ax = plt.subplot(gs[0]); 
+        ax1 = plt.subplot(gs[2]); 
+        ax2 = plt.subplot(gs[3]); 
+        ax3 = plt.subplot(gs[1]); 
         
         # start animation
         num_frames = len(inds)        
@@ -59,6 +60,7 @@ class Visualizer:
         def animate(k):
             print (k)
             # clear panels
+            ax.cla()
             ax1.cla()
             ax2.cla()
             ax3.cla()
@@ -76,6 +78,9 @@ class Visualizer:
             w_best = weight_history[k]
             
             # produce static img
+            self.static_N2_simple(ax,w_best,run,train_valid = 'original')
+            self.draw_boundary(ax,run,w_best,train_valid = 'train')
+            
             self.static_N2_simple(ax1,w_best,run,train_valid = 'train')
             self.draw_boundary(ax1,run,w_best,train_valid = 'train')
             self.static_N2_simple(ax2,w_best,run,train_valid = 'validate')
@@ -219,7 +224,7 @@ class Visualizer:
         ax.set_title('misclassifications',fontsize = 15)
 
         # cleanup
-        ax.set_xlabel('epoch',fontsize = 12)
+        ax.set_xlabel('step',fontsize = 12)
 
         # cleanp panel                
         num_iterations = len(train_errors)

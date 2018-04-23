@@ -292,6 +292,76 @@ class animator():
         )
 
     # best action map
+    def draw_DP_arrow_map(self,world,Q,**kwargs):  
+        ### ready state and optimal action lists ###
+        # process states for scatter plotting
+        states = world.states 
+
+        # process states for scatter plotting
+        plot_ready_states = np.zeros((len(states),2))
+        for i in range(len(states)):
+            a = states[i]
+            b = a.split(',')
+            state = [int(b[0])]
+            state.append(int(b[1]))
+            plot_ready_states[i,0] = state[0]
+            plot_ready_states[i,1] = state[1]
+
+        ### compute optimal directions ###
+        q_max = np.zeros((len(Q[:,0]),1))
+        q_dir = np.zeros((len(Q[:,0]),1))
+        for i in range(len(Q[:,0])):
+            max_ind = np.argmin(Q[i,:])
+            q_dir[i] = max_ind
+            max_val = Q[i,max_ind]
+            q_max[i] = max_val
+        q_dir = q_dir.tolist()
+        q_dir = [int(s[0]) for s in q_dir]
+
+        ### plot arrow map ###
+        colors = [(0.9,0.9,0.9),(255/float(255), 119/float(255), 119/float(255)), (66/float(255),244/float(255),131/float(255)), (1/float(255),100/float(255),200/float(255)),(0,0,0)]  
+        my_cmap = LinearSegmentedColormap.from_list('colormapX', colors, N=100)
+
+        ### setup grid
+        p_grid = world.grid
+        p_grid[world.goal[0]][world.goal[1]] = 2   
+        
+        ### setup variables for figure and arrow sizes ###
+        figsize1 = 6
+        scale = 30                    # 30 for small map, 20 for large
+        arrow_length = 2              # 2 for small map, 1.5 for large
+        if np.shape(p_grid)[0] > 14 or np.shape(p_grid)[1] > 14:
+            figsize1 = 16
+            scale = 20
+            arrow_length = 1.5
+            
+        ax = 0
+        if 'ax' in kwargs:
+            ax = kwargs['ax']
+        else:
+            # setup figure if not provided
+            fig = plt.figure(num=None, figsize = (figsize1,6), dpi=80, facecolor='w', edgecolor='k')
+            ax = plt.subplot(111)
+            
+        # plot regression surface 
+        ax.pcolormesh(p_grid,edgecolors = 'k',linewidth = 0.01,vmin=0,vmax=4,cmap = my_cmap)
+
+        # clean up plot
+        ax.axis('off')
+        ax.set_xlim(-0.1,world.width);
+        ax.set_ylim(-0.1,world.height); 
+
+        ### go over states and draw arrows indicating best action
+        # switch size of arros based on size of gridworld (for visualization purposes)
+        for i in range(len(q_dir)):
+            state = plot_ready_states[i]
+            if state[0] != world.goal[0] or state[1] != world.goal[1]:  
+                action = q_dir[i]
+                self.add_arrows(ax,state,action,scale,arrow_length)
+                
+                
+                
+    # best action map
     def draw_arrow_map(self,world,Q,**kwargs):  
         ### ready state and optimal action lists ###
         # process states for scatter plotting
