@@ -69,7 +69,7 @@ def gradient_descent(g,w,x_train,y_train,x_val,y_val,alpha,max_its,batch_size,ve
 
 
 # newtons method function - inputs: g (input function), max_its (maximum number of iterations), w (initialization)
-def newtons_method(g,w,x_train,y_train,x_val,y_val,alpha,max_its,batch_size,verbose,lam,epsilon):     
+def newtons_method(g,w,x_train,y_train,x_val,y_val,alpha,max_its,batch_size,verbose,lam):     
     # flatten input funciton, in case it takes in matrices of weights
     g_flat, unflatten, w = flatten_func(g, w)
     
@@ -113,11 +113,11 @@ def newtons_method(g,w,x_train,y_train,x_val,y_val,alpha,max_its,batch_size,verb
             hess_eval.shape = (int((np.size(hess_eval))**(0.5)),int((np.size(hess_eval))**(0.5)))
 
             # solve second order system system for weight update
-            A = hess_eval + epsilon*np.eye(np.size(w))
+            A = hess_eval 
             b = grad_eval
             w = np.linalg.lstsq(A,np.dot(A,w) - b)[0]
-
-            #w = w - np.dot(np.linalg.pinv(hess_eval + epsilon*np.eye(np.size(w))),grad_eval)
+            
+            #w = w - np.dot(np.linalg.pinv(A),b)
             
         end = timer()
         
@@ -131,6 +131,9 @@ def newtons_method(g,w,x_train,y_train,x_val,y_val,alpha,max_its,batch_size,verb
         # record weight update, train and val costs
         w_hist.append(unflatten(w))
         train_hist.append(train_cost)
+        
+        if np.linalg.norm(w) > 100:
+            return w_hist,train_hist,val_hist
 
         if verbose == True:
             print ('step ' + str(k+1) + ' done in ' + str(np.round(end - start,1)) + ' secs, train cost = ' + str(np.round(train_hist[-1][0],4)) + ', val cost = ' + str(np.round(val_hist[-1][0],4)))

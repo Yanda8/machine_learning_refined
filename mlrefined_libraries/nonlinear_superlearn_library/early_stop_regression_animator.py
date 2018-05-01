@@ -184,7 +184,7 @@ class Visualizer:
 
         ax.plot([v+1  for v in num_elements[:k+1]] ,valid_errors[:k+1],color = [1,0.8,0.5],linewidth = 1.5,zorder = 1,label = 'validation')
         ax.scatter([v+1  for v in num_elements[:k+1]] ,valid_errors[:k+1],color= [1,0.8,0.5],s = 70,edgecolor = 'w',linewidth = 1.5,zorder = 3)
-        ax.set_title('misclassifications',fontsize = 15)
+        ax.set_title('errors',fontsize = 15)
 
         # cleanup
         ax.set_xlabel('step',fontsize = 12)

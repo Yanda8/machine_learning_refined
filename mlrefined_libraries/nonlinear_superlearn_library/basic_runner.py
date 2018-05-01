@@ -101,18 +101,14 @@ class Setup:
         else: 
             f = self.feature_transforms(x)    
 
-        # tack a 1 onto the top of each input point all at once
-        o = np.ones((1,np.shape(f)[1]))
-        f = np.vstack((o,f))
-
         # compute linear combination and return
         # switch for dealing with feature transforms that either 
         # do or do not have internal parameters
         a = 0
         if len(self.sig.parameters) == 2:
-            a = np.dot(f.T,w[1])
+            a = w[1][0] + np.dot(f.T,w[1][1:])
         else:
-            a = np.dot(f.T,w)
+            a = w[0] + np.dot(f.T,w[1:])
         return a.T
     
     ###### regression costs #######

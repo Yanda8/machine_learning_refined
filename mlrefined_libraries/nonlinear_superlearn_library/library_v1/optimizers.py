@@ -12,7 +12,7 @@ def gradient_descent(g, alpha, max_its, w, num_pts, batch_size,**kwargs):
     # record history
     w_hist = []
     w_hist.append(unflatten(w))
-    cost_hist = [g_flat(w)]
+    cost_hist = [g_flat(w,np.arange(num_pts))]
    
     # how many mini-batches equal the entire dataset?
     num_batches = int(np.ceil(np.divide(num_pts, batch_size)))
@@ -32,7 +32,7 @@ def gradient_descent(g, alpha, max_its, w, num_pts, batch_size,**kwargs):
 
         # record weight update
         w_hist.append(unflatten(w))
-        cost_hist.append(g_flat(w))
+        cost_hist.append(g_flat(w,np.arange(num_pts)))
     return w_hist,cost_hist
 
 

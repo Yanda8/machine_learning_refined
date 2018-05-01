@@ -31,5 +31,5 @@ class Setup:
     
     # compute transformation on entire set of inputs
     def feature_transforms(self,x): 
-        x_transformed = np.array([np.prod(x**v[:,np.newaxis],axis = 0)[:,np.newaxis] for v in self.degs])[:,:,0]         
+        x_transformed = np.array([np.prod(x**v[:,np.newaxis],axis = 0)[:,np.newaxis] for v in self.degs])[:,:,0]  
         return x_transformed
