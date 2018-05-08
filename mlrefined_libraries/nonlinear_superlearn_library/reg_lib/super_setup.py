@@ -5,6 +5,7 @@ from . import normalizers
 from . import multilayer_perceptron
 from . import multilayer_perceptron_batch_normalized
 from . import polys
+from . import fourier
 
 from . import history_plotters
 
@@ -99,19 +100,34 @@ class Setup:
            
         if feature_name == 'multilayer_perceptron':
             transformer = multilayer_perceptron.Setup(**kwargs)
-            self.feature_transforms = transformer.feature_transforms
-            self.initializer = transformer.initializer
+            self.feature_transforms = transformer.standard_feature_transforms
+            self.initializer = transformer.standard_initializer
+            if 'activation' in kwargs:
+                if kwargs['activation'] == 'maxout':
+                    self.feature_transforms = transformer.maxout_feature_transforms
+                    self.initializer = transformer.maxout_initializer                   
             self.layer_sizes = transformer.layer_sizes
             
         if feature_name == 'multilayer_perceptron_batch_normalized':
             transformer = multilayer_perceptron_batch_normalized.Setup(**kwargs)
             self.feature_transforms = transformer.feature_transforms
             self.initializer = transformer.initializer
+            if 'activation' in kwargs:
+                if kwargs['activation'] == 'maxout':
+                    self.feature_transforms = transformer.maxout_feature_transforms
+                    self.initializer = transformer.maxout_initializer    
             self.layer_sizes = transformer.layer_sizes
             
         # polynomials #
         if feature_name == 'polys':
             self.transformer = polys.Setup(self.x,self.y,**kwargs)
+            self.feature_transforms = self.transformer.feature_transforms
+            self.initializer = self.transformer.initializer
+            self.degs = self.transformer.D
+            
+        # cos
+        if feature_name == 'fourier':
+            self.transformer = fourier.Setup(self.x,self.y,**kwargs)
             self.feature_transforms = self.transformer.feature_transforms
             self.initializer = self.transformer.initializer
             self.degs = self.transformer.D

@@ -20,6 +20,8 @@ class Setup:
             self.activation = lambda data: np.sinc(data)
         elif activation == 'sin':
             self.activation = lambda data: np.sin(data)
+        elif activation == 'cos':
+            self.activation = lambda data: np.cos(data)
         elif activation == 'maxout':
             self.activation = lambda data1,data2: np.maximum(data1,data2)
                         
