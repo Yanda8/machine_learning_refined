@@ -133,6 +133,7 @@ class Visualizer:
         while m < 5:
             # create instance of neural net basis element
             params = self.make_1d_net(num_layers)
+            params_extra_maxout = self.make_1d_net(num_layers)
 
             # create input
             x = np.linspace(-5,5,1000)
@@ -147,19 +148,37 @@ class Visualizer:
                     # grab parameters        
                     c = params[n][u][0]
                     v = params[n][u][1]
+                    
+                    c_extra = params_extra_maxout[n][u][0]
+                    v_extra = params_extra_maxout[n][u][1]
 
                     # loop over dimension of v, sum up components
                     f = 0
+                    f_extra = 0 
                     for i in range(0,len(v)):
                         f += f_prev[i,:]*v[i]
+                        f_extra += f_prev[i,:]*v_extra[i]
 
                     # evaluate through activation
                     temp = c + f
+                    temp_extra = c_extra + f_extra
+                    
+                    
                     f_temp = 0
                     if activation == 'relu':
-                        f_temp = a = np.maximum(np.zeros((np.shape(temp))),temp)
+                        f_temp = a = np.maximum(np.zeros((np.shape(temp))),temp)    
                     if activation == 'tanh':
                         f_temp = a = np.tanh(temp)
+                    if activation == 'sin':
+                        f_temp = a = np.sin(temp)    
+                    if activation == 'cos':
+                        f_temp = a = np.cos(temp)
+                    if activation == 'sinc':
+                        f_temp = a = np.sinc(temp)    
+                    if activation == 'exp':
+                        f_temp = a = np.exp(temp)
+                    if activation == 'maxout':
+                        f_temp = a = np.maximum(temp_extra,temp)   
                     if type(f_new) == int:
                         f_new = f_temp
                     else:
