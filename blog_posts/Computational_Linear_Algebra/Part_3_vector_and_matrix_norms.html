@@ -1,8 +1,9 @@
 <!DOCTYPE html>
 <html>
-<head><meta charset="utf-8"/>
-<title>Part 3: Vector and matrix norms</title><script src="https://unpkg.com/jupyter-js-widgets@2.0.*/dist/embed.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
+<head><meta charset="utf-8" />
+<title>Part_3_vector_and_matrix_norms</title><script src="https://unpkg.com/jupyter-js-widgets@2.0.*/dist/embed.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
 <style type="text/css">
     /*!
 *
@@ -10,8 +11,8 @@
 *
 */
 /*!
- * Bootstrap v3.3.7 (http://getbootstrap.com)
- * Copyright 2011-2016 Twitter, Inc.
+ * Bootstrap v3.3.6 (http://getbootstrap.com)
+ * Copyright 2011-2015 Twitter, Inc.
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
  */
 /*! normalize.css v3.0.3 | MIT License | github.com/necolas/normalize.css */
@@ -1106,6 +1107,7 @@ a:focus {
   text-decoration: underline;
 }
 a:focus {
+  outline: thin dotted;
   outline: 5px auto -webkit-focus-ring-color;
   outline-offset: -2px;
 }
@@ -2534,6 +2536,7 @@ select[size] {
 input[type="file"]:focus,
 input[type="radio"]:focus,
 input[type="checkbox"]:focus {
+  outline: thin dotted;
   outline: 5px auto -webkit-focus-ring-color;
   outline-offset: -2px;
 }
@@ -3024,6 +3027,7 @@ select[multiple].input-lg {
 .btn.focus,
 .btn:active.focus,
 .btn.active.focus {
+  outline: thin dotted;
   outline: 5px auto -webkit-focus-ring-color;
   outline-offset: -2px;
 }
@@ -8754,9 +8758,6 @@ body > #header .header-bar {
     margin-left: 10px;
   }
 }
-[dir="rtl"] #ipython_notebook {
-  float: right !important;
-}
 #noscript {
   width: auto;
   padding-top: 16px;
@@ -8959,14 +8960,8 @@ span#login_widget > .button .badge,
  *
  * Author: Jupyter Development Team
  */
-[dir="rtl"] #tabs li {
-  float: right;
-}
 ul#tabs {
   margin-bottom: 4px;
-}
-[dir="rtl"] ul#tabs {
-  margin-right: 0px;
 }
 ul#tabs a {
   padding-top: 6px;
@@ -8989,16 +8984,6 @@ ul.breadcrumb span {
 }
 .list_toolbar .tree-buttons {
   padding-top: 1px;
-}
-[dir="rtl"] .list_toolbar .tree-buttons {
-  float: left !important;
-}
-[dir="rtl"] .list_toolbar .pull-right {
-  padding-top: 1px;
-  float: left !important;
-}
-[dir="rtl"] .list_toolbar .pull-left {
-  float: right !important;
 }
 .dynamic-buttons {
   padding-top: 3px;
@@ -9135,9 +9120,6 @@ ul.breadcrumb span {
 #tree-selector {
   padding-right: 0px;
 }
-[dir="rtl"] #tree-selector a {
-  float: right;
-}
 #button-select-all {
   min-width: 50px;
 }
@@ -9227,9 +9209,6 @@ ul#new-menu {
   left: auto;
   right: 0;
 }
-[dir="rtl"] #new-menu {
-  text-align: right;
-}
 .kernel-menu-icon {
   padding-right: 12px;
   width: 24px;
@@ -9274,9 +9253,6 @@ ul#new-menu {
 }
 #running .panel-group .panel .panel-body .list_container .list_item:last-child {
   border-bottom: 0px;
-}
-[dir="rtl"] #running .col-sm-8 {
-  float: right !important;
 }
 .delete-button {
   display: none;
@@ -9573,7 +9549,6 @@ div.cell.selected.jupyter-soft-selected {
   }
 }
 div.inner_cell {
-  min-width: 0;
   /* Old browsers */
   display: -webkit-box;
   -webkit-box-orient: vertical;
@@ -9594,6 +9569,11 @@ div.inner_cell {
   box-flex: 1;
   /* Modern browsers */
   flex: 1;
+}
+@-moz-document url-prefix() {
+  div.inner_cell {
+    overflow-x: hidden;
+  }
 }
 /* input_area and input_prompt must match in top border and margin for alignment */
 div.input_area {
@@ -11264,7 +11244,7 @@ div#pager .ui-resizable-handle::after {
 }
 .shortcut_key {
   display: inline-block;
-  width: 21ex;
+  width: 20ex;
   text-align: right;
   font-family: monospace;
 }
@@ -11576,7 +11556,6 @@ ul.typeahead-list > li > a {
   box-shadow: 0px 0px 12px 1px rgba(87, 87, 87, 0.2);
 }
 .terminal-app .terminal {
-  width: 100%;
   float: left;
   font-family: monospace;
   color: white;
@@ -11590,9 +11569,6 @@ ul.typeahead-list > li > a {
 .terminal-app .terminal dummy-screen {
   line-height: 1em;
   font-size: 14px;
-}
-.terminal-app .terminal .xterm-rows {
-  padding: 10px;
 }
 .terminal-app .terminal-cursor {
   color: black;
@@ -11713,6 +11689,8 @@ ul.typeahead-list > li > a {
 .ansi-bold { font-weight: bold; }
 
     </style>
+
+
 <style type="text/css">
 /* Overrides of notebook CSS for static HTML export */
 body {
@@ -11723,7 +11701,9 @@ body {
 div#notebook {
   overflow: visible;
   border-top: none;
-}@media print {
+}
+
+@media print {
   div.cell {
     display: block;
     page-break-inside: avoid;
@@ -11738,15 +11718,16 @@ div#notebook {
   }
 }
 </style>
+
 <!-- Custom stylesheet, it must be in the same directory as the html file -->
-<link href="custom.css" rel="stylesheet"/>
+<link rel="stylesheet" href="custom.css">
+
 <!-- Loading mathjax macro -->
 <!-- Load mathjax -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS_HTML"></script>
-<!-- MathJax configuration -->
-<script type="text/x-mathjax-config">
+    <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML"></script>
+    <!-- MathJax configuration -->
+    <script type="text/x-mathjax-config">
     MathJax.Hub.Config({
-    	TeX: { equationNumbers: { autoNumber: "AMS" } },
         tex2jax: {
             inlineMath: [ ['$','$'], ["\\(","\\)"] ],
             displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
@@ -11757,121 +11738,59 @@ div#notebook {
         // we use CSS to left justify single line equations in code cells.
         displayAlign: 'center',
         "HTML-CSS": {
-            availableFonts: ["TeX"],
-            preferredFont: "TeX",
             styles: {'.MathJax_Display': {"margin": 0}},
             linebreaks: { automatic: true }
         }
     });
     </script>
-<link href="../../html/CSS/custom.css" rel="stylesheet"/>
-<style>
-        p {
-            text-align: justify !important;
-            text-justify: inter-word !important;
-        }
-    </style>
-<!-- End of mathjax configuration --></head>
+    <!-- End of mathjax configuration --></head>
 <body>
-<!-- uncomment to add back menu
-<div style="text-align:center !important; padding-top:58px;">
+  <div tabindex="-1" id="notebook" class="border-box-sizing">
+    <div class="container" id="notebook-container">
 
-				<a href="../../../index.html" style="font-family: inherit; font-weight: 200; letter-spacing: 1.5px; color: #222; font-size: 97%;">HOME</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="../../../about.html" style="font-family: inherit; font-weight: 200; letter-spacing: 1.5px; color: #222; font-size: 97%;">ABOUT</a>
-
-
-</div> -->
-<br/><br/><br/>
-<!-- share buttons -->
-<div style="width: 53%; margin:auto;">
-<div id="1" style="width: 75%; float:left;">
-<span style="color:black; font-family:'lato', sans-serif; font-size: 18px;">code</span>
-<div style="width: 95px; border-bottom: solid 1px; border-color:black;">
-<div class="logo-share"></div>
-<div class="logo-share"></div>
-<div class="logo-share">
-<!-- github -->
-<a href="https://github.com/jermwatt/mlrefined/blob/gh-pages/blog_posts/Computational_Linear_Algebra/Part_3_vector_and_matrix_norms.ipynb" target="_blank">
-<img height="28" onmouseout="this.src='../../html/pics/github.png';" onmouseover="this.src='../../html/pics/github_filled.png';" src="../../html/pics/github.png" width="28"/>
-</a>
-</div>
-</div>
-</div>
-<div id="2" style="width: 25%; float:left;">
-<span style="color:black; font-family:'lato', sans-serif; font-size: 18px;">share</span>
-<div style="width: 210px; border-bottom: solid 1px; border-color:black;">
-<div class="logo-share"></div>
-<div class="logo-share"></div>
-<div class="logo-share">
-<!-- linkedin -->
-<a href="https://www.linkedin.com/cws/share?url=https%3A%2F%2Fjermwatt.github.io%2Fmlrefined%2Fblog_posts%2FComputational_Linear_Algebra%2FPart_3_vector_and_matrix_norms.html" target="_blank">
-<img height="28" onmouseout="this.src='../../html/pics/linkedin.png';" onmouseover="this.src='../../html/pics/linkedin_filled.png';" src="../../html/pics/linkedin.png" width="28"/>
-</a>
-</div>
-<div class="logo-share"></div>
-<div class="logo-share">
-<!-- twitter -->
-<a href="https://twitter.com/intent/tweet?ref_src=twsrc%5Etfw&amp;tw_p=tweetbutton&amp;url=https%3A%2F%2Fjermwatt.github.io%2Fmlrefined%2Fblog_posts%2FComputational_Linear_Algebra%2FPart_3_vector_and_matrix_norms.html" target="_blank">
-<img height="28" onmouseout="this.src='../../html/pics/twitter.png';" onmouseover="this.src='../../html/pics/twitter_filled.png';" src="../../html/pics/twitter.png" width="28"/>
-</a>
-</div>
-<div class="logo-share"></div>
-<div class="logo-share">
-<!-- facebook -->
-<a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fjermwatt.github.io%2Fmlrefined%2Fblog_posts%2FComputational_Linear_Algebra%2FPart_3_vector_and_matrix_norms.html" target="_blank">
-<img height="28" onmouseout="this.src='../../html/pics/facebook.png';" onmouseover="this.src='../../html/pics/facebook_filled.png';" src="../../html/pics/facebook.png" width="28"/>
-</a>
-</div>
-</div>
-</div>
-</div>
-<br/><br/>
-<div class="page-title" style="text-align: center !important;">
-<span style="color: #333; font-size: 40%; letter-spacing: 3px;">
-<span style="font-size: 80%;">► </span><a href="../../../mlrefined/html/pages/topics/Computational_Linear_Algebra.html" style="color: black; cursor: pointer; text-transform: uppercase; font-weight:bold;">Computational Linear Algebra Series</a>
-</span>
-<br/><br/>
-<mark style="padding: 0px; background-color: #f9f3c2;">Part 3: Vector and matrix norms</mark>
-</div>
-<br/>
-<div class="border-box-sizing" id="notebook" tabindex="-1">
-<div class="container" id="notebook-container">
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-
+<h2 id="Computational-Linear-Algebra-Series">Computational Linear Algebra Series<a class="anchor-link" href="#Computational-Linear-Algebra-Series">&#182;</a></h2>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-
+<h1 id="Part-3:-Vector-and-matrix-norms">Part 3: Vector and matrix norms<a class="anchor-link" href="#Part-3:-Vector-and-matrix-norms">&#182;</a></h1>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>In this post we discuss popular vector and matrix norms that will arise frequently in our study of machine learning and deep learning. A norm is a kind of function that measures the length of real vectors and matrices. The notion of length is extremely useful as it enables us to define distance - or similarity - between any two vectors (or matrices) living in the same space.</p>
+
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="1.-Vector-norms">1. Vector norms<a class="anchor-link" href="#1.-Vector-norms">¶</a></h2>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="1.1-The-$\ell_{2}$-norm">1.1 The $\ell_{2}$ norm<a class="anchor-link" href="#1.1-The-$\ell_{2}$-norm">¶</a></h3><p>We begin with the most widely-used vector norm in machine learning, the $\ell_{2}$ norm, defined for an $N$ dimensional vector $\mathbf{x}$ as</p>
+<h2 id="1.-Vector-norms">1. Vector norms<a class="anchor-link" href="#1.-Vector-norms">&#182;</a></h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="1.1-The-$\ell_{2}$-norm">1.1 The $\ell_{2}$ norm<a class="anchor-link" href="#1.1-The-$\ell_{2}$-norm">&#182;</a></h3><p>We begin with the most widely-used vector norm in machine learning, the $\ell_{2}$ norm, defined for an $N$ dimensional vector $\mathbf{x}$ as</p>
 \begin{equation}
 \left\Vert \mathbf{x}\right\Vert _{2}=\sqrt{\sum_{n=1}^{N} x_{n}^{2}}
 \end{equation}<p>Using the $\ell_{2}$ norm we can measure the distance between any two points $\mathbf{x}$ and $\mathbf{y}$ via $\left\Vert \mathbf{x}-\mathbf{y}\right\Vert _{2}$, which is simply the length of the vector connecting $\mathbf{x}$
@@ -11883,33 +11802,37 @@ and $\mathbf{y}$.</p>
 9\\
 8
 \end{array}\right]$ is calculated as $\sqrt{\left(1-9\right)^{2}+\left(2-8\right)^{2}}=10$, as shown pictorially in the figure below (recall Pythagorean theorem).</p>
-<p><img height="auto" src="../../mlrefined_images/linear_algebra_images/L2_distance.png" width="70%"/></p><p>The $\ell_{2}$ norm is not the only way to measure, or more precisely <em>define</em>, the length of a vector. There are other norms arising occasionally in machine learning that we discuss now.</p>
+<p><img src="../../mlrefined_images/linear_algebra_images/L2_distance.png" width=70% height=auto></p><p>The $\ell_{2}$ norm is not the only way to measure, or more precisely <em>define</em>, the length of a vector. There are other norms arising occasionally in machine learning that we discuss now.</p>
+
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="1.2-The-$\ell_{1}$-norm">1.2 The $\ell_{1}$ norm<a class="anchor-link" href="#1.2-The-$\ell_{1}$-norm">¶</a></h3><p>The $\ell_{1}$ norm of a vector $\mathbf{x}$ is defined as the sum of the absolute values of its entries</p>
+<h3 id="1.2-The-$\ell_{1}$-norm">1.2 The $\ell_{1}$ norm<a class="anchor-link" href="#1.2-The-$\ell_{1}$-norm">&#182;</a></h3><p>The $\ell_{1}$ norm of a vector $\mathbf{x}$ is defined as the sum of the absolute values of its entries</p>
 \begin{equation}
 \Vert\mathbf{x}\Vert_{1}=\sum_{n=1}^{N}\left|x_{n}\right|
 \end{equation}<p>In terms of the $\ell_{1}$ norm the distance between $\mathbf{x}$ and $\mathbf{y}$ is given by $\left\Vert \mathbf{x}-\mathbf{y}\right\Vert _{1}$, which provides a measurement of distance different from the $\ell_{2}$ norm. As illustrated in the figure below the distance defined by the $\ell_{1}$ norm is the length of a path consisting of perpendicular pieces (shown in blue). Because these paths are somewhat akin to how an automobile might travel from $\mathbf{x}$ to $\mathbf{y}$ if they were two locations in a gridded city, having to traverse perpendicular city blocks one after the other, the $\ell_{1}$ norm is sometimes referred to as the taxicab norm, and the distance measured via the $\ell_{1}$ norm, the Manhattan distance.</p>
-<p><img height="auto" src="../../mlrefined_images/linear_algebra_images/L1_distance.png" width="70%"/></p><p>In the example above the distance between $\mathbf{x}=\left[\begin{array}{c}
+<p><img src="../../mlrefined_images/linear_algebra_images/L1_distance.png" width=70% height=auto></p><p>In the example above the distance between $\mathbf{x}=\left[\begin{array}{c}
 1\\
 2
 \end{array}\right]$ and $\mathbf{y}=\left[\begin{array}{c}
 9\\
 8
 \end{array}\right]$ using the $\ell_{1}$ norm is calculated as $\left|1-9\right|+\left|2-8\right|=14$.</p>
+
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="1.3-The-$\ell_{\infty}$-norm">1.3 The $\ell_{\infty}$ norm<a class="anchor-link" href="#1.3-The-$\ell_{\infty}$-norm">¶</a></h3><p>The $\ell_{\infty}$ norm of a vector $\mathbf{x}$ is equal to its largest entry in terms of absolute value, defined mathematically as</p>
+<h3 id="1.3-The-$\ell_{\infty}$-norm">1.3 The $\ell_{\infty}$ norm<a class="anchor-link" href="#1.3-The-$\ell_{\infty}$-norm">&#182;</a></h3><p>The $\ell_{\infty}$ norm of a vector $\mathbf{x}$ is equal to its largest entry in terms of absolute value, defined mathematically as</p>
 \begin{equation}
 \Vert\mathbf{x}\Vert_{\infty}=\underset{n}{\text{max}}\left|x_{n}\right|
 \end{equation}<p>For example, the distance between $\mathbf{x}=\left[\begin{array}{c}
@@ -11919,36 +11842,39 @@ and $\mathbf{y}$.</p>
 9\\
 8
 \end{array}\right]$ in terms of the $\ell_{\infty}$ norm is found as $\text{max}\left(\left| 1-9\right|,\left|2-8\right|\right)=8$.</p>
-<p><img height="auto" src="../../mlrefined_images/linear_algebra_images/L_inf_distance.png" width="70%"/></p>
+<p><img src="../../mlrefined_images/linear_algebra_images/L_inf_distance.png" width=70% height=auto></p>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="1.4-What-do-these-vector-norms-have-in-common?">1.4 What do these vector norms have in common?<a class="anchor-link" href="#1.4-What-do-these-vector-norms-have-in-common?">¶</a></h3><p>The $\ell_{2}$, $\ell_{1}$, and $\ell_{\infty}$ norms, by virtue of being vector norms, share a number of useful properties that we detail below. Since these properties hold in general for <em>any</em> norm, we momentarily drop the subscript and represent the norm of $\mathbf{x}$ simply by $\Vert\mathbf{x}\Vert$.</p>
+<h3 id="1.4-What-do-these-vector-norms-have-in-common?">1.4 What do these vector norms have in common?<a class="anchor-link" href="#1.4-What-do-these-vector-norms-have-in-common?">&#182;</a></h3><p>The $\ell_{2}$, $\ell_{1}$, and $\ell_{\infty}$ norms, by virtue of being vector norms, share a number of useful properties that we detail below. Since these properties hold in general for <em>any</em> norm, we momentarily drop the subscript and represent the norm of $\mathbf{x}$ simply by $\Vert\mathbf{x}\Vert$.</p>
 <ol>
 <li>Norms are always non-negative, that is $\Vert\mathbf{x}\Vert\geq 0$. Furthermore, the equality holds only when $\mathbf{x}=\mathbf{0}$. Therefore the norm of any nonzero vector is always greater than zero.
-<br/><br/></li>
+<br><br></li>
 <li>The norm of $\alpha\mathbf{x}$, that is a scalar multiple of $\mathbf{x}$, can be written in terms of the norm of $\mathbf{x}$, as $\Vert\alpha\mathbf{x}\Vert=\left|\alpha\right|\Vert\mathbf{x}\Vert$. With $\alpha=-1$ for example, we have that $\Vert-\mathbf{x}\Vert=\Vert\mathbf{x}\Vert$. 
-<br/><br/></li>
+<br><br></li>
 <li>Norms also satisfy the so-called <em>triangle inequality</em> where for any vectors $\mathbf{x}$, $\mathbf{y}$, and $\mathbf{z}$ we have $\Vert\mathbf{x}-\mathbf{z}\Vert+\Vert\mathbf{z}-\mathbf{y}\Vert\geq\Vert\mathbf{x}-\mathbf{y}\Vert$. As illustrated in the figure below for the $\ell_{2}$ norm (left), the $\ell_{1}$ norm (middle), and the $\ell_{\infty}$ norm (right) the triangle inequality simply states that the distance between $\mathbf{x}$ and $\mathbf{y}$ is always smaller than (or equal to) the distance between $\mathbf{x}$ and $\mathbf{z}$, and the distance between $\mathbf{z}$ and $\mathbf{y}$, combined. In other words, if one wanted to travel from a given point $\mathbf{x}$ to a given point $\mathbf{y}$, it would be always better to travel directly from $\mathbf{x}$ to $\mathbf{y}$, than to travel
 first to a third point z, and then to y. With the change of variables $\mathbf{u}=\mathbf{x}-\mathbf{z}$ and $\mathbf{v}=\mathbf{z}-\mathbf{y}$, the triangle inequality is sometimes written in the simpler form of
 $\Vert\mathbf{u}\Vert+\Vert\mathbf{v}\Vert\geq\Vert\mathbf{u}+\mathbf{v}\Vert$ for all vectors $\mathbf{u}$ and $\mathbf{v}$.</li>
 </ol>
-<p><img height="auto" src="../../mlrefined_images/linear_algebra_images/triangle_inequality.png" width="100%"/></p><p>In addition to the general properties mentioned above and held by any norm, the $\ell_{2}$, $\ell_{1}$, and $\ell_{\infty}$ norms share a stronger bond that ties them together: they are all members of the $\ell_{p}$ norm family. The $\ell_{p}$ norm is generally defined as</p>
+<p><img src="../../mlrefined_images/linear_algebra_images/triangle_inequality.png" width=100% height=auto></p><p>In addition to the general properties mentioned above and held by any norm, the $\ell_{2}$, $\ell_{1}$, and $\ell_{\infty}$ norms share a stronger bond that ties them together: they are all members of the $\ell_{p}$ norm family. The $\ell_{p}$ norm is generally defined as</p>
 \begin{equation}
 \left\Vert \mathbf{x}\right\Vert _{p}=\left(\sum_{n=1}^{N}\left|x_{n}\right|^{p}\right)^{\frac{1}{p}}
 \end{equation}<p>for $p\geq1$. One can easily verify that with $p=1$, $p=2$, and as $p\longrightarrow\infty$, the $\ell_{p}$ norm reduces to the $\ell_{1}$, $\ell_{2}$, and $\ell_{\infty}$ norm respectively.</p>
+
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="1.5-The-$\ell_{p}$-norm-balls">1.5 The $\ell_{p}$ norm balls<a class="anchor-link" href="#1.5-The-$\ell_{p}$-norm-balls">¶</a></h3><p>A norm ball is a set of all vectors $\mathbf{x}$ with same norm value, that is, all $\mathbf{x}$such that $\left\Vert \mathbf{x}\right\Vert =c$ for some constant $c&gt;0$. When $c=1$, this set is called the unit norm ball, or simply the unit ball.</p>
+<h3 id="1.5-The-$\ell_{p}$-norm-balls">1.5 The $\ell_{p}$ norm balls<a class="anchor-link" href="#1.5-The-$\ell_{p}$-norm-balls">&#182;</a></h3><p>A norm ball is a set of all vectors $\mathbf{x}$ with same norm value, that is, all $\mathbf{x}$such that $\left\Vert \mathbf{x}\right\Vert =c$ for some constant $c>0$. When $c=1$, this set is called the unit norm ball, or simply the unit ball.</p>
 <p>As you can see in the figure below, the $\ell_{1}$ unit ball takes the form of a diamond (in blue), whose equation is given by</p>
 \begin{equation}
 \left|x_{1}\right|+\left|x_{2}\right|=1
@@ -11959,29 +11885,31 @@ x_{1}^{2}+x_{2}^{2}=1
 by</p>
 \begin{equation}
 \text{max}\left(\left|x_{1}\right|,\left|x_{2}\right|\right)=1
-\end{equation}<p><br/></p>
-<p><img height="auto" src="../../mlrefined_images/linear_algebra_images/norm_balls.png" width="80%"/></p>
+\end{equation}<p><br></p>
+<p><img src="../../mlrefined_images/linear_algebra_images/norm_balls.png" width=80% height=auto></p>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="2.-Matrix-norms">2. Matrix norms<a class="anchor-link" href="#2.-Matrix-norms">¶</a></h2>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="2.1-The-Frobenius-norm">2.1 The Frobenius norm<a class="anchor-link" href="#2.1-The-Frobenius-norm">¶</a></h3><p>Recall that the $\ell_{2}$ norm of a vector is defined as the square root of the sum of the squares of its elements. The Frobenius norm is the intuitive extension of the $\ell_{2}$ norm for vectors to matrices, defined similarly as the square root of the sum of the squares of all the elements in the matrix. Thus, the Frobenius norm of an $N\times M$ dimensional matrix $\mathbf{X}$ is calculated as</p>
+<h2 id="2.-Matrix-norms">2. Matrix norms<a class="anchor-link" href="#2.-Matrix-norms">&#182;</a></h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="2.1-The-Frobenius-norm">2.1 The Frobenius norm<a class="anchor-link" href="#2.1-The-Frobenius-norm">&#182;</a></h3><p>Recall that the $\ell_{2}$ norm of a vector is defined as the square root of the sum of the squares of its elements. The Frobenius norm is the intuitive extension of the $\ell_{2}$ norm for vectors to matrices, defined similarly as the square root of the sum of the squares of all the elements in the matrix. Thus, the Frobenius norm of an $N\times M$ dimensional matrix $\mathbf{X}$ is calculated as</p>
 \begin{equation}
 \left\Vert \mathbf{X}\right\Vert _{F}=\sqrt{\sum_{n=1}^{N}\sum_{m=1}^{M} x_{n,m}^{2}}
 \end{equation}<p>For example, the Frobenius norm of the matrix $\mathbf{X}=\left[\begin{array}{cc}
--1 &amp; 2\\
-0 &amp; 5
+-1 & 2\\
+0 & 5
 \end{array}\right]$ can be found as $\sqrt{\left(-1\right)^{2}+2^{2}+0^{2}+5^{2}}=\sqrt{30}$.</p>
 <p>The connection between the $\ell_{2}$ norm and the Frobenius norm goes even deeper: collecting all singular values of $\mathbf{X}$ in the vector $\mathbf{s}$ (assuming $N\leq M$)</p>
 \begin{equation}
@@ -11998,24 +11926,41 @@ by</p>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="2.1-The-spectral-and-nuclear-norms">2.1 The spectral and nuclear norms<a class="anchor-link" href="#2.1-The-spectral-and-nuclear-norms">¶</a></h3><p>The observation that the $\ell_{2}$ norm of the vector of singular values of a matrix is identical to its Frobenius norm motivates the use of other $\ell_{p}$ norms on the vector $\mathbf{s}$. In particular the $\ell_{1}$ norm of $\mathbf{s}$ defines the nuclear norm of $\mathbf{X}$ denoted by $\left\Vert \mathbf{X}\right\Vert _{*}$</p>
+<h3 id="2.1-The-spectral-and-nuclear-norms">2.1 The spectral and nuclear norms<a class="anchor-link" href="#2.1-The-spectral-and-nuclear-norms">&#182;</a></h3><p>The observation that the $\ell_{2}$ norm of the vector of singular values of a matrix is identical to its Frobenius norm motivates the use of other $\ell_{p}$ norms on the vector $\mathbf{s}$. In particular the $\ell_{1}$ norm of $\mathbf{s}$ defines the nuclear norm of $\mathbf{X}$ denoted by $\left\Vert \mathbf{X}\right\Vert _{*}$</p>
 \begin{equation}
 \left\Vert \mathbf{X}\right\Vert _{*}=\left\Vert \mathbf{s}\right\Vert _{1}
 \end{equation}<p>and the $\ell_{\infty}$ norm of $\mathbf{s}$ defines the spectral norm of $\mathbf{X}$, denoted by $\left\Vert \mathbf{X}\right\Vert _{2}$</p>
 \begin{equation}
 \left\Vert \mathbf{X}\right\Vert _{2}=\left\Vert \mathbf{s}\right\Vert _{\infty}
 \end{equation}<p>Because the singular values of real matrices are always non-negative, the spectral norm and the nuclear norm are simply the largest and the sum of the singular values respectively.</p>
+
 </div>
 </div>
 </div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>&copy; This material is not to be distributed, copied, or reused without written permission from the authors.</p>
+
 </div>
 </div>
+</div>
+    </div>
+  </div>
 </body>
+
+ 
+
 <script type="application/vnd.jupyter.widget-state+json">
 {"version_minor": 0, "state": {}, "version_major": 1}
 </script>
+
+
 </html>
