@@ -16,6 +16,7 @@ from autograd import grad as compute_grad   # The only autograd function you may
 import autograd.numpy as np
 import math
 import time
+import copy
 
 class Visualizer:
     '''
@@ -143,6 +144,29 @@ class Visualizer:
 
         # plot
         plt.show()
+ 
+
+
+    ##### draw picture of function and run for two-input function ####       
+    def two_input_original_contour_plot(self,g,**kwargs):
+        ##### construct figure with panels #####
+        # construct figure
+        fig = plt.figure(figsize = (10,4.5))
+
+        # create figure with single plot for contour
+        gs = gridspec.GridSpec(1, 1) 
+        ax1 = plt.subplot(gs[0],aspect='equal'); 
+
+        # remove whitespace from figure
+        fig.subplots_adjust(left=0, right=1, bottom=0, top=1) # remove whitespace
+        fig.subplots_adjust(wspace=0.01,hspace=0.01)
+        
+        ### make contour right plot - as well as horizontal and vertical axes ###
+        self.contour_plot_setup(g,ax1,**kwargs)  # draw contour plot
+
+        # plot
+        plt.show()
+        
         
     ##### draw picture of function and run for two-input function ####       
     def two_input_contour_plot(self,g,w_hist,**kwargs):
@@ -170,10 +194,78 @@ class Visualizer:
         
         ### make contour right plot - as well as horizontal and vertical axes ###
         self.contour_plot_setup(g,ax2,**kwargs)  # draw contour plot
+        self.edgecolor = 'k'
         self.draw_weight_path(ax2,w_hist,**kwargs)        # draw path on contour plot
         
         if show_original == True:
             self.contour_plot_setup(g,ax1,**kwargs)  # draw contour plot
+
+        # plot
+        plt.show()
+ 
+    ##### draw picture of function and run for two-input function ####       
+    def two_input_contour_horiz_plots(self,g,histories,**kwargs):
+        ##### construct figure with panels #####
+        # construct figure
+        fig = plt.figure(figsize = (10,4.5))
+
+        # create figure with single plot for contour
+        num_plots = len(histories)
+        axs = gridspec.GridSpec(1, num_plots) 
+        
+        # remove whitespace from figure
+        fig.subplots_adjust(left=0, right=1, bottom=0, top=1) # remove whitespace
+        fig.subplots_adjust(wspace=0.01,hspace=0.01)
+        
+        # define edgecolors 
+        edgecolors = ['k','magenta','aqua','blueviolet','chocolate']
+        
+        # loop over histories and plot
+        for j in range(num_plots):
+            # get next weight history
+            w_hist = histories[j]
+            
+            # create subplot
+            ax = plt.subplot(axs[j],aspect='equal'); 
+
+            ### make contour right plot - as well as horizontal and vertical axes ###
+            self.contour_plot_setup(g,ax,**kwargs)           # draw contour plot
+            self.edgecolor = edgecolors[j]
+            self.draw_weight_path(ax,w_hist,**kwargs)        # draw path on contour plot
+
+        # plot
+        plt.show()
+
+    ##### draw picture of function and run for two-input function ####       
+    def two_input_contour_vert_plots(self,gs,histories,**kwargs):
+        ##### construct figure with panels #####
+        # construct figure
+        fig = plt.figure(figsize = (10,7))
+
+        # create figure with single plot for contour
+        num_plots = len(histories)
+        axs = gridspec.GridSpec(num_plots,1) 
+        
+        # remove whitespace from figure
+        fig.subplots_adjust(left=0, right=1, bottom=0, top=1) # remove whitespace
+        fig.subplots_adjust(wspace=0.01,hspace=0.01)
+        
+        # define edgecolors 
+        edgecolors = ['k','k','k','k','k']
+        
+        # loop over histories and plot
+        for j in range(num_plots):
+            # get next weight history
+            w_hist = histories[j]
+            g = gs[j]
+            
+            # create subplot
+            ax = plt.subplot(axs[j],aspect='equal'); 
+
+            ### make contour right plot - as well as horizontal and vertical axes ###
+            self.contour_plot_setup(g,ax,**kwargs)           # draw contour plot
+            self.edgecolor = edgecolors[j]
+            self.draw_weight_path(ax,w_hist,**kwargs)        # draw path on contour plot
 
         # plot
         plt.show()
@@ -209,7 +301,7 @@ class Visualizer:
     # compare cost histories from multiple runs
     def plot_cost_histories(self,histories,start,**kwargs):
         # plotting colors
-        colors = ['k','magenta','springgreen','blueviolet','chocolate']
+        colors = ['k','magenta','aqua','blueviolet','chocolate']
         
         # initialize figure
         fig = plt.figure(figsize = (10,3))
@@ -265,12 +357,101 @@ class Visualizer:
             #leg = ax.legend(loc='upper left', bbox_to_anchor=(1.02, 1), borderaxespad=0)
 
         ax.set_xlim([start - 0.5,len(history) - 0.5])
- 
         
        # fig.tight_layout()
         plt.show()
 
+    # get directions good
+    def plot_grad_directions(self,histories,**kwargs):
+        # loop over histories and plot grad directions
+        num_histories = len(histories)
+       
+        # construct figure
+        fig = plt.figure(figsize = (10,5))
 
+        # remove whitespace from figure
+        fig.subplots_adjust(left=0, right=1, bottom=0, top=1) # remove whitespace
+        fig.subplots_adjust(wspace=0.01,hspace=0.01)
+            
+        # create figure with single plot for contour
+        axs = gridspec.GridSpec(1,num_histories) 
+        
+        for j in range(num_histories):
+            # create directions out of weight history
+            w_hist = histories[j]
+            num_weights = len(w_hist)
+            directions = []
+            for i in range(num_weights - 1):
+                w_old = w_hist[i]
+                w_new = w_hist[i+1]
+
+                # form direction 
+                direction = w_new - w_old
+
+                # normalize
+                direction /= np.sqrt(np.sum([r**2 for r in direction]))
+
+                # store 
+                directions.append(direction)
+
+            # plot directions as arrows
+            ax = plt.subplot(axs[j],aspect='equal'); 
+            self.draw_grads(ax,directions,**kwargs)        # draw path on contour plot
+
+            # set viewlimits
+            ax.set_xlim([-1.25,1.25])
+            ax.set_ylim([-1.25,1.25])
+
+        # plot
+        plt.show()
+
+    # get directions good
+    def plot_grad_directions_v2(self,history,**kwargs):
+        # loop over histories and plot grad directions
+        num_grads = np.minimum(len(history),9)
+       
+        # construct figure
+        fig = plt.figure(figsize = (6,6))
+
+        # remove whitespace from figure
+        fig.subplots_adjust(left=0, right=1, bottom=0, top=1) # remove whitespace
+        fig.subplots_adjust(wspace=0.01,hspace=0.01)
+            
+        # create figure with single plot for contour
+        axs = gridspec.GridSpec(3,3) 
+        
+        # create directions out of weight history
+        directions = []
+        for i in range(len(history) - 1):
+            w_old = history[i]
+            w_new = history[i+1]
+
+            # form direction 
+            direction = w_new - w_old
+
+            # normalize
+            direction /= np.sqrt(np.sum([r**2 for r in direction]))
+
+            # store 
+            directions.append(direction)
+        
+        # plot directions as arrows
+        self.colorspec = self.make_colorspec(directions[:num_grads+1])
+        for j in range(num_grads):
+            ax = plt.subplot(axs[j],aspect='equal'); 
+            self.draw_grads_v2(ax,directions[:j+1],**kwargs)        # draw path on contour plot
+
+            # set viewlimits
+            ax.set_xlim([-1.25,1.25])
+            ax.set_ylim([-1.25,1.25])
+            
+            # set title
+            title = 'step ' + str(j+1) + ' direction'
+            ax.set_title(title)
+
+        # plot
+        plt.show()
+        
     ########################################################################################
     #### utility functions - for setting up / making contour plots, 3d surface plots, etc., ####
     # show contour plot of input function
@@ -337,19 +518,36 @@ class Visualizer:
         w1_vals.shape = (len(w1),len(w1))
         w2_vals.shape = (len(w2),len(w2))
         func_vals.shape = (len(w1),len(w2)) 
-
+        
         ### make contour right plot - as well as horizontal and vertical axes ###
         # set level ridges
         levelmin = min(func_vals.flatten())
         levelmax = max(func_vals.flatten())
-        cut = 0.4
-        cutoff = (levelmax - levelmin)
-        levels = [levelmin + cutoff*cut**(num_contours - i) for i in range(0,num_contours+1)]
-        levels = [levelmin] + levels
-        levels = np.asarray(levels)
+        cutoff = 1
+        cutoff = (levelmax - levelmin)*cutoff
+        numper = 7
+        levels1 = np.linspace(cutoff,levelmax,numper)
+        num_contours -= numper
+
+        # produce generic contours
+        levels2 = np.linspace(levelmin,cutoff,min(num_contours,numper))
+        levels = np.unique(np.append(levels1,levels2))
+        num_contours -= numper
+        while num_contours > 0:
+            cutoff = levels[1]
+            levels2 = np.linspace(levelmin,cutoff,min(num_contours,numper))
+            levels = np.unique(np.append(levels2,levels))
+            num_contours -= numper
    
-        a = ax.contour(w1_vals, w2_vals, func_vals,levels = levels,colors = 'k')
-        b = ax.contourf(w1_vals, w2_vals, func_vals,levels = levels,cmap = 'Blues')
+        # plot the contours
+        ax.contour(w1_vals, w2_vals, func_vals,levels = levels[1:],colors = 'k')
+        ax.contourf(w1_vals, w2_vals, func_vals,levels = levels,cmap = 'Blues')
+
+        ###### clean up plot ######
+        ax.set_xlabel('$w_0$',fontsize = 12)
+        ax.set_ylabel('$w_1$',fontsize = 12,rotation = 0)
+        ax.axhline(y=0, color='k',zorder = 0,linewidth = 0.5)
+        ax.axvline(x=0, color='k',zorder = 0,linewidth = 0.5)
         
         
     ### makes color spectrum for plotted run points - from green (start) to red (stop)
@@ -364,7 +562,62 @@ class Visualizer:
         colorspec = np.concatenate((s,np.flipud(s)),1)
         colorspec = np.concatenate((colorspec,np.zeros((len(s),1))),1)
         return colorspec
+
+
+    ### function for drawing weight history path
+    def draw_grads(self,ax,directions,**kwargs):
+        # make colors for plot
+        colorspec = self.make_colorspec(directions)
+
+        arrows = True
+        if 'arrows' in kwargs:
+            arrows = kwargs['arrows']
+            
+        # plot axes
+        ax.axhline(y=0, color='k',zorder = 0,linewidth = 0.5)
+        ax.axvline(x=0, color='k',zorder = 0,linewidth = 0.5)
         
+        ### plot function decrease plot in right panel
+        for j in range(len(directions)):  
+            # get current direction
+            direction = directions[j]
+            
+            # draw arrows connecting pairwise points
+            head_length = 0.1
+            head_width = 0.1
+            ax.arrow(0,0,direction[0],direction[1], head_width=head_width, head_length=head_length, fc='k', ec='k',linewidth=1,zorder = 2,length_includes_head=True)
+            ax.arrow(0,0,direction[0],direction[1], head_width=0.1, head_length=head_length, fc=colorspec[j], ec=colorspec[j],linewidth=0.25,zorder = 2,length_includes_head=True)
+
+    ### function for drawing weight history path
+    def draw_grads_v2(self,ax,directions,**kwargs):
+        arrows = True
+        if 'arrows' in kwargs:
+            arrows = kwargs['arrows']
+            
+        # plot axes
+        ax.axhline(y=0, color='k',zorder = 0,linewidth = 0.5)
+        ax.axvline(x=0, color='k',zorder = 0,linewidth = 0.5)
+        
+        ### plot function decrease plot in right panel
+        head_length = 0.1
+        head_width = 0.1
+        alpha = 0.1
+        for j in range(len(directions)-1):  
+            # get current direction
+            direction = directions[j]
+            
+            # draw arrows connecting pairwise points
+            ax.arrow(0,0,direction[0],direction[1], head_width=head_width, head_length=head_length, fc='k', ec='k',linewidth=3.5,zorder = 2,length_includes_head=True,alpha = alpha)
+            ax.arrow(0,0,direction[0],direction[1], head_width=0.1, head_length=head_length, fc=self.colorspec[j], ec=self.colorspec[j],linewidth=3,zorder = 2,length_includes_head=True,alpha = alpha)
+            
+        # plot most recent direction
+        direction = directions[-1]
+        num_dirs = len(directions)
+  
+        # draw arrows connecting pairwise points
+        ax.arrow(0,0,direction[0],direction[1], head_width=head_width, head_length=head_length, fc='k', ec='k',linewidth=4,zorder = 2,length_includes_head=True)
+        ax.arrow(0,0,direction[0],direction[1], head_width=0.1, head_length=head_length, fc=self.colorspec[num_dirs], ec=self.colorspec[num_dirs],linewidth=3,zorder = 2,length_includes_head=True)            
+            
     ### function for drawing weight history path
     def draw_weight_path(self,ax,w_hist,**kwargs):
         # make colors for plot
@@ -379,7 +632,7 @@ class Visualizer:
             w_val = w_hist[j]
 
             # plot each weight set as a point
-            ax.scatter(w_val[0],w_val[1],s = 80,c = colorspec[j],edgecolor = 'k',linewidth = 2*math.sqrt((1/(float(j) + 1))),zorder = 3)
+            ax.scatter(w_val[0],w_val[1],s = 80,c = colorspec[j],edgecolor = self.edgecolor,linewidth = 2*math.sqrt((1/(float(j) + 1))),zorder = 3)
 
             # plot connector between points for visualization purposes
             if j > 0:
@@ -396,9 +649,18 @@ class Visualizer:
                     if np.ndim(pt1) > 1:
                         pt1 = pt1.flatten()
                         pt2 = pt2.flatten()
-                    
-                    ax.arrow(pt1[0],pt1[1],(pt2[0] - pt1[0])*alpha,(pt2[1] - pt1[1])*alpha, head_width=0.1, head_length=head_length, fc='k', ec='k',linewidth=4,zorder = 2,length_includes_head=True)
-                    ax.arrow(pt1[0],pt1[1],(pt2[0] - pt1[0])*alpha,(pt2[1] - pt1[1])*alpha, head_width=0.1, head_length=head_length, fc='w', ec='w',linewidth=0.25,zorder = 2,length_includes_head=True)
+                        
+                        
+                    # draw color connectors for visualization
+                    w_old = pt1
+                    w_new = pt2
+                    ax.plot([w_old[0],w_new[0]],[w_old[1],w_new[1]],color = colorspec[j],linewidth = 2,alpha = 1,zorder = 2)      # plot approx
+                    ax.plot([w_old[0],w_new[0]],[w_old[1],w_new[1]],color = 'k',linewidth = 3,alpha = 1,zorder = 1)      # plot approx
+                
+                
+                    # draw arrows connecting pairwise points
+                    #ax.arrow(pt1[0],pt1[1],(pt2[0] - pt1[0])*alpha,(pt2[1] - pt1[1])*alpha, head_width=0.1, head_length=head_length, fc='k', ec='k',linewidth=4,zorder = 2,length_includes_head=True)
+                    #ax.arrow(pt1[0],pt1[1],(pt2[0] - pt1[0])*alpha,(pt2[1] - pt1[1])*alpha, head_width=0.1, head_length=head_length, fc='w', ec='w',linewidth=0.25,zorder = 2,length_includes_head=True)
         
     ### draw surface plot
     def draw_surface(self,g,ax,**kwargs):
