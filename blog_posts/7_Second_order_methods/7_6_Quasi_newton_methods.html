@@ -10,8 +10,8 @@
 *
 */
 /*!
- * Bootstrap v3.3.7 (http://getbootstrap.com)
- * Copyright 2011-2016 Twitter, Inc.
+ * Bootstrap v3.3.6 (http://getbootstrap.com)
+ * Copyright 2011-2015 Twitter, Inc.
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
  */
 /*! normalize.css v3.0.3 | MIT License | github.com/necolas/normalize.css */
@@ -1106,6 +1106,7 @@ a:focus {
   text-decoration: underline;
 }
 a:focus {
+  outline: thin dotted;
   outline: 5px auto -webkit-focus-ring-color;
   outline-offset: -2px;
 }
@@ -2534,6 +2535,7 @@ select[size] {
 input[type="file"]:focus,
 input[type="radio"]:focus,
 input[type="checkbox"]:focus {
+  outline: thin dotted;
   outline: 5px auto -webkit-focus-ring-color;
   outline-offset: -2px;
 }
@@ -3024,6 +3026,7 @@ select[multiple].input-lg {
 .btn.focus,
 .btn:active.focus,
 .btn.active.focus {
+  outline: thin dotted;
   outline: 5px auto -webkit-focus-ring-color;
   outline-offset: -2px;
 }
@@ -8754,9 +8757,6 @@ body > #header .header-bar {
     margin-left: 10px;
   }
 }
-[dir="rtl"] #ipython_notebook {
-  float: right !important;
-}
 #noscript {
   width: auto;
   padding-top: 16px;
@@ -8959,14 +8959,8 @@ span#login_widget > .button .badge,
  *
  * Author: Jupyter Development Team
  */
-[dir="rtl"] #tabs li {
-  float: right;
-}
 ul#tabs {
   margin-bottom: 4px;
-}
-[dir="rtl"] ul#tabs {
-  margin-right: 0px;
 }
 ul#tabs a {
   padding-top: 6px;
@@ -8989,16 +8983,6 @@ ul.breadcrumb span {
 }
 .list_toolbar .tree-buttons {
   padding-top: 1px;
-}
-[dir="rtl"] .list_toolbar .tree-buttons {
-  float: left !important;
-}
-[dir="rtl"] .list_toolbar .pull-right {
-  padding-top: 1px;
-  float: left !important;
-}
-[dir="rtl"] .list_toolbar .pull-left {
-  float: right !important;
 }
 .dynamic-buttons {
   padding-top: 3px;
@@ -9135,9 +9119,6 @@ ul.breadcrumb span {
 #tree-selector {
   padding-right: 0px;
 }
-[dir="rtl"] #tree-selector a {
-  float: right;
-}
 #button-select-all {
   min-width: 50px;
 }
@@ -9227,9 +9208,6 @@ ul#new-menu {
   left: auto;
   right: 0;
 }
-[dir="rtl"] #new-menu {
-  text-align: right;
-}
 .kernel-menu-icon {
   padding-right: 12px;
   width: 24px;
@@ -9274,9 +9252,6 @@ ul#new-menu {
 }
 #running .panel-group .panel .panel-body .list_container .list_item:last-child {
   border-bottom: 0px;
-}
-[dir="rtl"] #running .col-sm-8 {
-  float: right !important;
 }
 .delete-button {
   display: none;
@@ -9573,7 +9548,6 @@ div.cell.selected.jupyter-soft-selected {
   }
 }
 div.inner_cell {
-  min-width: 0;
   /* Old browsers */
   display: -webkit-box;
   -webkit-box-orient: vertical;
@@ -9594,6 +9568,11 @@ div.inner_cell {
   box-flex: 1;
   /* Modern browsers */
   flex: 1;
+}
+@-moz-document url-prefix() {
+  div.inner_cell {
+    overflow-x: hidden;
+  }
 }
 /* input_area and input_prompt must match in top border and margin for alignment */
 div.input_area {
@@ -11264,7 +11243,7 @@ div#pager .ui-resizable-handle::after {
 }
 .shortcut_key {
   display: inline-block;
-  width: 21ex;
+  width: 20ex;
   text-align: right;
   font-family: monospace;
 }
@@ -11576,7 +11555,6 @@ ul.typeahead-list > li > a {
   box-shadow: 0px 0px 12px 1px rgba(87, 87, 87, 0.2);
 }
 .terminal-app .terminal {
-  width: 100%;
   float: left;
   font-family: monospace;
   color: white;
@@ -11590,9 +11568,6 @@ ul.typeahead-list > li > a {
 .terminal-app .terminal dummy-screen {
   line-height: 1em;
   font-size: 14px;
-}
-.terminal-app .terminal .xterm-rows {
-  padding: 10px;
 }
 .terminal-app .terminal-cursor {
   color: black;
@@ -11723,7 +11698,9 @@ body {
 div#notebook {
   overflow: visible;
   border-top: none;
-}@media print {
+}
+
+@media print {
   div.cell {
     display: block;
     page-break-inside: avoid;
@@ -11742,7 +11719,7 @@ div#notebook {
 <link href="custom.css" rel="stylesheet"/>
 <!-- Loading mathjax macro -->
 <!-- Load mathjax -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS_HTML"></script>
+<script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML"></script>
 <!-- MathJax configuration -->
 <script type="text/x-mathjax-config">
     MathJax.Hub.Config({
@@ -11835,7 +11812,8 @@ div#notebook {
 <br/>
 <div class="border-box-sizing" id="notebook" tabindex="-1">
 <div class="container" id="notebook-container">
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -11843,7 +11821,8 @@ div#notebook {
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -11851,11 +11830,12 @@ div#notebook {
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>While Newton's method is a powerful technique that exhibits rapid convergence for a (especially) convex function $g\left(\mathbf{w}\right)$, it is naturally constrained by $N$ the dimension of the input $\mathbf{w}$.  In particular it is the quadratic generating Hessian $\nabla^2g\left(\mathbf{w}\right)$, an $N\times N$ matrix that limits Newton's method's use to cases where $N$ is (roughly speaking) in the thousands, since it is difficult to even store such a matrix when $N$ is larger (let alone compute with it).  In this Section we give discuss a set of variations on Newton's method that are designed to ameliorate this issue, collectively referred to as <em>quasi-Newton's methods</em>.  The main thrust of any such method is - in the Newton step - to replace the Hessian with a close approximation that does not suffer from this scaling problem.</p>
+<p>While Newton's method is a powerful technique that exhibits rapid convergence for a (especially) convex function $g\left(\mathbf{w}\right)$, it is naturally constrained by $N$ the dimension of the input $\mathbf{w}$.  In particular it is the quadratic generating Hessian $\nabla^2g\left(\mathbf{w}\right)$, an $N\times N$ matrix that limits Newton's method's use to cases where $N$ is (roughly speaking) in the thousands, since it is difficult to even store such a matrix when $N$ is larger (let alone compute with it).  In this Section we give discuss a set of variations on Newton's method that are designed to ameliorate this issue, collectively referred to as <em>quasi-Newton's methods</em>.  The main thrust of any such method is - in the Newton-like step - to replace the Hessian with a close approximation that does not suffer from this scaling problem.</p>
 </div>
 </div>
 </div>
@@ -11867,7 +11847,8 @@ div#notebook {
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -11875,7 +11856,8 @@ div#notebook {
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -11883,7 +11865,8 @@ div#notebook {
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -11894,7 +11877,8 @@ g^{\prime}(w) = \frac{\mathrm{d}}{\mathrm{d}w}g\left(w\right) \,\,\,\,\,\,\,\,\,
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -11905,7 +11889,8 @@ h\left(w\right)=g\left(w^{k-1}\right)+g^{\prime}\left(w^{k-1}\right)\left(w-w^{k
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -11916,7 +11901,8 @@ w^k = w^{k-1} - \frac{g^{\prime}(w^{k-1})}{g^{\prime\prime}(w^{k-1})}
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -11924,7 +11910,8 @@ w^k = w^{k-1} - \frac{g^{\prime}(w^{k-1})}{g^{\prime\prime}(w^{k-1})}
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -11932,7 +11919,8 @@ w^k = w^{k-1} - \frac{g^{\prime}(w^{k-1})}{g^{\prime\prime}(w^{k-1})}
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -11940,7 +11928,8 @@ w^k = w^{k-1} - \frac{g^{\prime}(w^{k-1})}{g^{\prime\prime}(w^{k-1})}
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -11957,8 +11946,7 @@ w^k = w^{k-1} - \frac{g^{\prime}(w^{k-1})}{g^{\prime\prime}(w^{k-1})}
 </div>
 <div class="output_wrapper">
 <div class="output">
-<div class="output_area">
-<div class="prompt output_prompt">Out[2]:</div>
+<div class="output_area"><div class="prompt output_prompt">Out[2]:</div>
 <div class="output_html rendered_html output_subarea output_execute_result">
 <script language="javascript">
   /* Define the Animation class */
@@ -12048,7 +12036,8 @@ w^k = w^{k-1} - \frac{g^{\prime}(w^{k-1})}{g^{\prime\prime}(w^{k-1})}
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -12056,7 +12045,8 @@ w^k = w^{k-1} - \frac{g^{\prime}(w^{k-1})}{g^{\prime\prime}(w^{k-1})}
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -12067,7 +12057,8 @@ h\left(w^0\right) = g^{\prime}\left(w^0\right) + g^{\prime \prime}\left(w^0\righ
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -12081,7 +12072,8 @@ w^1 = w^0 - \frac{g^{\prime}\left(w^0\right)}{g^{\prime \prime}\left(w^0\right) 
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -12099,7 +12091,8 @@ w^k = w^{k-1} - \frac{g^{\prime}\left(w^{k-1}\right)}{g^{\prime \prime}\left(w^{
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -12107,7 +12100,8 @@ w^k = w^{k-1} - \frac{g^{\prime}\left(w^{k-1}\right)}{g^{\prime \prime}\left(w^{
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -12127,8 +12121,7 @@ g(w) = \frac{1}{50}\left(w^4 + w^2 + 10w\right).
 </div>
 <div class="output_wrapper">
 <div class="output">
-<div class="output_area">
-<div class="prompt output_prompt">Out[3]:</div>
+<div class="output_area"><div class="prompt output_prompt">Out[3]:</div>
 <div class="output_html rendered_html output_subarea output_execute_result">
 <script language="javascript">
   /* Define the Animation class */
@@ -12221,7 +12214,8 @@ g(w) = \frac{1}{50}\left(w^4 + w^2 + 10w\right).
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -12229,7 +12223,8 @@ g(w) = \frac{1}{50}\left(w^4 + w^2 + 10w\right).
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -12244,21 +12239,23 @@ w^k = w^{k-1} - \frac{g^{\prime}\left(w^{k-1}\right)}{ \frac{g^{\prime}(w^{k-1})
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>We can write this less cumbersomely as</p>
 \begin{equation}
-w^k = w^{k-1} - \frac{g^{\prime}\left(w^{k-1}\right)}{s^k}
-\end{equation}<p>where $s^k$ has been used to replace the second derivative, and is defined as</p>
+w^k = w^{k-1} - \frac{g^{\prime}\left(w^{k-1}\right)}{s^{k-1}}
+\end{equation}<p>where $s^{k-1}$ has been used to replace the second derivative, and is defined as</p>
 \begin{equation}
-s^k = \frac{g^{\prime}(w^{k-1}) - g^{\prime}(w^{k-2})}{w^{k-1} - w^{k-2}}.
+s^{k-1} = \frac{g^{\prime}(w^{k-1}) - g^{\prime}(w^{k-2})}{w^{k-1} - w^{k-2}}.
 \end{equation}
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -12266,7 +12263,8 @@ s^k = \frac{g^{\prime}(w^{k-1}) - g^{\prime}(w^{k-2})}{w^{k-1} - w^{k-2}}.
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -12274,7 +12272,8 @@ s^k = \frac{g^{\prime}(w^{k-1}) - g^{\prime}(w^{k-2})}{w^{k-1} - w^{k-2}}.
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -12294,8 +12293,7 @@ g(w) = \frac{1}{50}\left(w^4 + w^2 + 10w\right).
 </div>
 <div class="output_wrapper">
 <div class="output">
-<div class="output_area">
-<div class="prompt output_prompt">Out[4]:</div>
+<div class="output_area"><div class="prompt output_prompt">Out[4]:</div>
 <div class="output_html rendered_html output_subarea output_execute_result">
 <script language="javascript">
   /* Define the Animation class */
@@ -12391,7 +12389,8 @@ g(w) = \frac{1}{50}\left(w^4 + w^2 + 10w\right).
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -12399,97 +12398,182 @@ g(w) = \frac{1}{50}\left(w^4 + w^2 + 10w\right).
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Everything we have discussed for the generic single input $N= 1$ dimensional case tracks to the higher dimensional instance as well, with one important difference.  Looking back at the Subsection above we replaced the second derivative with the slope of the corresponding secant line $s^k = \frac{g^{\prime}(w^{k-1}) - g^{\prime}(w^{k-2})}{w^{k-1} - w^{k-2}}$ as</p>
+<p>Everything we have discussed for the generic single input $N= 1$ dimensional case tracks to the higher dimensional instance as well, with one important difference.  Looking back at the Subsection above we replaced the second derivative with the slope of the corresponding secant line $s^{k-1} = \frac{g^{\prime}(w^{k-1}) - g^{\prime}(w^{k-2})}{w^{k-1} - w^{k-2}}$ as</p>
 \begin{equation}
-g^{\prime \prime}(w^{k-1}) \longleftarrow s^k 
+g^{\prime \prime}(w^{k-1}) \longleftarrow s^{k-1}
 \end{equation}
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>What is this analogous replacement when $N &gt; 1$?   Abusing notation we could express it as (this is incorrect mathematically speaking, but the algebra mirrors the one dimensional case) by literally just upgrading each piece of notation on the right hand side of the equality above to its vector analog giving</p>
+<p>What is this analogous replacement when $N &gt; 1$?   Abusing notation for a moment, we could express it as (this is incorrect mathematically speaking, but the algebra mirrors the one dimensional case) by literally just upgrading each piece of notation on the right hand side of the equality above to its vector analog giving</p>
 \begin{equation}
-\mathbf{S}^k = \frac{\nabla g\left(\mathbf{w}^{k-1}\right) - \nabla g\left(\mathbf{w}^{k-2}\right)}{\mathbf{w}^{k-1} - \mathbf{w}^{k-2}}.
+\mathbf{S}^{k-1} = \frac{\nabla g\left(\mathbf{w}^{k-1}\right) - \nabla g\left(\mathbf{w}^{k-2}\right)}{\mathbf{w}^{k-1} - \mathbf{w}^{k-2}}.
 \end{equation}
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>In this case, since we are replacing the Hessian the variable $\mathbf{S}^k$ must also be an $N\times N$ matrix.  However we cannot - strictly speaking - express the right hand side of the equality above, since this would mean we are (algebraically) dividing $N$ an length vector (the numerator) by an $N$ length vector (the denominator).   The proper $N$ dimensional analog of the $N=1$ dimensional replacement is in fact a solution to the system</p>
+<p>In this case, since we are replacing the Hessian the variable $\mathbf{S}^{k-1}$ must also be an $N\times N$ matrix.  However we cannot - strictly speaking - express the right hand side of the equality above, since this would mean we are (algebraically) dividing $N$ an length vector (the numerator) by an $N$ length vector (the denominator).   The proper $N$ dimensional analog of the $N=1$ dimensional replacement is in fact a solution to the system</p>
 \begin{equation}
- \mathbf{S}^{k}\left(\mathbf{w}^{k-1} - \mathbf{w}^{k-2}\right)  =   \nabla g\left(\mathbf{w}^{k-1}\right) - \nabla g\left(\mathbf{w}^{k-2}\right).
+ \mathbf{S}^{k-1}\left(\mathbf{w}^{k-1} - \mathbf{w}^{k-2}\right)  =   \nabla g\left(\mathbf{w}^{k-1}\right) - \nabla g\left(\mathbf{w}^{k-2}\right).
+\end{equation}<p>Likewise - inverting $\mathbf{S}^{k-1}$ - we could express this statement as</p>
+\begin{equation}
+\mathbf{w}^{k-1} - \mathbf{w}^{k-2} =   \left(\mathbf{S}^{k-1}\right)^{-1}\left(\nabla g\left(\mathbf{w}^{k-1}\right) - \nabla g\left(\mathbf{w}^{k-2}\right)\right)
 \end{equation}
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Note that this is an $N^2$ system of equations, since the variable that must be solved for is $\mathbf{S}^k$ itself.  This is often called the <em>secant condition</em>, since it is indeed the $N$ dimensional analog of the slope of the one dimensional secant line defined by the second derivative.  So - if this system can be solved - we make the analog replacement of $g^{\prime \prime}(w^{k-1}) \longleftarrow s^k $ to the $N$ dimensional case, replacing the the full Hessian matrix</p>
+<p>In either case notice that the variable we must solve for is here is the matrix $\mathbf{S}^{k-1}$ (or $\left(\mathbf{S}^{k-1}\right)^{-1}$) itself.  This is often called the <em>secant condition</em>, since it is indeed the $N$ dimensional analog of the slope of the one dimensional secant line defined by the second derivative.  So - if this system can be solved - we make the analog replacement of $g^{\prime \prime}(w^{k-1}) \longleftarrow s^{k-1} $ to the $N$ dimensional case, replacing the the full Hessian matrix</p>
 \begin{equation}
-\nabla^2 g\left(\mathbf{w}^{k-1}\right) \longleftarrow \mathbf{S}^k.
+\nabla^2 g\left(\mathbf{w}^{k-1}\right) \longleftarrow \mathbf{S}^{k-1}.
 \end{equation}
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>However here comes the rub: unlike the $N = 1$ dimensional case - where each update has a closed form update - the system we must solve in equation (16) for our secant replacement $\mathbf{S}^k$ will always have has infinitely many solutions.  There are only $N$ equations, but $N^2$ entries to solve for in the matrix $\mathbf{S}^k$.</p>
+<p>However unlike the $N = 1$ dimensional case - where each update has a closed form update - the system we must solve in equation (16) for our secant replacement $\mathbf{S}^{k-1}$ will always have has infinitely many solutions.  There are only $N$ equations, but $N^2$ entries to solve for in the matrix $\mathbf{S}^{k-1}$.</p>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>However because we want $\mathbf{S}^k$ to be as similar as possible to the Hessian we can introduce a number of reasonable <em>constraints</em> to limit the range of solutions to this system.  Here are a few obvious characteristics we want $\mathbf{S}^{k}$ to have (in order for it to be similar to the Hessian)</p>
-<ul>
-<li><strong>$\mathbf{S}^k$ should be a solution to $\mathbf{S}^{k}\left(\mathbf{w}^{k-1} - \mathbf{w}^{k-2}\right)  =   \nabla g\left(\mathbf{w}^{k-1}\right) - \nabla g\left(\mathbf{w}^{k-2}\right)$:</strong> this is merely restating the secant condition</li>
-</ul>
-<ul>
-<li><strong>$\mathbf{S}^k$ should be symmetric:</strong> the Hessian $\nabla^{2}g\left(\mathbf{w}^{k}\right)$ is always symmetric, so $\mathbf{S}^k$ should be too</li>
-</ul>
-<ul>
-<li><strong>$\mathbf{S}^{k}$ should not differ substantially from $\mathbf{S}^{k-1}$:</strong> the Hessian $\nabla^{2}g\left(\mathbf{w}\right)$ is continuous, so
+<h1 id="7.6.3-Quasi-Newton-methods">7.6.3 Quasi-Newton methods<a class="anchor-link" href="#7.6.3-Quasi-Newton-methods">¶</a></h1>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>As discussed in Section 7.3, as a <em>local optimization</em> step $\mathbf{w}^k = \mathbf{w}^{k-1} + \alpha \mathbf{d}^{k}$ the standard Newton method update</p>
+\begin{equation}
+\mathbf{w}^{k} = \mathbf{w}^{k-1} - \left(\nabla^2 g(\mathbf{w}^{k-1})\right)^{-1}\nabla g(\mathbf{w}^{k-1}).
+\end{equation}<p>is a local optimization step with descent direction given by</p>
+\begin{equation}
+\mathbf{d}^{k} = - \left(\nabla^2 g(\mathbf{w}^{k-1})\right)^{-1}\nabla g(\mathbf{w}^{k-1}).
+\end{equation}
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><em>Quasi-Newton methods</em> is the jargon phrase for any descent step of the form above where we replace the true Hessian in this descent direction with an inverse secant matrix $\mathbf{S}^{k-1}$ as</p>
+\begin{equation}
+\mathbf{d}^{k} = - \left(\mathbf{S}^{k-1}\right)^{-1}\nabla g(\mathbf{w}^{k-1}).
+\end{equation}
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>In replacing the true Hessian with a secant approximation we no longer need compute second derivatives or - as we will see - store an entire $N\times N$ matrix to construct a Newton-like descent direction.  In doing so however Quasi-Newton methods lose some of their minimization speed (being at best <em>superlinear</em> instead of <em>quadratic</em> in terms of their convergence properties).</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>But with infinitely many possible secant matrices $\mathbf{S}^{k-1}$ to choose from, how to we choose a 'good' one?</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Because we want $\mathbf{S}^{k-1}$ / $\left(\mathbf{S}^{k-1}\right)^{-1}$ to be as similar as possible to its analagous Hessian we can introduce a number of reasonable <em>constraints</em> to limit the range of solutions to this system.  Here are a few obvious characteristics we want $\mathbf{S}^{k-1}$ to have (in order for it to mimic the Hessian).  This same list also applies to the inverse secant matrix $\left(\mathbf{S}^{k-1}\right)^{-1}$ as well.</p>
+<p>1) <strong>$\mathbf{S}^{k-1}$ should be a solution to the secant condition</strong></p>
+<p>2) <strong>$\mathbf{S}^{k-1}$ should be symmetric:</strong> the Hessian $\nabla^{2}g\left(\mathbf{w}^{k-1}\right)$ is always symmetric, so $\mathbf{S}^{k-1}$ should be too</p>
+<p>3) <strong>$\mathbf{S}^{k}$ should not differ substantially from $\mathbf{S}^{k-1}$:</strong> the Hessian $\nabla^{2}g\left(\mathbf{w}\right)$ is continuous, so
 our approximations $\mathbf{S}^{k}$ and $\mathbf{S}^{k-1}$ should
-not differ too wildly</li>
-</ul>
-<ul>
-<li><strong>$\mathbf{S}^k$ should generate a convex quadratic approximation (i.e., it needs to be positive semi-definite):</strong> we would like the approximation to be positive semi-definite, so we are always descending in the function</li>
-</ul>
+not differ too wildly</p>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>With these restrictions there are a number of possible solutions for $\mathbf{S}^k$, which we explore by example.</p>
+<p>With these conditions in mind, there are still a number of possible ways to construct $\mathbf{S}^{k-1}$ or $\left(\mathbf{S}^{k-1}\right)^{-1}$, which we explore by example below.  These constructions are <em>recursive</em> in nature, so that we can assure that condition $3)$ above holds, and take the general form</p>
+\begin{equation}
+\left(\mathbf{S}^k\right)^{-1} = \left(\mathbf{S}^{k-1}\right)^{-1} + \mathbf{D}^{k-1}
+\end{equation}<p>where the $N\times N$ matrix $\mathbf{D}^{k-1}$ is designed to be symmetric (so that condition $2)$ holds) and of a particular rank (so that the form of $\mathbf{D}^{k-1}$ can be computed in closed form / effectively in practice).  The same sort of recursion can be constructed for $\mathbf{S}^k$ as well, as we will see below.</p>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>TODO</p>
+<hr/>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Taken together and translated into the language of math these conditions provoke a <em>constrained optimization problem</em> for recovering a solution matrix $\mathbf{S}^k$ with these properties.  This constrained problem takes the form</p>
+\begin{equation}
+\begin{array}{cc}
+\underset{\mathbf{S}}{\text{minimize}} &amp; \left\Vert \mathbf{S}^{\,}-\mathbf{S}^{k-1}\right\Vert _{F}^{2}\\
+\text{subject to} &amp; \mathbf{S}\mathbf{a}^{k}=\mathbf{b}^{k}\\
+ &amp; \mathbf{S} \,\,\, \text{symmetric}
+\end{array}
+\end{equation}<p>where as before $\mathbf{a}^k = \mathbf{w}^{k-1} - \mathbf{w}^{k-2}$ and $\mathbf{b}^k = \nabla g(\mathbf{w}^{k-1}) - \nabla g(\mathbf{w}^{k-2})$.</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<hr/>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -12497,15 +12581,356 @@ not differ too wildly</li>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="Example-4.---BFGS-update-formula"><span style="color:#a50e3e;">Example 4. </span>  BFGS update formula<a class="anchor-link" href="#Example-4.---BFGS-update-formula">¶</a></h4>
+<p>In this example we describe one of the simplest recursive formula for $\mathbf{S}^{k}$ or its inverse based on a <em>rank one</em> update.  To see how this formula is derived let use the inverse.  Taking our secant update employing the inverse matrix $\left(\mathbf{S}^{k}\right)^{-1}$</p>
+\begin{equation}
+\mathbf{w}^{k-1} - \mathbf{w}^{k-2} =   \left(\mathbf{S}^{k}\right)^{-1}\left(\nabla g\left(\mathbf{w}^{k-1}\right) - \nabla g\left(\mathbf{w}^{k-2}\right)\right)
+\end{equation}<p>lets first simplify it using some temporary notation by letting $\mathbf{a}^k = \mathbf{w}^{k-1} - \mathbf{w}^{k-2}$, $\mathbf{F}^{k} = \left(\mathbf{S}^{k}\right)^{-1}$, and $\mathbf{c}^k = \nabla g\left(\mathbf{w}^{k-1}\right) - \nabla g\left(\mathbf{w}^{k-2}\right) $.  In this notation we can write the above equivalently as</p>
+\begin{equation}
+\mathbf{a}^k  =   \mathbf{F}^k\mathbf{b}^k.
+\end{equation}
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Since we want $\mathbf{F}^k$ to not differ too much from its predecessor $\mathbf{F}^{k-1}$ and we want it to be symmetric, a natural first attempt at constructing the matrix is to suppose that these two matrices differ only by a <em>rank one outer-product matrix</em> as</p>
+\begin{equation}
+\mathbf{F}^{k} = \mathbf{F}^{k-1} + \mathbf{v}^{,}\mathbf{v}^T.
+\end{equation}<p>This formula satisifes desire $1)$ above insofar as two matrices $\mathbf{F}^{k}$ and $\mathbf{F}^{k-1}$ can be similar if they differ by a rank one matrix.  Notice that it also satisfies desire $3)$ since the $N\times N$ matrix $\mathbf{v}^{,}\mathbf{v}^T$, being a rank one outer product matrix, is <em>always</em> symmetric.  Thus if we <em>initialize</em> the very first $\mathbf{F}^0$ to a symmetric matrix (most commonly the identity) this update will retain our desired symmetry property (since the sum of two symmetric matrices is always symmetric).  Moreover, if the initialization $\mathbf{F}^0$ is <em>positive definite</em> (as the identity matrix is) then this property is inhereited by all matrices $\mathbf{F}^k$ via this formula so long as $\mathbf{v}$ is computable (hence condition $4)$ will be satisfied as well).</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>But we also want this update to satisfy desire $2)$ above (the secant condition).  By <em>assuming</em> the update above does indeed satisfy the secant condition we can then work <em>backwards</em> from it to determine the proper value for our $N\times1$ vector $\mathbf{v}$.</p>
+<p>To being we first plug in our assumed rank one update structure for $\mathbf{F}^k$ into the secant condition above, which gives</p>
+\begin{equation}
+\left(\mathbf{F}^{k-1} + \mathbf{v}^{,}\mathbf{v}^T\right)\mathbf{b}^k = \mathbf{F}^{k-1}\mathbf{b}^k  +\mathbf{v}^{,}\mathbf{v}^T\mathbf{b}^k = \mathbf{a}^k  
+\end{equation}<p>or rearranging equivalently</p>
+\begin{equation}
+\mathbf{v}^{,}\mathbf{v}^T\mathbf{b}^k  = \mathbf{a}^k - \mathbf{F}^{k-1}\mathbf{b}^k.
+\end{equation}<p>What value does $\mathbf{v}$ need to take on in order for</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>To see let us first <em>left</em> multiply the entire formula above by $\mathbf{b}^k$ gives</p>
+\begin{equation}
+\left(\mathbf{b}^k\right)^T\mathbf{v}^{,}\mathbf{v}^T\mathbf{b}^k = \left(\mathbf{v}^{T}\mathbf{b}^k\right)^2 = \left(\mathbf{b}^k\right)^T\mathbf{a}^k - \left(\mathbf{b}^k\right)^T\mathbf{F}^{k-1}\mathbf{b}^k  
+\end{equation}<p>or taking the square root of both sides</p>
+\begin{equation}
+\mathbf{v}^{T}\mathbf{b}^k = \left(\left(\mathbf{b}^k\right)^T\mathbf{a}^k - \left(\mathbf{b}^k\right)^T\mathbf{F}^{k-1}\mathbf{b}^k\right)^{\frac{1}{2}}.
+\end{equation}
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Now because note that $\mathbf{v}^{T}\mathbf{b}^k$ is a <em>constant</em> we can divide if from both sides of equation (24) above, giving</p>
+\begin{equation}
+\mathbf{v} = \frac{ \mathbf{a}^k - \mathbf{F}^{k-1}\mathbf{b}^k}{ \left(\left(\mathbf{b}^k\right)^T\mathbf{a}^k - \left(\mathbf{b}^k\right)^T\mathbf{F}^{k-1}\mathbf{b}^k\right)^{\frac{1}{2}}.}
+\end{equation}
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>This formula gives closed form expression for $\mathbf{v}$, and therefore the rank one update formula in equation (22).  The corresponding rank one formula with this value for $\mathbf{v}$ plugged in is then</p>
+\begin{equation}
+\mathbf{F}^{k} = \mathbf{F}^{k-1} +  \frac{\left(\mathbf{a}^k - \mathbf{F}^{k-1}\mathbf{b}^k\right)\left(\mathbf{a}^k - \mathbf{F}^{k-1}\mathbf{b}^k\right)^T}{ \left(\mathbf{b}^k\right)^T\mathbf{a}^k - \left(\mathbf{b}^k\right)^T\mathbf{F}^{k-1}\mathbf{b}^k}.
+\end{equation}
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>This update is for the inverse matrix $\mathbf{F}^{k} = \left(\mathbf{S}^{k}\right)^{-1}$ - which we need in order compute our secant-based Quasi-Newton descent direction.  However note that an entirely similar recursive expression for $\mathbf{S}^k$ can be formulated by starting with the same assumption (a recursion based on a rank one difference between $\mathbf{S}^k$ and its predecessor) and employing the corresponding secant condition as was done here.</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="Example-4.---Rank-two-update-formulae-(DFP)"><span style="color:#a50e3e;">Example 4. </span>  Rank two update formulae (DFP)<a class="anchor-link" href="#Example-4.---Rank-two-update-formulae-(DFP)">¶</a></h4>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>The next logical desired update step after a rank one update (seen in the previous example) is a <em>rank two</em> update formula.  Using the same notation as in the prior example, we want to determine proper $N\times 1$ vectors $\mathbf{u}$ and $\mathbf{v}$ so that</p>
+\begin{equation}
+\mathbf{F}^{k} = \mathbf{F}^{k-1} + \mathbf{u}^{,}\mathbf{u}^T + \mathbf{v}^{,}\mathbf{v}^T.
+\end{equation}
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>By allowing for a rank two difference between the subsequent matrices - as opposed to a rank one difference - we encode an additional level of complexity into our approximation to subsequent inverse Hessian evaluations.  This formula update satisfies desire 1), insofar as two matrices $\mathbf{F}^{k}$ and $\mathbf{F}^{k-1}$ can be similar if they differ by a rank two matrix.  It also satisfies desire $3)$ since the $N\times N$ matrix  $\mathbf{u}^{,}\mathbf{u}^T + \mathbf{v}^{,}\mathbf{v}^T$, being a rank two outer product matrix, is <em>always</em> symmetric.  Thus if we <em>initialize</em> the very first $\mathbf{F}^1$ to a symmetric matrix (most commonly the identity) this update will retain our desired symmetry property (since the sum of two symmetric matrices is always symmetric).   Moreover, if the initialization $\mathbf{F}^0$ is <em>positive definite</em> (as the identity matrix is) then this property is inhereited by all matrices $\mathbf{F}^k$ via this formula so long as $\mathbf{v}$ is computable (hence condition $4)$ will be satisfied as well).</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>In order to determine the proper values for $\mathbf{u}$ and $\mathbf{v}$ we assume - as we did in the prior example - that this update satisfies the secant condition (desire 2)).</p>
+\begin{equation}
+\left(\mathbf{F}^{k-1} + \mathbf{u}^{,}\mathbf{u}^T + \mathbf{v}^{,}\mathbf{v}^T\right)\mathbf{b}^k = \mathbf{F}^{k-1}\mathbf{b}^k  + \mathbf{u}^{,}\mathbf{u}^T\mathbf{b}^k  +\mathbf{v}^{,}\mathbf{v}^T\mathbf{b}^k = \mathbf{a}^k.
+\end{equation}
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>or rearranging equivalently</p>
+\begin{equation}
+\mathbf{u}^{,}\mathbf{u}^T\mathbf{b}^k  + \mathbf{v}^{,}\mathbf{v}^T\mathbf{b}^k  = \mathbf{a}^k - \mathbf{F}^{k-1}\mathbf{b}^k.
+\end{equation}
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>What values can $\mathbf{u}$ and $\mathbf{v}$ take on in order for the equality above to hold?  Here we have a single equation, but <em>two</em> unknown values $\mathbf{u}$ and $\mathbf{v}$ - so there are infinitely many choices for proper $\mathbf{u}$ and $\mathbf{v}$.  A very simple yet very common way of determiing a single set of values for $\mathbf{u}$ and $\mathbf{v}$ is to suppose: the first term on the left hand side above / right hand side above equals the corresponding term on the right hand side.  That is we make the simple assumption that the following two formula hold (which implies that the secant formula above holds as well)</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+\begin{equation}
+\begin{array}
+\
+\mathbf{u}^{,}\mathbf{u}^T\mathbf{b}^k = \mathbf{a}^k \\
+\mathbf{v}^{,}\mathbf{v}^T\mathbf{b}^k = - \mathbf{F}^{k-1}\mathbf{b}^k.
+\end{array}
+\end{equation}<p>This added assumption allows us to solve for a valid pair of $\mathbf{u}$ / $\mathbf{v}$ in a way that closely mirrors the solution method from the previous example.  That is, first we will <em>left multiply</em> each of these formula by $\mathbf{b}^k$.  Doing this to each equation above we have</p>
+\begin{equation}
+\begin{array}
+\
+\left(\mathbf{b}^k\right)^T\mathbf{u}^{,}\mathbf{u}^T\mathbf{b}^k = \left(\mathbf{u}^{T}\mathbf{b}^k\right)^2  =  \left(\mathbf{b}^k\right)^T\mathbf{a}^k \\
+\left(\mathbf{b}^k\right)^T\mathbf{v}^{,}\mathbf{v}^T\mathbf{b}^k = \left(\mathbf{v}^{T}\mathbf{b}^k\right)^2  =  - \left(\mathbf{b}^k\right)^T\mathbf{F}^{k-1}\mathbf{b}^k.
+\end{array}
+\end{equation}
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Taking the square root of both sides in both equations above we then have the set of equations</p>
+\begin{equation}
+\begin{array}
+\
+\mathbf{u}^{T}\mathbf{b}^k  =  \left(\left(\mathbf{b}^k\right)^T\mathbf{a}^k\right)^{\frac{1}{2}} \\
+\mathbf{v}^{T}\mathbf{b}^k  =  \left(- \left(\mathbf{b}^k\right)^T\mathbf{F}^{k-1}\mathbf{b}^k\right)^{\frac{1}{2}}.
+\end{array}
+\end{equation}
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>We can now divide off the top / bottom constants from the top / bottom formulae in equation (32) respectively, giving</p>
+\begin{equation}
+\begin{array}
+\
+\mathbf{u} = \frac{\mathbf{a}^k}{\left(\left(\mathbf{b}^k\right)^T\mathbf{a}^k\right)^{\small{\frac{1}{2}}} } \\
+\mathbf{v}= \frac{-\mathbf{F}^{k-1}\mathbf{b}^k}{\left(- \left(\mathbf{b}^k\right)^T\mathbf{F}^{k-1}\mathbf{b}^k\right)^{\small{\frac{1}{2}}}}.
+\end{array}
+\end{equation}
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>This formula gives closed form expressions for $\mathbf{u}$ and $\mathbf{v}$ (and is often called the Davidon-Fletcher-Powell (DFP) Method based on the authors who first put forth this solution), given that we make a simple but stronger assumption than the secand condition alone, that when plugged into the rank two update formula in equation (29) gives</p>
+\begin{equation}
+\mathbf{F}^{k} = \mathbf{F}^{k-1} + \frac{\mathbf{a}^k 
+\left(\mathbf{a}^k\right)^T}{\left(\mathbf{b}^k\right)^T\mathbf{a}^k } -   \frac{\left(\mathbf{F}^{k-1}\mathbf{b}^k\right)\left(\mathbf{F}^{k-1}\mathbf{b}^k\right)^T}{\left(\mathbf{b}^k\right)^T\mathbf{F}^{k-1}\mathbf{b}^k}.
+\end{equation}
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="Example-5.---Rank-two-update-formulae-(BFGS)"><span style="color:#a50e3e;">Example 5. </span>  Rank two update formulae (BFGS)<a class="anchor-link" href="#Example-5.---Rank-two-update-formulae-(BFGS)">¶</a></h4>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>While the update in the previous example was for the inverse matrix $\mathbf{F}^{k} = \left(\mathbf{S}^{k}\right)^{-1}$ an entirely similar recursive expression for $\mathbf{S}^k$ can be formulated by starting with the same assumption (a recursion based on a rank two difference between $\mathbf{S}^k$ and its predecessor) and employing the corresponding secant condition as was done here.  Doing this - where $\mathbf{F}^{k} = \mathbf{S}^{k}$ - we can write the analagous update for $\mathbf{S}^k$ as</p>
+\begin{equation}
+\mathbf{S}^{k} = \mathbf{S}^{k-1} + \frac{\mathbf{b}^k 
+\left(\mathbf{b}^k\right)^T}{\left(\mathbf{a}^k\right)^T\mathbf{b}^k } -   \frac{\left(\mathbf{S}^{k-1}\mathbf{a}^k\right)\left(\mathbf{S}^{k-1}\mathbf{a}^k\right)^T}{\left(\mathbf{a}^k\right)^T\mathbf{S}^{k-1}\mathbf{a}^k}.
+\end{equation}<p>This formula is often referred to as the Broyden–Fletcher–Goldfarb–Shanno (BFGS) update, named after its original authors.</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>While this is a valid formula for $\mathbf{S}^k$, in order to compute a secant-based Quasi-Newton descent step we would like to use its inverse $\left(\mathbf{S}^{k}\right)^{-1}$.  While we have already computed an analagous rank two formula in the prior example, technically speaking we can also get a rank two formula by <em>inverting</em>  the one we have for $\mathbf{S}^k$ above.  Doing this gives a different formula for $\mathbf{F}^{k} = \left(\mathbf{S}^{k}\right)^{-1}$</p>
+\begin{equation}
+\begin{array}
+\
+\mathbf{F}^{k} = \left(\mathbf{S}^{k-1} + \frac{\mathbf{b}^k 
+\left(\mathbf{b}^k\right)^T}{\left(\mathbf{a}^k\right)^T\mathbf{b}^k } -   \frac{\left(\mathbf{S}^{k-1}\mathbf{a}^k\right)\left(\mathbf{S}^{k-1}\mathbf{a}^k\right)^T}{\left(\mathbf{a}^k\right)^T\mathbf{S}^{k-1}\mathbf{a}^k} \right)^{-1}  \\
+= \mathbf{F}^{k-1} + \frac{\left( \left(\mathbf{a}^k\right)^T\mathbf{b}^k +  
+\left(\mathbf{b}^k\right)^T\mathbf{F}^{k-1}\mathbf{b}^k\right) \mathbf{a}^k\left(\mathbf{a}^k\right)^T}{\left(\left(\mathbf{a}^k\right)^T\mathbf{b}^k \right)^2} -   \frac{\mathbf{F}^{k-1}\mathbf{b}^k\left(\mathbf{a}^{k}\right)^T + \mathbf{a}^{k}\left(\mathbf{b}^k\right)^T\mathbf{F}^{k-1} }{\left(\mathbf{a}^k\right)^T\mathbf{b}^k}
+\end{array}
+\end{equation}<p>where the formula on the right hand side follows from the Sherman–Morrison identity.</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>This BFGS formula for the inverse secant tends to work better in practice than the DFP version given in the prior example, and so is more popularly used in practice.</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="7.6.4-Low-memory-Quasi-Newton-methods">7.6.4 Low memory Quasi-Newton methods<a class="anchor-link" href="#7.6.4-Low-memory-Quasi-Newton-methods">¶</a></h1>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>The general inverse secant update formula we saw in the examples above</p>
+\begin{equation}
+\left(\mathbf{S}^k\right)^{-1} = \left(\mathbf{S}^{k-1}\right)^{-1} + \mathbf{D}^{k-1}
+\end{equation}<p>where the $N\times N$ matrix $\mathbf{D}^{k-1}$ is designed to be symmetric and of a particular rank, provides us with a way of constructing $\left(\mathbf{S}^k\right)^{-1}$ from its predecessor so that it behaves like a true Hessian matrix.  Using any of these update formulae the <em>descent direction</em> for a Quasi-Newton step (as noted previously) is</p>
+\begin{equation}
+\mathbf{d}^{k} = - \left(\mathbf{S}^{k-1}\right)^{-1}\nabla g(\mathbf{w}^{k-1})
+\end{equation}<p>where $\mathbf{S}^{k-1}$ is our approximation to the true Hessian matrix.</p>
+<p>However as written our secant matrix update rules <em>still involve explicit forms of an $N\times N$ matrix</em>, i.e., the secant $\mathbf{S}^{k}$ or its inverse $\left(\mathbf{S}^k\right)^{-1}$.  However, if you recall (see Section 7.4), that it was precisely the presence of the $N\times N$ Hessian matrix (with its $N^2$ values) that drove us to examine Quasi-Newton methods to begin with.  So it appears that we have not avoided the serious scaling issues associated with employing an $N\times N$ matrix (originally a Hessian matrix, now a secant matrix).</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>We can in fact avoid constructing the secant matrix <em>explicitly</em> by focusing on <em>how we use it</em> - which is via matrix-vector multiplication in computing our descent direction $\mathbf{d}^{k} = - \left(\mathbf{S}^{k-1}\right)^{-1}\nabla g(\mathbf{w}^{k-1})$ - and by computing this direction intelligently.  In other words, when implementing we do not need to <em>explicitly</em> store $\left(\mathbf{S}^{k-1}\right)^{-1}$ but we do need to explicitly compute the matrix-vector products of the form $\left(\mathbf{S}^{k-1}\right)^{-1} \mathbf{z}$ where $\mathbf{z}$ is an arbitrary $N\times N$ vector.</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>If we take one of the formulae for our inverse secant matrix derived above, we can see how to explicitly compute such a product while avoiding the explicit construction of any $N\times N$ inverse secant matrix with the exception of our initialization $\left(\mathbf{S}^{0}\right)^{-1}$.   For example, if we take our <em>rank one update formula</em> for the inverse secant detailed in Example 4 above - using the notation introduced in there - and compute $\left(\mathbf{S}^{k}\right)^{-1} \mathbf{z}=\mathbf{F}^{k} \mathbf{z}$ we have</p>
+\begin{equation}
+\begin{array}
+\
+\mathbf{F}^{k} \mathbf{z} =  \left(\mathbf{F}^{k-1} +  \frac{\left(\mathbf{a}^k - \mathbf{F}^{k-1}\mathbf{b}^k\right)\left(\mathbf{a}^k - \mathbf{F}^{k-1}\mathbf{b}^k\right)^T}{ \left(\mathbf{b}^k\right)^T\mathbf{a}^k - \left(\mathbf{b}^k\right)^T\mathbf{F}^{k-1}\mathbf{b}^k}\right)\mathbf{z}  \\
+= \mathbf{F}^{k-1}\mathbf{z} +  \frac{\left(\mathbf{a}^k - \mathbf{F}^{k-1}\mathbf{b}^k\right)^T\mathbf{z}}{ \left(\mathbf{b}^k\right)^T\mathbf{a}^k - \left(\mathbf{b}^k\right)^T\mathbf{F}^{k-1}\mathbf{b}^k}\left(\mathbf{a}^k - \mathbf{F}^{k-1}\mathbf{b}^k\right).
+\end{array}
+\end{equation}
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>If we think about the computation required above for $\mathbf{F}^{k}\mathbf{z}$ in terms of the <em>vectors</em> required, we need access too: $\mathbf{a}^k$, $\mathbf{b}^k$, $\mathbf{z}$, $\mathbf{F}^{k-1}\mathbf{b}^k$, and $\mathbf{F}^{k-1}\mathbf{z}$.  In terms of just the matrix vector products (since it is the explicit storage of the matrices that we wish to avoid), we need only concern ourselves with the final two vectors and how we can compute them without explicitly storing $\mathbf{F}^{k-1}$.  If we can do this then in computing the generic matrix-vector product $\mathbf{F}^{k}\mathbf{z}$ we can avoid explicit storage of the matrix $\mathbf{F}^k$.  How can we do this?</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Well, note that if we start with the first update $k=1$ and <em>initialize</em> $\mathbf{F}^0 = \mathbf{I}_{N\times N}$ then we can compute the first descent direction simply as $\mathbf{d}^1 = - \mathbf{F}^0\nabla g(\mathbf{w}^{0}) = -\nabla g(\mathbf{w}^{0})$ (i.e., the gradient descent direction at $\mathbf{w}^0$).
+Initializing with the identity also allows the first matrix-vector products to be computed trivially - that is $\mathbf{F}^0\mathbf{b}^1 = \mathbf{b}^1$ and $\mathbf{F}^0\mathbf{z} = \mathbf{z}$.  In other words, in addition to the first descent direction we can compute arbitrary products of the form $\mathbf{F}^0\mathbf{z}$.  This means that - via the rank one identity for forming $\mathbf{F}^1$ above - that we can now form arbitrary matrix-vector products $\mathbf{F}^1\mathbf{z}$ involving our updated inverse secant $\mathbf{F}^1$ <em>without the need to explicitly store $\mathbf{F}^1$</em>.  In particular we can then compute the <em>second</em> descent direction $\mathbf{d}^2 = - \mathbf{F}^1\nabla g(\mathbf{w}^{1})$ without explicitly storing $\mathbf{F}^1$.  Then if we can compute arbitrary matrix-vector products $\mathbf{F}^1\mathbf{z}$ without the need to store $\mathbf{F}^1$ we can - using our identity to form $\mathbf{F}^2$ - form the third descent step $\mathbf{d}^3 = - \mathbf{F}^2\nabla g(\mathbf{w}^{2})$ without the need to explicitly store $\mathbf{F}^2$.  This pattern can be continued to the $k^{th}$ descent step where we can then compute $\mathbf{d}^k = - \mathbf{F}^{k-1}\nabla g(\mathbf{w}^{k-1})$ without the need to explicitly store $\mathbf{F}^{k-1}$.</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>We can almost entirely the same kind of argument can be made with any rank one or rank two Quasi-Newton update formula, meaning that any of the update formulae given in the preceeding examples can be implemented so that we never need store a secant or inverse secant matrix.</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -12517,6 +12942,6 @@ not differ too wildly</li>
 </div>
 </body>
 <script type="application/vnd.jupyter.widget-state+json">
-{"version_minor": 0, "state": {}, "version_major": 1}
+{"state": {}, "version_minor": 0, "version_major": 1}
 </script>
 </html>
