@@ -35,8 +35,10 @@ class Visualizer:
             x_p = self.x[p,:]
             y_p = self.y[p]
             a_p = w[0] + np.sum([u*v for (u,v) in zip(x_p,w[1:])])
-            cost +=(np.sign(a_p) - y_p)**2
-        return cost
+            e = 0
+            if np.sign(a_p) != y_p:
+                cost += 1
+        return float(cost)
     
     # log-loss
     def log_loss(self,w):

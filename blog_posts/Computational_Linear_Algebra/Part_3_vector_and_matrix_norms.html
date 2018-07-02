@@ -11762,6 +11762,29 @@ div#notebook {
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="NEW-ADDITIONS">NEW ADDITIONS<a class="anchor-link" href="#NEW-ADDITIONS">&#182;</a></h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>The $\ell_0$ vector norm, written as $\left \Vert \mathbf{w} \right \Vert_0$, measures 'magnitude' as</p>
+\begin{equation}
+\left \Vert \mathbf{w} \right \Vert_0 = \text{number of non-zero entries of  } \mathbf{w}.
+\end{equation}<p>The <em>smaller</em> a vector becomes (in the $\ell_0$ sense) the</p>
+<p>notice what we are doing: we are <em>penalizing</em> the regularized cost <em>for every non-zero entry of $\mathbf{w}$</em> since every non-zero entry <em>adds $+1$</em> to the magnitude $\left \Vert \mathbf{w} \right \Vert_0$.  Conversely then, in  <em>minimizing this sum</em>, the two functions $g$ and $\left \Vert \mathbf{w} \right \Vert_0$ 'compete for dominance' with $g$ wanting $\mathbf{w}$ to be resolved so that we attain a strong regression fit, while the regularizer $\left \Vert \mathbf{w} \right \Vert_0$ <em>aims to determine a 'small' $\mathbf{w}$ that has as few non-zero elements as possible</em> (or - in other words - a weight vector $\mathbf{w}$ that is very <em>sparse</em>).</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
 <h1 id="Part-3:-Vector-and-matrix-norms">Part 3: Vector and matrix norms<a class="anchor-link" href="#Part-3:-Vector-and-matrix-norms">&#182;</a></h1>
 </div>
 </div>
@@ -11959,7 +11982,7 @@ by</p>
  
 
 <script type="application/vnd.jupyter.widget-state+json">
-{"version_minor": 0, "state": {}, "version_major": 1}
+{"version_major": 1, "version_minor": 0, "state": {}}
 </script>
 
 

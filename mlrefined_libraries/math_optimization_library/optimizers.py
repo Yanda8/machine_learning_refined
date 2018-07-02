@@ -208,10 +208,15 @@ def newtons_method(g,max_its,w,**kwargs):
 
         # reshape for numpy linalg functionality
         hess_eval.shape = (int((np.size(hess_eval))**(0.5)),int((np.size(hess_eval))**(0.5)))
+        
+        # solve second order system system for weight update
+        #w = w - np.dot(np.linalg.pinv(hess_eval + epsilon*np.eye(np.size(w))),grad_eval)
 
         # solve second order system system for weight update
-        w = w - np.dot(np.linalg.pinv(hess_eval + epsilon*np.eye(np.size(w))),grad_eval)
-
+        A = hess_eval + epsilon*np.eye(np.size(w))
+        b = grad_eval
+        w = np.linalg.lstsq(A,np.dot(A,w) - b)[0]
+            
     # collect final weights
     weight_history.append(unflatten(w))
     # compute final cost function value via g itself (since we aren't computing 

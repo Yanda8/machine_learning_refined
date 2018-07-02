@@ -103,11 +103,11 @@ class visualizer:
                                                 
             # plot function 1
             ax1.plot(w_plot,g1_plot,color = 'k',zorder = 1)                           
-            ax1.set_title(title1,fontsize = 15)
+            ax1.set_title(title1,fontsize = 22)
 
             # plot function 2
             ax2.plot(w_plot,g2_plot,color = 'k',zorder = 1)                
-            ax2.set_title(title2,fontsize = 15)
+            ax2.set_title(title2,fontsize = 22)
 
             # plot combination of both
             alpha = alpha_vals[k]
@@ -118,7 +118,7 @@ class visualizer:
                 g_combo = (1-alpha)*g1_plot + alpha*g2_plot
             
             ax3.plot(w_plot,g_combo,color = 'k',zorder = 1) 
-            ax3.set_title(title3,fontsize = 15)
+            ax3.set_title(title3,fontsize = 22)
             
             # set vertical limits
             ax1.set_ylim([g1_min,g1_max])

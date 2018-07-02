@@ -121,6 +121,7 @@ class Visualizer:
         ##### construct figure with panels #####
         # construct figure
         fig = plt.figure(figsize = (11,5))
+        self.edgecolor = 'k'
 
         # create subplot with 3 panels, plot input function in center plot
         # this seems to be the best option for whitespace management when using
@@ -275,6 +276,7 @@ class Visualizer:
         ##### construct figure with panels #####
         # construct figure
         fig = plt.figure(figsize = (10,4.5))
+        self.edgecolor = 'k'
          
         # create figure with single plot for contour
         gs = gridspec.GridSpec(1, 2) 

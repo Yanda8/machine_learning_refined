@@ -65,6 +65,7 @@ def newtons_method(g,max_its,w,**kwargs):
     weight_history = []      # container for weight history
     cost_history = []        # container for corresponding cost function history
     for k in range(max_its):
+        print (k)
         # evaluate the gradient, store current weights and cost function value
         cost_eval,grad_eval = gradient(w)
         weight_history.append(unflatten(w))
