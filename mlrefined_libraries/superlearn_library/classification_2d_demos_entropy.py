@@ -32,6 +32,17 @@ class Visualizer:
         # colors for viewing classification data 'from above'
         self.colors = ['cornflowerblue','salmon','lime','bisque','mediumaquamarine','b','m','g']
     
+    ### logistic functionality ###
+    def identity(self,t):
+        val = 0
+        if t > 0.5:
+            val = 1
+        return val
+    
+    # define sigmoid function
+    def sigmoid(self,t):
+        return 1/(1 + np.exp(-t))
+    
     ######## 2d functions ########
     # animate gradient descent or newton's method
     def animate_run(self,w_hist,**kwargs):     
@@ -98,7 +109,7 @@ class Visualizer:
             ###### make left panel - plot data and fit ######
             # initialize fit
             w = self.w_hist[k]
-            y_fit = np.tanh(w[0] + x_fit*w[1])
+            y_fit = self.sigmoid(w[0] + x_fit*w[1])
             
             # scatter data
             self.scatter_pts(ax1)
@@ -454,6 +465,7 @@ class Visualizer:
         
     ### visualize contour plot of cost function ###
     def contour_plot(self,ax,wmax,num_contours):
+        
         #### define input space for function and evaluate ####
         w1 = np.linspace(-wmax,wmax,100)
         w2 = np.linspace(-wmax,wmax,100)
@@ -462,6 +474,7 @@ class Visualizer:
         w2_vals.shape = (len(w2)**2,1)
         h = np.concatenate((w1_vals,w2_vals),axis=1)
         func_vals = np.asarray([ self.g(np.reshape(s,(2,1))) for s in h])
+
         #func_vals = np.asarray([self.g(s) for s in h])
         w1_vals.shape = (len(w1),len(w1))
         w2_vals.shape = (len(w2),len(w2))
