@@ -2,7 +2,6 @@ import autograd.numpy as np
 from . import super_optimizers 
 from . import super_cost_functions
 from . import multilayer_perceptron
-from . import history_plotters
  
 class Setup:
     def __init__(self):
