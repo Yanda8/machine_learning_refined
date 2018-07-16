@@ -35,12 +35,12 @@ class Visualizer:
         self.y.shape = (len(self.y),1)
         
         # colors for viewing classification data 'from above'
-        self.colors = [[1,0,0.4], [ 0, 0.4, 1],[0, 1, 0.5],[1, 0.7, 0.5],[0.7, 0.6, 0.5],'mediumaquamarine']
+        self.colors = [[ 0, 0.4, 1],[1,0,0.4],[0, 1, 0.5],[1, 0.7, 0.5],'violet','mediumaquamarine']
 
         #self.colors = ['cornflowerblue','salmon','lime','bisque','mediumaquamarine','b','m','g']
         
         # create instance of optimizers
-        self.opt = optimimzers.MyOptimizers()
+        self.opt = optimizers.MyOptimizers()
         
     ### cost functions ###
     # the counting cost function
@@ -105,7 +105,7 @@ class Visualizer:
         self.W = []
         num_classes = np.size(np.unique(self.y))
         for i in range(0,num_classes):
-            print ('solving sub-problem number ' + str(i+1))
+            #print ('solving sub-problem number ' + str(i+1))
             # prepare temporary C vs notC sub-probem labels
             self.y_temp = copy.deepcopy(self.y)
             ind = np.argwhere(self.y_temp == (i))

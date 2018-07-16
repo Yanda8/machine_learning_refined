@@ -34,7 +34,7 @@ class Visualizer:
         self.y.shape = (len(self.y),1)
     
         # colors for viewing classification data 'from above'
-        self.colors = [[1,0,0.4], [ 0, 0.4, 1],[0, 1, 0.5],[1, 0.7, 0.5],[0.7, 0.6, 0.5],'mediumaquamarine']
+        self.colors = [[ 0, 0.4, 1],[1,0,0.4],[0, 1, 0.5],[1, 0.7, 0.5],'violet','mediumaquamarine']
         
     ###### cost functions ######
     # counting cost for multiclass classification - used to determine best weights
@@ -226,7 +226,7 @@ class Visualizer:
    
 
     # show coloring of entire space
-    def show_surface_fit(self,w_hist,view,**kwargs):
+    def show_discrete_step(self,w_hist,view,**kwargs):
         '''
         # determine best set of weights from history
         cost_evals = []
@@ -245,8 +245,8 @@ class Visualizer:
         gs = gridspec.GridSpec(1, 2,width_ratios = [1.5,1]) 
             
         # setup current axis
-        ax = plt.subplot(gs[0],projection = '3d');
-        ax2 = plt.subplot(gs[1],aspect = 'equal');
+        ax = plt.subplot(gs[1],projection = '3d');
+        ax2 = plt.subplot(gs[0],aspect = 'equal');
         
         # load in args
         zplane = 'on'
@@ -269,7 +269,7 @@ class Visualizer:
         self.plot_data(ax2)
                 
         ### draw multiclass boundary on right panel
-        r = np.linspace(minx,maxx,1000)
+        r = np.linspace(minx,maxx,4000)
         w1_vals,w2_vals = np.meshgrid(r,r)
         w1_vals.shape = (len(r)**2,1)
         w2_vals.shape = (len(r)**2,1)
@@ -288,9 +288,29 @@ class Visualizer:
         ax2.contour(w1_vals,w2_vals,g_vals,colors = 'k',levels = range(-1,C),linewidths = 2.75,zorder = 4)
         ax2.contourf(w1_vals,w2_vals,g_vals,colors = self.colors[:],alpha = 0.2,levels = range(-1,C))
         
-        # plot surface and z-plane contour in left panel
-        ax.plot_surface(w1_vals,w2_vals,g_vals,alpha = 0.3,color = 'w',rstride=50, cstride=50,linewidth=0.5,edgecolor = 'k',zorder = 0) 
+        ### plot discrete step function ###
+        # to plot the step function, plot the bottom and top steps separately - z1 and z2
+        steps = np.unique(g_vals)
+        num_steps = np.arange(len(steps))
         
+        # loop over each step and plot
+        g_vals_copy = copy.deepcopy(g_vals)
+        g_vals_copy.shape = (len(r)**2,1)
+        for step in steps:
+            # copy surface            
+            g_copy = np.zeros((len(r)**2,1))
+            g_copy.fill(np.nan)
+            
+            # find step in copy, nan out all else
+            ind = np.argwhere(g_vals_copy == step)
+            ind = [v[0] for v in ind]
+            for i in ind:
+                g_copy[i] = step
+            
+            # reshape and plot
+            g_copy.shape = (len(r),len(r))
+            ax.plot_surface(w1_vals,w2_vals,g_copy,alpha = 0.25,color = 'w',zorder = 0,edgecolor = 'k',linewidth=0.25,cstride = 200, rstride = 200,shade=10,antialiased=True)
+
         # plot zplane = 0 in left 3d panel - showing intersection of regressor with z = 0 (i.e., its contour, the separator, in the 3d plot too)?
         if zplane == 'on':
             g_vals +=1
@@ -313,10 +333,10 @@ class Visualizer:
             
         # dress panel
         ax.view_init(view[0],view[1])
-        ax.axis('off')
+        #ax.axis('off')
         ax.set_xlim(minx,maxx)
         ax.set_ylim(minx,maxx)
-        ax.set_zlim(-0.5,C+0.5)
+        ax.set_zlim(-0.1,C - 1+0.1)
         
         ax2.set_xticks([])
         ax2.set_yticks([])
@@ -352,18 +372,21 @@ class Visualizer:
          
         #### perform all optimizations ###
         self.lam = 10**-3  # our regularization paramter 
+        if 'lam' in kwargs:
+            self.lam = kwargs['lam']
+            
         g = self.multiclass_softmax
         g_count = self.counting_cost
         
         # create instance of optimizers
-        self.opt = optimimzers.MyOptimizers()
+        self.opt = optimizers.MyOptimizers()
         
         # run optimizer
         big_w_hist = []
         C = len(np.unique(self.y))
         for j in range(num_runs):
             # create random initialization
-            w_init =  np.random.randn(C,np.shape(self.x)[0]+1)
+            w_init =  np.random.randn(np.shape(self.x)[0]+1,C)
 
             # run algo
             if algo == 'gradient_descent':# run gradient descent
@@ -410,7 +433,7 @@ class Visualizer:
         
         ax2.set_xlabel('iteration',fontsize = 13)
         ax2.set_ylabel('cost value',rotation = 90,fontsize = 13)
-        title = 'multiclass softmax'
+        title = 'Multiclass Softmax'
         ax2.set_title(title,fontsize = 14)
         ax2.axhline(y=0, color='k',zorder = 0,linewidth = 0.5)
         

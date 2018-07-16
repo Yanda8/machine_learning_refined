@@ -11,8 +11,8 @@
 *
 */
 /*!
- * Bootstrap v3.3.7 (http://getbootstrap.com)
- * Copyright 2011-2016 Twitter, Inc.
+ * Bootstrap v3.3.6 (http://getbootstrap.com)
+ * Copyright 2011-2015 Twitter, Inc.
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
  */
 /*! normalize.css v3.0.3 | MIT License | github.com/necolas/normalize.css */
@@ -1107,6 +1107,7 @@ a:focus {
   text-decoration: underline;
 }
 a:focus {
+  outline: thin dotted;
   outline: 5px auto -webkit-focus-ring-color;
   outline-offset: -2px;
 }
@@ -2535,6 +2536,7 @@ select[size] {
 input[type="file"]:focus,
 input[type="radio"]:focus,
 input[type="checkbox"]:focus {
+  outline: thin dotted;
   outline: 5px auto -webkit-focus-ring-color;
   outline-offset: -2px;
 }
@@ -3025,6 +3027,7 @@ select[multiple].input-lg {
 .btn.focus,
 .btn:active.focus,
 .btn.active.focus {
+  outline: thin dotted;
   outline: 5px auto -webkit-focus-ring-color;
   outline-offset: -2px;
 }
@@ -8755,9 +8758,6 @@ body > #header .header-bar {
     margin-left: 10px;
   }
 }
-[dir="rtl"] #ipython_notebook {
-  float: right !important;
-}
 #noscript {
   width: auto;
   padding-top: 16px;
@@ -8960,14 +8960,8 @@ span#login_widget > .button .badge,
  *
  * Author: Jupyter Development Team
  */
-[dir="rtl"] #tabs li {
-  float: right;
-}
 ul#tabs {
   margin-bottom: 4px;
-}
-[dir="rtl"] ul#tabs {
-  margin-right: 0px;
 }
 ul#tabs a {
   padding-top: 6px;
@@ -8990,16 +8984,6 @@ ul.breadcrumb span {
 }
 .list_toolbar .tree-buttons {
   padding-top: 1px;
-}
-[dir="rtl"] .list_toolbar .tree-buttons {
-  float: left !important;
-}
-[dir="rtl"] .list_toolbar .pull-right {
-  padding-top: 1px;
-  float: left !important;
-}
-[dir="rtl"] .list_toolbar .pull-left {
-  float: right !important;
 }
 .dynamic-buttons {
   padding-top: 3px;
@@ -9136,9 +9120,6 @@ ul.breadcrumb span {
 #tree-selector {
   padding-right: 0px;
 }
-[dir="rtl"] #tree-selector a {
-  float: right;
-}
 #button-select-all {
   min-width: 50px;
 }
@@ -9228,9 +9209,6 @@ ul#new-menu {
   left: auto;
   right: 0;
 }
-[dir="rtl"] #new-menu {
-  text-align: right;
-}
 .kernel-menu-icon {
   padding-right: 12px;
   width: 24px;
@@ -9275,9 +9253,6 @@ ul#new-menu {
 }
 #running .panel-group .panel .panel-body .list_container .list_item:last-child {
   border-bottom: 0px;
-}
-[dir="rtl"] #running .col-sm-8 {
-  float: right !important;
 }
 .delete-button {
   display: none;
@@ -9574,7 +9549,6 @@ div.cell.selected.jupyter-soft-selected {
   }
 }
 div.inner_cell {
-  min-width: 0;
   /* Old browsers */
   display: -webkit-box;
   -webkit-box-orient: vertical;
@@ -9595,6 +9569,11 @@ div.inner_cell {
   box-flex: 1;
   /* Modern browsers */
   flex: 1;
+}
+@-moz-document url-prefix() {
+  div.inner_cell {
+    overflow-x: hidden;
+  }
 }
 /* input_area and input_prompt must match in top border and margin for alignment */
 div.input_area {
@@ -11265,7 +11244,7 @@ div#pager .ui-resizable-handle::after {
 }
 .shortcut_key {
   display: inline-block;
-  width: 21ex;
+  width: 20ex;
   text-align: right;
   font-family: monospace;
 }
@@ -11577,7 +11556,6 @@ ul.typeahead-list > li > a {
   box-shadow: 0px 0px 12px 1px rgba(87, 87, 87, 0.2);
 }
 .terminal-app .terminal {
-  width: 100%;
   float: left;
   font-family: monospace;
   color: white;
@@ -11591,9 +11569,6 @@ ul.typeahead-list > li > a {
 .terminal-app .terminal dummy-screen {
   line-height: 1em;
   font-size: 14px;
-}
-.terminal-app .terminal .xterm-rows {
-  padding: 10px;
 }
 .terminal-app .terminal-cursor {
   color: black;
@@ -11726,7 +11701,9 @@ body {
 div#notebook {
   overflow: visible;
   border-top: none;
-}@media print {
+}
+
+@media print {
   div.cell {
     display: block;
     page-break-inside: avoid;
@@ -11747,7 +11724,7 @@ div#notebook {
 
 <!-- Loading mathjax macro -->
 <!-- Load mathjax -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS_HTML"></script>
+    <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML"></script>
     <!-- MathJax configuration -->
     <script type="text/x-mathjax-config">
     MathJax.Hub.Config({
@@ -11771,7 +11748,8 @@ div#notebook {
   <div tabindex="-1" id="notebook" class="border-box-sizing">
     <div class="container" id="notebook-container">
 
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -11779,7 +11757,8 @@ div#notebook {
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -11787,7 +11766,8 @@ div#notebook {
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -11796,7 +11776,8 @@ div#notebook {
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -11812,7 +11793,8 @@ D
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -11821,7 +11803,8 @@ D
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -11830,7 +11813,8 @@ D
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -11838,7 +11822,8 @@ D
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -11847,7 +11832,8 @@ D
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -11861,7 +11847,8 @@ D
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -11873,7 +11860,8 @@ D
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -11889,7 +11877,8 @@ An illustration of the fundamental theorem of linear algebra which states that a
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -11898,7 +11887,8 @@ An illustration of the fundamental theorem of linear algebra which states that a
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -11906,7 +11896,8 @@ An illustration of the fundamental theorem of linear algebra which states that a
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -11926,7 +11917,8 @@ f_{1}\left(\mathbf{x}_{p}\right)
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -11940,7 +11932,8 @@ f_{1}\left(\mathbf{x}_{p}\right)
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -11951,7 +11944,8 @@ g\left(b,\mathbf{z}\right) = \sum_{p=1}^{P} \left(b+\mathbf{h}_p^T\mathbf{z}-y_p
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -11962,7 +11956,8 @@ g\left(b,\mathbf{z}\right) = \sum_{p=1}^{P} \left(b+\mathbf{h}_p^T\mathbf{z}-y_p
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -11971,7 +11966,8 @@ g\left(b,\mathbf{z}\right) = \sum_{p=1}^{P} \left(b+\mathbf{h}_p^T\mathbf{z}-y_p
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -11980,7 +11976,8 @@ g\left(b,\mathbf{z}\right) = \sum_{p=1}^{P} \left(b+\mathbf{h}_p^T\mathbf{z}-y_p
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -11988,7 +11985,8 @@ g\left(b,\mathbf{z}\right) = \sum_{p=1}^{P} \left(b+\mathbf{h}_p^T\mathbf{z}-y_p
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -11997,7 +11995,8 @@ g\left(b,\mathbf{z}\right) = \sum_{p=1}^{P} \left(b+\mathbf{h}_p^T\mathbf{z}-y_p
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -12006,7 +12005,8 @@ g\left(b,\mathbf{z}\right) = \sum_{p=1}^{P} \left(b+\mathbf{h}_p^T\mathbf{z}-y_p
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -12015,7 +12015,8 @@ g\left(b,\mathbf{z}\right) = \sum_{p=1}^{P} \left(b+\mathbf{h}_p^T\mathbf{z}-y_p
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -12024,7 +12025,8 @@ g\left(b,\mathbf{z}\right) = \sum_{p=1}^{P} \left(b+\mathbf{h}_p^T\mathbf{z}-y_p
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -12032,7 +12034,8 @@ g\left(b,\mathbf{z}\right) = \sum_{p=1}^{P} \left(b+\mathbf{h}_p^T\mathbf{z}-y_p
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -12041,7 +12044,8 @@ g\left(b,\mathbf{z}\right) = \sum_{p=1}^{P} \left(b+\mathbf{h}_p^T\mathbf{z}-y_p
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -12049,7 +12053,8 @@ g\left(b,\mathbf{z}\right) = \sum_{p=1}^{P} \left(b+\mathbf{h}_p^T\mathbf{z}-y_p
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -12059,7 +12064,7 @@ g\left(b,\mathbf{z}\right) = \sum_{p=1}^{P} \left(b+\mathbf{h}_p^T\mathbf{z}-y_p
 x_{1}\\
 x_{2}
 \end{array}\right]\right)=\left[\begin{array}{ccccc}
-\sqrt{2}x_{1}^{\,} &amp; \sqrt{2}x_{2}^{\,} &amp; x_{1}^{2} &amp; \sqrt{2}x_{1}^{\,}x_{2}^{\,} &amp; x_{2}^{2}\end{array}\right]^{T}
+\sqrt{2}x_{1}^{\,} & \sqrt{2}x_{2}^{\,} & x_{1}^{2} & \sqrt{2}x_{1}^{\,}x_{2}^{\,} & x_{2}^{2}\end{array}\right]^{T}
 \end{equation}<p>This is entirely equivalent to a standard degree $2$ polynomial, as the $\sqrt{2}$ attached to several of the terms can be absorbed by their associated weights when taking the corresponding weighted sum $\underset{m=1}{\overset{5}{\sum}}f_{m}\left(\mathbf{x}\right)w_{m}$.</p>
 <p>Denoting briefly by $\mathbf{u}=\mathbf{x}_{i}$ and $\mathbf{v}=\mathbf{x}_{j}$
 the $i^{\textrm{th}}$ and $j^{\textrm{th}}$ input data points respectively,
@@ -12069,7 +12074,7 @@ be written as</p>
 \begin{equation}
 \begin{array}{c}
 \mathbf{H}_{ij}=\left[\begin{array}{ccccc}
-\sqrt{2}u_{1} &amp; \sqrt{2}u_{2} &amp; u_{1}^{2} &amp; \sqrt{2}u_{1}u_{2} &amp; u_{2}^{2}\end{array}\right]\left[\begin{array}{c}
+\sqrt{2}u_{1} & \sqrt{2}u_{2} & u_{1}^{2} & \sqrt{2}u_{1}u_{2} & u_{2}^{2}\end{array}\right]\left[\begin{array}{c}
 \sqrt{2}v_{1}\\
 \sqrt{2}v_{2}\\
 v_{1}^{2}\\
@@ -12092,7 +12097,8 @@ entry-wise as</p>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -12100,7 +12106,8 @@ entry-wise as</p>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -12108,7 +12115,7 @@ entry-wise as</p>
 space is given as</p>
 \begin{equation}
 \mathbf{f}_{p}=\left[\begin{array}{ccccc}
-\sqrt{2}\mbox{cos}\left(2\pi x_{p}\right) &amp; \sqrt{2}\mbox{sin}\left(2\pi x_{p}\right) &amp; \cdots &amp; \sqrt{2}\mbox{cos}\left(2D\pi x_{p}\right) &amp; \sqrt{2}\mbox{sin}\left(2D\pi x_{p}\right)\end{array}\right]^{T}
+\sqrt{2}\mbox{cos}\left(2\pi x_{p}\right) & \sqrt{2}\mbox{sin}\left(2\pi x_{p}\right) & \cdots & \sqrt{2}\mbox{cos}\left(2D\pi x_{p}\right) & \sqrt{2}\mbox{sin}\left(2D\pi x_{p}\right)\end{array}\right]^{T}
 \end{equation}<p>For a dataset of $P$ points the corresponding $\left(i,j\right)^{th}$
 element of the corresponding kernel matrix $\mathbf{H}$ can be written
 as</p>
@@ -12139,7 +12146,8 @@ basis features explicitly.</p>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -12147,7 +12155,8 @@ basis features explicitly.</p>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -12162,15 +12171,16 @@ via cross-validation.</p>
 \begin{equation}
 \mathbf{H}_{ij}=\mathbf{f}_{i}^{T}\mathbf{f}_{j},
 \end{equation}<p>where $\mathbf{f}_{i}$ is the fixed feature transformation of the input $\mathbf{x}_{i}$ based on a fixed basis. While the length of a feature transformation corresponding to a degree $D$ polynomial/Fourier kernel matrix can be extremely large (as discussed in the introduction to this Section), with the RBF kernel the associated feature transformation is always \emph{infinite }dimensional. For example when $N=1$ the feature vector $\mathbf{f}_{i}$ takes the form $\mathbf{f}_{i}=\left[\begin{array}{cccc}
-f_{1}\left(x_{i}\right) &amp; f_{2}\left(x_{i}\right) &amp; f_{3}\left(x_{i}\right) &amp; \cdots\end{array}\right]^{T}$, where the $m^{th}$ fixed basis feature is defined as</p>
+f_{1}\left(x_{i}\right) & f_{2}\left(x_{i}\right) & f_{3}\left(x_{i}\right) & \cdots\end{array}\right]^{T}$, where the $m^{th}$ fixed basis feature is defined as</p>
 \begin{equation}
 f_{m}\left(x_{i}\right)=e^{-\beta x_{i}^{2}}\sqrt{\frac{\left(2\beta\right)^{m-1}}{\left(m-1\right)!}}x_{i}^{m-1}\quad\textrm{for all }m\geq1
-\end{equation}<p>When $N&gt;1$ the corresponding feature vector takes on an analogous form (and is also infinite in length), but regardless of the input dimension it would impossible to even construct and store a single $\mathbf{f}_{i}$ let alone such transformations of the entire dataset.</p>
+\end{equation}<p>When $N>1$ the corresponding feature vector takes on an analogous form (and is also infinite in length), but regardless of the input dimension it would impossible to even construct and store a single $\mathbf{f}_{i}$ let alone such transformations of the entire dataset.</p>
 
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -12178,7 +12188,8 @@ f_{m}\left(x_{i}\right)=e^{-\beta x_{i}^{2}}\sqrt{\frac{\left(2\beta\right)^{m-1
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -12187,13 +12198,14 @@ f_{m}\left(x_{i}\right)=e^{-\beta x_{i}^{2}}\sqrt{\frac{\left(2\beta\right)^{m-1
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>In Figure \ref{fig:kernels} we compare these three kernels geometrically
 by fixing a point $\mathbf{x}_{p}=\left[\begin{array}{cc}
-0.5 &amp; 0.5\end{array}\right]^{T}$ and plotting $\mathbf{H}\left(\mathbf{x},\mathbf{x}_{p}\right)$
+0.5 & 0.5\end{array}\right]^{T}$ and plotting $\mathbf{H}\left(\mathbf{x},\mathbf{x}_{p}\right)$
 over the range $\mathbf{x}\in\left[0,1\right]^{2}$, producing a color-coded
 surface showing how each kernel treats points near $\mathbf{x}_{p}$.
 Analyzing this Figure we can judge more generally how the three kernels
@@ -12202,7 +12214,8 @@ define 'similarity' between points.</p>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -12218,7 +12231,8 @@ Surfaces generated by polynomial, Fourier, and RBF kernels centered at xp =   0.
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -12240,7 +12254,8 @@ Surfaces generated by polynomial, Fourier, and RBF kernels centered at xp =   0.
 </div>
 
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -12248,7 +12263,8 @@ Surfaces generated by polynomial, Fourier, and RBF kernels centered at xp =   0.
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -12256,7 +12272,8 @@ Surfaces generated by polynomial, Fourier, and RBF kernels centered at xp =   0.
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -12265,12 +12282,13 @@ for Least Squares regression shown in Section \ref{subsec:Kernelizing-cost-funct
 here the main tool for kernelizing these models is again the <em>Fundamental Theorem of Linear Algebra</em> described in Section \ref{subsec:The-fundamental-theorem-linear-algebra}.</p>
 <p>Throughout this Section we will suppose that an arbitrary $M$ dimensional fixed feature vector has been taken of the input of $P$ points $\left\{ \left(\mathbf{x}_{p},y_{p}\right)\right\} _{p=1}^{P}$
 giving feature vectors $\mathbf{f}_{p}=\left[\begin{array}{cccc}
-f_{1}\left(\mathbf{x}_{p}\right) &amp; f_{2}\left(\mathbf{x}_{p}\right) &amp; \cdots &amp; f_{M}\left(\mathbf{x}_{p}\right)\end{array}\right]^{T}$ for each $\mathbf{x}_{p}$.</p>
+f_{1}\left(\mathbf{x}_{p}\right) & f_{2}\left(\mathbf{x}_{p}\right) & \cdots & f_{M}\left(\mathbf{x}_{p}\right)\end{array}\right]^{T}$ for each $\mathbf{x}_{p}$.</p>
 
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -12278,7 +12296,8 @@ f_{1}\left(\mathbf{x}_{p}\right) &amp; f_{2}\left(\mathbf{x}_{p}\right) &amp; \c
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -12304,7 +12323,8 @@ g\left(b,\mathbf{z}\right)=\begin{aligned}\underset{p=1}{\overset{P}{\sum}}\mbox
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -12312,7 +12332,8 @@ g\left(b,\mathbf{z}\right)=\begin{aligned}\underset{p=1}{\overset{P}{\sum}}\mbox
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -12341,7 +12362,8 @@ g\left(b,\mathbf{z}\right)=\underset{p=1}{\overset{P}{\sum}}\mbox{max}^{2}\left(
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -12349,7 +12371,8 @@ g\left(b,\mathbf{z}\right)=\underset{p=1}{\overset{P}{\sum}}\mbox{max}^{2}\left(
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -12369,7 +12392,8 @@ g\left(b_{1},...,b_{C},\mathbf{z}_{1},...,\mathbf{z}_{C}\right)=\underset{c=1}{\
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -12377,7 +12401,8 @@ g\left(b_{1},...,b_{C},\mathbf{z}_{1},...,\mathbf{z}_{C}\right)=\underset{c=1}{\
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -12411,7 +12436,8 @@ may therefore generally write in conclusion that</p>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -12419,7 +12445,8 @@ may therefore generally write in conclusion that</p>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -12427,7 +12454,7 @@ may therefore generally write in conclusion that</p>
 with the complex exponential notation for a general $N$ dimensional
 input each Fourier basis element takes the form $f_{\mathbf{m}}\left(\mathbf{x}\right)=e^{2\pi im_{1}x_{1}}e^{2\pi im_{2}x_{2}}\cdots e^{2\pi im_{N}x_{N}}=e^{2\pi i\mathbf{m}^{T}\mathbf{x}}$
 where $\mathbf{m}=\left[\begin{array}{cccc}
-m_{1} &amp; m_{2} &amp; \cdots &amp; m_{N}\end{array}\right]^{T}$, a product of one dimensional basis elements. Further a 'degree $D$'
+m_{1} & m_{2} & \cdots & m_{N}\end{array}\right]^{T}$, a product of one dimensional basis elements. Further a 'degree $D$'
 sum contains all such basis elements where $-D\leq m_{1},\,m_{2},\,\cdots,\,m_{N}\leq D$,
 and one may deduce that there are $M=\left(2D+1\right)^{N}-1$ non
 constant basis elements in this sum.</p>
@@ -12544,11 +12571,7 @@ calculated as</p>
 <div class="output">
 
 
-<div class="output_area">
-
-<div class="prompt"></div>
-
-
+<div class="output_area"><div class="prompt"></div>
 <div class="output_subarea output_text output_error">
 <pre>
 <span class="ansi-cyan-fg">  File </span><span class="ansi-green-fg">&#34;&lt;ipython-input-6-5b4c1f0f50e9&gt;&#34;</span><span class="ansi-cyan-fg">, line </span><span class="ansi-green-fg">17</span>
@@ -12563,7 +12586,8 @@ calculated as</p>
 </div>
 
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">

@@ -159,7 +159,7 @@ class Visualizer:
         plt.show()
   
     # produce static image of gradient descent or newton's method run
-    def static_fig_topview(self,g,w,**kwargs):               
+    def static_fig_topview(self,w,**kwargs):               
         ### plot all input data ###
         # generate input range for functions
         minx = min(min(self.x[:,0]),min(self.x[:,1]))
