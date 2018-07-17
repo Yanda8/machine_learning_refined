@@ -11753,6 +11753,132 @@ div#notebook {
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="Example-2:---Using-SVM-on-noisy-data"><span style="color:#a50e3e;">Example 2: </span>  Using SVM on noisy data<a class="anchor-link" href="#Example-2:---Using-SVM-on-noisy-data">&#182;</a></h4>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Below we use the softmargin SVM to perform classification on data originally introduced in our Section 9.1., which is a slightly noisy $N=2$ input linear classification dataset.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[7]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># This code cell will not be shown in the HTML version of this notebook</span>
+<span class="c1"># load in dataset</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">loadtxt</span><span class="p">(</span><span class="s1">&#39;../../mlrefined_datasets/superlearn_datasets/3d_classification_data_v0.csv&#39;</span><span class="p">,</span><span class="n">delimiter</span> <span class="o">=</span> <span class="s1">&#39;,&#39;</span><span class="p">)</span>
+
+<span class="c1"># define the input and output of our dataset - assuming arbitrary N &gt; 2 here</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">data</span><span class="p">[:,:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">data</span><span class="p">[:,</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+<span class="n">y</span><span class="o">.</span><span class="n">shape</span> <span class="o">=</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">y</span><span class="p">),</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">lam</span> <span class="o">=</span> <span class="mi">10</span><span class="o">**</span><span class="p">(</span><span class="o">-</span><span class="mi">3</span><span class="p">)</span>
+
+<span class="c1"># softmargin</span>
+<span class="k">def</span> <span class="nf">softmargin</span><span class="p">(</span><span class="n">w</span><span class="p">):</span>
+    <span class="n">cost</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="n">y</span><span class="p">)):</span>
+        <span class="n">x_p</span> <span class="o">=</span> <span class="n">x</span><span class="p">[</span><span class="n">p</span><span class="p">]</span>
+        <span class="n">y_p</span> <span class="o">=</span> <span class="n">y</span><span class="p">[</span><span class="n">p</span><span class="p">]</span>
+        <span class="n">a_p</span> <span class="o">=</span> <span class="n">w</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="nb">sum</span><span class="p">([</span><span class="n">a</span><span class="o">*</span><span class="n">b</span> <span class="k">for</span> <span class="n">a</span><span class="p">,</span><span class="n">b</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">w</span><span class="p">[</span><span class="mi">1</span><span class="p">:],</span><span class="n">x_p</span><span class="p">)])</span>
+        <span class="n">cost</span> <span class="o">+=</span> <span class="n">np</span><span class="o">.</span><span class="n">maximum</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="o">-</span><span class="n">y_p</span><span class="o">*</span><span class="n">a_p</span><span class="p">)</span> <span class="o">+</span> <span class="n">lam</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">w</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span><span class="o">.</span><span class="n">T</span><span class="p">,</span><span class="n">w</span><span class="p">[</span><span class="mi">1</span><span class="p">:])</span>
+    <span class="k">return</span> <span class="n">cost</span>
+
+<span class="c1"># declare an instance of our current our optimizers</span>
+<span class="n">opt</span> <span class="o">=</span> <span class="n">superlearn</span><span class="o">.</span><span class="n">optimizers</span><span class="o">.</span><span class="n">MyOptimizers</span><span class="p">()</span>
+
+<span class="c1"># run desired algo with initial point, max number of iterations, etc.,</span>
+<span class="n">w_hist</span> <span class="o">=</span> <span class="n">opt</span><span class="o">.</span><span class="n">gradient_descent</span><span class="p">(</span><span class="n">g</span> <span class="o">=</span> <span class="n">softmargin</span><span class="p">,</span><span class="n">w</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">shape</span><span class="p">(</span><span class="n">x</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">),</span><span class="n">max_its</span> <span class="o">=</span> <span class="mi">50</span><span class="p">,</span><span class="n">alpha</span> <span class="o">=</span> <span class="mi">10</span><span class="o">**-</span><span class="mi">2</span><span class="p">,</span><span class="n">steplength_rule</span> <span class="o">=</span> <span class="s1">&#39;diminishing&#39;</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>We make a gradient descent run of 50 steps, randomly initialized, with a diminishing steplength value $\alpha = \frac{1}{k}$ where $k$ is the step number.
+Finally, we plot the dataset and the learned decision boundary $w_0^{\star}+\mathbf{x}^{T}\mathbf{w}^{\star} = 0
+$ (right panel) as well as the logistic surface $\text{tanh}\left(w_0^{\star}+\mathbf{x}^{T}\mathbf{w}^{\star}\right)$ fit to the data in 3-dimensions (left panel).</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[8]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># create instance of 3d demos</span>
+<span class="n">demo5</span> <span class="o">=</span> <span class="n">superlearn</span><span class="o">.</span><span class="n">classification_3d_demos</span><span class="o">.</span><span class="n">Visualizer</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+
+<span class="c1"># draw the final results</span>
+<span class="n">demo5</span><span class="o">.</span><span class="n">static_fig</span><span class="p">(</span><span class="n">w_hist</span><span class="p">,</span><span class="n">view</span> <span class="o">=</span> <span class="p">[</span><span class="mi">15</span><span class="p">,</span><span class="o">-</span><span class="mi">140</span><span class="p">])</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt"></div>
+<div class="output_subarea output_text output_error">
+<pre>
+<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">ValueError</span>                                Traceback (most recent call last)
+<span class="ansi-green-fg">&lt;ipython-input-8-c4f37f66d354&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span><span class="ansi-blue-fg">()</span>
+<span class="ansi-green-intense-fg ansi-bold">      3</span> 
+<span class="ansi-green-intense-fg ansi-bold">      4</span> <span class="ansi-red-fg"># draw the final results</span>
+<span class="ansi-green-fg">----&gt; 5</span><span class="ansi-red-fg"> </span>demo5<span class="ansi-blue-fg">.</span>static_fig<span class="ansi-blue-fg">(</span>w_hist<span class="ansi-blue-fg">,</span>view <span class="ansi-blue-fg">=</span> <span class="ansi-blue-fg">[</span><span class="ansi-cyan-fg">15</span><span class="ansi-blue-fg">,</span><span class="ansi-blue-fg">-</span><span class="ansi-cyan-fg">140</span><span class="ansi-blue-fg">]</span><span class="ansi-blue-fg">)</span>
+
+<span class="ansi-green-fg">/Users/Nurgetson/Dropbox/mlrefined/mlrefined_libraries/superlearn_library/classification_3d_demos.py</span> in <span class="ansi-cyan-fg">static_fig</span><span class="ansi-blue-fg">(self, w, **kwargs)</span>
+<span class="ansi-green-intense-fg ansi-bold">     76</span>         x2_vals<span class="ansi-blue-fg">.</span>shape <span class="ansi-blue-fg">=</span> <span class="ansi-blue-fg">(</span>len<span class="ansi-blue-fg">(</span>r<span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">**</span><span class="ansi-cyan-fg">2</span><span class="ansi-blue-fg">,</span><span class="ansi-cyan-fg">1</span><span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">     77</span>         h <span class="ansi-blue-fg">=</span> np<span class="ansi-blue-fg">.</span>concatenate<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">[</span>x1_vals<span class="ansi-blue-fg">,</span>x2_vals<span class="ansi-blue-fg">]</span><span class="ansi-blue-fg">,</span>axis <span class="ansi-blue-fg">=</span> <span class="ansi-cyan-fg">1</span><span class="ansi-blue-fg">)</span>
+<span class="ansi-green-fg">---&gt; 78</span><span class="ansi-red-fg">         </span>g_vals <span class="ansi-blue-fg">=</span> np<span class="ansi-blue-fg">.</span>tanh<span class="ansi-blue-fg">(</span> w<span class="ansi-blue-fg">[</span><span class="ansi-cyan-fg">0</span><span class="ansi-blue-fg">]</span> <span class="ansi-blue-fg">+</span> w<span class="ansi-blue-fg">[</span><span class="ansi-cyan-fg">1</span><span class="ansi-blue-fg">]</span><span class="ansi-blue-fg">*</span>x1_vals <span class="ansi-blue-fg">+</span> w<span class="ansi-blue-fg">[</span><span class="ansi-cyan-fg">2</span><span class="ansi-blue-fg">]</span><span class="ansi-blue-fg">*</span>x2_vals <span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">     79</span>         g_vals <span class="ansi-blue-fg">=</span> np<span class="ansi-blue-fg">.</span>asarray<span class="ansi-blue-fg">(</span>g_vals<span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">     80</span> 
+
+<span class="ansi-red-fg">ValueError</span>: operands could not be broadcast together with shapes (100,1) (160000,1) </pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="Mathematical-optimization-series">Mathematical optimization series<a class="anchor-link" href="#Mathematical-optimization-series">&#182;</a></h2>
 </div>
 </div>
@@ -12142,10 +12268,10 @@ a = 0 \\
 
 
 
-<div id="f52466f1-d7eb-4b35-802f-2d8263622574"></div>
+<div id="1677a2fe-9144-4ecb-9a50-45f46d8d5af9"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#f52466f1-d7eb-4b35-802f-2d8263622574');
+var element = $('#1677a2fe-9144-4ecb-9a50-45f46d8d5af9');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -13131,10 +13257,10 @@ w_n^1 = -\frac{c_{n1}^{\,}w_1^1 + c_{n2}^{\,}w_2^1 + \cdots + c_{nN}^{\,}w_N^0 +
 
 
 
-<div id="1bfe50a0-4f4a-46af-884d-d7e2782d3a4b"></div>
+<div id="efbd962a-8423-4503-99dc-3c2a3cb5c587"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#1bfe50a0-4f4a-46af-884d-d7e2782d3a4b');
+var element = $('#efbd962a-8423-4503-99dc-3c2a3cb5c587');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -13951,10 +14077,10 @@ if (IPython.notebook.kernel != null) {
 
 
 
-<div id="c339fb8c-53fd-4212-b775-dd6af13838a6"></div>
+<div id="8f8be863-03bc-4351-9811-abb2b2dad46d"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#c339fb8c-53fd-4212-b775-dd6af13838a6');
+var element = $('#8f8be863-03bc-4351-9811-abb2b2dad46d');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -14809,10 +14935,10 @@ if (IPython.notebook.kernel != null) {
 
 
 
-<div id="6f8c9307-b03d-4afd-b7e5-95adfca9664b"></div>
+<div id="0b70b146-7a3d-4143-9eb2-30de55aa7f5e"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#6f8c9307-b03d-4afd-b7e5-95adfca9664b');
+var element = $('#0b70b146-7a3d-4143-9eb2-30de55aa7f5e');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -15861,10 +15987,10 @@ w_n^{\,} = w_n^{\text{old}} - \frac{\sum_{p=1}^{P}\left(w_0^{\text{old}} + \math
 
 
 
-<div id="4e1d6b77-8263-4240-af2a-935b8339625f"></div>
+<div id="b5679034-9594-487f-932f-f14d5b272fb9"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#4e1d6b77-8263-4240-af2a-935b8339625f');
+var element = $('#b5679034-9594-487f-932f-f14d5b272fb9');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -16718,10 +16844,10 @@ if (IPython.notebook.kernel != null) {
 
 
 
-<div id="cf94087d-afaf-4f30-aaaf-c59ecb8e44cf"></div>
+<div id="0bfdf41f-3c1f-422d-9d24-b603484b54c4"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#cf94087d-afaf-4f30-aaaf-c59ecb8e44cf');
+var element = $('#0bfdf41f-3c1f-422d-9d24-b603484b54c4');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -17540,10 +17666,10 @@ if (IPython.notebook.kernel != null) {
 
 
 
-<div id="7432610f-1e8b-48ef-bd06-d045ce36faab"></div>
+<div id="7a4f9832-d7c4-446a-b73b-482405f8aeaa"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#7432610f-1e8b-48ef-bd06-d045ce36faab');
+var element = $('#7a4f9832-d7c4-446a-b73b-482405f8aeaa');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -18376,10 +18502,10 @@ if (IPython.notebook.kernel != null) {
 
 
 
-<div id="ef3ebaf5-d93a-4bb3-a30e-6b6ab53f2d50"></div>
+<div id="4ace072c-ecb6-4efc-8d14-20ad62d7139e"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#ef3ebaf5-d93a-4bb3-a30e-6b6ab53f2d50');
+var element = $('#4ace072c-ecb6-4efc-8d14-20ad62d7139e');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -19256,10 +19382,10 @@ if (IPython.notebook.kernel != null) {
 
 
 
-<div id="ce7168b6-83ca-4505-8786-c8b7fda19aae"></div>
+<div id="fd312076-0724-464e-98cd-8552f2e85869"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#ce7168b6-83ca-4505-8786-c8b7fda19aae');
+var element = $('#fd312076-0724-464e-98cd-8552f2e85869');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -20234,10 +20360,10 @@ w_n^{\,} = w_n^{\text{old}} - \frac{ -\sum_{p=1}^{P} \frac{ 1 }{1 + e^{y_{p}\mat
 
 
 
-<div id="c5d1c0ae-4d10-46c1-ad11-2e600ffd15fc"></div>
+<div id="b5f1a471-05d6-4dff-8ce9-855f366ab6cf"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#c5d1c0ae-4d10-46c1-ad11-2e600ffd15fc');
+var element = $('#b5f1a471-05d6-4dff-8ce9-855f366ab6cf');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -21081,10 +21207,10 @@ if (IPython.notebook.kernel != null) {
 
 
 
-<div id="6dd2de6e-4883-4857-81ac-69b071537f84"></div>
+<div id="dae8cb35-d9d4-4fb7-8393-1ea2d32e7c22"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#6dd2de6e-4883-4857-81ac-69b071537f84');
+var element = $('#dae8cb35-d9d4-4fb7-8393-1ea2d32e7c22');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -21893,10 +22019,10 @@ if (IPython.notebook.kernel != null) {
 
 
 
-<div id="0ad20ef7-e981-4a90-9e60-bde11ce3b257"></div>
+<div id="a34b2d5a-c50a-478b-9506-5bd0e79bf0fd"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#0ad20ef7-e981-4a90-9e60-bde11ce3b257');
+var element = $('#a34b2d5a-c50a-478b-9506-5bd0e79bf0fd');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -22712,10 +22838,10 @@ if (IPython.notebook.kernel != null) {
 
 
 
-<div id="056fbd9c-a57e-4ef1-a569-4f6cddeb9a18"></div>
+<div id="96ea0a68-04f0-438d-9fff-2797f19b8a61"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#056fbd9c-a57e-4ef1-a569-4f6cddeb9a18');
+var element = $('#96ea0a68-04f0-438d-9fff-2797f19b8a61');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -23531,10 +23657,10 @@ if (IPython.notebook.kernel != null) {
 
 
 
-<div id="eacd8455-144c-46d1-b980-a8cbccab2fd6"></div>
+<div id="891e78a4-7126-4c22-84b9-12e95e02c227"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#eacd8455-144c-46d1-b980-a8cbccab2fd6');
+var element = $('#891e78a4-7126-4c22-84b9-12e95e02c227');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -24376,10 +24502,10 @@ if (IPython.notebook.kernel != null) {
 
 
 
-<div id="ebe7aa56-ac4f-49a1-a9e6-92642178a309"></div>
+<div id="6bef1c8c-6795-458d-9d0f-1f7b536254de"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#ebe7aa56-ac4f-49a1-a9e6-92642178a309');
+var element = $('#6bef1c8c-6795-458d-9d0f-1f7b536254de');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -25164,10 +25290,10 @@ if (IPython.notebook.kernel != null) {
 
 
 
-<div id="7b5d58c6-37c4-4854-9bea-b2420837ed2d"></div>
+<div id="b79eee09-2e24-4efd-8b26-2c5d6ab4eb3d"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#7b5d58c6-37c4-4854-9bea-b2420837ed2d');
+var element = $('#b79eee09-2e24-4efd-8b26-2c5d6ab4eb3d');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -25952,10 +26078,10 @@ if (IPython.notebook.kernel != null) {
 
 
 
-<div id="972df0bc-018a-4d5c-b76c-8606321cb67f"></div>
+<div id="ad871da8-0577-472c-9f33-fad1e9b7fe2c"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#972df0bc-018a-4d5c-b76c-8606321cb67f');
+var element = $('#ad871da8-0577-472c-9f33-fad1e9b7fe2c');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -26757,7 +26883,7 @@ if (IPython.notebook.kernel != null) {
  
 
 <script type="application/vnd.jupyter.widget-state+json">
-{"state": {}, "version_minor": 0, "version_major": 1}
+{"version_major": 1, "version_minor": 0, "state": {}}
 </script>
 
 

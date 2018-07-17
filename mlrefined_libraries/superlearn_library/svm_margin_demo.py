@@ -70,7 +70,7 @@ class Visualizer:
      # produce static image of gradient descent or newton's method run
     def svm_comparison(self):
         # declare an instance of our current our optimizers
-        opt = optimimzers.MyOptimizers()
+        opt = optimizers.MyOptimizers()
         
         ### run all algs ###
         self.lam = 0

@@ -527,7 +527,7 @@ class Visualizer:
         levelmax = max(func_vals.flatten())
         cutoff = 1
         cutoff = (levelmax - levelmin)*cutoff
-        numper = 7
+        numper = 4
         levels1 = np.linspace(cutoff,levelmax,numper)
         num_contours -= numper
 
