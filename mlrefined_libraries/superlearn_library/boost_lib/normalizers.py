@@ -14,13 +14,13 @@ class Setup:
         else:
             self.normalizer = lambda data: data
             self.inverse_normalizer = lambda data: data
-            
-    # standard normalization function 
-    def standard_normalizer(self,x):
+ 
+    # standard normalization function - with nan checker / filler in-er
+    def standard_normalizer(self,x):    
         # compute the mean and standard deviation of the input
-        x_means = np.mean(x,axis = 1)[:,np.newaxis]
-        x_stds = np.std(x,axis = 1)[:,np.newaxis]   
-        
+        x_means = np.nanmean(x,axis = 1)[:,np.newaxis]
+        x_stds = np.nanstd(x,axis = 1)[:,np.newaxis]   
+
         # check to make sure thta x_stds > small threshold, for those not
         # divide by 1 instead of original standard deviation
         ind = np.argwhere(x_stds < 10**(-2))
@@ -29,6 +29,11 @@ class Setup:
             adjust = np.zeros((x_stds.shape))
             adjust[ind] = 1.0
             x_stds += adjust
+
+        # fill in any nan values with means 
+        ind = np.argwhere(np.isnan(x) == True)
+        for i in ind:
+            x[i[0],i[1]] = x_means[i[0]]
 
         # create standard normalizer function
         normalizer = lambda data: (data - x_means)/x_stds

@@ -11865,7 +11865,7 @@ div#notebook {
 consisting of $C$ distinct classes of data.  The labels for these classes can be made arbitrarily, but here we will once again employ label values $y_{p}\in\left\{ 0,1,...,C-1\right\} $.</p>
 <p>In the previous Section on OvA multi-class classification we saw how the fusion rule rightfully defined class ownership, partitioning the input space of a dataset given its classes in a fair way.  In particular the fusion rule should <em>ideally when all weights are properly tuned</em> predict precisely the labels of our dataset as often as possible as</p>
 \begin{equation}
-y_p =   \underset{j \,=\, 0,...,C-1}{\text{argmax}} \,\,\,\mathring{\mathbf{x}}_{p}^T \mathbf{w}_j^{\,}.
+y_p =   \underset{c \,=\, 0,...,C-1}{\text{argmax}} \,\,\,\mathring{\mathbf{x}}_{p}^T \mathbf{w}_c^{\,}.
 \end{equation}
 </div>
 </div>
@@ -11886,7 +11886,7 @@ y_p =   \underset{j \,=\, 0,...,C-1}{\text{argmax}} \,\,\,\mathring{\mathbf{x}}_
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>To get started in constructing a proper cost function by which our ideal weights can be determined upon proper minimization, first note that for the <em>if</em> the above is to hold for our $p^{th}$ point then we can likewise say that the following is true as well</p>
 \begin{equation}
-\mathring{\mathbf{x}}_{p}^T \mathbf{w}_{y_p}^{\,}= \underset{j \,=\, 0,...,C-1}{\text{max}} \,\,\,\mathring{\mathbf{x}}_{p}^T \mathbf{w}_j^{\,}.
+\mathring{\mathbf{x}}_{p}^T \overset{\,}{\mathbf{w}}_{y_p}^{\,} = \underset{c \,=\, 0,...,C-1}{\text{max}} \,\,\,\mathring{\mathbf{x}}_{p}^T \overset{\,}{\mathbf{w}}_c^{\,}.
 \end{equation}<p>Remember geometrically this simply says that the (signed) distance from the point $\mathbf{x}_p$ to its class decision boundary is greater than its distance from every other class's. This is what we want for all of our training datapoints - to have the prediction provided by the fusion rule match our given labels, and hence the above to be true for every point $\mathbf{x}_p$.</p>
 </div>
 </div>
@@ -11896,9 +11896,9 @@ y_p =   \underset{j \,=\, 0,...,C-1}{\text{argmax}} \,\,\,\mathring{\mathbf{x}}_
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>By definition - when these weights are are tuned optimally - the right hand side of equation (2) must always be greater than or equal to the left, since the $y_p^{th}$ classifier is considered in the maximum on the right hand side.  This means that their difference - subtracting $\mathring{\mathbf{x}}_{p}^T \mathbf{w}_{y_p}^{\,}$ from both sides - gives a pointwise cost that is <em>always nonnegative</em> and minimal at zero</p>
+<p>By definition - when these weights are are tuned optimally - the right hand side of equation (2) must always be greater than or equal to the left, since the $y_p^{th}$ classifier is considered in the maximum on the right hand side.  This means that their difference - subtracting $\mathring{\mathbf{x}}_{p}^T \overset{\,}{\mathbf{w}}_{y_p}^{\,}$ from both sides - gives a pointwise cost that is <em>always nonnegative</em> and minimal at zero</p>
 \begin{equation}
-g_p\left(\mathbf{w}_0,...,\mathbf{w}_{C-1}\right) = \left(\underset{j \,=\, 0,...,C-1}{\text{max}} \,\,\,\mathring{\mathbf{x}}_{p}^T \mathbf{w}_j^{\,}\right) - \mathring{\mathbf{x}}_{p}^T \mathbf{w}_{y_p}^{\,}.
+g_p\left(\mathbf{w}_0,...,\mathbf{w}_{C-1}\right) = \left(\underset{c \,=\, 0,...,C-1}{\text{max}} \,\,\,\mathring{\mathbf{x}}_{p}^T \overset{\,}{\mathbf{w}}_c^{\,}\right) - \mathring{\mathbf{x}}_{p}^T \overset{\,}{\mathbf{w}}_{y_p}^{\,}.
 \end{equation}
 </div>
 </div>
@@ -11910,8 +11910,8 @@ g_p\left(\mathbf{w}_0,...,\mathbf{w}_{C-1}\right) = \left(\underset{j \,=\, 0,..
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>If our weights are set ideally this value should be zero for as many points as possible - i.e., so that the weights $\mathbf{w}_{y_p}^{\,}$ have been tuned correctly so that indeed the $y_p^{th}$ classifier provides the largest evaluation of $\mathbf{x}_p$. With this in mind, we can then easily form a cost function by taking the <em>average</em> of the pointwise cost above as $\frac{1}{P}\sum_{p = 1}^P g_p$ or equivalently</p>
 \begin{equation}
-g\left(\mathbf{w}_{0}^{\,},\,...,\mathbf{w}_{C-1}^{\,}\right) = \frac{1}{P}\sum_{p = 1}^P \left[\left(\underset{j \,=\, 0,...,C-1}{\text{max}} \,\,\,\mathring{\mathbf{x}}_{p}^T \mathbf{w}_j^{\,}\right) - \mathring{\mathbf{x}}_{p}^T \mathbf{w}_{y_p}^{\,}\right]
-\end{equation}<p>This <em>multi-class Perceptron</em> cost function is nonnegative and - when weights are tuned correctly - is as small as possible.  Thus we can stop <em>assuming</em> that we have ideal weights, and minimize this cost in order to find them.  Note here that unlike the OvA - detailed in the previous Section - here we tune all weights <em>simultaneously</em> in order to recover weights that satisfy the fusion rule in equation (1) as well as possible.  Like its two class analog (see Section 6.4.1) - the multi-class Perceptron is also <em>convex</em> regardless of the dataset employed (also see this Chapter's exercises for further details).  It also has a <em>trivial solution at zero</em>, that is when $\mathbf{w}_j = \mathbf{0}$ for all $j$ the cost is minimal which is to be avoided (which is often achievable by initializing any local optimization scheme used to minimize it away from the origin).</p>
+g\left(\mathbf{w}_{0}^{\,},\,...,\mathbf{w}_{C-1}^{\,}\right) = \frac{1}{P}\sum_{p = 1}^P \left[ \left(\underset{c \,=\, 0,...,C-1}{\text{max}} \,\,\,\mathring{\mathbf{x}}_{p}^T \overset{\,}{\mathbf{w}}_c^{\,}\right) - \mathring{\mathbf{x}}_{p}^T \overset{\,}{\mathbf{w}}_{y_p}^{\,}\right]
+\end{equation}<p>This <em>multi-class Perceptron</em> cost function is nonnegative and - when weights are tuned correctly - is as small as possible.  Thus we can stop <em>assuming</em> that we have ideal weights, and minimize this cost in order to find them.  Note here that unlike the OvA - detailed in the previous Section - here we tune all weights <em>simultaneously</em> in order to recover weights that satisfy the fusion rule in equation (1) as well as possible.  Like its two class analog (see Section 6.4.1) - the multi-class Perceptron is also <em>convex</em> regardless of the dataset employed (also see this Chapter's exercises for further details).  It also has a <em>trivial solution at zero</em>, that is when $\mathbf{w}_c = \mathbf{0}$ for all $c$ the cost is minimal which is to be avoided (which is often achievable by initializing any local optimization scheme used to minimize it away from the origin).</p>
 </div>
 </div>
 </div>
@@ -11942,7 +11942,7 @@ g\left(\mathbf{w}_{0}^{\,},\,...,\mathbf{w}_{C-1}^{\,}\right) = \frac{1}{P}\sum_
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 \begin{equation}
-g\left(\mathbf{w}_{0}^{\,},\,...,\mathbf{w}_{C-1}^{\,}\right) = \frac{1}{P}\sum_{p = 1}^P \underset{ \underset{j \neq y_p }{ j \,=\, 0,...,C-1}  }{\text{max}} \left(0,\mathring{\mathbf{x}}_{p}^T\left( \mathbf{w}_j^{\,} - \mathbf{w}_{y_p}^{\,}\right)\right).
+g\left(\mathbf{w}_{0}^{\,},\,...,\mathbf{w}_{C-1}^{\,}\right) = \frac{1}{P}\sum_{p = 1}^P \underset{ \underset{c \neq y_p }{ c \,=\, 0,...,C-1}  }{\text{max}} \left(0,\mathring{\mathbf{x}}_{p}^T\left( \overset{\,}{\mathbf{w}}_c^{\,} - \overset{\,}{\mathbf{w}}_{y_p}^{\,}\right)\right).
 \end{equation}
 </div>
 </div>
@@ -11952,7 +11952,7 @@ g\left(\mathbf{w}_{0}^{\,},\,...,\mathbf{w}_{C-1}^{\,}\right) = \frac{1}{P}\sum_
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Here we can see that the corresponding pointwise cost $g_p\left(\mathbf{w}_0,...,\mathbf{w}_{C-1}\right) = \underset{ \underset{j \neq y_p }{ j \,=\, 0,...,C-1}  }{\text{max}} \left(0,\mathring{\mathbf{x}}_{p}^T\left( \mathbf{w}_j^{\,} - \mathbf{w}_{y_p}^{\,}\right)\right)$ now mirrors its the two class analog detailed in 6.4.1 more closely.  In this form it is straightforward to then show that when $C = 2$ the multi-class Perceptron reduces to the two class version.</p>
+<p>Here we can see that the corresponding pointwise cost $g_p\left(\mathbf{w}_0,...,\mathbf{w}_{C-1}\right) = \underset{ \underset{c \neq y_p }{ c \,=\, 0,...,C-1}  }{\text{max}} \left(0,\mathring{\mathbf{x}}_{p}^T\left( \overset{\,}{\mathbf{w}}_c^{\,} - \overset{\,}{\mathbf{w}}_{y_p}^{\,}\right)\right)$ now mirrors its the two class analog detailed in 6.4.1 more closely.  In this form it is straightforward to then show that when $C = 2$ the multi-class Perceptron reduces to the two class version.</p>
 </div>
 </div>
 </div>
@@ -11970,21 +11970,21 @@ g\left(\mathbf{w}_{0}^{\,},\,...,\mathbf{w}_{C-1}^{\,}\right) = \frac{1}{P}\sum_
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Note how in minimizing this cost we should - at least formally - subject it to the constraints that all feature-touching portions / normal vectors have unit length.  To express this we will employ our bias / feature-touching weight notation allowing us to decompose each weight vector $\mathbf{w}_j$ into two components</p>
+<p>Note how in minimizing this cost we should - at least formally - subject it to the constraints that all feature-touching portions / normal vectors have unit length.  To express this we will employ our bias / feature-touching weight notation allowing us to decompose each weight vector $\mathbf{w}_c$ into two components</p>
 \begin{equation}
-\text{(bias):}\,\, b_j = w_{0,j} \,\,\,\,\,\,\,\, \text{(feature-touching weights):} \,\,\,\,\,\, \boldsymbol{\omega}_j = 
+\text{(bias):}\,\, b_c = w_{0,c} \,\,\,\,\,\,\,\, \text{(feature-touching weights):} \,\,\,\,\,\, \boldsymbol{\omega}_j = 
 \begin{bmatrix}
-w_{1,j} \\
-w_{2,j} \\ 
+w_{1,c} \\
+w_{2,c} \\ 
 \vdots \\
-w_{N,j}
+w_{N,c}
 \end{bmatrix}.
-\end{equation}<p>In this notation each linear combination can be written as $\mathring{\mathbf{x}}_{p}^T \mathbf{w}_j^{\,} =  b_{j}^{\,} + \mathbf{x}_{p}^T\boldsymbol{\omega}_{j}^{\,}$.</p>
-<p>The formal desire for the feature-touching weights from all $C$ classifiers to have unit length translates to $\left \Vert \boldsymbol{\omega}_{j}^{\,} \right \Vert_2^2 = 1$ for all $j$. As detailed in the previous Section, formally speaking we need these normal vectors to be unit length if we are to fairly compare the distance of each input $\mathbf{x}_p$ to our two-class decision boundaries.    Doing this, a proper <em>constrained optimization</em> problem involving our multi-class Perceptron takes the form</p>
+\end{equation}<p>In this notation each linear combination can be written as $\mathring{\mathbf{x}}_{p}^T \overset{\,}{\mathbf{w}}_c^{\,} =  b_{c}^{\,} + \mathbf{x}_{p}^T\boldsymbol{\omega}_{c}^{\,}$.</p>
+<p>The formal desire for the feature-touching weights from all $C$ classifiers to have unit length translates to $\left \Vert \boldsymbol{\omega}_{c}^{\,} \right \Vert_2^2 = 1$ for all $c$. As detailed in the previous Section, formally speaking we need these normal vectors to be unit length if we are to fairly compare the distance of each input $\mathbf{x}_p$ to our two-class decision boundaries.    Doing this, a proper <em>constrained optimization</em> problem involving our multi-class Perceptron takes the form</p>
 \begin{equation}
 \begin{aligned}
-\underset{b_{0}^{\,},\,\boldsymbol{\omega}_{0}^{\,},\,...,\,b_{C-1}^{\,},\,\boldsymbol{\omega}_{C-1}^{\,}}{\,\,\,\,\,\,\,\,\,\,\,\,\mbox{minimize}\,\,\,} &amp; \,\,\,\,  \frac{1}{P}\sum_{p = 1}^P \left[\left(\underset{j \,=\, 0,...,C-1}{\text{max}} \,\,\,b_{j}^{\,} + \mathbf{x}_{p}^T\boldsymbol{\omega}_{j}^{\,}\right) - \left(b_{y_p}^{\,} + \mathbf{x}_{p}^T\boldsymbol{\omega}_{y_p}^{\,}\right)\right]\\
-\mbox{subject to}\,\,\, &amp; \,\,\,\,\, \left \Vert \boldsymbol{\omega}_{j}^{\,} \right \Vert_2^2  = 1, \,\,\,\,\,\, j \,=\, 0,...,C-1
+\underset{b_{0}^{\,},\,\boldsymbol{\omega}_{0}^{\,},\,...,\,b_{C-1}^{\,},\,\boldsymbol{\omega}_{C-1}^{\,}}{\,\,\,\,\,\,\,\,\,\,\,\,\mbox{minimize}\,\,\,} &amp; \,\,\,\,  \frac{1}{P}\sum_{p = 1}^P \left[\left(\underset{c \,=\, 0,...,C-1}{\text{max}} \,\,\,b_{c}^{\,} + \mathbf{x}_{p}^T\boldsymbol{\omega}_{c}^{\,}\right) - \left(b_{y_p}^{\,} + \mathbf{x}_{p}^T\boldsymbol{\omega}_{y_p}^{\,}\right)\right]\\
+\mbox{subject to}\,\,\, &amp; \,\,\,\,\, \left \Vert \boldsymbol{\omega}_{c}^{\,} \right \Vert_2^2  = 1, \,\,\,\,\,\, c \,=\, 0,...,C-1
 \end{aligned}
 \end{equation}<p>This is a proper cost function for <em>determining</em> proper weights for our $C$ classifiers: it is always nonnegative, we want to find weights so that its value is small, and it is precisely zero when all training points are classified correctly.  We can solve such problems directly in a variety of ways - e.g., by using projected gradient descent - but it is more commonplace to see this problem approximately solved by <em>relaxing the constraints</em> (as we have seen done many times before, e.g., in Sections 6.3.4 and 6.4.3).</p>
 </div>
@@ -11997,7 +11997,7 @@ w_{N,j}
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>This means we can phrase this constrained problem in an unconstrained <em>regularized</em> form by relaxing the constraints but penalizing their magnitude. Because we have $C$ constraints we could in theory provide a distinct penalty (or regularization parameter) $\lambda_j$ for each constraint. However for simplicity one can choose a single regularization parameter $\lambda \geq 0$ that is used to penalize the magnitude of all normal vectors simultaneously. This way we need only provide one regularization value instead of $C$ distinct regularization parameters, giving the regularized form of the above problem giving a regularized multi-class Perceptron cost function</p>
 \begin{equation}
-\frac{1}{P}\sum_{p = 1}^P \left[\left(\underset{j \,=\, 0,...,C-1}{\text{max}} \,\,\,b_{j}^{\,} + \mathbf{x}_{p}^T\boldsymbol{\omega}_{j}^{\,}\right) - \left(b_{y_p}^{\,} + \mathbf{x}_{p}^T\boldsymbol{\omega}_{y_p}^{\,}\right)\right]+ \lambda \sum_{j = 0}^{C-1} \left \Vert \boldsymbol{\omega}_{j}^{\,} \right \Vert_2^2 
+\frac{1}{P}\sum_{p = 1}^P \left[\left(\underset{c \,=\, 0,...,C-1}{\text{max}} \,\,\,b_{c}^{\,} + \mathbf{x}_{p}^T\boldsymbol{\omega}_{c}^{\,}\right) - \left(b_{y_p}^{\,} + \mathbf{x}_{p}^T\boldsymbol{\omega}_{y_p}^{\,}\right)\right]+ \lambda \sum_{c = 0}^{C-1} \left \Vert \boldsymbol{\omega}_{c}^{\,} \right \Vert_2^2 
 \end{equation}
 </div>
 </div>
@@ -12007,7 +12007,7 @@ w_{N,j}
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>that must be minimized properly. This regularized form does not quite match the original constrained formulation as regularizing all normal vectors together will not necessarily guarantee that $\left \Vert \boldsymbol{\omega}_{j}^{\,} \right \Vert_2^2 = 1$ for all $j$.  However it will generally force the length of all normal vectors to behave well, e.g., disallowing one normal vector to grow arbitrarily large while one shrinks to almost nothing. As we see many times in machine learning, it is commonplace to make such compromises to get something that is 'close enough' to the original as long as it does work well in practice. This is indeed the case here with $\lambda$ typically set to a small value (e.g., $10^{-3}$ and smaller).</p>
+<p>that must be minimized properly. This regularized form does not quite match the original constrained formulation as regularizing all normal vectors together will not necessarily guarantee that $\left \Vert \boldsymbol{\omega}_{c}^{\,} \right \Vert_2^2 = 1$ for all $c$.  However it will generally force the length of all normal vectors to behave well, e.g., disallowing one normal vector to grow arbitrarily large while one shrinks to almost nothing. As we see many times in machine learning, it is commonplace to make such compromises to get something that is 'close enough' to the original as long as it does work well in practice. This is indeed the case here with $\lambda$ typically set to a small value (e.g., $10^{-3}$ and smaller).</p>
 </div>
 </div>
 </div>
@@ -12061,7 +12061,7 @@ w_{N,0}  &amp;  w_{N,1} &amp; w_{N,2}  &amp;  \cdots  &amp;  w_{N,C-1}  \\
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Note the above is a $1\times C$ array of our linear models that can be evaluated at any $\mathbf{W}$.  We can now use precisely the same <code>model</code> implementation we have seen in Section 5.5.3, which we repeat below.</p>
+<p>Note: not only is this the <em>same</em> linear model used in multi-output regression (as detailed in Section 5.5), but the above is a $1\times C$ array of our linear models that can be evaluated at any $\mathbf{W}$.  We can now use precisely the same <code>model</code> implementation we have seen in Section 5.5.3, which we repeat below.</p>
 </div>
 </div>
 </div>
@@ -12086,7 +12086,7 @@ w_{N,0}  &amp;  w_{N,1} &amp; w_{N,2}  &amp;  \cdots  &amp;  w_{N,C-1}  \\
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>With this <code>model</code> notation we can more conveniently implement essentially any formula derived from the fusion rule like e.g., the multi-class Perceptron.  For example, we can write the fusion rule itself equivalently as</p>
 \begin{equation}
-y = \underset{j \,=\, 0,...,C-1} {\text{max}}\,\text{model}\left(\mathbf{x},\mathbf{W}\right).
+y = \underset{c \,=\, 0,...,C-1} {\text{max}}\,\text{model}\left(\mathbf{x},\mathbf{W}\right).
 \end{equation}
 </div>
 </div>
@@ -12106,7 +12106,7 @@ y = \underset{j \,=\, 0,...,C-1} {\text{max}}\,\text{model}\left(\mathbf{x},\mat
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 \begin{equation}
-\left(\underset{j \,=\, 0,...,C-1}{\text{max}} \,\,\,\mathring{\mathbf{x}}_{p}^T \mathbf{w}_j^{\,}\right) - \mathring{\mathbf{x}}_{p}^T \mathbf{w}_{y_p}^{\,}. = \left(\underset{j \,=\, 0,...,C-1} {\text{max}}\,\text{model}\left(\mathbf{x}_p,\mathbf{W}\right)\right) - \text{model}\left(\mathbf{x}_p,\mathbf{W}\right)_{y_p}.
+\left(\underset{c \,=\, 0,...,C-1}{\text{max}} \,\,\,\mathring{\mathbf{x}}_{p}^T \mathbf{w}_c^{\,}\right) - \mathring{\mathbf{x}}_{p}^T \mathbf{w}_{y_p}^{\,}. = \left(\underset{c \,=\, 0,...,C-1} {\text{max}}\,\text{model}\left(\mathbf{x}_p,\mathbf{W}\right)\right) - \text{model}\left(\mathbf{x}_p,\mathbf{W}\right)_{y_p}.
 \end{equation}
 </div>
 </div>
@@ -12221,10 +12221,10 @@ y = \underset{j \,=\, 0,...,C-1} {\text{max}}\,\text{model}\left(\mathbf{x},\mat
 <div class="output_wrapper">
 <div class="output">
 <div class="output_area"><div class="prompt"></div>
-<div id="7558b99e-0891-4add-86ca-eefeb96e16f8"></div>
+<div id="00bb4208-2f8f-435b-a208-7fde6b4841bd"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#7558b99e-0891-4add-86ca-eefeb96e16f8');
+var element = $('#00bb4208-2f8f-435b-a208-7fde6b4841bd');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -13023,10 +13023,10 @@ if (IPython.notebook.kernel != null) {
 <div class="output_wrapper">
 <div class="output">
 <div class="output_area"><div class="prompt"></div>
-<div id="1560f6c1-7d6f-463c-a53a-0f4d79ac12d6"></div>
+<div id="c540c52b-a763-4022-93d9-733e8b7d42aa"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#1560f6c1-7d6f-463c-a53a-0f4d79ac12d6');
+var element = $('#c540c52b-a763-4022-93d9-733e8b7d42aa');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -13844,7 +13844,7 @@ if (IPython.notebook.kernel != null) {
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 \begin{equation}
-g\left(\mathbf{w}_{0}^{\,},\,...,\mathbf{w}_{C-1}^{\,}\right) = \frac{1}{P}\sum_{p = 1}^P \left[\text{log}\left( \sum_{j = 0}^{C-1}  e^{ \mathring{\mathbf{x}}_{p}^T \mathbf{w}_j^{\,}}  \right) - \mathring{\mathbf{x}}_{p}^T \mathbf{w}_{y_p}^{\,}\right].
+g\left(\mathbf{w}_{0}^{\,},\,...,\mathbf{w}_{C-1}^{\,}\right) = \frac{1}{P}\sum_{p = 1}^P \left[\text{log}\left( \sum_{c = 0}^{C-1}  e^{ \mathring{\mathbf{x}}_{p}^T \overset{\,}{\mathbf{w}}_c^{\,}}  \right) - \mathring{\mathbf{x}}_{p}^T \overset{\,}{\mathbf{w}}_{y_p}^{\,}\right].
 \end{equation}
 </div>
 </div>
@@ -13874,7 +13874,7 @@ g\left(\mathbf{w}_{0}^{\,},\,...,\mathbf{w}_{C-1}^{\,}\right) = \frac{1}{P}\sum_
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>This cost function goes by <em>many</em> names in practice including: the <em>multi-class Softmax</em>, <em>Multiclass Cross Entropy</em>, <em>Softplus</em>, and <em>Multiclass Logistic</em> cost to name a few.  We however will use two fundamental names to refer to it in general.  The first is <em>Multiclass Softmax</em>, which we use both because it is a softmax-smoothed version of the Multiclass Perceptron and because it is the natural generalization of the two class version seen in e.g., Section 6.4.3.  To see this more easily let us smooth the formulation of the Multiclass Perceptron given in equation (6), replacing the $\text{max}$ with the $\text{softmax}$ approximation, giving an equivalent but different formulation than the one above</p>
 \begin{equation}
-g\left(\mathbf{w}_{0}^{\,},\,...,\mathbf{w}_{C-1}^{\,}\right) = \frac{1}{P}\sum_{p = 1}^P  \text{log}\left(1 + \sum_{\underset{j \neq y_p}{j = 0}}^{C-1}  e^{ \mathring{\mathbf{x}}_{p}^T \left(\mathbf{w}_j^{\,} - \mathbf{w}_{y_p}^{\,}\right)}  \right).
+g\left(\mathbf{w}_{0}^{\,},\,...,\mathbf{w}_{C-1}^{\,}\right) = \frac{1}{P}\sum_{p = 1}^P  \text{log}\left(1 + \sum_{\underset{j \neq y_p}{c = 0}}^{C-1}  e^{ \mathring{\mathbf{x}}_{p}^T \left(\overset{\,}{\mathbf{w}}_c^{\,} - \overset{\,}{\mathbf{w}}_{y_p}^{\,}\right)}  \right).
 \end{equation}<p>Visually this appears more similar to the two class Softmax cost, and indeed does reduce to it when $C = 2$ (and $y_p \in \left\{-1,+1\right\}$ are chosen).</p>
 </div>
 </div>
@@ -13886,7 +13886,7 @@ g\left(\mathbf{w}_{0}^{\,},\,...,\mathbf{w}_{C-1}^{\,}\right) = \frac{1}{P}\sum_
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>We will also refer to this function as the <em>multi-class Cross Entropy</em> cost because it is - likewise - a natrual generalization of the two class version seen in Section 6.1.  To see that this indeed the case we can again re-express the Softmax cost in equation (16) in an equivalent but different way.  To do this note that we take its $p^{th}$ summand and rewrite it using the fact that $\text{log}\left(e^{s}\right) = s$ as</p>
 \begin{equation}
-\text{log}\left( \sum_{j = 0}^{C-1}  e^{ \mathring{\mathbf{x}}_{p}^T \mathbf{w}_j^{\,}}  \right) - \mathring{\mathbf{x}}_{p}^T \mathbf{w}_{y_p}^{\,} = \text{log}\left( \sum_{j = 0}^{C-1}  e^{ \mathring{\mathbf{x}}_{p}^T \mathbf{w}_j^{\,}}  \right) - \text{log}\,e^{\mathring{\mathbf{x}}_{p}^T \mathbf{w}_{y_p}^{\,}}.
+\text{log}\left( \sum_{c = 0}^{C-1}  e^{ \mathring{\mathbf{x}}_{p}^T \overset{\,}{\mathbf{w}}_c^{\,}}  \right) - \mathring{\mathbf{x}}_{p}^T \overset{\,}{\mathbf{w}}_{y_p}^{\,} = \text{log}\left( \sum_{c = 0}^{C-1}  e^{ \mathring{\mathbf{x}}_{p}^T \overset{\,}{\mathbf{w}}_c^{\,}}  \right) - \text{log}\,e^{\mathring{\mathbf{x}}_{p}^T \overset{\,}{\mathbf{w}}_{y_p}^{\,}}.
 \end{equation}
 </div>
 </div>
@@ -13910,7 +13910,7 @@ g\left(\mathbf{w}_{0}^{\,},\,...,\mathbf{w}_{C-1}^{\,}\right) = \frac{1}{P}\sum_
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>to rewrite the above as</p>
 \begin{equation}
-\text{log}\left( \sum_{j = 0}^{C-1}  e^{ \mathring{\mathbf{x}}_{p}^T \mathbf{w}_j^{\,}}  \right) - \text{log}\,e^{\mathring{\mathbf{x}}_{p}^T \mathbf{w}_{y_p}^{\,}} = \text{log}\left( \frac{\sum_{j = 0}^{C-1}  e^{ \mathring{\mathbf{x}}_{p}^T \mathbf{w}_j^{\,}}}  {e^{\mathring{\mathbf{x}}_{p}^T \mathbf{w}_{y_p}^{\,}}}    \right).
+\text{log}\left( \sum_{c = 0}^{C-1}  e^{ \mathring{\mathbf{x}}_{p}^T \overset{\,}{\mathbf{w}}_c^{\,}}  \right) - \text{log}\,e^{\mathring{\mathbf{x}}_{p}^T \overset{\,}{\mathbf{w}}_{y_p}^{\,}} = \text{log}\left( \frac{\sum_{c = 0}^{C-1}  e^{ \mathring{\mathbf{x}}_{p}^T \overset{\,}{\mathbf{w}}_c^{\,}}}  {e^{\mathring{\mathbf{x}}_{p}^T \overset{\,}{\mathbf{w}}_{y_p}^{\,}}}    \right).
 \end{equation}
 </div>
 </div>
@@ -13925,7 +13925,7 @@ g\left(\mathbf{w}_{0}^{\,},\,...,\mathbf{w}_{C-1}^{\,}\right) = \frac{1}{P}\sum_
 \text{log}\left(s\right) = -\text{log}\left(\frac{1}{s}\right)
 \end{equation}<p>this can be rewritten equivalently as</p>
 \begin{equation}
-\text{log}\left( \frac{ \sum_{j = 0}^{C-1}  e^{ \mathring{\mathbf{x}}_{p}^T \mathbf{w}_j^{\,}}}  {e^{\mathring{\mathbf{x}}_{p}^T \mathbf{w}_{y_p}^{\,}}}    \right) = -\text{log}\left( \frac{e^{\mathring{\mathbf{x}}_{p}^T \mathbf{w}_{y_p}^{\,}}}  {\sum_{j = 0}^{C-1}  e^{ \mathring{\mathbf{x}}_{p}^T \mathbf{w}_j^{\,}} }    \right) 
+\text{log}\left( \frac{ \sum_{c = 0}^{C-1}  e^{ \mathring{\mathbf{x}}_{p}^T \overset{\,}{\mathbf{w}}_c^{\,}}}  {e^{\mathring{\mathbf{x}}_{p}^T \overset{\,}{\mathbf{w}}_{y_p}^{\,}}}    \right) = -\text{log}\left( \frac{e^{\mathring{\mathbf{x}}_{p}^T \overset{\,}{\mathbf{w}}_{y_p}^{\,}}}  {\sum_{c = 0}^{C-1}  e^{ \mathring{\mathbf{x}}_{p}^T \overset{\,}{\mathbf{w}}_c^{\,}} }    \right) 
 \end{equation}
 </div>
 </div>
@@ -13937,7 +13937,7 @@ g\left(\mathbf{w}_{0}^{\,},\,...,\mathbf{w}_{C-1}^{\,}\right) = \frac{1}{P}\sum_
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>So in sum, we can rewrite</p>
 \begin{equation}
-g\left(\mathbf{w}_{0}^{\,},\,...,\mathbf{w}_{C-1}^{\,}\right) = -\frac{1}{P}\sum_{p = 1}^P  \text{log}\left( \frac{e^{\mathring{\mathbf{x}}_{p}^T \mathbf{w}_{y_p}^{\,}}}  {\sum_{j = 0}^{C-1}  e^{ \mathring{\mathbf{x}}_{p}^T \mathbf{w}_j^{\,}} }    \right) .
+g\left(\mathbf{w}_{0}^{\,},\,...,\mathbf{w}_{C-1}^{\,}\right) = -\frac{1}{P}\sum_{p = 1}^P  \text{log}\left( \frac{e^{\mathring{\mathbf{x}}_{p}^T \overset{\,}{\mathbf{w}}_{y_p}^{\,}}}  {\sum_{c = 0}^{C-1}  e^{ \mathring{\mathbf{x}}_{p}^T \overset{\,}{\mathbf{w}}_c^{\,}} }    \right) .
 \end{equation}
 </div>
 </div>
@@ -13967,7 +13967,7 @@ g\left(\mathbf{w}_{0}^{\,},\,...,\mathbf{w}_{C-1}^{\,}\right) = -\frac{1}{P}\sum
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>As with the multi-class Percpetron (see Section 7.2.2), it is common to <em>regularize</em> the Multiclass Softmax via its feature touching weights as</p>
 \begin{equation}
-\frac{1}{P}\sum_{p = 1}^P \left[\text{log}\left( \sum_{j = 0}^{C-1}  e^{ b_{j}^{\,} + \mathbf{x}_{p}^T\boldsymbol{\omega}_{j}^{\,} }  \right) - \left(b_{y_p}^{\,} + \mathbf{x}_{p}^T\boldsymbol{\omega}_{y_p}^{\,}\right)\right] + \lambda \sum_{j = 0}^{C-1} \left \Vert \boldsymbol{\omega}_{j}^{\,} \right \Vert_2^2 
+\frac{1}{P}\sum_{p = 1}^P \left[\text{log}\left( \sum_{c = 0}^{C-1}  e^{ b_{c}^{\,} + \mathbf{x}_{p}^T\boldsymbol{\omega}_{c}^{\,} }  \right) - \left(b_{y_p}^{\,} + \mathbf{x}_{p}^T\boldsymbol{\omega}_{y_p}^{\,}\right)\right] + \lambda \sum_{c = 0}^{C-1} \left \Vert \boldsymbol{\omega}_{c}^{\,} \right \Vert_2^2 
 \end{equation}
 </div>
 </div>
@@ -14054,7 +14054,7 @@ g\left(\mathbf{w}_{0}^{\,},\,...,\mathbf{w}_{C-1}^{\,}\right) = -\frac{1}{P}\sum
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 \begin{equation}
-\left(\underset{j \,=\, 0,...,C-1}{\text{softmax}} \,\,\,\mathring{\mathbf{x}}_{p}^T \mathbf{w}_j^{\,}\right) - \mathring{\mathbf{x}}_{p}^T \mathbf{w}_{y_p}^{\,}. = \left(\underset{j \,=\, 0,...,C-1} {\text{softmax}}\,\text{model}\left(\mathbf{x}_p,\mathbf{W}\right)\right) - \text{model}\left(\mathbf{x}_p,\mathbf{W}\right)_{y_p}.
+\left(\underset{c \,=\, 0,...,C-1}{\text{softmax}} \,\,\,\mathring{\mathbf{x}}_{p}^T \overset{\,}{\mathbf{w}}_c^{\,}\right) - \mathring{\mathbf{x}}_{p}^T \overset{\,}{\mathbf{w}}_{y_p}^{\,}. = \left(\underset{c \,=\, 0,...,C-1} {\text{softmax}}\,\text{model}\left(\mathbf{x}_p,\mathbf{W}\right)\right) - \text{model}\left(\mathbf{x}_p,\mathbf{W}\right)_{y_p}.
 \end{equation}
 </div>
 </div>
@@ -14133,10 +14133,10 @@ g\left(\mathbf{w}_{0}^{\,},\,...,\mathbf{w}_{C-1}^{\,}\right) = -\frac{1}{P}\sum
 <div class="output_wrapper">
 <div class="output">
 <div class="output_area"><div class="prompt"></div>
-<div id="56d5b582-2f3d-4d6f-bc9e-220359c7de4d"></div>
+<div id="d66a7732-c79d-4af0-a36c-3359e61829cb"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#56d5b582-2f3d-4d6f-bc9e-220359c7de4d');
+var element = $('#d66a7732-c79d-4af0-a36c-3359e61829cb');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -14943,10 +14943,10 @@ if (IPython.notebook.kernel != null) {
 <div class="output_wrapper">
 <div class="output">
 <div class="output_area"><div class="prompt"></div>
-<div id="ecf7576c-df18-4208-839c-bbdf9dfc9148"></div>
+<div id="54751ca0-7592-4af5-95d7-836df58bd335"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#ecf7576c-df18-4208-839c-bbdf9dfc9148');
+var element = $('#54751ca0-7592-4af5-95d7-836df58bd335');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -15753,10 +15753,10 @@ if (IPython.notebook.kernel != null) {
 <div class="output_wrapper">
 <div class="output">
 <div class="output_area"><div class="prompt"></div>
-<div id="6d332225-fe29-4189-a303-93528558c3ab"></div>
+<div id="5c8d8be7-ab73-40c6-b1d3-0b08da2e809e"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#6d332225-fe29-4189-a303-93528558c3ab');
+var element = $('#5c8d8be7-ab73-40c6-b1d3-0b08da2e809e');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -16554,10 +16554,10 @@ if (IPython.notebook.kernel != null) {
 <div class="output_wrapper">
 <div class="output">
 <div class="output_area"><div class="prompt"></div>
-<div id="d95be2e7-7457-4380-aa6c-fe10af3753be"></div>
+<div id="cf553563-5dd3-4aa7-8dbf-c4d48d449522"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#d95be2e7-7457-4380-aa6c-fe10af3753be');
+var element = $('#cf553563-5dd3-4aa7-8dbf-c4d48d449522');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -17368,6 +17368,6 @@ if (IPython.notebook.kernel != null) {
 </div>
 </body>
 <script type="application/vnd.jupyter.widget-state+json">
-{"version_minor": 0, "state": {}, "version_major": 1}
+{"version_minor": 0, "version_major": 1, "state": {}}
 </script>
 </html>

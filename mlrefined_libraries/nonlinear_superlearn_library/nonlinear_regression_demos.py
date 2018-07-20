@@ -86,7 +86,7 @@ class Visualizer:
 
         t = model(normalizer(s),w)
         ax.plot(s.T,t.T,linewidth = 4,c = 'k')
-        ax.plot(s.T,t.T,linewidth = 2,c = 'r')
+        ax.plot(s.T,t.T,linewidth = 2,c = 'lime')
          
     # plot regression fits
     def plot_fit_and_feature_space(self,w,model,feat,**kwargs):        

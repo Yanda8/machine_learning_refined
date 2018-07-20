@@ -25,7 +25,7 @@ class Visualizer:
         self.x = data[:,:-1]
         self.y = data[:,-1]
 
-        self.colors = ['salmon','cornflowerblue','lime','bisque','mediumaquamarine','b','m','g']
+        self.colors = ['cornflowerblue','salmon','lime','bisque','mediumaquamarine','b','m','g']
     
     ######## show N = 1 static image ########
     # show coloring of entire space
@@ -653,11 +653,11 @@ class Visualizer:
         g_vals.shape = (len(r),len(r))
 
         # create figure to plot
-        fig = plt.figure(num=None, figsize=(12,5), dpi=80, facecolor='w', edgecolor='k')
+        fig = plt.figure(num=None, figsize=(12,4), dpi=80, facecolor='w', edgecolor='k')
 
         ### create 3d plot in left panel
-        ax1 = plt.subplot(121,projection = '3d')
-        ax2 = plt.subplot(122)
+        #ax1 = plt.subplot(121,projection = '3d')
+        ax2 = plt.subplot(132)
 
         fig.subplots_adjust(left=0,right=1,bottom=0,top=1)   # remove whitespace around 3d figure
 
@@ -667,23 +667,23 @@ class Visualizer:
         for c in range(C):
             ind = np.argwhere(self.y == class_nums[c])
             ind = [v[0] for v in ind]
-            ax1.scatter(self.x[ind,0],self.x[ind,1],self.y[ind],s = 80,color = self.colors[c],edgecolor = 'k',linewidth = 1.5)
+            #ax1.scatter(self.x[ind,0],self.x[ind,1],self.y[ind],s = 80,color = self.colors[c],edgecolor = 'k',linewidth = 1.5)
             ax2.scatter(self.x[ind,0],self.x[ind,1],s = 110,color = self.colors[c],edgecolor = 'k', linewidth = 2)
             
         # switch for 2class / multiclass view
         if C == 2:
             # plot regression surface
-            ax1.plot_surface(w1_vals,w2_vals,g_vals,alpha = 0.1,color = 'k',rstride=20, cstride=20,linewidth=0,edgecolor = 'k') 
+            #ax1.plot_surface(w1_vals,w2_vals,g_vals,alpha = 0.1,color = 'k',rstride=20, cstride=20,linewidth=0,edgecolor = 'k') 
 
             # plot zplane = 0 in left 3d panel - showing intersection of regressor with z = 0 (i.e., its contour, the separator, in the 3d plot too)?
-            ax1.plot_surface(w1_vals,w2_vals,g_vals*0,alpha = 0.1,rstride=20, cstride=20,linewidth=0.15,color = 'k',edgecolor = 'k') 
+            #ax1.plot_surface(w1_vals,w2_vals,g_vals*0,alpha = 0.1,rstride=20, cstride=20,linewidth=0.15,color = 'k',edgecolor = 'k') 
             
             # plot separator in left plot z plane
-            ax1.contour(w1_vals,w2_vals,g_vals,colors = 'k',levels = [0],linewidths = 3,zorder = 1)
+            #ax1.contour(w1_vals,w2_vals,g_vals,colors = 'k',levels = [0],linewidths = 3,zorder = 1)
 
             # color parts of plane with correct colors
-            ax1.contourf(w1_vals,w2_vals,g_vals+1,colors = self.colors[:],alpha = 0.1,levels = range(0,2))
-            ax1.contourf(w1_vals,w2_vals,-g_vals+1,colors = self.colors[1:],alpha = 0.1,levels = range(0,2))
+            #ax1.contourf(w1_vals,w2_vals,g_vals+1,colors = self.colors[:],alpha = 0.1,levels = range(0,2))
+            #ax1.contourf(w1_vals,w2_vals,-g_vals+1,colors = self.colors[1:],alpha = 0.1,levels = range(0,2))
     
             # plot separator in right plot
             ax2.contour(w1_vals,w2_vals,g_vals,colors = 'k',levels = [0],linewidths = 3,zorder = 1)
@@ -700,8 +700,10 @@ class Visualizer:
             minz -= gapz
             maxz += gapz
 
+        
         # multiclass view
         else:   
+            '''
             ax1.plot_surface(w1_vals,w2_vals,g_vals,alpha = 0.1,color = 'w',rstride=45, cstride=45,linewidth=0.25,edgecolor = 'k')
 
             for c in range(C):
@@ -711,7 +713,8 @@ class Visualizer:
                 # color parts of plane with correct colors
                 ax1.contourf(w1_vals,w2_vals,g_vals - c +0.5,colors = self.colors[c],alpha = 0.4,levels = [0,1])
              
-                
+            '''
+            
             # plot separator in right plot
             ax2.contour(w1_vals,w2_vals,g_vals,colors = 'k',levels = range(0,C+1),linewidths = 3,zorder = 1)
             
@@ -725,10 +728,11 @@ class Visualizer:
             gapz = (maxz - minz)*0.1
             minz -= gapz
             maxz += gapz
-            ax1.set_zlim([minz,maxz])
+            #ax1.set_zlim([minz,maxz])
 
-            ax1.view_init(view[0],view[1]) 
+            #ax1.view_init(view[0],view[1]) 
 
+        '''
         # clean up panel
         ax1.xaxis.pane.fill = False
         ax1.yaxis.pane.fill = False
@@ -746,7 +750,8 @@ class Visualizer:
         ax1.set_xlabel(r'$x_1$', fontsize = 16,labelpad = 5)
         ax1.set_ylabel(r'$x_2$', rotation = 0,fontsize = 16,labelpad = 5)
         ax1.set_zlabel(r'$y$', rotation = 0,fontsize = 16,labelpad = 5)
-
+        '''
+        
         ax2.set_xlabel(r'$x_1$', fontsize = 18,labelpad = 10)
         ax2.set_ylabel(r'$x_2$', rotation = 0,fontsize = 18,labelpad = 15)
         
@@ -795,7 +800,7 @@ class Visualizer:
 
         #### left plot - data and fit in original space ####
         # setup current axis
-        ax1 = plt.subplot(gs[C],projection = '3d');
+        #ax1 = plt.subplot(gs[C],projection = '3d');
         ax2 = plt.subplot(gs[C+1],aspect = 'equal');
         fig.subplots_adjust(left=0,right=1,bottom=0,top=1)   # remove whitespace around 3d figure
 
@@ -825,17 +830,17 @@ class Visualizer:
         for c in range(C):
             ind = np.argwhere(self.y == class_nums[c])
             ind = [v[0] for v in ind]
-            ax1.scatter(self.x[ind,0],self.x[ind,1],self.y[ind],s = 50,color = self.colors[c],edgecolor = 'k',linewidth = 1.5)
+            #ax1.scatter(self.x[ind,0],self.x[ind,1],self.y[ind],s = 50,color = self.colors[c],edgecolor = 'k',linewidth = 1.5)
             ax2.scatter(self.x[ind,0],self.x[ind,1],s = 50,color = self.colors[c],edgecolor = 'k', linewidth = 2)
       
-        ax1.plot_surface(w1_vals,w2_vals,g_vals,alpha = 0.1,color = 'w',rstride=45, cstride=45,linewidth=0.25,edgecolor = 'k')
+        #ax1.plot_surface(w1_vals,w2_vals,g_vals,alpha = 0.1,color = 'w',rstride=45, cstride=45,linewidth=0.25,edgecolor = 'k')
 
-        for c in range(C):
+        #for c in range(C):
             # plot separator curve in left plot z plane
-            ax1.contour(w1_vals,w2_vals,g_vals - c,colors = 'k',levels = [0],linewidths = 3,zorder = 1)
+            #ax1.contour(w1_vals,w2_vals,g_vals - c,colors = 'k',levels = [0],linewidths = 3,zorder = 1)
 
             # color parts of plane with correct colors
-            ax1.contourf(w1_vals,w2_vals,g_vals - c +0.5,colors = self.colors[c],alpha = 0.4,levels = [0,1])
+            #ax1.contourf(w1_vals,w2_vals,g_vals - c +0.5,colors = self.colors[c],alpha = 0.4,levels = [0,1])
              
         # plot separator in right plot
         ax2.contour(w1_vals,w2_vals,g_vals,colors = 'k',levels = range(0,C+1),linewidths = 3,zorder = 1)
@@ -850,6 +855,8 @@ class Visualizer:
         gapz = (maxz - minz)*0.1
         minz -= gapz
         maxz += gapz
+        
+        '''
         ax1.set_zlim([minz,maxz])
 
         ax1.view_init(view[0],view[1]) 
@@ -871,6 +878,7 @@ class Visualizer:
         ax1.set_xlabel(r'$x_1$', fontsize = 16,labelpad = 5)
         ax1.set_ylabel(r'$x_2$', rotation = 0,fontsize = 16,labelpad = 5)
         ax1.set_zlabel(r'$y$', rotation = 0,fontsize = 16,labelpad = 5)
-
+        '''
+        
         ax2.set_xlabel(r'$x_1$', fontsize = 18,labelpad = 10)
         ax2.set_ylabel(r'$x_2$', rotation = 0,fontsize = 18,labelpad = 15)

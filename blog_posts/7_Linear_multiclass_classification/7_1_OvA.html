@@ -11868,10 +11868,10 @@ consists of $C$ distinct classes of data. As with the two class case we can in t
 
 
 
-<div id="b5306288-822e-4c72-afc7-be0057437896"></div>
+<div id="57575f26-213b-497a-924c-d95834dc3c4a"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#b5306288-822e-4c72-afc7-be0057437896');
+var element = $('#57575f26-213b-497a-924c-d95834dc3c4a');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -12723,10 +12723,10 @@ if (IPython.notebook.kernel != null) {
 
 
 
-<div id="04e7e801-18fe-402a-958a-f51042206b9e"></div>
+<div id="1dbe238a-10b4-46f0-882c-73f03ab7f7ef"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#04e7e801-18fe-402a-958a-f51042206b9e');
+var element = $('#1dbe238a-10b4-46f0-882c-73f03ab7f7ef');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -13546,7 +13546,7 @@ w_{N,c}
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Now note how in the figure above how in each case - because each subproblem is perfectly linearly separable and because of our choice of temporary labels - that the class to be distinguished from the rest lies on the <em>positive side</em> of its respective classifier, with the remainder of the points lying on the <em>negative side</em>.  This of course means that for the $c^{th}$ classifier we have for the $p^{th}$ point $\mathbf{x}_p$ that</p>
+<p>Now note how in the figure above how in each case - because each subproblem is perfectly linearly separable and because of our choice of temporary labels - that the class to be distinguished from the rest lies on the <em>positive side</em> of its respective classifier, with the remainder of the points lying on the <em>negative side</em>.  This of course means that for the $j^{th}$ classifier we have for the $p^{th}$ point $\mathbf{x}_p$ that</p>
 \begin{equation}
 \mathring{\mathbf{x}}_{\,}^T \mathbf{w}_c  \begin{cases}   > 0 \,\,\,\,\,\,\text{if}\,\,\, y_p = c  \\ < 0 \,\,\,\,\,\, \text{if} \,\,\, y_p \neq c.    \end{cases}
 \end{equation}
@@ -13558,9 +13558,9 @@ w_{N,c}
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>This implies that - when evaluated by each two-class classifier individually - the one learned to a point's true label always provides the largest evaluation, i.e.,</p>
+<p>This implies that - when evaluated by each two-class classifier individually - the one identifying a point's true label always provides the largest evaluation, i.e.,</p>
 \begin{equation}
-\mathring{\mathbf{x}}_{\,}^T \mathbf{w}_c  = \underset{j \,=\, 0,...,C-1}{\text{max}} \,\,\,\mathring{\mathbf{x}}_{\,}^T \mathbf{w}_j 
+\mathring{\mathbf{x}}_{\,}^T \mathbf{w}_j  = \underset{c \,=\, 0,...,C-1}{\text{max}} \,\,\,\mathring{\mathbf{x}}_{\,}^T \mathbf{w}_c 
 \end{equation}
 </div>
 </div>
@@ -13580,12 +13580,12 @@ w_{N,c}
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>First, those points that lie solely on the positive side of the $c^{th}$ classifier only - like the points we already have - should clearly belong to the $c^{th}$ class.  Such a point $\mathbf{x}$ lies close to those we already have, also clearly satisfying the condition that</p>
+<p>First, those points that lie solely on the positive side of the $j^{th}$ classifier only - like the points we already have - should clearly belong to the $j^{th}$ class.  Such a point $\mathbf{x}$ lies close to those we already have, also clearly satisfying the condition that</p>
 \begin{equation}
-\mathring{\mathbf{x}}_{\,}^T \mathbf{w}_c = \underset{j \,=\, 0,...,C-1}{\text{max}} \,\,\,\mathring{\mathbf{x}}_{\,}^T \mathbf{w}_j
+\mathring{\mathbf{x}}_{\,}^T \mathbf{w}_j = \underset{c \,=\, 0,...,C-1}{\text{max}} \,\,\,\mathring{\mathbf{x}}_{\,}^T \mathbf{w}_c
 \end{equation}<p>Therefore to get the associated label $y$ we therefore want the <em>maximum argument</em> of the right hand side - since this gives the index associated with the largest classifier.  Formally then the predicted label $y$ for input point $\mathbf{x}$ here can be written as</p>
 \begin{equation}
-y =  \underset{j \,=\, 0,...,C-1}{\text{argmax}} \,\,\,\mathring{\mathbf{x}}_{\,}^T \mathbf{w}_j
+y =  \underset{c \,=\, 0,...,C-1}{\text{argmax}} \,\,\,\mathring{\mathbf{x}}_{\,}^T \mathbf{w}_c
 \end{equation}<p>We color in the points representing these areas of the space of our dataset in the Python cell below.</p>
 
 </div>
@@ -13613,10 +13613,10 @@ y =  \underset{j \,=\, 0,...,C-1}{\text{argmax}} \,\,\,\mathring{\mathbf{x}}_{\,
 
 
 
-<div id="a4da3299-3b3f-4aa5-9200-166144ad3319"></div>
+<div id="9eb14bd5-d60f-47b2-a3fe-552741165fc1"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#a4da3299-3b3f-4aa5-9200-166144ad3319');
+var element = $('#9eb14bd5-d60f-47b2-a3fe-552741165fc1');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -14453,10 +14453,10 @@ if (IPython.notebook.kernel != null) {
 
 
 
-<div id="b1680d08-6a13-44fe-a60f-081f842fe73c"></div>
+<div id="4d51a684-d45e-4c09-ac75-f96af7cc9a6f"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#b1680d08-6a13-44fe-a60f-081f842fe73c');
+var element = $('#4d51a684-d45e-4c09-ac75-f96af7cc9a6f');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -15304,10 +15304,10 @@ if (IPython.notebook.kernel != null) {
 
 
 
-<div id="9017ca61-6c14-4547-8b0d-504afed7755d"></div>
+<div id="da69200d-edc1-430f-88f3-7e69e0841230"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#9017ca61-6c14-4547-8b0d-504afed7755d');
+var element = $('#da69200d-edc1-430f-88f3-7e69e0841230');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -16108,18 +16108,18 @@ if (IPython.notebook.kernel != null) {
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>How do we formalize this rule? In these regions we have assigned each point to the class whose boundary is at the <em>largest nonnegative</em> distance from it.  How do we compute the distance of an arbitrary point to each of our decision boundaries?</p>
-<p>As we saw in Section 6.3.4, the <em>signed distance</em> of an arbitrary point $\mathbf{x}$ to the $c^{th}$ linear decision boundary is equal to the evaluation at this boundary <em>provided we normalize its parameters by the magnitude of its feature-touching weights</em> (which is also the <em>normal vector</em> to the separating hyperplane).  We can express this by using notation that exposes the bias and feature-touching weights of each classifier (as we did in e.g., Section 6.3.4)</p>
+<p>As we saw in Section 6.3.4, the <em>signed distance</em> of an arbitrary point $\mathbf{x}$ to the $j^{th}$ linear decision boundary is equal to the evaluation at this boundary <em>provided we normalize its parameters by the magnitude of its feature-touching weights</em> (which is also the <em>normal vector</em> to the separating hyperplane).  We can express this by using notation that exposes the bias and feature-touching weights of each classifier (as we did in e.g., Section 6.3.4)</p>
 \begin{equation}
-\text{(bias):}\,\, b_c = w_{0,c} \,\,\,\,\,\,\,\, \text{(feature-touching weights):} \,\,\,\,\,\, \boldsymbol{\omega}_c = 
+\text{(bias):}\,\, b_j = w_{0,j} \,\,\,\,\,\,\,\, \text{(feature-touching weights):} \,\,\,\,\,\, \boldsymbol{\omega}_j = 
 \begin{bmatrix}
-w_{1,c} \\
-w_{2,c} \\ 
+w_{1,j} \\
+w_{2,j} \\ 
 \vdots \\
-w_{N,c}
+w_{N,j}
 \end{bmatrix}.
 \end{equation}<p>With this notation we have that the</p>
 \begin{equation}
-\text{signed distance of $\mathbf{x}$ to $c^{th}$ boundary} =  \frac{\mathring{\mathbf{x}}_{\,}^T \mathbf{w}_c }{\left\Vert \boldsymbol{\omega}_{c}^{\,} \right\Vert_2}
+\text{signed distance of $\mathbf{x}$ to $j^{th}$ boundary} =  \frac{\mathring{\mathbf{x}}_{\,}^T \mathbf{w}_j }{\left\Vert \boldsymbol{\omega}_{j}^{\,} \right\Vert_2}
 \end{equation}
 </div>
 </div>
@@ -16131,10 +16131,10 @@ w_{N,c}
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Therefore if we <em>normalize</em> the weights of each linear classifier by the length of its normal vector as</p>
 \begin{equation}
-\mathbf{w}_{c}^{\,} \longleftarrow \frac{\mathbf{w}_{c}^{\,}}{\left\Vert \boldsymbol{\omega}_{c}^{\,} \right\Vert_2}
+\mathbf{w}_{j}^{\,} \longleftarrow \frac{\mathbf{w}_{j}^{\,}}{\left\Vert \boldsymbol{\omega}_{j}^{\,} \right\Vert_2}
 \end{equation}<p>which we will assume from here on, then this distance is simply written as the raw evalaution of the point via the decision boundary as</p>
 \begin{equation}
-\text{signed distance of $\mathbf{x}$ to $c^{th}$ boundary} =  \mathring{\mathbf{x}}_{\,}^T \mathbf{w}_c 
+\text{signed distance of $\mathbf{x}$ to $j^{th}$ boundary} =  \mathring{\mathbf{x}}_{\,}^T \mathbf{w}_j
 \end{equation}
 </div>
 </div>
@@ -16146,7 +16146,7 @@ w_{N,c}
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>To assign a point in one of our current regions we seek out the classifier which <em>maximizes</em> this quantity. That is, we have found that - after weight-normalization - we have precisely the same prediction rule we found originally for regions of the space where only a single classifier is positive</p>
 \begin{equation}
-y =  \underset{j \,=\, 0,...,C-1}{\text{argmax}} \,\,\,\mathring{\mathbf{x}}_{\,}^T \mathbf{w}_j.
+y =  \underset{c \,=\, 0,...,C-1}{\text{argmax}} \,\,\,\mathring{\mathbf{x}}_{\,}^T \mathbf{w}_c.
 \end{equation}<p>So the same rule above can be used in any region of the space where at least one classifier is positive.</p>
 
 </div>
@@ -16193,10 +16193,10 @@ y =  \underset{j \,=\, 0,...,C-1}{\text{argmax}} \,\,\,\mathring{\mathbf{x}}_{\,
 
 
 
-<div id="258caec1-f946-48df-acbc-c89efcfd09c2"></div>
+<div id="708f9506-8c81-49c8-8daf-bd353d8a770b"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#258caec1-f946-48df-acbc-c89efcfd09c2');
+var element = $('#708f9506-8c81-49c8-8daf-bd353d8a770b');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -17033,10 +17033,10 @@ if (IPython.notebook.kernel != null) {
 
 
 
-<div id="be722bee-49b9-46e6-8bdd-0b9fef78006f"></div>
+<div id="d21f3a1a-3323-4002-a666-0cd0a0ee7f00"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#be722bee-49b9-46e6-8bdd-0b9fef78006f');
+var element = $('#d21f3a1a-3323-4002-a666-0cd0a0ee7f00');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -17839,7 +17839,7 @@ if (IPython.notebook.kernel != null) {
 <p>We can formalize this rule by noting that - once again - our reasoning has led us to assign a point to the class whose boundary is at the largest signed distance from it. Every point in the region lies on the negative side of our classifiers and all signed distances are negative. Hence the shortest distance <em>in magnitude</em> is the largest <em>signed</em> distance, being the smallest (in magnitude) negative number. Conversely the largest distance <em>in magnitude</em> is the largest (in magnitude) negative number, and hence the smallest <em>signed</em> distance.</p>
 <p>Thus once again (assuming the weights of our classifiers have been normalized) for an input point $\mathbf{x}$ we assign the label $y$ providing the maximum signed distance, i.e.,</p>
 \begin{equation}
-y =  \underset{j \,=\, 0,...,C-1}{\text{argmax}} \,\,\,\mathring{\mathbf{x}}_{\,}^T \mathbf{w}_j.
+y =  \underset{c \,=\, 0,...,C-1}{\text{argmax}} \,\,\,\mathring{\mathbf{x}}_{\,}^T \mathbf{w}_c.
 \end{equation}
 </div>
 </div>
@@ -17860,7 +17860,7 @@ y =  \underset{j \,=\, 0,...,C-1}{\text{argmax}} \,\,\,\mathring{\mathbf{x}}_{\,
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>We have now deduced that the single rule for assigning a label $y$ to a point $\mathbf{x}$</p>
 \begin{equation}
-y =  \underset{j \,=\, 0,...,C-1}{\text{argmax}} \,\,\,\mathring{\mathbf{x}}_{\,}^T \mathbf{w}_j.
+y =  \underset{c \,=\, 0,...,C-1}{\text{argmax}} \,\,\,\mathring{\mathbf{x}}_{\,}^T \mathbf{w}_c.
 \end{equation}<p>which assigns the label based on the maximum signed distance of this point to each classifier, applies to the entire space of our problem (and - in general - to any multi-class problem). In fact this rule not only applies to the toy $C = 3$  dataset we have used in deriving the rule here, but to all multi-class datasets. Indeed we could have used any dataset (even those that are not completely separable) in our derivations here, as any multi-class problem can be broken down into the three fundamental regions we have seen in these derivations: regions where points are on the positive side of a single classifier, more than one classifier, or are on the negative side of all classifiers.</p>
 <p>We call this the <em>fusion rule</em> - since it tells us precisely how to fuse our $C$ individual classifiers together to make a unified and consistent classification across the entire space of any dataset. It is the core of the <em>One-versus-All</em> algorithm, which we now state formally.</p>
 
@@ -17888,17 +17888,17 @@ y =  \underset{j \,=\, 0,...,C-1}{\text{argmax}} \,\,\,\mathring{\mathbf{x}}_{\,
 
 <strong>2:</strong>&nbsp;&nbsp; <code>for</code> $\,\,j \, = \, 0,...,C-1$<br>
 
-<strong>3:</strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; form temporary labels $\tilde y_p = \begin{cases}   +1 \,\,\,\,\,\,\text{if}\,\, y_p = c \\ -1 \,\,\,\,\,\,\text{if}\,\, y_p \neq c    \end{cases}$ <br><br>
+<strong>3:</strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; form temporary labels $\tilde y_p = \begin{cases}   +1 \,\,\,\,\,\,\text{if}\,\, y_p = j \\ -1 \,\,\,\,\,\,\text{if}\,\, y_p \neq j    \end{cases}$ <br><br>
 
-<strong>4:</strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; solve two-class subproblem on $\left\{ \left(\mathbf{x}_{p,}\,\tilde y_{p}\right)\right\} _{p=1}^{P}$ to find weights $\mathbf{w}_c$
+<strong>4:</strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; solve two-class subproblem on $\left\{ \left(\mathbf{x}_{p,}\,\tilde y_{p}\right)\right\} _{p=1}^{P}$ to find weights $\mathbf{w}_j$
 <br><br>
 
-<strong>5:</strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; normalize classifier weights by magnitude of feature-touching portion $\mathbf{w}_{c}^{\,} \longleftarrow \frac{\mathbf{w}_{c}^{\,} }{\left\Vert \boldsymbol{\omega}_{c}^{\,} \right\Vert_2}$ 
+<strong>5:</strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; normalize classifier weights by magnitude of feature-touching portion $\mathbf{w}_{j}^{\,} \longleftarrow \frac{\mathbf{w}_{j}^{\,} }{\left\Vert \boldsymbol{\omega}_{j}^{\,} \right\Vert_2}$ 
 <br>
 
 <strong>6:</strong>&nbsp;&nbsp; <code>end for</code> <br>
 
-<strong>7:</strong>&nbsp;&nbsp; To assign label $y$ to a point $\mathbf{x}$, apply the fusion rule: $y =  \underset{j\,=\, 0,...,C-1}{\text{argmax}} \,\,\,\mathring{\mathbf{x}}_{\,}^T \mathbf{w}_j$<br>
+<strong>7:</strong>&nbsp;&nbsp; To assign label $y$ to a point $\mathbf{x}$, apply the fusion rule: $y =  \underset{c\,=\, 0,...,C-1}{\text{argmax}} \,\,\,\mathring{\mathbf{x}}_{\,}^T \mathbf{w}_c$<br>
 
 <hr style="height:1px;border:none;color:#555;background-color:#555;">
 </p>
@@ -17938,10 +17938,10 @@ y =  \underset{j \,=\, 0,...,C-1}{\text{argmax}} \,\,\,\mathring{\mathbf{x}}_{\,
 
 
 
-<div id="e4b7e400-d7e9-4ad3-9163-c0d961e6ccbc"></div>
+<div id="2bf1244d-04b1-4d69-b545-88d21c23e57f"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#e4b7e400-d7e9-4ad3-9163-c0d961e6ccbc');
+var element = $('#2bf1244d-04b1-4d69-b545-88d21c23e57f');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -18777,7 +18777,7 @@ w_{N,0}  &  w_{N,1} & w_{N,2}  &  \cdots  &  w_{N,C-1}  \\
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Note the above is a $1\times C$ array of our linear models that can be evaluated at any $\mathbf{W}$.  We can now use precisely the same <code>model</code> implementation we have seen in Section 5.5.3, which we repeat below.</p>
+<p>Note how this is precisely the same linear model used with multi-output regression as we saw in Section 5.5.  We can therefore re-use the implementation given there, which we repeat below.</p>
 
 </div>
 </div>
@@ -18805,7 +18805,7 @@ w_{N,0}  &  w_{N,1} & w_{N,2}  &  \cdots  &  w_{N,C-1}  \\
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Notice that we can now write the fusion rule in this extended <code>model</code> notation equivalently as</p>
 \begin{equation}
-y = \underset{j \,=\, 0,...,C-1} {\text{max}}\,\text{model}\left(\mathbf{x},\mathbf{W}\right).
+y = \underset{c \,=\, 0,...,C-1} {\text{max}}\,\text{model}\left(\mathbf{x},\mathbf{W}\right).
 \end{equation}<p>Hence - based on the <code>Python</code> function for our <code>model</code> above - we can implement the fusion rule quite simply as shown below.</p>
 
 </div>
@@ -18873,10 +18873,10 @@ y = \underset{j \,=\, 0,...,C-1} {\text{max}}\,\text{model}\left(\mathbf{x},\mat
 
 
 
-<div id="0200dd64-cffb-4761-97ee-d8bfebcee38d"></div>
+<div id="3e4e56f2-ab58-439f-9f23-9f9f948a3f93"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#0200dd64-cffb-4761-97ee-d8bfebcee38d');
+var element = $('#3e4e56f2-ab58-439f-9f23-9f9f948a3f93');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -19706,10 +19706,10 @@ if (IPython.notebook.kernel != null) {
 
 
 
-<div id="5ef36559-c9e8-4b03-a304-b5a0b0869f02"></div>
+<div id="37f839ae-cc15-497a-9e1a-abbc45e9c6af"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#5ef36559-c9e8-4b03-a304-b5a0b0869f02');
+var element = $('#37f839ae-cc15-497a-9e1a-abbc45e9c6af');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -20563,10 +20563,10 @@ if (IPython.notebook.kernel != null) {
 
 
 
-<div id="ed2abbd9-d16b-42dc-b76d-0400120e30bf"></div>
+<div id="d1600581-68b4-49c3-97a0-b494261fa99f"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#ed2abbd9-d16b-42dc-b76d-0400120e30bf');
+var element = $('#d1600581-68b4-49c3-97a0-b494261fa99f');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -21368,7 +21368,7 @@ if (IPython.notebook.kernel != null) {
  
 
 <script type="application/vnd.jupyter.widget-state+json">
-{"version_major": 1, "version_minor": 0, "state": {}}
+{"state": {}, "version_major": 1, "version_minor": 0}
 </script>
 
 

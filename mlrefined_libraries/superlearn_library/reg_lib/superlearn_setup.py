@@ -55,11 +55,11 @@ class Setup:
                 
         # if the cost function is a two-class classifier, build a counter too
         if cost_name == 'softmax' or cost_name == 'perceptron':
-            funcs = cost_functions.Setup('twoclass_counter')
+            funcs = cost_functions.Setup('twoclass_counter',reg_name)
             self.counter = funcs.cost
             
         if cost_name == 'multiclass_softmax' or cost_name == 'multiclass_perceptron':
-            funcs = cost_functions.Setup('multiclass_counter')
+            funcs = cost_functions.Setup('multiclass_counter',reg_name)
             self.counter = funcs.cost
             
         self.cost_name = cost_name

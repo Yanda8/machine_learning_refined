@@ -11928,10 +11928,10 @@ div#notebook {
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>If we divide off the sum of this exponentiated version $\mathbf{s}$ from each of its entries as</p>
 \begin{equation}
-\sigma \left(\mathbf{s}\right) = \begin{bmatrix}  \frac{e^{s_0}}{\sum_{j=0}^{C-1} e^{s_j}},\, \frac{e^{s_1}}{\sum_{j=0}^{C-1} e^{s_j}},\,...,\frac{e^{s_{C-1}}}{\sum_{j=0}^{C-1} e^{s_j}} \end{bmatrix}
+\sigma \left(\mathbf{s}\right) = \begin{bmatrix}  \frac{e^{s_0}}{\sum_{c=0}^{C-1} e^{s_c}},\, \frac{e^{s_1}}{\sum_{c=0}^{C-1} e^{s_c}},\,...,\frac{e^{s_{C-1}}}{\sum_{c=0}^{C-1} e^{s_c}} \end{bmatrix}
 \end{equation}<p>we maintain these properties but - in addition - normalize it so *sum that the sum of $\sigma\left(\mathbf{s}\right)$ equals one exactly.  If we denote by $\sigma_c$ the $c^{th}$ element of the vector $\sigma\left(\mathbf{s}\right)$ we have</p>
 \begin{equation}
-\sum_{c = 0}^C \sigma_c = \sum_{c=0}^{C-1} \left(\frac{e^{s_{c}}}{\sum_{j=0}^{C-1} e^{s_j}}\right) =  \frac{\sum_{c=0}^{C-1} e^{s_{c}}}{\sum_{j=0}^{C-1} e^{s_j}}= 1.
+\sum_{j = 0}^C \sigma_j = \sum_{j=0}^{C-1} \left(\frac{e^{s_{j}}}{\sum_{c=0}^{C-1} e^{s_c}}\right) =  \frac{\sum_{j=0}^{C-1} e^{s_{j}}}{\sum_{c=0}^{C-1} e^{s_c}}= 1.
 \end{equation}
 </div>
 </div>
@@ -11943,7 +11943,7 @@ div#notebook {
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Moreover each entry of $\sigma\left(\mathbf{s}\right)$ is now <em>bounded between zero and one</em> since regardless of the values of $\mathbf{s}$ we always have that</p>
 \begin{equation}
-0 \leq \frac{e^{s_c}}{\sum_{j=0}^{C-1} e^{s_j}} \leq 1.
+0 \leq \frac{e^{s_j}}{\sum_{c=0}^{C-1} e^{s_c}} \leq 1.
 \end{equation}
 </div>
 </div>
@@ -12183,8 +12183,8 @@ g_p\left(\mathbf{W}\right) = \left\Vert
 \sigma\left(\mathring{\mathbf{x}}_{p}^T\mathbf{W}\right) - \mathbf{y}_p \right\Vert_2^2.
 \end{equation}<p>However, as we discussed exensively in Section 6.1, 6.2, and 6.5 a more appropriate pointwise cost when dealing with <em>binary output</em> is the Log Error since it more heavily penalizes error in such instances.  Here the Log Error of $\sigma\left(\mathring{\mathbf{x}}_{p}^T\mathbf{W}\right)$ and $\mathbf{y}_p$ can be written as</p>
 \begin{equation}
-g_p\left(\mathbf{W}\right) = - \sum_{j=0}^C y_{p,j}\,\text{log} \, \sigma
-\left(\mathring{\mathbf{x}}_{p}^T\mathbf{W}\right)_j.
+g_p\left(\mathbf{W}\right) = - \sum_{c=0}^C y_{p,c}\,\text{log} \, \sigma
+\left(\mathring{\mathbf{x}}_{p}^T\mathbf{W}\right)_c.
 \end{equation}
 </div>
 </div>
@@ -12240,6 +12240,6 @@ g\left(\mathbf{W}\right) = - \frac{1}{P}\sum_{p=1}^P\text{log}\left(  \frac{  e^
 </div>
 </body>
 <script type="application/vnd.jupyter.widget-state+json">
-{"version_minor": 0, "version_major": 1, "state": {}}
+{"state": {}, "version_major": 1, "version_minor": 0}
 </script>
 </html>

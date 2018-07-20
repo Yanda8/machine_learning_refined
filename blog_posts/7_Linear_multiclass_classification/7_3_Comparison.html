@@ -11836,28 +11836,13 @@ div#notebook {
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>We have now seen two fundamental approaches to linear multi-class classification: the One-versus-All (OvA) and the Multi-class Perceptron / Softmax.  Both approaches are commonly used in practice and can - depending on the dataset - produce similarly good results.  Howver the latter approach (the Multi-class Perceptron / Softmax) is - at least in principle - capable of achieving higher accuracy on a broader range of datasets.  Why is this?</p>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>Remember that with OvA (as we saw in Section 7.1) we solve a sequence of $C$ two class subproblems (one per class) tuning the weights of each classifier $\mathbf{w}_0,\,\mathbf{w}_1,\,...,\mathbf{w}_{C-1}$ independently.  We then combine the results of our $C$ tuned classifiers via the fusion rule to produce the predicted output $y$ for a point $\mathbf{x}$</p>
+<p>As we detailed in Sections 7.1.7 and 7.2.4, we can express all $C$ individual linear classifiers we employ regardless of which approach we take jointly as one large linear model of the form</p>
 \begin{equation}
-y = \underset{j \,=\, 0,...,C-1}{\text{argmax}} \,\,\,\mathring{\mathbf{x}}_{\,}^T \mathbf{w}_j^{\,}.
-\end{equation}
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>In particular, the fusion rule defines how accurate our combined model is in predicting the labels of our training data.</p>
-<p>On the other hand, as we saw in the previous Section, when we minimize the Multi-class Perceptron or Softmax cost functions we are tuning all $C$ weight vectors $\mathbf{w}_0,\,\mathbf{w}_1,\,...,\mathbf{w}_{C-1}$ <em>simultaneously</em> in order to make the fusion rule hold as well as possible over our training dataset.  This permits valuable interactions to take place in the tuning of the weights or - in other words - by tuning all weights together we are directly aiming to <em>minimize the number of misclassifications</em> our final model has over the training data.  OvA - by comparison - achieves this goal <em>indirectly</em> since the $c^{th}$ weight vector $\mathbf{w}_c$ is tuned in a comparatively myopic way, i.e., to minimie misclassifications of the $c^{th}$ class alone.  The end goal - minimizing the number of misclassifications over the entire dataset - is 'seen by the weights' only <em>after</em> they are all tuned.</p>
+\begin{matrix} 
+\text{model}\left(\mathbf{x},\mathbf{W}\right) = \mathring{\mathbf{x}}_{\,}^T\mathbf{W} \end{matrix}
+\end{equation}<p>where the matrix $\mathbf{C}$ is a $\left(N+1\right) \times C$ matrix of weights whose $c^{th}$ column contains the weights of our $c^{th}$ linear classifier.</p>
+<p>With (as we saw in Section 7.1) we solve a sequence of $C$ two class subproblems (one per class) tuning the weights of this matrix <em>one column at-a-time</em> independently.  Only afterward do we combine all classifiers together to form the fusion rule.  On the other hand, as we saw in the previous Section, when we minimize the Multi-class Perceptron or Softmax cost functions we are tuning all parameters of this matrix <em>jointly</em> - i.e., all $C$ classifiers <em>simultaneously</em> - in order to make the fusion rule hold as well as possible over our training dataset.  This joint minimization permits valuable interactions to take place in the tuning of the weights or - in other words - by tuning all weights together we are directly aiming to <em>minimize the number of misclassifications</em> our final model has over the training data.  OvA - by comparison - achieves this goal <em>indirectly</em> since the $c^{th}$ weight vector $\mathbf{w}_c$ is tuned in a comparatively myopic way, i.e., to minimie misclassifications of the $c^{th}$ class alone.  The end goal - minimizing the number of misclassifications over the entire dataset - is 'seen by the weights' only <em>after</em> they are all tuned.</p>
+<p>Also notice that (as noted previously) this linear model is precisely what we use with multi-output regression (see Section 5.5).  However <em>unlike</em> the case with linear multi-output regression - as detailed in Section 5.5.2 - it is <em>not</em> the case here that tuning $\mathbf{W}$ via minimization of a multi-class cost (like e.g., the Multiclass Softmax) is equivalent to tuning <em>each column independently</em>.</p>
 </div>
 </div>
 </div>
@@ -11888,10 +11873,10 @@ y = \underset{j \,=\, 0,...,C-1}{\text{argmax}} \,\,\,\mathring{\mathbf{x}}_{\,}
 <div class="output_wrapper">
 <div class="output">
 <div class="output_area"><div class="prompt"></div>
-<div id="244c0d7f-460b-4809-bcd3-3b26444386bc"></div>
+<div id="057d664e-c771-401f-9dad-67c9dddbe0ca"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#244c0d7f-460b-4809-bcd3-3b26444386bc');
+var element = $('#057d664e-c771-401f-9dad-67c9dddbe0ca');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -12689,10 +12674,10 @@ if (IPython.notebook.kernel != null) {
 <div class="output_wrapper">
 <div class="output">
 <div class="output_area"><div class="prompt"></div>
-<div id="4445c40f-a027-4c6d-8c2a-eef1be6a5226"></div>
+<div id="da628ac5-321f-420a-9b67-3b9b50ce1185"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#4445c40f-a027-4c6d-8c2a-eef1be6a5226');
+var element = $('#da628ac5-321f-420a-9b67-3b9b50ce1185');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -13490,10 +13475,10 @@ if (IPython.notebook.kernel != null) {
 <div class="output_wrapper">
 <div class="output">
 <div class="output_area"><div class="prompt"></div>
-<div id="7e9213cf-96a5-495a-8d5e-748a7cc97ed1"></div>
+<div id="fa23866d-3451-48f2-90e1-2a1767b42820"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#7e9213cf-96a5-495a-8d5e-748a7cc97ed1');
+var element = $('#fa23866d-3451-48f2-90e1-2a1767b42820');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 

@@ -11831,8 +11831,8 @@ div#notebook {
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Using the same notation as in the previous Section we denote by $\mathbf{x}_p$ the $p^{th}$ input of $N$ dimensions belonging to some dataset of $P$ points.  By stacking these together column-wise we create our $N\times P$ data matrix $\mathbf{X}$.  We then denote $\frac{1}{P}\mathbf{X}\mathbf{X}^T + \lambda \mathbf{I}_{N\times N}$ the regularized covariance matrix of this data and $\frac{1}{P}\mathbf{X}^{\,} \mathbf{X}^T +\lambda \mathbf{I}_{N\times N}= \mathbf{V}^{\,}\mathbf{D}^{\,}\mathbf{V}^T$ its eigenvalue/vector decomposition.</p>
-<p>Now remember that when performing PCA we first <em>mean-center</em> our dataset - that is we subtract off the mean of each coordinate (note how this is the first step in the standard normalization scheme as well).  We then aim to represent each of our mean-centered datapoints 
+<p>Using the same notation as in the previous Section we denote by $\mathbf{x}_p$ the $p^{th}$ input of $N$ dimensions belonging to some dataset of $P$ points.  By stacking these together column-wise we create our $N\times P$ data matrix $\mathbf{X}$.  We then denote $\frac{1}{P}\mathbf{X}\mathbf{X}^T + \lambda \mathbf{I}_{N\times N}$ the regularized covariance matrix of this data and $\frac{1}{P}\mathbf{X}^{\,} \mathbf{X}^T +\lambda \mathbf{I}_{N\times N}= \mathbf{V}^{\,}\mathbf{D}^{\,}\mathbf{V}^T$ its eigenvalue/vector decomposition (see Section 8.4).</p>
+<p>Now remember that when performing PCA we first <em>mean-center</em> our dataset (see Section 8.2) - that is we subtract off the mean of each coordinate (note how this is the first step in the standard normalization scheme as well).  We then aim to represent each of our mean-centered datapoints 
 datapoint $\mathbf{x}_p$ by $\mathbf{w}_p = \mathbf{V}_{\,}^T\mathbf{x}_p^{\,}$.  In the space spanned by the principal components we can represent the entire set of transformed mean-centered data as</p>
 \begin{equation}
 \text{(PCA transformed data)}\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\mathbf{W} = \mathbf{V}^T\mathbf{X}^{\,}.
@@ -11855,9 +11855,7 @@ datapoint $\mathbf{x}_p$ by $\mathbf{w}_p = \mathbf{V}_{\,}^T\mathbf{x}_p^{\,}$.
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>In other words, PCA-sphereing is simply the standard normalization scheme we have seen before (see e.g., Sections 8.4, 9.4 and 10.3) with a single step inserted in between mean centering and the dividing off of standard deviations: in between these two steps we rotate the data using PCA.  By rotating the data prior to scaling we can typically shrink the space consumed by the data considerably more than standard normalization, while simultaneously making any associated cost function considerably easier to minimize properly.</p>
-<blockquote><p>PCA-sphereing is simply the standard normalization scheme we have seen before (see e.g., Sections 8.4, 9.4 and 10.3) with a single step inserted in between mean centering and the dividing off of standard deviations: in between these two steps we rotate the data using PCA.  By rotating the data prior to scaling we can typically shrink the space consumed by the data considerably more than standard normalization, while simultaneously making any associated cost function considerably easier to minimize properly.</p>
-</blockquote>
+<p>In other words, PCA-sphereing is simply the standard normalization scheme we have seen in the previous Section with a single step inserted in between mean centering and the dividing off of standard deviations: in between these two steps we rotate the data using PCA.  By rotating the data prior to scaling we can typically shrink the space consumed by the data considerably more than standard normalization, while simultaneously making any associated cost function considerably easier to minimize properly.</p>
 
 </div>
 </div>
@@ -11917,6 +11915,42 @@ datapoint $\mathbf{x}_p$ by $\mathbf{w}_p = \mathbf{V}_{\,}^T\mathbf{x}_p^{\,}$.
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
+<p>The PCA-sphereing scheme can be then be written in three highly related steps as follows</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<hr>
+<p><strong>PCA-sphereing scheme:</strong></p>
+<ol>
+<li><strong>(mean center)</strong> for each $n$ replace $x_{p,n} \longleftarrow \left({x_{p,n} - \mu_n}\right)$ where $\mu_n = \frac{1}{P}\sum_{p=1}^{P}x_{p,n}$</li>
+<li><strong>(PCA rotation)</strong> transform $\mathbf{w}_p = \mathbf{V}_{\,}^T\mathbf{x}_p^{\,}$ where $\mathbf{V}$ is the full set of eignenvectors of the reguliarzed covariance matrix</li>
+<li><strong>(divide off std)</strong> for each $n$ replace $w_{p,n} \longleftarrow \frac{w_{p,n}}{\sigma_n}$ where $\sigma_n = \sqrt{\frac{1}{P}\sum_{p=1}^{P}\left(w_{p,n}\right)^2}$</li>
+</ol>
+<hr>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="9.4.2--Implementing-PCA-Sphereing-in-Python">9.4.2  Implementing PCA Sphereing in <code>Python</code><a class="anchor-link" href="#9.4.2--Implementing-PCA-Sphereing-in-Python">&#182;</a></h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
 <p>A <code>Python</code> implementation is given below - notice it returns a <code>normalizer</code> function that normalizes any input according to the statistics of $\mathbf{X}$.</p>
 
 </div>
@@ -11947,33 +11981,6 @@ datapoint $\mathbf{x}_p$ by $\mathbf{w}_p = \mathbf{V}_{\,}^T\mathbf{x}_p^{\,}$.
 </div>
 </div>
 
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>The PCA-sphereing scheme can be then be written in three highly related steps as follows</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<hr>
-<p><strong>PCA-sphereing scheme:</strong></p>
-<ol>
-<li><strong>(mean center)</strong> for each $n$ replace $x_{p,n} \longleftarrow \left({x_{p,n} - \mu_n}\right)$ where $\mu_n = \frac{1}{P}\sum_{p=1}^{P}x_{p,n}$</li>
-<li><strong>(PCA rotation)</strong> transform $\mathbf{w}_p = \mathbf{V}_{\,}^T\mathbf{x}_p^{\,}$ where $\mathbf{V}$ is the full set of eignenvectors of the reguliarzed covariance matrix</li>
-<li><strong>(divide off std)</strong> for each $n$ replace $w_{p,n} \longleftarrow \frac{w_{p,n}}{\sigma_n}$ where $\sigma_n = \sqrt{\frac{1}{P}\sum_{p=1}^{P}\left(w_{p,n}\right)^2}$</li>
-</ol>
-<hr>
-
-</div>
-</div>
 </div>
 <div class="cell border-box-sizing text_cell rendered">
 <div class="prompt input_prompt">
@@ -12094,10 +12101,10 @@ datapoint $\mathbf{x}_p$ by $\mathbf{w}_p = \mathbf{V}_{\,}^T\mathbf{x}_p^{\,}$.
 
 
 
-<div id="e9bb8405-591e-47c6-98bf-af25e8440d44"></div>
+<div id="01365c8e-e566-45db-904f-e6c7ed434de1"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#e9bb8405-591e-47c6-98bf-af25e8440d44');
+var element = $('#01365c8e-e566-45db-904f-e6c7ed434de1');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -13031,10 +13038,10 @@ if (IPython.notebook.kernel != null) {
 
 
 
-<div id="094ac9cb-ceb3-4cce-9d83-71d51d5617d0"></div>
+<div id="a0b63e6a-fc98-4b69-9f67-27d8abc01c25"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#094ac9cb-ceb3-4cce-9d83-71d51d5617d0');
+var element = $('#a0b63e6a-fc98-4b69-9f67-27d8abc01c25');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -13851,10 +13858,10 @@ if (IPython.notebook.kernel != null) {
 
 
 
-<div id="bcbf7cb9-59e9-4f2a-a8b9-80799cc0011a"></div>
+<div id="2734dca6-8566-47e5-a1bd-bf2eda8fcb3f"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#bcbf7cb9-59e9-4f2a-a8b9-80799cc0011a');
+var element = $('#2734dca6-8566-47e5-a1bd-bf2eda8fcb3f');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -14715,10 +14722,10 @@ if (IPython.notebook.kernel != null) {
 
 
 
-<div id="058cc8ab-e17c-4e47-80c1-382397930391"></div>
+<div id="68519ffc-1dd9-4d5e-9982-82e0a23d509d"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#058cc8ab-e17c-4e47-80c1-382397930391');
+var element = $('#68519ffc-1dd9-4d5e-9982-82e0a23d509d');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -15508,7 +15515,7 @@ if (IPython.notebook.kernel != null) {
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="9.4.2--The-PCA-sphereing-scheme-expressed-more-elegantly">9.4.2  The PCA-sphereing scheme expressed more elegantly<a class="anchor-link" href="#9.4.2--The-PCA-sphereing-scheme-expressed-more-elegantly">&#182;</a></h2>
+<h2 id="9.4.3--The-PCA-sphereing-scheme-expressed-more-elegantly">9.4.3  The PCA-sphereing scheme expressed more elegantly<a class="anchor-link" href="#9.4.3--The-PCA-sphereing-scheme-expressed-more-elegantly">&#182;</a></h2>
 </div>
 </div>
 </div>
@@ -15615,7 +15622,7 @@ d_n = \frac{1}{P}\left\Vert \mathbf{v}_n^T \mathbf{X} \right \Vert_2^2 = {\frac{
  
 
 <script type="application/vnd.jupyter.widget-state+json">
-{"version_major": 1, "state": {}, "version_minor": 0}
+{"version_minor": 0, "state": {}, "version_major": 1}
 </script>
 
 

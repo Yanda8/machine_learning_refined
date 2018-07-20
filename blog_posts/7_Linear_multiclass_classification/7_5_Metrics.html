@@ -11866,7 +11866,7 @@ div#notebook {
 \text{model}\left(\mathbf{x},\mathbf{W}^{\star}\right) =  \mathring{\mathbf{x}}_{\,}^T\mathbf{W}^{\star}   
 \end{equation}<p>This fully trained model defines an optimal decision boundary for the training dataseet which is defined by the fusion rule</p>
 \begin{equation}
-\underset{j=0,...,C-1}{\text{argmax}}\,\, \mathbf{x}^T \mathbf{w}_j^{\star}.
+\underset{c=0,...,C-1}{\text{argmax}}\,\, \mathbf{x}^T \mathbf{w}_c^{\star}.
 \end{equation}
 </div>
 </div>
@@ -11878,7 +11878,7 @@ div#notebook {
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>To predict the label $y$ of an input $\mathbf{x}$ we then process it through this rule as</p>
 \begin{equation}
-y_{\,} = \underset{j=0,...,C-1}{\text{argmax}}\,\, \mathbf{x}^T \mathbf{w}_j^{\star} 
+y_{\,} = \underset{c=0,...,C-1}{\text{argmax}}\,\, \mathbf{x}^T \mathbf{w}_c^{\star} 
 \end{equation}<p>where any point lying <em>exactly</em> on the decision boundary should be assigned a label randomly based on the index of those classifiers providing maximum evaluation.</p>
 </div>
 </div>
@@ -11991,10 +11991,10 @@ y_{\,} = \underset{j=0,...,C-1}{\text{argmax}}\,\, \mathbf{x}^T \mathbf{w}_j^{\s
 <div class="output_wrapper">
 <div class="output">
 <div class="output_area"><div class="prompt"></div>
-<div id="9c14e460-b51b-4357-b3fb-3edfc7320242"></div>
+<div id="f3ad5734-dfb6-4a62-a446-b432610dbd51"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#9c14e460-b51b-4357-b3fb-3edfc7320242');
+var element = $('#f3ad5734-dfb6-4a62-a446-b432610dbd51');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
