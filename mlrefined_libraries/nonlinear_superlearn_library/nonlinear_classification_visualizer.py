@@ -492,10 +492,10 @@ class Visualizer:
             
             ### plot in 1-d
             ind0 = np.argwhere(self.y == +1)
-            ax2.scatter(self.x[ind0],np.zeros((len(self.x[ind0]))),s = 55, color = self.colors[0], edgecolor = 'k',zorder = 3)
+            ax2.scatter(self.x[ind0],np.zeros((len(self.x[ind0]))),s = 55, color = self.colors[1], edgecolor = 'k',zorder = 3)
 
             ind1 = np.argwhere(self.y == -1)
-            ax2.scatter(self.x[ind1],np.zeros((len(self.x[ind1]))),s = 55, color = self.colors[1], edgecolor = 'k',zorder = 3)
+            ax2.scatter(self.x[ind1],np.zeros((len(self.x[ind1]))),s = 55, color = self.colors[0], edgecolor = 'k',zorder = 3)
             ax2.set_yticks([0])
             ax2.axhline(linewidth=0.5, color='k',zorder = 1)
         
@@ -524,10 +524,10 @@ class Visualizer:
             C = len(np.unique(self.y))
             if C == 2:
                 ind0 = np.argwhere(self.y == +1)
-                ax2.scatter(self.x[ind0,0],self.x[ind0,1],s = 55, color = self.colors[0], edgecolor = 'k')
+                ax2.scatter(self.x[ind0,0],self.x[ind0,1],s = 55, color = self.colors[1], edgecolor = 'k')
 
                 ind1 = np.argwhere(self.y == -1)
-                ax2.scatter(self.x[ind1,0],self.x[ind1,1],s = 55, color = self.colors[1], edgecolor = 'k')
+                ax2.scatter(self.x[ind1,0],self.x[ind1,1],s = 55, color = self.colors[0], edgecolor = 'k')
             else:
                 for c in range(C):
                     ind0 = np.argwhere(self.y == c)
