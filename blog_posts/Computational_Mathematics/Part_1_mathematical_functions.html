@@ -1,8 +1,9 @@
 <!DOCTYPE html>
 <html>
-<head><meta charset="utf-8"/>
-<title>Part 1: What is a mathematical function?</title><script src="https://unpkg.com/jupyter-js-widgets@2.0.*/dist/embed.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
+<head><meta charset="utf-8" />
+<title>Part_1_mathematical_functions</title><script src="https://unpkg.com/jupyter-js-widgets@2.0.*/dist/embed.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
 <style type="text/css">
     /*!
 *
@@ -10,8 +11,8 @@
 *
 */
 /*!
- * Bootstrap v3.3.7 (http://getbootstrap.com)
- * Copyright 2011-2016 Twitter, Inc.
+ * Bootstrap v3.3.6 (http://getbootstrap.com)
+ * Copyright 2011-2015 Twitter, Inc.
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
  */
 /*! normalize.css v3.0.3 | MIT License | github.com/necolas/normalize.css */
@@ -1106,6 +1107,7 @@ a:focus {
   text-decoration: underline;
 }
 a:focus {
+  outline: thin dotted;
   outline: 5px auto -webkit-focus-ring-color;
   outline-offset: -2px;
 }
@@ -2534,6 +2536,7 @@ select[size] {
 input[type="file"]:focus,
 input[type="radio"]:focus,
 input[type="checkbox"]:focus {
+  outline: thin dotted;
   outline: 5px auto -webkit-focus-ring-color;
   outline-offset: -2px;
 }
@@ -3024,6 +3027,7 @@ select[multiple].input-lg {
 .btn.focus,
 .btn:active.focus,
 .btn.active.focus {
+  outline: thin dotted;
   outline: 5px auto -webkit-focus-ring-color;
   outline-offset: -2px;
 }
@@ -8754,9 +8758,6 @@ body > #header .header-bar {
     margin-left: 10px;
   }
 }
-[dir="rtl"] #ipython_notebook {
-  float: right !important;
-}
 #noscript {
   width: auto;
   padding-top: 16px;
@@ -8959,14 +8960,8 @@ span#login_widget > .button .badge,
  *
  * Author: Jupyter Development Team
  */
-[dir="rtl"] #tabs li {
-  float: right;
-}
 ul#tabs {
   margin-bottom: 4px;
-}
-[dir="rtl"] ul#tabs {
-  margin-right: 0px;
 }
 ul#tabs a {
   padding-top: 6px;
@@ -8989,16 +8984,6 @@ ul.breadcrumb span {
 }
 .list_toolbar .tree-buttons {
   padding-top: 1px;
-}
-[dir="rtl"] .list_toolbar .tree-buttons {
-  float: left !important;
-}
-[dir="rtl"] .list_toolbar .pull-right {
-  padding-top: 1px;
-  float: left !important;
-}
-[dir="rtl"] .list_toolbar .pull-left {
-  float: right !important;
 }
 .dynamic-buttons {
   padding-top: 3px;
@@ -9135,9 +9120,6 @@ ul.breadcrumb span {
 #tree-selector {
   padding-right: 0px;
 }
-[dir="rtl"] #tree-selector a {
-  float: right;
-}
 #button-select-all {
   min-width: 50px;
 }
@@ -9227,9 +9209,6 @@ ul#new-menu {
   left: auto;
   right: 0;
 }
-[dir="rtl"] #new-menu {
-  text-align: right;
-}
 .kernel-menu-icon {
   padding-right: 12px;
   width: 24px;
@@ -9274,9 +9253,6 @@ ul#new-menu {
 }
 #running .panel-group .panel .panel-body .list_container .list_item:last-child {
   border-bottom: 0px;
-}
-[dir="rtl"] #running .col-sm-8 {
-  float: right !important;
 }
 .delete-button {
   display: none;
@@ -9573,7 +9549,6 @@ div.cell.selected.jupyter-soft-selected {
   }
 }
 div.inner_cell {
-  min-width: 0;
   /* Old browsers */
   display: -webkit-box;
   -webkit-box-orient: vertical;
@@ -9594,6 +9569,11 @@ div.inner_cell {
   box-flex: 1;
   /* Modern browsers */
   flex: 1;
+}
+@-moz-document url-prefix() {
+  div.inner_cell {
+    overflow-x: hidden;
+  }
 }
 /* input_area and input_prompt must match in top border and margin for alignment */
 div.input_area {
@@ -11264,7 +11244,7 @@ div#pager .ui-resizable-handle::after {
 }
 .shortcut_key {
   display: inline-block;
-  width: 21ex;
+  width: 20ex;
   text-align: right;
   font-family: monospace;
 }
@@ -11576,7 +11556,6 @@ ul.typeahead-list > li > a {
   box-shadow: 0px 0px 12px 1px rgba(87, 87, 87, 0.2);
 }
 .terminal-app .terminal {
-  width: 100%;
   float: left;
   font-family: monospace;
   color: white;
@@ -11590,9 +11569,6 @@ ul.typeahead-list > li > a {
 .terminal-app .terminal dummy-screen {
   line-height: 1em;
   font-size: 14px;
-}
-.terminal-app .terminal .xterm-rows {
-  padding: 10px;
 }
 .terminal-app .terminal-cursor {
   color: black;
@@ -11713,6 +11689,8 @@ ul.typeahead-list > li > a {
 .ansi-bold { font-weight: bold; }
 
     </style>
+
+
 <style type="text/css">
 /* Overrides of notebook CSS for static HTML export */
 body {
@@ -11723,7 +11701,9 @@ body {
 div#notebook {
   overflow: visible;
   border-top: none;
-}@media print {
+}
+
+@media print {
   div.cell {
     display: block;
     page-break-inside: avoid;
@@ -11738,15 +11718,16 @@ div#notebook {
   }
 }
 </style>
+
 <!-- Custom stylesheet, it must be in the same directory as the html file -->
-<link href="custom.css" rel="stylesheet"/>
+<link rel="stylesheet" href="custom.css">
+
 <!-- Loading mathjax macro -->
 <!-- Load mathjax -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS_HTML"></script>
-<!-- MathJax configuration -->
-<script type="text/x-mathjax-config">
+    <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML"></script>
+    <!-- MathJax configuration -->
+    <script type="text/x-mathjax-config">
     MathJax.Hub.Config({
-    	TeX: { equationNumbers: { autoNumber: "AMS" } },
         tex2jax: {
             inlineMath: [ ['$','$'], ["\\(","\\)"] ],
             displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
@@ -11757,258 +11738,219 @@ div#notebook {
         // we use CSS to left justify single line equations in code cells.
         displayAlign: 'center',
         "HTML-CSS": {
-            availableFonts: ["TeX"],
-            preferredFont: "TeX",
             styles: {'.MathJax_Display': {"margin": 0}},
             linebreaks: { automatic: true }
         }
     });
     </script>
-<link href="../../html/CSS/custom.css" rel="stylesheet"/>
-<style>
-        p {
-            text-align: justify !important;
-            text-justify: inter-word !important;
-        }
-    </style>
-<!-- End of mathjax configuration --></head>
+    <!-- End of mathjax configuration --></head>
 <body>
-<!-- uncomment to add back menu
-<div style="text-align:center !important; padding-top:58px;">
+  <div tabindex="-1" id="notebook" class="border-box-sizing">
+    <div class="container" id="notebook-container">
 
-				<a href="../../../index.html" style="font-family: inherit; font-weight: 200; letter-spacing: 1.5px; color: #222; font-size: 97%;">HOME</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="../../../about.html" style="font-family: inherit; font-weight: 200; letter-spacing: 1.5px; color: #222; font-size: 97%;">ABOUT</a>
-
-
-</div> -->
-<br/><br/><br/>
-<!-- share buttons -->
-<div style="width: 53%; margin:auto;">
-<div id="1" style="width: 75%; float:left;">
-<span style="color:black; font-family:'lato', sans-serif; font-size: 18px;">code</span>
-<div style="width: 95px; border-bottom: solid 1px; border-color:black;">
-<div class="logo-share"></div>
-<div class="logo-share"></div>
-<div class="logo-share">
-<!-- github -->
-<a href="https://github.com/jermwatt/mlrefined/blob/gh-pages/blog_posts/Computational_Mathematics/Part_1_mathematical_functions.ipynb" target="_blank">
-<img height="28" onmouseout="this.src='../../html/pics/github.png';" onmouseover="this.src='../../html/pics/github_filled.png';" src="../../html/pics/github.png" width="28"/>
-</a>
-</div>
-</div>
-</div>
-<div id="2" style="width: 25%; float:left;">
-<span style="color:black; font-family:'lato', sans-serif; font-size: 18px;">share</span>
-<div style="width: 210px; border-bottom: solid 1px; border-color:black;">
-<div class="logo-share"></div>
-<div class="logo-share"></div>
-<div class="logo-share">
-<!-- linkedin -->
-<a href="https://www.linkedin.com/cws/share?url=https%3A%2F%2Fjermwatt.github.io%2Fmlrefined%2Fblog_posts%2FComputational_Mathematics%2FPart_1_mathematical_functions.html" target="_blank">
-<img height="28" onmouseout="this.src='../../html/pics/linkedin.png';" onmouseover="this.src='../../html/pics/linkedin_filled.png';" src="../../html/pics/linkedin.png" width="28"/>
-</a>
-</div>
-<div class="logo-share"></div>
-<div class="logo-share">
-<!-- twitter -->
-<a href="https://twitter.com/intent/tweet?ref_src=twsrc%5Etfw&amp;tw_p=tweetbutton&amp;url=https%3A%2F%2Fjermwatt.github.io%2Fmlrefined%2Fblog_posts%2FComputational_Mathematics%2FPart_1_mathematical_functions.html" target="_blank">
-<img height="28" onmouseout="this.src='../../html/pics/twitter.png';" onmouseover="this.src='../../html/pics/twitter_filled.png';" src="../../html/pics/twitter.png" width="28"/>
-</a>
-</div>
-<div class="logo-share"></div>
-<div class="logo-share">
-<!-- facebook -->
-<a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fjermwatt.github.io%2Fmlrefined%2Fblog_posts%2FComputational_Mathematics%2FPart_1_mathematical_functions.html" target="_blank">
-<img height="28" onmouseout="this.src='../../html/pics/facebook.png';" onmouseover="this.src='../../html/pics/facebook_filled.png';" src="../../html/pics/facebook.png" width="28"/>
-</a>
-</div>
-</div>
-</div>
-</div>
-<br/><br/>
-<div class="page-title" style="text-align: center !important;">
-<span style="color: #333; font-size: 40%; letter-spacing: 3px;">
-<span style="font-size: 80%;">► </span><a href="../../../mlrefined/html/pages/topics/Computational_Mathematics.html" style="color: black; cursor: pointer; text-transform: uppercase; font-weight:bold;">Computational Mathematics Series</a>
-</span>
-<br/><br/>
-<mark style="padding: 0px; background-color: #f9f3c2;">Part 1: What is a mathematical function?</mark>
-</div>
-<br/>
-<div class="border-box-sizing" id="notebook" tabindex="-1">
-<div class="container" id="notebook-container">
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-
+<h2 id="Computational-Mathematics-Series">Computational Mathematics Series<a class="anchor-link" href="#Computational-Mathematics-Series">&#182;</a></h2>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-
+<h1 id="Part-1:-What-is-a-mathematical-function?">Part 1: What is a mathematical function?<a class="anchor-link" href="#Part-1:-What-is-a-mathematical-function?">&#182;</a></h1>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>In this series of notebooks we discuss the basics of a vitally important concept: the mathematical function.  So completely do the idea of mathematical functions permeate  science and mathematics - from their use as modeling tools to being objects of study themselves - that most readers have certainly encountered them in some fashion at some point in their lives.</p>
 <p>In machine learning / deep learning we are always dealing with mathematical functions - from the framing of a learning problem, to the derivation of a cost function, to the development and use of mathematical optimization techniques, to the design of features - they are ever-present in our work.  And while from an outsider's perspective their usage in the field may seem to astound, arising in un-ending variation, insiders learn to appreciate how these many variations arise as small (albeit sometimes quite clever) twists on a handful of fundamental ideas.  Indeed we will see that such a statement applies equally well to other major technical tools and frameworks used in machine learning / deep learning as well, particularly those which use mathematical functions as a basic building block.  But lets not get ahead of ourselves - first things first.</p>
 <p>In this short series of notebooks we review some fundamental ideas regarding mathematical functions, ideas that we will see used over and over again throughout our study of machine learning / deep learning.  We begin here by introducing the notion of a mathematical function in terms of real data and then in terms of equations / formulae.</p>
+
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In [1]:</div>
+<div class="prompt input_prompt">In&nbsp;[1]:</div>
 <div class="inner_cell">
-<div class="input_area">
+    <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#run this cell to import all necessary libraries for the notebook experiments</span>
 <span class="kn">import</span> <span class="nn">sys</span>
-<span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">'../../'</span><span class="p">)</span>
+<span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;../../&#39;</span><span class="p">)</span>
 <span class="kn">from</span> <span class="nn">mlrefined_libraries</span> <span class="k">import</span> <span class="n">basics_library</span> <span class="k">as</span> <span class="n">baslib</span>
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="o">%</span><span class="k">load_ext</span> autoreload
 <span class="o">%</span><span class="k">autoreload</span> 2
 </pre></div>
+
 </div>
 </div>
 </div>
+
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="1.--The-mathematical-function-concept">1.  The mathematical function concept<a class="anchor-link" href="#1.--The-mathematical-function-concept">¶</a></h1>
+<h1 id="1.--The-mathematical-function-concept">1.  The mathematical function concept<a class="anchor-link" href="#1.--The-mathematical-function-concept">&#182;</a></h1>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>What is a mathematical function?  In this short Section we describe the fundamental idea of a mathematical function.  We also introduce common function notation and detail the form in which functions are most commonly seen in today's modern world: as a table of values (or collection of data).  Much of the discussion in these examples is obvious, it is largely the vocabulary (e.g., 'data is a mathematical function', 'a mathematical function is a rule that relates inputs to outputs') that we need to get straight in our minds.</p>
+
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="1.1--The-mathematical-function">1.1  The mathematical function<a class="anchor-link" href="#1.1--The-mathematical-function">¶</a></h2>
+<h2 id="1.1--The-mathematical-function">1.1  The mathematical function<a class="anchor-link" href="#1.1--The-mathematical-function">&#182;</a></h2>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>To get an intuitive sense for what a mathematical function is, lets look a number of examples.</p>
+
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="Example--Historical-revenue-of-McDonalds"><span style="color:#a50e3e;">Example </span> Historical revenue of McDonalds<a class="anchor-link" href="#Example--Historical-revenue-of-McDonalds">¶</a></h4>
+<h4 id="Example--Historical-revenue-of-McDonalds"><span style="color:#a50e3e;">Example </span> Historical revenue of McDonalds<a class="anchor-link" href="#Example--Historical-revenue-of-McDonalds">&#182;</a></h4>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>The Python cell below prints out the first few values dataset <a href="#bib_cell">[1]</a> - a listing of the annual total revenue of the fastfood resturant chain McDonald's over a period of five years.</p>
+
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In [2]:</div>
+<div class="prompt input_prompt">In&nbsp;[2]:</div>
 <div class="inner_cell">
-<div class="input_area">
+    <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># read in a dataset</span>
-<span class="n">mcdonalds_revenue</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">'../../mlrefined_datasets/basics_datasets/mcdonalds_revenue.csv'</span><span class="p">)</span>
+<span class="n">mcdonalds_revenue</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;../../mlrefined_datasets/basics_datasets/mcdonalds_revenue.csv&#39;</span><span class="p">)</span>
 
 <span class="c1"># display table of values</span>
 <span class="n">baslib</span><span class="o">.</span><span class="n">basics_plotter</span><span class="o">.</span><span class="n">table_plot</span><span class="p">(</span><span class="n">table</span> <span class="o">=</span> <span class="n">mcdonalds_revenue</span><span class="p">[:</span><span class="mi">5</span><span class="p">])</span>
 </pre></div>
+
 </div>
 </div>
 </div>
+
 <div class="output_wrapper">
 <div class="output">
-<div class="output_area">
-<div class="prompt"></div>
+
+
+<div class="output_area"><div class="prompt"></div>
+
 <div class="output_html rendered_html output_subarea ">
 <center><table border="1" class="dataframe">
-<thead>
-<tr style="text-align: right;">
-<th>Year</th>
-<th>Revenue (in billions $)</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>2005</td>
-<td>19.12</td>
-</tr>
-<tr>
-<td>2006</td>
-<td>20.90</td>
-</tr>
-<tr>
-<td>2007</td>
-<td>22.79</td>
-</tr>
-<tr>
-<td>2008</td>
-<td>23.52</td>
-</tr>
-<tr>
-<td>2009</td>
-<td>22.75</td>
-</tr>
-</tbody>
+  <thead>
+    <tr style="text-align: right;">
+      <th>Year</th>
+      <th>Revenue (in billions $)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>2005</td>
+      <td>19.12</td>
+    </tr>
+    <tr>
+      <td>2006</td>
+      <td>20.90</td>
+    </tr>
+    <tr>
+      <td>2007</td>
+      <td>22.79</td>
+    </tr>
+    <tr>
+      <td>2008</td>
+      <td>23.52</td>
+    </tr>
+    <tr>
+      <td>2009</td>
+      <td>22.75</td>
+    </tr>
+  </tbody>
 </table></center>
 </div>
+
+</div>
+
 </div>
 </div>
+
 </div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>This data consists of a table of values with two columns - the 'Year' revenue is tracked in the first column, and the total revenue of the company is in the second.  When we examine a table like this we naturally scan across each row to process its information - in the Year 2005 the Revenue was 19.12 billion dollars, in 2006 the revenue was 22.90 billion dollars, etc., - and in processing we start to understand the relationship between the <em>input value</em> 'Year' and <em>output value</em> 'Revenue'.  We start to see each row as a <em>datapoint</em>, consisting of one input value and one output value, or taken together an <em>input/output pair</em>.  For example the first row contains a datapoint or input/output pair $(\text{Year},\text{Revenue}) = (2005,19.12)$, the second row $(\text{Year},\text{Revenue}) = (2006,20.90)$, and so on.</p>
 <p>This might not be what you expect a 'mathematical function' to look like - but it is.  This dataset is a typical example of a mathematical function - which is just a rule defining how <em>input values</em> and <em>output values</em> of a dataset or <em>system</em> relate to one another.  Here the rule is explicit in the data itself: when the input 'Year' is 2005, the output 'Revenue' is 19.12 (billion dollars), when the input is 2006, the output is 20.90, and so forth.  In other words, here the phrase 'mathematical function' just means 'a dataset consisting of input/output pairs'.</p>
 <p>We often plot such a mathematical function to make its relationship more visually explicit -  as we do in the next Python cell (note here that we plot the entire dataset which consists of 12 input/output pairs).</p>
+
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In [3]:</div>
+<div class="prompt input_prompt">In&nbsp;[3]:</div>
 <div class="inner_cell">
-<div class="input_area">
+    <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># create function</span>
 <span class="n">mcd_table</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">mcdonalds_revenue</span><span class="p">)</span>
 
 <span class="c1"># use custom plotter to plot function table of values</span>
-<span class="n">baslib</span><span class="o">.</span><span class="n">basics_plotter</span><span class="o">.</span><span class="n">single_plot</span><span class="p">(</span><span class="n">table</span> <span class="o">=</span> <span class="n">mcd_table</span><span class="p">,</span><span class="n">xlabel</span> <span class="o">=</span> <span class="n">mcdonalds_revenue</span><span class="o">.</span><span class="n">columns</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">ylabel</span> <span class="o">=</span> <span class="n">mcdonalds_revenue</span><span class="o">.</span><span class="n">columns</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span><span class="n">plot_type</span> <span class="o">=</span> <span class="s1">'scatter'</span><span class="p">,</span><span class="n">rotate_ylabel</span> <span class="o">=</span> <span class="mi">90</span><span class="p">,</span><span class="n">label_fontsize</span> <span class="o">=</span> <span class="mi">12</span><span class="p">)</span>
+<span class="n">baslib</span><span class="o">.</span><span class="n">basics_plotter</span><span class="o">.</span><span class="n">single_plot</span><span class="p">(</span><span class="n">table</span> <span class="o">=</span> <span class="n">mcd_table</span><span class="p">,</span><span class="n">xlabel</span> <span class="o">=</span> <span class="n">mcdonalds_revenue</span><span class="o">.</span><span class="n">columns</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">ylabel</span> <span class="o">=</span> <span class="n">mcdonalds_revenue</span><span class="o">.</span><span class="n">columns</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span><span class="n">plot_type</span> <span class="o">=</span> <span class="s1">&#39;scatter&#39;</span><span class="p">,</span><span class="n">rotate_ylabel</span> <span class="o">=</span> <span class="mi">90</span><span class="p">,</span><span class="n">label_fontsize</span> <span class="o">=</span> <span class="mi">12</span><span class="p">)</span>
 </pre></div>
+
 </div>
 </div>
 </div>
+
 <div class="output_wrapper">
 <div class="output">
-<div class="output_area">
-<div class="prompt"></div>
+
+
+<div class="output_area"><div class="prompt"></div>
+
+
 <div class="output_png output_subarea ">
 <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAssAAAENCAYAAAD5USjvAAAABHNCSVQICAgIfAhkiAAAAAlwSFlz
 AAALEgAACxIB0t1+/AAAIABJREFUeJzt3X90VPWd//HXTBJ+TIaQCQNBwoLhBIogFA0ERH6VDdWy
@@ -12206,117 +12148,140 @@ hGUACDPdunXTvHnz1L9//yvObdmyRZ9++qkWLVqk7t276/Tp05oxY4aYUQcAbYNpGAAQZiZNmqS3
 tlZdu3bV3XffreHDh+s73/mO9uzZo9mzZ6tLly564IEHVFJSYnDFABC9WA0DAAAACIBpGAAAAEAA
 hGUAAAAgAMIyAAAAEABhGQAAAAiAsAwAAAAEQFgGAAAAAiAsAwAAAAEQlgEAAIAA/j/vN6fYlrZI
 RgAAAABJRU5ErkJggg==
-"/>
+"
+>
+</div>
+
+</div>
+
 </div>
 </div>
+
 </div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Here each input/output pair from the data is drawn as a unique red circle - because the input 'Year' is naturally ordered from smallest to largest - the plot can easily be related to the raw table of values: points from the table - starting at the top and moving down - are here plotted from left to right.</p>
+
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="Example--Chiquita-global-revenue"><span style="color:#a50e3e;">Example </span> Chiquita global revenue<a class="anchor-link" href="#Example--Chiquita-global-revenue">¶</a></h4>
+<h4 id="Example--Chiquita-global-revenue"><span style="color:#a50e3e;">Example </span> Chiquita global revenue<a class="anchor-link" href="#Example--Chiquita-global-revenue">&#182;</a></h4>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Lets examine another dataset of a similar vein <a href="#bib_cell">[2]</a>  - the total revenue of the Chiquita banana company.  The next Python cell plots the first few points from this dataset.</p>
+
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In [4]:</div>
+<div class="prompt input_prompt">In&nbsp;[4]:</div>
 <div class="inner_cell">
-<div class="input_area">
+    <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># read in a dataset</span>
-<span class="n">chiquita_rev</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">'../../mlrefined_datasets/basics_datasets/chiquita_revenue.csv'</span><span class="p">)</span>
+<span class="n">chiquita_rev</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;../../mlrefined_datasets/basics_datasets/chiquita_revenue.csv&#39;</span><span class="p">)</span>
 
 <span class="c1"># display table of values</span>
 <span class="n">baslib</span><span class="o">.</span><span class="n">basics_plotter</span><span class="o">.</span><span class="n">table_plot</span><span class="p">(</span><span class="n">table</span> <span class="o">=</span> <span class="n">chiquita_rev</span><span class="p">[:</span><span class="mi">5</span><span class="p">])</span>
 </pre></div>
+
 </div>
 </div>
 </div>
+
 <div class="output_wrapper">
 <div class="output">
-<div class="output_area">
-<div class="prompt"></div>
+
+
+<div class="output_area"><div class="prompt"></div>
+
 <div class="output_html rendered_html output_subarea ">
 <center><table border="1" class="dataframe">
-<thead>
-<tr style="text-align: right;">
-<th>Quarter</th>
-<th>Revenue (in hundreds of millions $)</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>2004.25</td>
-<td>0.79</td>
-</tr>
-<tr>
-<td>2004.50</td>
-<td>0.85</td>
-</tr>
-<tr>
-<td>2004.75</td>
-<td>0.66</td>
-</tr>
-<tr>
-<td>2005.00</td>
-<td>0.76</td>
-</tr>
-<tr>
-<td>2005.25</td>
-<td>0.93</td>
-</tr>
-</tbody>
+  <thead>
+    <tr style="text-align: right;">
+      <th>Quarter</th>
+      <th>Revenue (in hundreds of millions $)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>2004.25</td>
+      <td>0.79</td>
+    </tr>
+    <tr>
+      <td>2004.50</td>
+      <td>0.85</td>
+    </tr>
+    <tr>
+      <td>2004.75</td>
+      <td>0.66</td>
+    </tr>
+    <tr>
+      <td>2005.00</td>
+      <td>0.76</td>
+    </tr>
+    <tr>
+      <td>2005.25</td>
+      <td>0.93</td>
+    </tr>
+  </tbody>
 </table></center>
 </div>
+
+</div>
+
 </div>
 </div>
+
 </div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Similar to the McDonalds data, this dataset also describes the revenue of a large company and is again a mathematical function.  There are only slight differences here from the first dataset - first, we can see that the measurements are more frequent here than in first dataset, as the input 'Quarter' (whose values are listed as decimals) gives us four datapoints of revene per year.  Secondly the output - here still 'Revenue' - is of a diffeerent scale than the first dataset, here we are dealing with hundreds of millions instead of billions as was the case previously.  Nonetheless, we still have a mathematical function relating input values ('Quarter') to output values ('Revenue').</p>
 <p>Again we can visualize the entire dataset to better appreciate the input/output relationship, as is done in the next Python cell.</p>
+
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In [5]:</div>
+<div class="prompt input_prompt">In&nbsp;[5]:</div>
 <div class="inner_cell">
-<div class="input_area">
+    <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># create function</span>
 <span class="n">chiq_table</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">chiquita_rev</span><span class="p">)</span>
 
 <span class="c1"># use custom plotter to plot function table of values</span>
-<span class="n">baslib</span><span class="o">.</span><span class="n">basics_plotter</span><span class="o">.</span><span class="n">single_plot</span><span class="p">(</span><span class="n">table</span> <span class="o">=</span> <span class="n">chiq_table</span><span class="p">,</span><span class="n">xlabel</span> <span class="o">=</span> <span class="n">chiquita_rev</span><span class="o">.</span><span class="n">columns</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">ylabel</span> <span class="o">=</span> <span class="n">chiquita_rev</span><span class="o">.</span><span class="n">columns</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span><span class="n">plot_type</span> <span class="o">=</span> <span class="s1">'scatter'</span><span class="p">,</span><span class="n">guides</span> <span class="o">=</span> <span class="s1">'on'</span><span class="p">,</span><span class="n">rotate_ylabel</span> <span class="o">=</span> <span class="mi">90</span><span class="p">,</span><span class="n">label_fontsize</span> <span class="o">=</span> <span class="mi">12</span><span class="p">)</span>
+<span class="n">baslib</span><span class="o">.</span><span class="n">basics_plotter</span><span class="o">.</span><span class="n">single_plot</span><span class="p">(</span><span class="n">table</span> <span class="o">=</span> <span class="n">chiq_table</span><span class="p">,</span><span class="n">xlabel</span> <span class="o">=</span> <span class="n">chiquita_rev</span><span class="o">.</span><span class="n">columns</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">ylabel</span> <span class="o">=</span> <span class="n">chiquita_rev</span><span class="o">.</span><span class="n">columns</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span><span class="n">plot_type</span> <span class="o">=</span> <span class="s1">&#39;scatter&#39;</span><span class="p">,</span><span class="n">guides</span> <span class="o">=</span> <span class="s1">&#39;on&#39;</span><span class="p">,</span><span class="n">rotate_ylabel</span> <span class="o">=</span> <span class="mi">90</span><span class="p">,</span><span class="n">label_fontsize</span> <span class="o">=</span> <span class="mi">12</span><span class="p">)</span>
 </pre></div>
+
 </div>
 </div>
 </div>
+
 <div class="output_wrapper">
 <div class="output">
-<div class="output_area">
-<div class="prompt"></div>
+
+
+<div class="output_area"><div class="prompt"></div>
+
+
 <div class="output_png output_subarea ">
 <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAssAAAENCAYAAAD5USjvAAAABHNCSVQICAgIfAhkiAAAAAlwSFlz
 AAALEgAACxIB0t1+/AAAIABJREFUeJzs3Xl8VPXVP/DPvTPJTCYTAllIiECIImAEfSAQEVARIg8v
@@ -12707,383 +12672,427 @@ vACtVovi4mL89ddfGBoawsyZM7Fz505oNBokJibi/PnzSEtLw4QJE7Bw4UKUl5cDAAwGA1asWIHt
 vwIiojGBHx1HROQBlZWV+Oqrr7Bnz557zhsTEZH3YLNMROQhJ06cgFqtxvz585UuhYiI/iE2y0RE
 RERELvANfkRERERELrBZJiIiIiJygc0yEREREZELbJaJiIiIiFxgs0xERERE5AKbZSIiIiIiF/4D
 BwURpqdaf58AAAAASUVORK5CYII=
-"/>
+"
+>
+</div>
+
+</div>
+
 </div>
 </div>
+
 </div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>One again each input/output pair from the data is drawn here as a unique red circle - with added light red lines connecting consecutive datapoints for visualization purposes only. Again because the input 'Quarter' is naturally ordered from smallest to largest - the plot can easily be related to the raw table of values: points from the table - starting at the top and moving down - are here plotted from left to right on the graph.</p>
+
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="Example--The-McDonalds-menu"><span style="color:#a50e3e;">Example </span> The McDonalds menu<a class="anchor-link" href="#Example--The-McDonalds-menu">¶</a></h4>
+<h4 id="Example--The-McDonalds-menu"><span style="color:#a50e3e;">Example </span> The McDonalds menu<a class="anchor-link" href="#Example--The-McDonalds-menu">&#182;</a></h4>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>A restaurant menu <a href="#bib_cell">[3]</a>  - like the one from McDonalds printed out by the next Python cell - provides a cornucopia of mathematical functions.</p>
+
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In [6]:</div>
+<div class="prompt input_prompt">In&nbsp;[6]:</div>
 <div class="inner_cell">
-<div class="input_area">
+    <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># read in a dataset</span>
-<span class="n">mcd_menu</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">'../../mlrefined_datasets/basics_datasets/mcdonalds_menu.csv'</span><span class="p">)</span>
+<span class="n">mcd_menu</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;../../mlrefined_datasets/basics_datasets/mcdonalds_menu.csv&#39;</span><span class="p">)</span>
 
 <span class="c1"># display the first few values from the table</span>
 <span class="n">baslib</span><span class="o">.</span><span class="n">basics_plotter</span><span class="o">.</span><span class="n">table_plot</span><span class="p">(</span><span class="n">table</span> <span class="o">=</span> <span class="n">mcd_menu</span><span class="p">[:</span><span class="mi">5</span><span class="p">])</span>
 </pre></div>
+
 </div>
 </div>
 </div>
+
 <div class="output_wrapper">
 <div class="output">
-<div class="output_area">
-<div class="prompt"></div>
+
+
+<div class="output_area"><div class="prompt"></div>
+
 <div class="output_html rendered_html output_subarea ">
 <center><table border="1" class="dataframe">
-<thead>
-<tr style="text-align: right;">
-<th>Category</th>
-<th>Item</th>
-<th>Serving Size</th>
-<th>Calories</th>
-<th>Calories from Fat</th>
-<th>Total Fat</th>
-<th>Total Fat (% Daily Value)</th>
-<th>Saturated Fat</th>
-<th>Saturated Fat (% Daily Value)</th>
-<th>Trans Fat</th>
-<th>Cholesterol</th>
-<th>Cholesterol (% Daily Value)</th>
-<th>Sodium</th>
-<th>Sodium (% Daily Value)</th>
-<th>Carbohydrates</th>
-<th>Carbohydrates (% Daily Value)</th>
-<th>Dietary Fiber</th>
-<th>Dietary Fiber (% Daily Value)</th>
-<th>Sugars</th>
-<th>Protein</th>
-<th>Vitamin A (% Daily Value)</th>
-<th>Vitamin C (% Daily Value)</th>
-<th>Calcium (% Daily Value)</th>
-<th>Iron (% Daily Value)</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Breakfast</td>
-<td>Egg McMuffin</td>
-<td>4.8 oz (136 g)</td>
-<td>300</td>
-<td>120</td>
-<td>13.0</td>
-<td>20</td>
-<td>5.0</td>
-<td>25</td>
-<td>0.0</td>
-<td>260</td>
-<td>87</td>
-<td>750</td>
-<td>31</td>
-<td>31</td>
-<td>10</td>
-<td>4</td>
-<td>17</td>
-<td>3</td>
-<td>17</td>
-<td>10</td>
-<td>0</td>
-<td>25</td>
-<td>15</td>
-</tr>
-<tr>
-<td>Breakfast</td>
-<td>Egg White Delight</td>
-<td>4.8 oz (135 g)</td>
-<td>250</td>
-<td>70</td>
-<td>8.0</td>
-<td>12</td>
-<td>3.0</td>
-<td>15</td>
-<td>0.0</td>
-<td>25</td>
-<td>8</td>
-<td>770</td>
-<td>32</td>
-<td>30</td>
-<td>10</td>
-<td>4</td>
-<td>17</td>
-<td>3</td>
-<td>18</td>
-<td>6</td>
-<td>0</td>
-<td>25</td>
-<td>8</td>
-</tr>
-<tr>
-<td>Breakfast</td>
-<td>Sausage McMuffin</td>
-<td>3.9 oz (111 g)</td>
-<td>370</td>
-<td>200</td>
-<td>23.0</td>
-<td>35</td>
-<td>8.0</td>
-<td>42</td>
-<td>0.0</td>
-<td>45</td>
-<td>15</td>
-<td>780</td>
-<td>33</td>
-<td>29</td>
-<td>10</td>
-<td>4</td>
-<td>17</td>
-<td>2</td>
-<td>14</td>
-<td>8</td>
-<td>0</td>
-<td>25</td>
-<td>10</td>
-</tr>
-<tr>
-<td>Breakfast</td>
-<td>Sausage McMuffin with Egg</td>
-<td>5.7 oz (161 g)</td>
-<td>450</td>
-<td>250</td>
-<td>28.0</td>
-<td>43</td>
-<td>10.0</td>
-<td>52</td>
-<td>0.0</td>
-<td>285</td>
-<td>95</td>
-<td>860</td>
-<td>36</td>
-<td>30</td>
-<td>10</td>
-<td>4</td>
-<td>17</td>
-<td>2</td>
-<td>21</td>
-<td>15</td>
-<td>0</td>
-<td>30</td>
-<td>15</td>
-</tr>
-<tr>
-<td>Breakfast</td>
-<td>Sausage McMuffin with Egg Whites</td>
-<td>5.7 oz (161 g)</td>
-<td>400</td>
-<td>210</td>
-<td>23.0</td>
-<td>35</td>
-<td>8.0</td>
-<td>42</td>
-<td>0.0</td>
-<td>50</td>
-<td>16</td>
-<td>880</td>
-<td>37</td>
-<td>30</td>
-<td>10</td>
-<td>4</td>
-<td>17</td>
-<td>2</td>
-<td>21</td>
-<td>6</td>
-<td>0</td>
-<td>25</td>
-<td>10</td>
-</tr>
-</tbody>
+  <thead>
+    <tr style="text-align: right;">
+      <th>Category</th>
+      <th>Item</th>
+      <th>Serving Size</th>
+      <th>Calories</th>
+      <th>Calories from Fat</th>
+      <th>Total Fat</th>
+      <th>Total Fat (% Daily Value)</th>
+      <th>Saturated Fat</th>
+      <th>Saturated Fat (% Daily Value)</th>
+      <th>Trans Fat</th>
+      <th>Cholesterol</th>
+      <th>Cholesterol (% Daily Value)</th>
+      <th>Sodium</th>
+      <th>Sodium (% Daily Value)</th>
+      <th>Carbohydrates</th>
+      <th>Carbohydrates (% Daily Value)</th>
+      <th>Dietary Fiber</th>
+      <th>Dietary Fiber (% Daily Value)</th>
+      <th>Sugars</th>
+      <th>Protein</th>
+      <th>Vitamin A (% Daily Value)</th>
+      <th>Vitamin C (% Daily Value)</th>
+      <th>Calcium (% Daily Value)</th>
+      <th>Iron (% Daily Value)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Breakfast</td>
+      <td>Egg McMuffin</td>
+      <td>4.8 oz (136 g)</td>
+      <td>300</td>
+      <td>120</td>
+      <td>13.0</td>
+      <td>20</td>
+      <td>5.0</td>
+      <td>25</td>
+      <td>0.0</td>
+      <td>260</td>
+      <td>87</td>
+      <td>750</td>
+      <td>31</td>
+      <td>31</td>
+      <td>10</td>
+      <td>4</td>
+      <td>17</td>
+      <td>3</td>
+      <td>17</td>
+      <td>10</td>
+      <td>0</td>
+      <td>25</td>
+      <td>15</td>
+    </tr>
+    <tr>
+      <td>Breakfast</td>
+      <td>Egg White Delight</td>
+      <td>4.8 oz (135 g)</td>
+      <td>250</td>
+      <td>70</td>
+      <td>8.0</td>
+      <td>12</td>
+      <td>3.0</td>
+      <td>15</td>
+      <td>0.0</td>
+      <td>25</td>
+      <td>8</td>
+      <td>770</td>
+      <td>32</td>
+      <td>30</td>
+      <td>10</td>
+      <td>4</td>
+      <td>17</td>
+      <td>3</td>
+      <td>18</td>
+      <td>6</td>
+      <td>0</td>
+      <td>25</td>
+      <td>8</td>
+    </tr>
+    <tr>
+      <td>Breakfast</td>
+      <td>Sausage McMuffin</td>
+      <td>3.9 oz (111 g)</td>
+      <td>370</td>
+      <td>200</td>
+      <td>23.0</td>
+      <td>35</td>
+      <td>8.0</td>
+      <td>42</td>
+      <td>0.0</td>
+      <td>45</td>
+      <td>15</td>
+      <td>780</td>
+      <td>33</td>
+      <td>29</td>
+      <td>10</td>
+      <td>4</td>
+      <td>17</td>
+      <td>2</td>
+      <td>14</td>
+      <td>8</td>
+      <td>0</td>
+      <td>25</td>
+      <td>10</td>
+    </tr>
+    <tr>
+      <td>Breakfast</td>
+      <td>Sausage McMuffin with Egg</td>
+      <td>5.7 oz (161 g)</td>
+      <td>450</td>
+      <td>250</td>
+      <td>28.0</td>
+      <td>43</td>
+      <td>10.0</td>
+      <td>52</td>
+      <td>0.0</td>
+      <td>285</td>
+      <td>95</td>
+      <td>860</td>
+      <td>36</td>
+      <td>30</td>
+      <td>10</td>
+      <td>4</td>
+      <td>17</td>
+      <td>2</td>
+      <td>21</td>
+      <td>15</td>
+      <td>0</td>
+      <td>30</td>
+      <td>15</td>
+    </tr>
+    <tr>
+      <td>Breakfast</td>
+      <td>Sausage McMuffin with Egg Whites</td>
+      <td>5.7 oz (161 g)</td>
+      <td>400</td>
+      <td>210</td>
+      <td>23.0</td>
+      <td>35</td>
+      <td>8.0</td>
+      <td>42</td>
+      <td>0.0</td>
+      <td>50</td>
+      <td>16</td>
+      <td>880</td>
+      <td>37</td>
+      <td>30</td>
+      <td>10</td>
+      <td>4</td>
+      <td>17</td>
+      <td>2</td>
+      <td>21</td>
+      <td>6</td>
+      <td>0</td>
+      <td>25</td>
+      <td>10</td>
+    </tr>
+  </tbody>
 </table></center>
 </div>
+
+</div>
+
 </div>
 </div>
+
 </div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Here we have a dataset of food items, along with a large number of characteristics for each.  Where is the mathematical function here?  Where is its input and output?  Here - unlike the previous examples - there are many choices.  We decide what goes in, and what comes out.  What rule about the quantities listed in this dataset might we like to better understand?</p>
 <p>For example, we could decide to look at the relationship between the food item and its allotment of calories.  Segmenting out just these two columns from the dataset we print out the first few data points using the next Python cell.</p>
+
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In [7]:</div>
+<div class="prompt input_prompt">In&nbsp;[7]:</div>
 <div class="inner_cell">
-<div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># display the first few values from the table - using only the 'Item' and 'Calories' columns</span>
-<span class="n">baslib</span><span class="o">.</span><span class="n">basics_plotter</span><span class="o">.</span><span class="n">table_plot</span><span class="p">(</span><span class="n">table</span> <span class="o">=</span> <span class="n">mcd_menu</span><span class="p">[[</span><span class="s1">'Item'</span><span class="p">,</span><span class="s1">'Calories'</span><span class="p">]][:</span><span class="mi">5</span><span class="p">])</span>
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># display the first few values from the table - using only the &#39;Item&#39; and &#39;Calories&#39; columns</span>
+<span class="n">baslib</span><span class="o">.</span><span class="n">basics_plotter</span><span class="o">.</span><span class="n">table_plot</span><span class="p">(</span><span class="n">table</span> <span class="o">=</span> <span class="n">mcd_menu</span><span class="p">[[</span><span class="s1">&#39;Item&#39;</span><span class="p">,</span><span class="s1">&#39;Calories&#39;</span><span class="p">]][:</span><span class="mi">5</span><span class="p">])</span>
 </pre></div>
+
 </div>
 </div>
 </div>
+
 <div class="output_wrapper">
 <div class="output">
-<div class="output_area">
-<div class="prompt"></div>
+
+
+<div class="output_area"><div class="prompt"></div>
+
 <div class="output_html rendered_html output_subarea ">
 <center><table border="1" class="dataframe">
-<thead>
-<tr style="text-align: right;">
-<th>Item</th>
-<th>Calories</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Egg McMuffin</td>
-<td>300</td>
-</tr>
-<tr>
-<td>Egg White Delight</td>
-<td>250</td>
-</tr>
-<tr>
-<td>Sausage McMuffin</td>
-<td>370</td>
-</tr>
-<tr>
-<td>Sausage McMuffin with Egg</td>
-<td>450</td>
-</tr>
-<tr>
-<td>Sausage McMuffin with Egg Whites</td>
-<td>400</td>
-</tr>
-</tbody>
+  <thead>
+    <tr style="text-align: right;">
+      <th>Item</th>
+      <th>Calories</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Egg McMuffin</td>
+      <td>300</td>
+    </tr>
+    <tr>
+      <td>Egg White Delight</td>
+      <td>250</td>
+    </tr>
+    <tr>
+      <td>Sausage McMuffin</td>
+      <td>370</td>
+    </tr>
+    <tr>
+      <td>Sausage McMuffin with Egg</td>
+      <td>450</td>
+    </tr>
+    <tr>
+      <td>Sausage McMuffin with Egg Whites</td>
+      <td>400</td>
+    </tr>
+  </tbody>
 </table></center>
 </div>
+
+</div>
+
 </div>
 </div>
+
 </div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Notice here - unlike the previous examples - our input is not numerical.  Thats fine - we still have a mathematical function relating inputs ('Item') to outputs ('Calories').  Because we have so much information on each food item, we could have just as well chosen a different output - say 'Total Fat'.  In the next Python cell we print out our input 'Item' and this output together - just the first few data points.</p>
+
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In [8]:</div>
+<div class="prompt input_prompt">In&nbsp;[8]:</div>
 <div class="inner_cell">
-<div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># display the first few values from the table - using only the 'Item' and 'Total Fat' columns</span>
-<span class="n">baslib</span><span class="o">.</span><span class="n">basics_plotter</span><span class="o">.</span><span class="n">table_plot</span><span class="p">(</span><span class="n">table</span> <span class="o">=</span> <span class="n">mcd_menu</span><span class="p">[[</span><span class="s1">'Item'</span><span class="p">,</span><span class="s1">'Total Fat'</span><span class="p">]][:</span><span class="mi">5</span><span class="p">])</span>
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># display the first few values from the table - using only the &#39;Item&#39; and &#39;Total Fat&#39; columns</span>
+<span class="n">baslib</span><span class="o">.</span><span class="n">basics_plotter</span><span class="o">.</span><span class="n">table_plot</span><span class="p">(</span><span class="n">table</span> <span class="o">=</span> <span class="n">mcd_menu</span><span class="p">[[</span><span class="s1">&#39;Item&#39;</span><span class="p">,</span><span class="s1">&#39;Total Fat&#39;</span><span class="p">]][:</span><span class="mi">5</span><span class="p">])</span>
 </pre></div>
+
 </div>
 </div>
 </div>
+
 <div class="output_wrapper">
 <div class="output">
-<div class="output_area">
-<div class="prompt"></div>
+
+
+<div class="output_area"><div class="prompt"></div>
+
 <div class="output_html rendered_html output_subarea ">
 <center><table border="1" class="dataframe">
-<thead>
-<tr style="text-align: right;">
-<th>Item</th>
-<th>Total Fat</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Egg McMuffin</td>
-<td>13.0</td>
-</tr>
-<tr>
-<td>Egg White Delight</td>
-<td>8.0</td>
-</tr>
-<tr>
-<td>Sausage McMuffin</td>
-<td>23.0</td>
-</tr>
-<tr>
-<td>Sausage McMuffin with Egg</td>
-<td>28.0</td>
-</tr>
-<tr>
-<td>Sausage McMuffin with Egg Whites</td>
-<td>23.0</td>
-</tr>
-</tbody>
+  <thead>
+    <tr style="text-align: right;">
+      <th>Item</th>
+      <th>Total Fat</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Egg McMuffin</td>
+      <td>13.0</td>
+    </tr>
+    <tr>
+      <td>Egg White Delight</td>
+      <td>8.0</td>
+    </tr>
+    <tr>
+      <td>Sausage McMuffin</td>
+      <td>23.0</td>
+    </tr>
+    <tr>
+      <td>Sausage McMuffin with Egg</td>
+      <td>28.0</td>
+    </tr>
+    <tr>
+      <td>Sausage McMuffin with Egg Whites</td>
+      <td>23.0</td>
+    </tr>
+  </tbody>
 </table></center>
 </div>
+
+</div>
+
 </div>
 </div>
+
 </div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Again we have a perfectly useful mathematical function relating inputs ('Item') to outputs ('Total Fat').</p>
+
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="Example---Digital-images"><span style="color:#a50e3e;">Example </span>  Digital images<a class="anchor-link" href="#Example---Digital-images">¶</a></h4>
+<h4 id="Example---Digital-images"><span style="color:#a50e3e;">Example </span>  Digital images<a class="anchor-link" href="#Example---Digital-images">&#182;</a></h4>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>It is not always the case that a dataset / mathematical function comes in the form of a labeled table - as with the previous examples - where input and output are placed neatly in separate columns.  Take a standard grayscale image - like handwritten digit '0' plotted by the next Python cell.</p>
+
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In [2]:</div>
+<div class="prompt input_prompt">In&nbsp;[2]:</div>
 <div class="inner_cell">
-<div class="input_area">
+    <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># load in image path</span>
-<span class="n">img_path</span> <span class="o">=</span> <span class="s1">'../../mlrefined_images/basics_images/digit.png'</span>
+<span class="n">img_path</span> <span class="o">=</span> <span class="s1">&#39;../../mlrefined_images/basics_images/digit.png&#39;</span>
 
 <span class="c1"># plot image</span>
 <span class="n">baslib</span><span class="o">.</span><span class="n">image_function_plotter</span><span class="o">.</span><span class="n">reveal_imgpatch</span><span class="p">(</span><span class="n">img_path</span> <span class="o">=</span> <span class="n">img_path</span><span class="p">)</span>
 </pre></div>
+
 </div>
 </div>
 </div>
+
 <div class="output_wrapper">
 <div class="output">
-<div class="output_area">
-<div class="prompt"></div>
+
+
+<div class="output_area"><div class="prompt"></div>
+
+
 <div class="output_png output_subarea ">
 <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAA+wAAAEyCAYAAABgclr+AAAABHNCSVQICAgIfAhkiAAAAAlwSFlz
 AAALEgAACxIB0t1+/AAAIABJREFUeJzs3Xl4W+WZ9/Hv0S5b3vd4jRNC4gQISUhS9i1doVwtA6Wl
@@ -14147,13 +14156,18 @@ aDi8iIh8hVCnA4iIiH+stdXGmB8BfwdCgLnW2n81dw5jzHzgFiDWGFMMPGOtfbW5c1B3R/leYJtv
 eNSJ/kVExP20rZuIiIiIiIiIC2lIvIiIiIiIiIgLqWAXERERERERcSEV7CIiIiIiIiIupIJdRERE
 RERExIVUsIuIiIiIiIi4kAp2ERERERERERdSwS4iIiIiIiLiQv8Hul7E9NM54AcAAAAASUVORK5C
 YII=
-"/>
+"
+>
+</div>
+
+</div>
+
 </div>
 </div>
+
 </div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -14161,69 +14175,77 @@ YII=
 2-dimensional arrays of numbers with height and width equal to the number of pixels in the image itself.  This view of our digit image is plotted in the middle panel in the Figure above.  Here we see that this image is in fact an $8\times8$ array of numbers, with each number (printed red on top of its respective pixel) representing the intensity value of each pixel -  ranging from 0 (completely back) to $255$ (completely white).</p>
 <p>As a mathematical function the grayscale image relates a pair of indices - indicating a specific row and column of the array -  (the inputs) to a given pixel intensity value (the output).  For example, in the middle panel in the Figure above we can see that the index pair $(0,0)$ has pixel value $255$, the index pair $(0,2)$ has the pixel value $170$, the pair $(1,3)$ has value $0$, and so forth.</p>
 <p>Note that we can if we desire write out this function as a table, as with the previous examples.  Writing out the first four values in the first row we have</p>
-<p><br/></p>
-<p></p><table>
-<thead style="background-color;">
-<tr>
-<th>input:  $(\text{row #},\text{column #})$</th>
-<th>output:  $\text{pixel value}$</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td class="centered">$(0,0)$</td>
-<td class="centered">$255$</td>
-</tr>
-<tr>
-<td class="centered">$(0,1)$</td>
-<td class="centered">$255$</td>
-</tr>
-<tr>
-<td class="centered">$(0,2)$</td>
-<td class="centered">$170$</td>
-</tr>
-<tr>
-<td class="centered">$(0,3)$</td>
-<td class="centered">$34$</td>
-</tr>
-<tr>
-<td class="centered">$\vdots$</td>
-<td class="centered">$\vdots$</td>
-</tr>
-</tbody>
+<p><br></p>
+<p><table>
+    <thead style="background-color;">
+        <tr>
+            <th>input: &nbsp;$(\text{row #},\text{column #})$</th>
+            <th>output: &nbsp;$\text{pixel value}$</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td class="centered">$(0,0)$</td>
+            <td class="centered">$255$</td>
+        </tr>
+        <tr>
+            <td class="centered">$(0,1)$</td>
+            <td class="centered">$255$</td>
+        </tr>
+        <tr>
+            <td class="centered">$(0,2)$</td>
+            <td class="centered">$170$</td>
+        </tr>
+        <tr>
+            <td class="centered">$(0,3)$</td>
+            <td class="centered">$34$</td>
+        </tr>
+        <tr>
+            <td class="centered">$\vdots$</td>
+            <td class="centered">$\vdots$</td>
+        </tr>
+    </tbody>
 </table>
-<br/>
+<br></p>
 <p>where the $\vdots$ notation indicate that the list keeps on going (in this case to list 60 further input/output pairs).</p>
 <p>Regardless of how we record them, each input/output pair in a grayscale image is a 3-dimensional point - two values (indices) for each input, one value per output - and so if we want we can plot any grayscale image as  a surface in 3-dimensional space.  We do this for the digit image in the right panel of the Figure, and can now physically see how each input (a pair of indices) relates to its pixel value - that is the height of each output (we also color each output its corresponding grayscale value for visualization purposes).</p>
+
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Viewing a more complicated image in this way  - as a surface in 3d - can be quite interesting visually speaking.  Take for example the image <a href="#bib_cell">[4]</a> printed by the next Python cell.  This cell will printout both the color and grayscale versions of an input image.</p>
+
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In [3]:</div>
+<div class="prompt input_prompt">In&nbsp;[3]:</div>
 <div class="inner_cell">
-<div class="input_area">
+    <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Provide a path to a color image </span>
-<span class="n">img_path</span> <span class="o">=</span> <span class="s1">'../../mlrefined_images/basics_images/nurg.jpg'</span>
+<span class="n">img_path</span> <span class="o">=</span> <span class="s1">&#39;../../mlrefined_images/basics_images/nurg.jpg&#39;</span>
 
 <span class="c1"># show the color and grayscale version of this image</span>
 <span class="n">baslib</span><span class="o">.</span><span class="n">image_function_plotter</span><span class="o">.</span><span class="n">show_color_gray</span><span class="p">(</span><span class="n">img_path</span> <span class="o">=</span> <span class="n">img_path</span><span class="p">)</span>
 </pre></div>
+
 </div>
 </div>
 </div>
+
 <div class="output_wrapper">
 <div class="output">
-<div class="output_area">
-<div class="prompt"></div>
+
+
+<div class="output_area"><div class="prompt"></div>
+
+
 <div class="output_png output_subarea ">
 <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAo8AAAFTCAYAAABYhOayAAAABHNCSVQICAgIfAhkiAAAAAlwSFlz
 AAAMTQAADE0B0s6tTgAAIABJREFUeJzsvVmTJDd6rvkAcPeIyIzIfamVRbJJqqlpnSPNjKSL89fm
@@ -18161,39 +18183,48 @@ Ei+NsnksUaJEiRIlSpQo8dIom8cSJUqUKFGiRIkSL42yeSxRokSJEiVKlCjx0iibxxIlSpQoUaJE
 iRIvjbJ5LFGiRIkSJUqUKPHSKJvHEiVKlChRokSJEi+NsnksUaJEiRIlSpQo8dIom8cSJUqUKFGi
 RIkSL42yeSxRokSJEiVKlCjx0iibxxIlSpQoUaJEiRIvjbJ5LFGiRIkSJUqUKPHSKJvHEiVKlChR
 okSJEi+N/wcK++bbq1Rq8AAAAABJRU5ErkJggg==
-"/>
+"
+>
+</div>
+
+</div>
+
 </div>
 </div>
+
 </div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>In the next Python cell we show the grayscale form of this image in 3-dimensions.  We also animate a range of viewing angles on this surface just for fun - you can move the slider from left to right to transition smoothly between viewing angles.  The pre-set viewing route takes you from 90 degrees above the image to 90 degrees below it in a spiral.</p>
+
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In [5]:</div>
+<div class="prompt input_prompt">In&nbsp;[5]:</div>
 <div class="inner_cell">
-<div class="input_area">
+    <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Provide a path to a color image, this will be converted to grayscale for the animation</span>
-<span class="n">img_path</span> <span class="o">=</span> <span class="s1">'../../mlrefined_images/basics_images/nurg.jpg'</span>
+<span class="n">img_path</span> <span class="o">=</span> <span class="s1">&#39;../../mlrefined_images/basics_images/nurg.jpg&#39;</span>
 
 <span class="c1"># animate a range of viewing angles of this image in 3-dimensions</span>
 <span class="n">num_frames</span> <span class="o">=</span> <span class="mi">200</span>
-<span class="n">baslib</span><span class="o">.</span><span class="n">image_function_plotter</span><span class="o">.</span><span class="n">grayimg_as_function</span><span class="p">(</span><span class="n">img_path</span> <span class="o">=</span> <span class="n">img_path</span><span class="p">,</span> <span class="n">num_frames</span> <span class="o">=</span> <span class="n">num_frames</span><span class="p">,</span><span class="n">shrink_factor</span> <span class="o">=</span> <span class="mf">0.1</span><span class="p">,</span><span class="n">plot_type</span> <span class="o">=</span> <span class="s1">'proto'</span><span class="p">)</span>
+<span class="n">baslib</span><span class="o">.</span><span class="n">image_function_plotter</span><span class="o">.</span><span class="n">grayimg_as_function</span><span class="p">(</span><span class="n">img_path</span> <span class="o">=</span> <span class="n">img_path</span><span class="p">,</span> <span class="n">num_frames</span> <span class="o">=</span> <span class="n">num_frames</span><span class="p">,</span><span class="n">shrink_factor</span> <span class="o">=</span> <span class="mf">0.1</span><span class="p">,</span><span class="n">plot_type</span> <span class="o">=</span> <span class="s1">&#39;proto&#39;</span><span class="p">)</span>
 </pre></div>
+
 </div>
 </div>
 </div>
+
 <div class="output_wrapper">
 <div class="output">
-<div class="output_area">
-<div class="prompt"></div>
+
+
+<div class="output_area"><div class="prompt"></div>
 <div class="output_subarea output_stream output_stderr output_text">
 <pre>IOPub data rate exceeded.
 The notebook server will temporarily stop sending output
@@ -18203,149 +18234,167 @@ To change this limit, set the config variable
 </pre>
 </div>
 </div>
+
 </div>
 </div>
+
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="1.2-Summary-and-function-notation">1.2 Summary and function notation<a class="anchor-link" href="#1.2-Summary-and-function-notation">¶</a></h2>
+<h2 id="1.2-Summary-and-function-notation">1.2 Summary and function notation<a class="anchor-link" href="#1.2-Summary-and-function-notation">&#182;</a></h2>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>We have just seen an array of mathematical functions - and we haven't even scratched the surface of what is out there.  But from what we have seen we can say summarize what a mathematical function is in a pithy and quite generalizable way: a rule that relates inputs to outputs.  In a dataset like the ones we have seen so far this rule is explicit - it literally <em>is</em> the data itself.  We find these rules everywhere.  Sometimes - as with the menu example - we have to pluck out a mathematical function from a sea of choices, sometimes - as with the grayscale image example - the input/output relationship may not at first be clear.  But nonetheless - mathematical functions abound.</p>
 <blockquote><p>A mathematical function is a rule that relates inputs to outputs in a dataset or system.</p>
 </blockquote>
+
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>This omnipresence motivates the use of mathematical notation - which we use to represent generic input/output pairs, as well as generic mathematical functions.  Among other benefits this allows us to more freely discuss functions at a higher level, categorize them by certain shared attributes, and build multi-use tools based on very general principles.  This is also how we can tie our discussion here to what one might traditionally think of when they see the phrase 'mathematical functions', i.e., mathematical formulae and equations.</p>
+
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>First - a general notation to denote one type of input to a function is typically given by a single letter, and we will often use $w$ or $x$ to denote a single type of input.  For instance, in the first example about the historical revenue of McDonalds the input 'Year' would be denoted by the single letter $x$.  A generic output is also typically denoted using a single letter - we will typically use $f$, $g$, or $y$.  In the McDonalds revenue example the output 'Revenue' could then be expressed as $y$.</p>
 <p>To denote the mathematical function relating $x$ to $y$ we use the notation $y(x)$ - in English this is said '$y$ of $x$'.   Again in the McDonalds revenue case this notation in English says - the output 'Revenue' is a mathematical function of the input 'Year'.  The function notation (in this case $y(x)$) is often used to denote the output (in this case $y$) as well.</p>
+
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>If we rewrote the very first table of McDonalds revenue we showed using this notation, it would look like this
-<br/></p>
-<p></p><table>
-<thead style="background-color;">
-<tr>
-<th>input:  $x$</th>
-<th>output:  $y(x)$</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td class="centered">$2005$</td>
-<td class="centered">$19.12$</td>
-</tr>
-<tr>
-<td class="centered">$2006$</td>
-<td class="centered">$20.90$</td>
-</tr>
-<tr>
-<td class="centered">$2007$</td>
-<td class="centered">$22.79$</td>
-</tr>
-<tr>
-<td class="centered">$2008$</td>
-<td class="centered">$23.52$</td>
-</tr>
-<tr>
-<td class="centered">$2009$</td>
-<td class="centered">$22.75$</td>
-</tr>
-</tbody>
+<br></p>
+<p><table>
+    <thead style="background-color;">
+        <tr>
+            <th>input: &nbsp;$x$</th>
+            <th>output: &nbsp;$y(x)$</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td class="centered">$2005$</td>
+            <td class="centered">$19.12$</td>
+        </tr>
+        <tr>
+            <td class="centered">$2006$</td>
+            <td class="centered">$20.90$</td>
+        </tr>
+        <tr>
+            <td class="centered">$2007$</td>
+            <td class="centered">$22.79$</td>
+        </tr>
+        <tr>
+            <td class="centered">$2008$</td>
+            <td class="centered">$23.52$</td>
+        </tr>
+                <tr>
+            <td class="centered">$2009$</td>
+            <td class="centered">$22.75$</td>
+        </tr>
+    </tbody>
 </table>
-<br/>
+<br></p>
+
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Likewise if we have more than one input to our function - as was the case with the grayscale image example - we use a distinct notation for each input.  With two inputs we can use $x_1$ for the first input and $x_2$ for the second - so the general input pair is represented as $(x_1, x_2)$.  Our function - which takes in these index pairs in general - could then be denoted as $y(x_1,x_2)$, and our table of input/output pairs shown for the grayscale digit image looks like</p>
-<p><br/></p>
-<p></p><table>
-<thead style="background-color;">
-<tr>
-<th>input:  $(x_1,x_2)$</th>
-<th>output:  $y(x_1,x_2)$</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td class="centered">$(0,0)$</td>
-<td class="centered">$255$</td>
-</tr>
-<tr>
-<td class="centered">$(0,1)$</td>
-<td class="centered">$255$</td>
-</tr>
-<tr>
-<td class="centered">$(0,2)$</td>
-<td class="centered">$170$</td>
-</tr>
-<tr>
-<td class="centered">$(0,3)$</td>
-<td class="centered">$34$</td>
-</tr>
-<tr>
-<td class="centered">$\vdots$</td>
-<td class="centered">$\vdots$</td>
-</tr>
-</tbody>
+<p><br></p>
+<p><table>
+    <thead style="background-color;">
+        <tr>
+            <th>input: &nbsp;$(x_1,x_2)$</th>
+            <th>output: &nbsp;$y(x_1,x_2)$</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td class="centered">$(0,0)$</td>
+            <td class="centered">$255$</td>
+        </tr>
+        <tr>
+            <td class="centered">$(0,1)$</td>
+            <td class="centered">$255$</td>
+        </tr>
+        <tr>
+            <td class="centered">$(0,2)$</td>
+            <td class="centered">$170$</td>
+        </tr>
+        <tr>
+            <td class="centered">$(0,3)$</td>
+            <td class="centered">$34$</td>
+        </tr>
+        <tr>
+            <td class="centered">$\vdots$</td>
+            <td class="centered">$\vdots$</td>
+        </tr>
+    </tbody>
 </table>
-<br/>
+<br></p>
+
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="2.--Mathematical-function-equations">2.  Mathematical function equations<a class="anchor-link" href="#2.--Mathematical-function-equations">¶</a></h1>
+<h1 id="2.--Mathematical-function-equations">2.  Mathematical function equations<a class="anchor-link" href="#2.--Mathematical-function-equations">&#182;</a></h1>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Here we review the classic way mathematical functions are described in secondary school: using an algebraic equations or formulae.  In the process we discuss how these functions implicitly produce datasets like the ones we have seen previously.  Finally we point out and contrast the value of having a function equation over even a complete set of data defining a function.</p>
+
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="2.1--The-function-equation">2.1  The function equation<a class="anchor-link" href="#2.1--The-function-equation">¶</a></h2>
+<h2 id="2.1--The-function-equation">2.1  The function equation<a class="anchor-link" href="#2.1--The-function-equation">&#182;</a></h2>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -18356,14 +18405,15 @@ y = w_0 + w_1x
 \end{equation}
 </p><p>This is an explicitly written rule for taking an input $x$ and transforming it into an associated output $y$. Given a specific input $x$ how do we transform it to get its associated output? According to the equation of the line, we simply multiply the input by the weight $w_1$ (called the <em>slope</em> or steepness of the line) and add to this the weight $w_0$ (called the <em>vertical intercept</em> - where the line strikes the vertical axis).</p>
 <p>In the next cell we plot a picture of this equation. Here we have set  $w_0=−3$  and  $w_1=2$  to create one instance of a line shown in red, plotted over the input range (values of $x$) from $-5$ to $5$.</p>
+
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In [12]:</div>
+<div class="prompt input_prompt">In&nbsp;[12]:</div>
 <div class="inner_cell">
-<div class="input_area">
+    <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># specify range of input for our function</span>
 <span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">5</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">50</span><span class="p">)</span>
 
@@ -18378,15 +18428,20 @@ y = w_0 + w_1x
 <span class="n">line_table</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">stack</span><span class="p">((</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">),</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>  
 
 <span class="c1"># use custom plotter to display function</span>
-<span class="n">baslib</span><span class="o">.</span><span class="n">basics_plotter</span><span class="o">.</span><span class="n">single_plot</span><span class="p">(</span><span class="n">table</span> <span class="o">=</span> <span class="n">line_table</span><span class="p">,</span><span class="n">xlabel</span> <span class="o">=</span> <span class="s1">'$x$'</span><span class="p">,</span><span class="n">ylabel</span> <span class="o">=</span> <span class="s1">'y'</span><span class="p">,</span><span class="n">rotate_ylabel</span> <span class="o">=</span> <span class="mi">0</span><span class="p">)</span>
+<span class="n">baslib</span><span class="o">.</span><span class="n">basics_plotter</span><span class="o">.</span><span class="n">single_plot</span><span class="p">(</span><span class="n">table</span> <span class="o">=</span> <span class="n">line_table</span><span class="p">,</span><span class="n">xlabel</span> <span class="o">=</span> <span class="s1">&#39;$x$&#39;</span><span class="p">,</span><span class="n">ylabel</span> <span class="o">=</span> <span class="s1">&#39;y&#39;</span><span class="p">,</span><span class="n">rotate_ylabel</span> <span class="o">=</span> <span class="mi">0</span><span class="p">)</span>
 </pre></div>
+
 </div>
 </div>
 </div>
+
 <div class="output_wrapper">
 <div class="output">
-<div class="output_area">
-<div class="prompt"></div>
+
+
+<div class="output_area"><div class="prompt"></div>
+
+
 <div class="output_png output_subarea ">
 <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAssAAAEPCAYAAAC0mYnkAAAABHNCSVQICAgIfAhkiAAAAAlwSFlz
 AAALEgAACxIB0t1+/AAAIABJREFUeJzt3Xl8VPW9//HXLNkzAZKwlKV6WexPXMrlAlVcEKGt1/qz
@@ -18563,13 +18618,18 @@ JEnqEjwsIUlpoE+fPjQ3N3PaaadZlCVpH7IsS1InV1lZyeOPP85+++3HmjVrgo4jSV2KZVmSOrH1
 Hngg6GiS1GVYliWpE9q5cycVFRUceuihnH766bu2f+c732HTpk1/t+6yJKnjuBqGJEmSlIJHliVJ
 kqQULMuSJElSCpZlSZIkKQXLsiRJkpSCZVmSJElKwbIsSZIkpWBZliRJklKwLEuSJEkp/D+v+ySh
 YS4rdwAAAABJRU5ErkJggg==
-"/>
+"
+>
+</div>
+
+</div>
+
 </div>
 </div>
+
 </div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -18579,14 +18639,15 @@ YS4rdwAAAABJRU5ErkJggg==
 y = w_0 + w_1x + w_2x^2
 \end{equation}
 </p><p>Again we can plot a parabola with explicit values for the weights $w_0$, $w_1$, and $w_2$. In the next cell we set $w_0=−3$, $w_1=2$, and $w_2=1$, and plot the parabola over the same input range (values of $x$) as the line.</p>
+
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In [13]:</div>
+<div class="prompt input_prompt">In&nbsp;[13]:</div>
 <div class="inner_cell">
-<div class="input_area">
+    <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># specify range of input for our function</span>
 <span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">5</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">50</span><span class="p">)</span>
 
@@ -18602,15 +18663,20 @@ y = w_0 + w_1x + w_2x^2
 <span class="n">parabola_table</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">stack</span><span class="p">((</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">),</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
 
 <span class="c1"># use custom plotter to display function</span>
-<span class="n">baslib</span><span class="o">.</span><span class="n">basics_plotter</span><span class="o">.</span><span class="n">single_plot</span><span class="p">(</span><span class="n">table</span> <span class="o">=</span> <span class="n">parabola_table</span><span class="p">,</span><span class="n">xlabel</span> <span class="o">=</span> <span class="s1">'$x$'</span><span class="p">,</span><span class="n">ylabel</span> <span class="o">=</span> <span class="s1">'$y$'</span><span class="p">,</span><span class="n">rotate_ylabel</span> <span class="o">=</span> <span class="mi">0</span><span class="p">)</span>
+<span class="n">baslib</span><span class="o">.</span><span class="n">basics_plotter</span><span class="o">.</span><span class="n">single_plot</span><span class="p">(</span><span class="n">table</span> <span class="o">=</span> <span class="n">parabola_table</span><span class="p">,</span><span class="n">xlabel</span> <span class="o">=</span> <span class="s1">&#39;$x$&#39;</span><span class="p">,</span><span class="n">ylabel</span> <span class="o">=</span> <span class="s1">&#39;$y$&#39;</span><span class="p">,</span><span class="n">rotate_ylabel</span> <span class="o">=</span> <span class="mi">0</span><span class="p">)</span>
 </pre></div>
+
 </div>
 </div>
 </div>
+
 <div class="output_wrapper">
 <div class="output">
-<div class="output_area">
-<div class="prompt"></div>
+
+
+<div class="output_area"><div class="prompt"></div>
+
+
 <div class="output_png output_subarea ">
 <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAssAAAEPCAYAAAC0mYnkAAAABHNCSVQICAgIfAhkiAAAAAlwSFlz
 AAALEgAACxIB0t1+/AAAIABJREFUeJzt3Xl0VPX9//HXLNn3ZEAkshQCRRFKFVDhR6MSl1qXCAqI
@@ -18809,143 +18875,160 @@ unTpooKCAtNxAKBNoSwDQAjbvHmzli5dqptuukk33HCDvvrqK3366aemYwFAm0FZBoAQ9e2332r+
 /Pm67LLLlJmZqZ49e6pPnz566aWXTEcDgDaDsgwAIaiyslI5OTnq27evRo4c2Xj/8OHDtX379h+c
 dxkA0HI4GwYAAAAQBHuWAQAAgCAoywAAAEAQlGUAAAAgCMoyAAAAEARlGQAAAAiCsgwAAAAEQVkG
 AAAAgqAsAwAAAEH8f5jkVCW8h/7dAAAAAElFTkSuQmCC
-"/>
+"
+>
+</div>
+
+</div>
+
 </div>
 </div>
+
 </div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Writing down the equation of the line, parabola, or any other formula gives us its rule <em>explicitly</em> - its recipe for transforming inputs into outputs.  An equation is a powerful form of a mathematical function.</p>
+
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <blockquote><p>A formula or equation is a mathematical function, explicitly defining a rule for transforming inputs into outputs.</p>
 </blockquote>
+
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="2.2--Equations-as-data">2.2  Equations as data<a class="anchor-link" href="#2.2--Equations-as-data">¶</a></h2>
+<h2 id="2.2--Equations-as-data">2.2  Equations as data<a class="anchor-link" href="#2.2--Equations-as-data">&#182;</a></h2>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Another way to think about an equation is to view it as the actual set of input/output pairs it defines, or in other words, as a dataset. For example, for the line</p>
 <p>$$y = w_0 + w_1x$$</p><p>that we plotted previously with $w_0=−3$ and $w_1=2$, this table of values looks like</p>
-<p><br/></p>
-<p></p><table>
-<thead style="background-color: #eee;">
-<tr>
-<th>input:  $x$</th>
-<th>output:  $y$</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td class="centered">$0$</td>
-<td class="centered">$-3$</td>
-</tr>
-<tr>
-<td class="centered">$-0.4$</td>
-<td class="centered">$-3.8$</td>
-</tr>
-<tr>
-<td class="centered">$2.8$</td>
-<td class="centered">$2.6$</td>
-</tr>
-<tr>
-<td class="centered">$-1$</td>
-<td class="centered">$5$</td>
-</tr>
-<tr>
-<td class="centered">$\vdots$</td>
-<td class="centered">$\vdots$</td>
-</tr>
-</tbody>
+<p><br></p>
+<p><table>
+    <thead style="background-color: #eee;">
+        <tr>
+            <th>input: &nbsp;$x$</th>
+            <th>output: &nbsp;$y$</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td class="centered">$0$</td>
+            <td class="centered">$-3$</td>
+        </tr>
+        <tr>
+            <td class="centered">$-0.4$</td>
+            <td class="centered">$-3.8$</td>
+        </tr>
+        <tr>
+            <td class="centered">$2.8$</td>
+            <td class="centered">$2.6$</td>
+        </tr>
+        <tr>
+            <td class="centered">$-1$</td>
+            <td class="centered">$5$</td>
+        </tr>
+        <tr>
+            <td class="centered">$\vdots$</td>
+            <td class="centered">$\vdots$</td>
+        </tr>
+    </tbody>
 </table>
-<br/>
+<br></p>
 <p>The vertical dots $\vdots$ in each column indicate that we could keep on listing off input and output pairs (in no particular order).  If we list out every possible input/output pair using the equation - this would be infinitely long - then this dataset is equivalent to the equation defining it.</p>
+
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>As with the line, we can also view a parabola described earlier either as its equation or as its associated table of values. For the choice of weights we used previously, the 'dataset' view of our parabola looks like</p>
-<p><br/></p>
-<p></p><table>
-<thead style="background-color: #eee;">
-<tr>
-<th>input:  $x$</th>
-<th>output:  $y$</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td class="centered">$0$</td>
-<td class="centered">$-3$</td>
-</tr>
-<tr>
-<td class="centered">$-0.4$</td>
-<td class="centered">$-1.56$</td>
-</tr>
-<tr>
-<td class="centered">$2.8$</td>
-<td class="centered">$10.44$</td>
-</tr>
-<tr>
-<td class="centered">$-1$</td>
-<td class="centered">$-4$</td>
-</tr>
-<tr>
-<td class="centered">$\vdots$</td>
-<td class="centered">$\vdots$</td>
-</tr>
-</tbody>
+<p><br></p>
+<p><table>
+    <thead style="background-color: #eee;">
+        <tr>
+            <th>input: &nbsp;$x$</th>
+            <th>output: &nbsp;$y$</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td class="centered">$0$</td>
+            <td class="centered">$-3$</td>
+        </tr>
+        <tr>
+            <td class="centered">$-0.4$</td>
+            <td class="centered">$-1.56$</td>
+        </tr>
+        <tr>
+            <td class="centered">$2.8$</td>
+            <td class="centered">$10.44$</td>
+        </tr>
+        <tr>
+            <td class="centered">$-1$</td>
+            <td class="centered">$-4$</td>
+        </tr>
+        <tr>
+            <td class="centered">$\vdots$</td>
+            <td class="centered">$\vdots$</td>
+        </tr>
+    </tbody>
 </table>
-<br/>
+<br></p>
 <p>Once again the three vertical dots in each column indicate that this list is infinitely long. If we list out every single input/output pair defined by the equation than any input value we can think of will be found at some point on this table, along with its associated output.  If this is the case then this dataset is equivalent to the equation defining it.</p>
+
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <blockquote><p>We can view an equation equivalently in two ways: either via its mathematical expression or as a dataset consisting of a complete listing of the function's input/output pairs.</p>
 </blockquote>
+
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Using a subset of data generated by an equation, we can visualize equations with one or two inputs by plotting their graphs. Notice that the plots produced this way we showed previously - which were plotted by creating a sample of data over 50 evenly spaced inputs on the interval $[-5,5]$ -  are not strictly speaking <em>continuous</em>, although they visually appear to be so. Those plots we made previously are actually kind of a trick - an optical illusion. If you look closely you can see that we only <em>sampled</em> input/output data points for each equation's table of values - we couldn't plot infinitely many points!  The plots <em>look</em> continuous - the way we might draw them using pencil and paper - because we used the <code>plot</code> function from Python's matplotlib library which interpolates smoothly between points it plots.</p>
 <p>If instead we use <code>scatter</code> to plot the two functions - using the same input/output pairs as plotted previously -  you can really see all the input/output points we defined individually. We do this in the next Python cell.</p>
+
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In [14]:</div>
+<div class="prompt input_prompt">In&nbsp;[14]:</div>
 <div class="inner_cell">
-<div class="input_area">
+    <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># specify range of input for our functions</span>
 <span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">5</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">50</span><span class="p">)</span>    
 
@@ -18963,15 +19046,20 @@ AAAAgqAsAwAAAEH8f5jkVCW8h/7dAAAAAElFTkSuQmCC
 <span class="n">parabola_table</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">stack</span><span class="p">((</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">),</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span> 
 
 <span class="c1"># use custom plotter to show both functions</span>
-<span class="n">baslib</span><span class="o">.</span><span class="n">basics_plotter</span><span class="o">.</span><span class="n">double_plot</span><span class="p">(</span><span class="n">table1</span> <span class="o">=</span> <span class="n">line_table</span><span class="p">,</span> <span class="n">table2</span> <span class="o">=</span> <span class="n">parabola_table</span><span class="p">,</span><span class="n">plot_type</span> <span class="o">=</span> <span class="s1">'scatter'</span><span class="p">,</span><span class="n">xlabel</span> <span class="o">=</span> <span class="s1">'$x$'</span><span class="p">,</span><span class="n">ylabel_1</span> <span class="o">=</span> <span class="s1">'$y$'</span><span class="p">,</span><span class="n">ylabel_2</span> <span class="o">=</span> <span class="s1">'$y$'</span><span class="p">,</span><span class="n">fontsize</span> <span class="o">=</span> <span class="mi">18</span><span class="p">)</span>
+<span class="n">baslib</span><span class="o">.</span><span class="n">basics_plotter</span><span class="o">.</span><span class="n">double_plot</span><span class="p">(</span><span class="n">table1</span> <span class="o">=</span> <span class="n">line_table</span><span class="p">,</span> <span class="n">table2</span> <span class="o">=</span> <span class="n">parabola_table</span><span class="p">,</span><span class="n">plot_type</span> <span class="o">=</span> <span class="s1">&#39;scatter&#39;</span><span class="p">,</span><span class="n">xlabel</span> <span class="o">=</span> <span class="s1">&#39;$x$&#39;</span><span class="p">,</span><span class="n">ylabel_1</span> <span class="o">=</span> <span class="s1">&#39;$y$&#39;</span><span class="p">,</span><span class="n">ylabel_2</span> <span class="o">=</span> <span class="s1">&#39;$y$&#39;</span><span class="p">,</span><span class="n">fontsize</span> <span class="o">=</span> <span class="mi">18</span><span class="p">)</span>
 </pre></div>
+
 </div>
 </div>
 </div>
+
 <div class="output_wrapper">
 <div class="output">
-<div class="output_area">
-<div class="prompt"></div>
+
+
+<div class="output_area"><div class="prompt"></div>
+
+
 <div class="output_png output_subarea ">
 <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAA5cAAAESCAYAAABpdyGnAAAABHNCSVQICAgIfAhkiAAAAAlwSFlz
 AAALEgAACxIB0t1+/AAAIABJREFUeJzt3X1wVFWax/Ffp1teIuSluyFMQhgTXkbdQZm84Ig46BCi
@@ -19199,21 +19287,27 @@ pz8ZHSIAAIagjwT6j+QSsKmmpiatW7dOV155pcrLy5WcnBy4d/fdd2vIkCHauXOngRECAGAM+khg
 YDiKBAAAAAAwaMxcAgAAAAAGjeQSAAAAADBoJJcAAAAAgEEjuQQAAAAADBrJJQAAAABg0EguAQAA
 AACDRnIJAAAAABg0kksAAAAAwKCRXAIAAAAABo3kEgAAAAAwaP8Pe6IV7QATI1gAAAAASUVORK5C
 YII=
-"/>
+"
+>
+</div>
+
+</div>
+
 </div>
 </div>
+
 </div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="2.3--Equations-taking-in-more-than-one-input">2.3  Equations taking in more than one input<a class="anchor-link" href="#2.3--Equations-taking-in-more-than-one-input">¶</a></h2>
+<h2 id="2.3--Equations-taking-in-more-than-one-input">2.3  Equations taking in more than one input<a class="anchor-link" href="#2.3--Equations-taking-in-more-than-one-input">&#182;</a></h2>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -19224,48 +19318,49 @@ y=w_0 + w_1x_1 + w_2x_2
 \end{equation}
 </p><p>where $w_0$ , $w_1$, and $w_2$ are tunable weights.  Here $w_0$ is once again the vertical intercept (the value at which the hyperplane strikes the vertical axes), and $w_1$ and $w_2$ are both 'slopes' - quantifying the steepness of the hyperplane in each of the input directions.</p>
 <p>For any particular set of weights we can write out a complete table of values for this equation. For example, if we set $w_0=3$, $w_1=−2$, and $w_2=0.5$, we can create a table of values like this</p>
-<p><br/></p>
-<p></p><table>
-<thead style="background-color: #eee;">
-<tr>
-<th>input:  $(x_1,x_2)$</th>
-<th>output:  $y$</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td class="centered">$(0,0)$</td>
-<td class="centered">$3$</td>
-</tr>
-<tr>
-<td class="centered">$(1,2)$</td>
-<td class="centered">$2$</td>
-</tr>
-<tr>
-<td class="centered">$(3.14,1.6)$</td>
-<td class="centered">$4.88$</td>
-</tr>
-<tr>
-<td class="centered">$(-1,1)$</td>
-<td class="centered">$-4$</td>
-</tr>
-<tr>
-<td class="centered">$\vdots$</td>
-<td class="centered">$\vdots$</td>
-</tr>
-</tbody>
+<p><br></p>
+<p><table>
+    <thead style="background-color: #eee;">
+        <tr>
+            <th>input: &nbsp;$(x_1,x_2)$</th>
+            <th>output: &nbsp;$y$</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td class="centered">$(0,0)$</td>
+            <td class="centered">$3$</td>
+        </tr>
+        <tr>
+            <td class="centered">$(1,2)$</td>
+            <td class="centered">$2$</td>
+        </tr>
+        <tr>
+            <td class="centered">$(3.14,1.6)$</td>
+            <td class="centered">$4.88$</td>
+        </tr>
+        <tr>
+            <td class="centered">$(-1,1)$</td>
+            <td class="centered">$-4$</td>
+        </tr>
+        <tr>
+            <td class="centered">$\vdots$</td>
+            <td class="centered">$\vdots$</td>
+        </tr>
+    </tbody>
 </table>
-<br/>
+<br></p>
 <p>If this table is complete it equivalently defines the equation.</p>
 <p>Using a subset of input/output pairs we can visualize the equation - as we do in the next Python cell.</p>
+
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In [15]:</div>
+<div class="prompt input_prompt">In&nbsp;[15]:</div>
 <div class="inner_cell">
-<div class="input_area">
+    <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># specify range of input for for x1 and x2</span>
 <span class="n">s</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">5</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">50</span><span class="p">)</span>                  
 <span class="n">x_1</span><span class="p">,</span> <span class="n">x_2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">meshgrid</span><span class="p">(</span><span class="n">s</span><span class="p">,</span><span class="n">s</span><span class="p">)</span>
@@ -19282,15 +19377,20 @@ y=w_0 + w_1x_1 + w_2x_2
 <span class="n">line_table</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">stack</span><span class="p">((</span><span class="n">x_1</span><span class="p">,</span><span class="n">x_2</span><span class="p">,</span><span class="n">y</span><span class="p">),</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>  
 
 <span class="c1"># use custom plotter to display function</span>
-<span class="n">baslib</span><span class="o">.</span><span class="n">basics_plotter</span><span class="o">.</span><span class="n">single_plot</span><span class="p">(</span><span class="n">table</span> <span class="o">=</span> <span class="n">line_table</span><span class="p">,</span><span class="n">xlabel</span><span class="o">=</span><span class="s1">'$x_1$'</span><span class="p">,</span><span class="n">ylabel</span><span class="o">=</span><span class="s1">'$x_2$'</span><span class="p">,</span><span class="n">zlabel</span><span class="o">=</span><span class="s1">'$y$'</span><span class="p">,</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+<span class="n">baslib</span><span class="o">.</span><span class="n">basics_plotter</span><span class="o">.</span><span class="n">single_plot</span><span class="p">(</span><span class="n">table</span> <span class="o">=</span> <span class="n">line_table</span><span class="p">,</span><span class="n">xlabel</span><span class="o">=</span><span class="s1">&#39;$x_1$&#39;</span><span class="p">,</span><span class="n">ylabel</span><span class="o">=</span><span class="s1">&#39;$x_2$&#39;</span><span class="p">,</span><span class="n">zlabel</span><span class="o">=</span><span class="s1">&#39;$y$&#39;</span><span class="p">,</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
 </pre></div>
+
 </div>
 </div>
 </div>
+
 <div class="output_wrapper">
 <div class="output">
-<div class="output_area">
-<div class="prompt"></div>
+
+
+<div class="output_area"><div class="prompt"></div>
+
+
 <div class="output_png output_subarea ">
 <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAA3IAAAFpCAYAAADZWRqQAAAABHNCSVQICAgIfAhkiAAAAAlwSFlz
 AAALEgAACxIB0t1+/AAAIABJREFUeJzs3Xd8lfX5//HXfUb2IglkMEMSlntPXKWl7ll3xVoHKs6K
@@ -19981,13 +20081,18 @@ DEEOAAAAAGzGYZqmGegiAAAAAAADx4ocAAAAANgMQQ4AAAAAbIYgBwAAAAA2Q5ADAAAAAJshyAEA
 AACAzRDkAAAAAMBmCHIAAAAAYDMEOQAAAACwGYIcAAAAANgMQQ4AAAAAbIYgBwAAAAA2Q5ADAAAA
 AJshyAEAAACAzRDkAAAAAMBmCHIAAAAAYDMEOQAAAACwGYIcAAAAANgMQQ4AAAAAbIYgBwAAAAA2
 Q5ADAAAAAJshyAEAAACAzRDkAAAAAMBmCHIAAAAAYDP/B1d26If3I5SkAAAAAElFTkSuQmCC
-"/>
+"
+>
+</div>
+
+</div>
+
 </div>
 </div>
+
 </div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -19997,14 +20102,15 @@ Q5ADAAAAAJshyAEAAACAzRDkAAAAAMBmCHIAAAAAYDP/B1d26If3I5SkAAAAAElFTkSuQmCC
 y = w_0 + w_1x_1 + w_2x_2 + w_3x_1x_2 + a_4x_1^2 + w_5x_2^2
 \end{equation}
 </p><p>For any weight setting we can write out a table of values, or plot a small section of the table as in the next Python cell, where we have set $w_0=3$, $w_1=−2$, $w_2=0.5$, $w_3=1.3$, $w_4=−0.3$, and  $w_5=4$.</p>
+
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In [16]:</div>
+<div class="prompt input_prompt">In&nbsp;[16]:</div>
 <div class="inner_cell">
-<div class="input_area">
+    <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># specify range of input for for x1 and x2</span>
 <span class="n">s</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">50</span><span class="p">)</span>                 
 <span class="n">x_1</span><span class="p">,</span> <span class="n">x_2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">meshgrid</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">s</span><span class="p">)</span>
@@ -20024,15 +20130,20 @@ y = w_0 + w_1x_1 + w_2x_2 + w_3x_1x_2 + a_4x_1^2 + w_5x_2^2
 <span class="n">parabola_table</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">stack</span><span class="p">((</span><span class="n">x_1</span><span class="p">,</span><span class="n">x_2</span><span class="p">,</span><span class="n">y</span><span class="p">),</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>  
 
 <span class="c1"># use custom plotter to display function</span>
-<span class="n">baslib</span><span class="o">.</span><span class="n">basics_plotter</span><span class="o">.</span><span class="n">single_plot</span><span class="p">(</span><span class="n">table</span> <span class="o">=</span> <span class="n">parabola_table</span><span class="p">,</span><span class="n">xlabel</span><span class="o">=</span><span class="s1">'$x_1$'</span><span class="p">,</span><span class="n">ylabel</span><span class="o">=</span><span class="s1">'$x_2$'</span><span class="p">,</span><span class="n">zlabel</span><span class="o">=</span><span class="s1">'$y$'</span><span class="p">,</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+<span class="n">baslib</span><span class="o">.</span><span class="n">basics_plotter</span><span class="o">.</span><span class="n">single_plot</span><span class="p">(</span><span class="n">table</span> <span class="o">=</span> <span class="n">parabola_table</span><span class="p">,</span><span class="n">xlabel</span><span class="o">=</span><span class="s1">&#39;$x_1$&#39;</span><span class="p">,</span><span class="n">ylabel</span><span class="o">=</span><span class="s1">&#39;$x_2$&#39;</span><span class="p">,</span><span class="n">zlabel</span><span class="o">=</span><span class="s1">&#39;$y$&#39;</span><span class="p">,</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
 </pre></div>
+
 </div>
 </div>
 </div>
+
 <div class="output_wrapper">
 <div class="output">
-<div class="output_area">
-<div class="prompt"></div>
+
+
+<div class="output_area"><div class="prompt"></div>
+
+
 <div class="output_png output_subarea ">
 <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAA3IAAAFpCAYAAADZWRqQAAAABHNCSVQICAgIfAhkiAAAAAlwSFlz
 AAALEgAACxIB0t1+/AAAIABJREFUeJzs3Xl41NXZxvHv7DPZCaEIvLIqIDsCgiAiilZwBTdcQJSK
@@ -20958,90 +21069,104 @@ hBBCCCFqGQlyQgghhBBCCFHLSJATQgghhBBCiFpGgpwQQgghhBBC1DIS5IQQQgghhBCilpEgJ4QQ
 QgghhBC1jAQ5IYQQQgghhKhlJMgJIYQQQgghRC0jQU4IIYQQQgghahkJckIIIYQQQghRy0iQE0II
 IYQQQohaRoKcEEIIIYQQQtQyEuSEEEIIIYQQopaRICeEEEIIIYQQtcz/AxEBAzK0eYbwAAAAAElF
 TkSuQmCC
-"/>
+"
+>
+</div>
+
+</div>
+
 </div>
 </div>
+
 </div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="2.4--Which-better-describes-math-function---the-equation-or-its-equivalent-dataset?">2.4  Which better describes math function - the equation or its equivalent dataset?<a class="anchor-link" href="#2.4--Which-better-describes-math-function---the-equation-or-its-equivalent-dataset?">¶</a></h2>
+<h2 id="2.4--Which-better-describes-math-function---the-equation-or-its-equivalent-dataset?">2.4  Which better describes math function - the equation or its equivalent dataset?<a class="anchor-link" href="#2.4--Which-better-describes-math-function---the-equation-or-its-equivalent-dataset?">&#182;</a></h2>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>If we could only choose one, which would we rather have: the mathematical equation itself or the dataset consisting of all its input/output pairs written out explicitly?  In the latter case we would not have access to the mathematical expression describing the equation algebraically, only the (possibly infinitely long) table of values.</p>
 <p>Well, if we have the expression we have already seen how we generate the equation's associated table of input/output values - at least in theory we simply list out every input/output pair using the equation to generate the pairs.  In other words, if we have access to the equation itself we get the dataset for free. How about the reverse? If we had a table of values describing an equation but not the mathematical form of the equation itself, could we intuit the it?  With the dataset in hand do we get the algebraic form of the equation for free?  The answer is - in general - <em>no</em>.</p>
 <p>If we only have access to a dataset describing an equation - and not the mathematical expression itself - it is often not obvious how to draw conclusions vis-a-vis the associated algebraic form of the original equation. That is, supposing we could visually examine a (possibly infinitely long) raw table of values like this one</p>
-<p><br/></p>
-<p></p><table>
-<thead style="background-color: #eee;">
-<tr>
-<th>input:  $x$</th>
-<th>output:  $y$</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td class="centered">$0$</td>
-<td class="centered">$-3$</td>
-</tr>
-<tr>
-<td class="centered">$-0.4$</td>
-<td class="centered">$-1.56$</td>
-</tr>
-<tr>
-<td class="centered">$2.8$</td>
-<td class="centered">$10.44$</td>
-</tr>
-<tr>
-<td class="centered">$-1$</td>
-<td class="centered">$-4$</td>
-</tr>
-<tr>
-<td class="centered">$\vdots$</td>
-<td class="centered">$\vdots$</td>
-</tr>
-</tbody>
+<p><br></p>
+<p><table>
+    <thead style="background-color: #eee;">
+        <tr>
+            <th>input: &nbsp;$x$</th>
+            <th>output: &nbsp;$y$</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td class="centered">$0$</td>
+            <td class="centered">$-3$</td>
+        </tr>
+        <tr>
+            <td class="centered">$-0.4$</td>
+            <td class="centered">$-1.56$</td>
+        </tr>
+        <tr>
+            <td class="centered">$2.8$</td>
+            <td class="centered">$10.44$</td>
+        </tr>
+        <tr>
+            <td class="centered">$-1$</td>
+            <td class="centered">$-4$</td>
+        </tr>
+        <tr>
+            <td class="centered">$\vdots$</td>
+            <td class="centered">$\vdots$</td>
+        </tr>
+    </tbody>
 </table>
-<br/>
+<br></p>
 <p>we still might not be able to intuit an equation.</p>
+
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>We could plot the table of values, or some portion of it, as we have been doing so far. Using the plot we could then try to determine the equation 'by eye'. That would probably be much easier than just looking at a table of numbers. Let's plot a few examples and see if this is do-able. See if you can guess the equation associated with each. After you have made your guess you can scroll down a bit to see the associated equations.</p>
+
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In [17]:</div>
+<div class="prompt input_prompt">In&nbsp;[17]:</div>
 <div class="inner_cell">
-<div class="input_area">
+    <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># load in table of values for two functions</span>
-<span class="n">first_table</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">loadtxt</span><span class="p">(</span><span class="s1">'../../mlrefined_datasets/basics_datasets/guess_this_1.txt'</span><span class="p">,</span> <span class="n">delimiter</span><span class="o">=</span><span class="s1">','</span><span class="p">)</span>
-<span class="n">second_table</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">loadtxt</span><span class="p">(</span><span class="s1">'../../mlrefined_datasets/basics_datasets/guess_this_2.txt'</span><span class="p">,</span> <span class="n">delimiter</span><span class="o">=</span><span class="s1">','</span><span class="p">)</span>
+<span class="n">first_table</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">loadtxt</span><span class="p">(</span><span class="s1">&#39;../../mlrefined_datasets/basics_datasets/guess_this_1.txt&#39;</span><span class="p">,</span> <span class="n">delimiter</span><span class="o">=</span><span class="s1">&#39;,&#39;</span><span class="p">)</span>
+<span class="n">second_table</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">loadtxt</span><span class="p">(</span><span class="s1">&#39;../../mlrefined_datasets/basics_datasets/guess_this_2.txt&#39;</span><span class="p">,</span> <span class="n">delimiter</span><span class="o">=</span><span class="s1">&#39;,&#39;</span><span class="p">)</span>
 
 <span class="c1"># use custom plotter to show both functions</span>
-<span class="n">baslib</span><span class="o">.</span><span class="n">basics_plotter</span><span class="o">.</span><span class="n">double_plot</span><span class="p">(</span><span class="n">table1</span> <span class="o">=</span> <span class="n">first_table</span><span class="p">,</span> <span class="n">table2</span> <span class="o">=</span> <span class="n">second_table</span><span class="p">,</span><span class="n">plot_type</span> <span class="o">=</span> <span class="s1">'continuous'</span><span class="p">,</span><span class="n">xlabel</span> <span class="o">=</span> <span class="s1">'$x$'</span><span class="p">,</span><span class="n">ylabel_1</span> <span class="o">=</span> <span class="s1">'$y$'</span><span class="p">,</span><span class="n">ylabel_2</span> <span class="o">=</span> <span class="s1">'$y$'</span><span class="p">,</span><span class="n">fontsize</span> <span class="o">=</span> <span class="mi">18</span><span class="p">)</span>
+<span class="n">baslib</span><span class="o">.</span><span class="n">basics_plotter</span><span class="o">.</span><span class="n">double_plot</span><span class="p">(</span><span class="n">table1</span> <span class="o">=</span> <span class="n">first_table</span><span class="p">,</span> <span class="n">table2</span> <span class="o">=</span> <span class="n">second_table</span><span class="p">,</span><span class="n">plot_type</span> <span class="o">=</span> <span class="s1">&#39;continuous&#39;</span><span class="p">,</span><span class="n">xlabel</span> <span class="o">=</span> <span class="s1">&#39;$x$&#39;</span><span class="p">,</span><span class="n">ylabel_1</span> <span class="o">=</span> <span class="s1">&#39;$y$&#39;</span><span class="p">,</span><span class="n">ylabel_2</span> <span class="o">=</span> <span class="s1">&#39;$y$&#39;</span><span class="p">,</span><span class="n">fontsize</span> <span class="o">=</span> <span class="mi">18</span><span class="p">)</span>
 </pre></div>
+
 </div>
 </div>
 </div>
+
 <div class="output_wrapper">
 <div class="output">
-<div class="output_area">
-<div class="prompt"></div>
+
+
+<div class="output_area"><div class="prompt"></div>
+
+
 <div class="output_png output_subarea ">
 <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAA5cAAAESCAYAAABpdyGnAAAABHNCSVQICAgIfAhkiAAAAAlwSFlz
 AAALEgAACxIB0t1+/AAAIABJREFUeJzs3XdgVFXax/HvnZbJpBd6EakCooAgRUSQUBZcxIYrNuws
@@ -21546,13 +21671,18 @@ ff311zz88MOccsopjBgxgiFDhmCxWHjppZfMDk1ERMRU6iNFjo6SS5EGbNeuXTz44IM0bdqUv//9
 gTidTubNm2dihCIiIuZQHyny++goEhEREREREak1jVyKiIiIiIhIrSm5FBERERERkVpTcikiIiIi
 IiK1puRSREREREREak3JpYiIiIiIiNSakksRERERERGpNSWXIiIiIiIiUmtKLkVERERERKTWlFyK
 iIiIiIhIrSm5FBERERERkVr7fzZ2eDxfsELLAAAAAElFTkSuQmCC
-"/>
+"
+>
+</div>
+
+</div>
+
 </div>
 </div>
+
 </div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -21562,35 +21692,42 @@ iIiIiIhIrSm5FBERERERkVr7fzZ2eDxfsELLAAAAAElFTkSuQmCC
 <p>$$y = e^{3x}\frac{\text{sin}(3\pi^2 (x-0.5))}{3{\pi}^2(x-0.5)}$$</p><p>then you definitely deserve a pat on the back! Regardless, wouldn't you agree that this one is much harder?</p>
 <p>The point here is that <em>even when we only have a single input</em>, identifying a function's equation by plotting some portion of its table of values is very difficult to do 'by eye'. And it is worth emphasizing again that we could only even attempt this for functions of one or two inputs, since we can't meaningfully visualize functions that take in three or more inputs - they are too high dimensional.</p>
 <p>So in general we can't just look at a table of values - whether in the raw or by graphing it - and hope to accurately guess at the associated equation. Is there another way to accurately estimate an equation given a substantial chunk of its table values? There is, and it is the basis for all nonlinear machine learning. It is called <strong>function approximation</strong> or <strong>supervised learning</strong>, a topic we investigate at length in a more advanced series of this blog.</p>
+
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <blockquote><p>If we have a mathematical function's equation we can generate a complete dataset consisting of its input/output pairs, however the reverse is not true in general. That is, given a (even a complete) table of values it is not clear how, in general, we can infer its associated equation. In this important sense, the equation of a mathematical function is more powerful than its derived dataset alone.</p>
 </blockquote>
+
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="Up-next">Up next<a class="anchor-link" href="#Up-next">¶</a></h1>
+<h1 id="Up-next">Up next<a class="anchor-link" href="#Up-next">&#182;</a></h1>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>In the next post we discuss the abc's of function equations, including elementary functions and function arithmetic.</p>
+
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -21599,22 +21736,29 @@ iIiIiIhIrSm5FBERERERkVr7fzZ2eDxfsELLAAAAAElFTkSuQmCC
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p><a id="bib_cell"></a></p>
-<h3 id="Data-sources">Data sources<a class="anchor-link" href="#Data-sources">¶</a></h3><p>[1]  Dataset taken from <a href="http://corporate.mcdonalds.com/mcd/investors/financial-information/annual-report.html">http://corporate.mcdonalds.com/mcd/investors/financial-information/annual-report.html</a></p>
+<p><a id='bib_cell'></a></p>
+<h3 id="Data-sources">Data sources<a class="anchor-link" href="#Data-sources">&#182;</a></h3><p>[1]  Dataset taken from <a href="http://corporate.mcdonalds.com/mcd/investors/financial-information/annual-report.html">http://corporate.mcdonalds.com/mcd/investors/financial-information/annual-report.html</a></p>
 <p>[2]  Dataset taken from <a href="http://investors.chiquita.com/phoenix.zhtml?c=119836&amp;p=irol-irhome">http://investors.chiquita.com/phoenix.zhtml?c=119836&amp;p=irol-irhome</a></p>
 <p>[3]  Dataset taken from <a href="https://www.kaggle.com/mcdonalds/nutrition-facts">https://www.kaggle.com/mcdonalds/nutrition-facts</a></p>
 <p>[4]  Image courtesy of Dr. Nurgetson Q. McSquish</p>
+
 </div>
 </div>
 </div>
-</div>
-</div>
+    </div>
+  </div>
 </body>
+
+ 
+
 <script type="application/vnd.jupyter.widget-state+json">
-{"version_major": 1, "state": {}, "version_minor": 0}
+{"version_minor": 0, "state": {}, "version_major": 1}
 </script>
+
+
 </html>

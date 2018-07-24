@@ -11762,7 +11762,7 @@ div#notebook {
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="11.0--Automating-nonlinear-learning">11.0  Automating nonlinear learning<a class="anchor-link" href="#11.0--Automating-nonlinear-learning">&#182;</a></h1>
+<h1 id="11.0--Introduction">11.0  Introduction<a class="anchor-link" href="#11.0--Introduction">&#182;</a></h1>
 </div>
 </div>
 </div>
@@ -11771,12 +11771,40 @@ div#notebook {
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>In the previous Sections of this Chapter we saw how to inject arbitrary nonlinear models into both our supervised and unsupervised learning paradigms.  However the specific examples we saw illustrating how those principles can be employed were rather simplistic, indeed they were designed specifically so that a proper form of nonlinearity could be determined by visual examination of the data.  Of course we cannot rely on our visualization abilities in general - most modern datasets have far more than two inputs which makes visualization impossible.  Even in those instances when we can visualize our data it is usually not obvious what sort of explicit nonlinearty(ies) should be used (as with the examples shown in the figure below).</p>
+<p>In the previous Chapter we saw how to inject arbitrary nonlinear features into both supervised and unsupervised learning paradigms. However the specific examples we examined there were rather simplistic both in the sense that they were all low-dimensional (allowing us to visualize each dataset) and contained common visual patterns that could identify 'by eye'.  In this Chapter we introduce the fundamental tools and principles of nonlinear <em>feature learning</em>, a set of diverse tools for automating the process of engineering nonlinear features for arbitrary datasets.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="10.0.1--The-practical-limitations-of-nonlinear-feature-engineering">10.0.1  The practical limitations of nonlinear feature engineering<a class="anchor-link" href="#10.0.1--The-practical-limitations-of-nonlinear-feature-engineering">&#182;</a></h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>In order to engineer nonlinear feature properly we cannot in general rely on visualizations - as most (particularly modern) datasets have far more than two inputs making visualization impossible.  Morever, even in cases where data visualization is possible, we cannot rely on our own pattern recognition skills either.  Take the two simple examples below - one (on the left) a regression dataset with $N=1$ dimensional input and the other (on the right) a two-class classification dataset with $N=2$ dimensional input.  Note that the true underlying nonlinear model used to generate the regression data is shown in dashed black, and likewise the true nonlinear decision boundary separating the two classes of the classification data is shown in dashed black as well.  We humans are typically taught only how to recognize the simplest of nonlinear patterns 'by eye' - like those created by elementary functions (e.g., low degree polynomials, exponential functions, sine waves) and simple shapes (e.g., circles, squares, etc.,).   Neither of the patterns shown here match such simple nonlinear functionality.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
 <figure>
     <img src= '../../mlrefined_images/nonlinear_superlearn_images/nonlinear_combined.png' width="75%" height="75%" alt=""/>
 <figcaption>   
 <strong>Figure 1:</strong> <em> 
-Toy regression (left) and classification (right) datasets that present nonlinear behavior.  What specific nonlinear feature transformations would you choose for each dataset?  In other words, what sort of specific nonlinearity do you think provides the best nonlinear fit with the regression dataset, and nonlinear separation (a boundary roughly matching the dashed ovoid ones highlighted in the right panel) with the classification data?  It is not obvious (at least to us).
+A regression (on the left - with true nonlinear model shown in dashed black) and two-class classification (on the right - with true nonlinear decision boundary shown in dashed black) datasets that clearly exhibit nonlinear behavior.  However in each case this behavior is difficult to assess 'by eye', since neither belongs to the basic set of nonlinear patterns we humans are taught to recognize.  Therefore even in cases like these - where we can visualize data - it can be difficult if not impossible to properly engineer nonlinear features ourselves.
 </em>  </figcaption> 
 </figure>
 </div>
@@ -11787,7 +11815,7 @@ Toy regression (left) and classification (right) datasets that present nonlinear
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>However more importantly we do not want to have to identify appropriate nonlinearities ourselves - whether we do this 'by eye' or by our mathematical or philisophical method (i.e., via a <em>differential equations</em> / <em>dynamic systems</em> mindset).  With machine learning we want to take the 'easy' way out: <strong>we want to automate the process of determining the best nonlinearity(ies) for general datastets</strong>.</p>
+<p>So whether or not a dataset can be visualized, as the two examples above illustrate, engineering proper nonlinear features ourselves can be difficult if not impossible to do ourselves.</p>
 
 </div>
 </div>
@@ -11797,8 +11825,16 @@ Toy regression (left) and classification (right) datasets that present nonlinear
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<blockquote><p>In machine learning we automate the process of identifying the appropriate nonlinearities / feature transformations for a dataset.</p>
-</blockquote>
+<h2 id="10.0.2--The-limitless-potential-of-nonlinear-feature-learning">10.0.2  The limitless potential of nonlinear feature learning<a class="anchor-link" href="#10.0.2--The-limitless-potential-of-nonlinear-feature-learning">&#182;</a></h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>It is precisely this challenge which motivates the fundamental <em>feature learning</em> tools described in this Chapter.  <em>In short these technologies </em>automate<em> the process of identifying appropriate nonlinear features for arbitrary datasets.</em>  With these tools in hand we no longer need to 'engineer' proper nonlinearites ourselves - we can their appropriate forms.  This why the phrase <em>feature learning</em> is used to collectively describe these tools, since using them we may <em>learn</em> proper nonlinear features automatically as opposed to engineering them ourselves.  Compared to our own limited nonlinear pattern recognition abilities, feature learning tools can identify virtually any nonlinear pattern present in a dataset regardless of its input dimension.</p>
 
 </div>
 </div>
@@ -11808,7 +11844,7 @@ Toy regression (left) and classification (right) datasets that present nonlinear
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Where-do-we-begin?">Where do we begin?<a class="anchor-link" href="#Where-do-we-begin?">&#182;</a></h2>
+<h2 id="10.0.2--Chapter-summary">10.0.2  Chapter summary<a class="anchor-link" href="#10.0.2--Chapter-summary">&#182;</a></h2>
 </div>
 </div>
 </div>
@@ -11817,7 +11853,8 @@ Toy regression (left) and classification (right) datasets that present nonlinear
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>The aim to automate nonnlinear learning is an ambitious goal and perhaps - at the start - a seemingly intimidating one.  There are an infinite number of nonlinearities to choose from, how do we winnow down these countless choices into a managable, predictable, and user-friendly program?    In the next two Sections we introduce the main building blocks of nonlinear automation, called <em>universal approximators</em> and <em>cross-validation</em>.</p>
+<p>The aim to automate nonnlinear learning is an ambitious one and is perhaps at first glance an intimidating one as well, for there are an infinite variety of nonlinearities / nonlinear functions to choose from.  How do we, in general, parse this infinitude automatically to determine the appropriate nonlinearity for a given dataset?</p>
+<p>The first step - as we will see in Section 10.1 - is to organize the pursuit of automation by first placing the fundamental building blocks of this infinitude into <em>managable collections</em> of (relatively simple) nonlinear functions.  These collections are often called <em>universal approximators</em>, of which three strains are popularly used and which we introduce here: kernels, neural networks, and trees.  After introducing universal approximators we then discuss the fundamental concepts underlying how they are employed automatically - including a description of the <em>bias-variance tradeoff</em> in Section 11.2, the necessity for <em>validation error</em> as a measurement tool in Section 11.3, the automatic tuning of nonlinear capacity via <em>boostingn and regularization</em> in Sections 11.4 and 11.5 respectively, and the notion <em>ensembling</em> in Section 11.6, and finally <em>testing error</em> in Section 11.7.</p>
 
 </div>
 </div>
@@ -11839,7 +11876,7 @@ Toy regression (left) and classification (right) datasets that present nonlinear
  
 
 <script type="application/vnd.jupyter.widget-state+json">
-{"state": {}, "version_major": 1, "version_minor": 0}
+{"version_minor": 0, "state": {}, "version_major": 1}
 </script>
 
 
