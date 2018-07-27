@@ -11835,7 +11835,7 @@ div#notebook {
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>In this Section we introduce the general framework of nonlinear unsupervised learning. Since there are such a wide variety of unsupervised learning models (see Chapter 11), and we want to keep things as elementary as we can in this Section, here we will focus our attention exclusively on how to extend perhaps the most important linear unsupervised learner to the nonlinear setting: the PCA Autoencoder (detailed in Section 8.3). In future Chapters we will look at particular examples of how to extend other unsupervised methods such as K-Means.</p>
+<p>In this Section we introduce the general framework of nonlinear unsupervised learning, with special emphasis on the Autoencoder from Section 8.3. In future Chapters we will look at particular examples of how to extend other unsupervised methods such as K-Means (introduced in Section 8.6).</p>
 </div>
 </div>
 </div>
@@ -11864,21 +11864,12 @@ div#notebook {
 <p>In Section 8.3 we discussed the PCA Autoencoder, the fundamental cost function for PCA that leads to the classic orthogonal PCA solution (described in Section 8.4).  The Autoencoder cost function</p>
 \begin{equation}
 g\left(\mathbf{C}\right) = \frac{1}{P}\sum_{p = 1}^P \left \Vert \mathbf{C}_{\,}^{\,}\mathbf{C}_{\,}^T\mathbf{x}_p - \mathbf{x}_p \right\Vert_2^2
-\end{equation}<p>is parameterized by the $N\times K$ matrix $\mathbf{C}$ that will act as our recovered basis upon minimization.</p>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>In preparation for the nonlinear extension of this scheme - which we will use to determine proper <em>nonlinear manifolds</em> for an input dataset - we will explicitly break up $\mathbf{C}\mathbf{C}^T\mathbf{x}_p$ into an explicit <em>encoding</em> and <em>decoding</em> step.  We have our <code>encoder</code> function $f_{\text{e}}$</p>
+\end{equation}<p>is parameterized by the $N\times K$ matrix $\mathbf{C}$ that will act as our recovered basis upon minimization.  Here our model is the entire computation</p>
 \begin{equation}
-f_{\text{e}}\left(\mathbf{x}\right) = \mathbf{C}^T \mathbf{x}
-\end{equation}<p>and <code>decoder</code> function $f_{\text{d}}$</p>
+\text{model}\left(\mathbf{x},\mathbf{C}\right) = \mathbf{C}_{\,}^{\,}\mathbf{C}_{\,}^T\mathbf{x}.
+\end{equation}<p>The goal in minimizing this quantity is to tune the parameters of $\mathbf{C}$ to learn a model that is <em>as close to the identity as possible</em> i.e., so that the following approximation holds as well as possible</p>
 \begin{equation}
-f_{\text{d}}\left(\mathbf{v}\right) = \mathbf{C} \mathbf{v}
+\text{model}\left(\mathbf{x},\mathbf{C}\right) = \mathbf{C}\mathbf{C}^T \approx \mathbf{I}_{N\times N}.
 \end{equation}
 </div>
 </div>
@@ -11888,38 +11879,24 @@ f_{\text{d}}\left(\mathbf{v}\right) = \mathbf{C} \mathbf{v}
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>We can then write our two linear operations on the input with this function notation as</p>
+<p>Note how we can decompose the model above into an <em>encoding</em> and <em>decoding</em> modeling sequence.  We have our encoder model $\text{model}_e$</p>
 \begin{equation}
-f_{\text{d}}\left(\,f_{\text{e}}\left(\mathbf{x}_p\right)\right) = \mathbf{C}_{\,}^{\,}\mathbf{C}_{\,}^T\mathbf{x}_p
-\end{equation}
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>where note here that notationally speaking we have left off dependency on internal parameters with the aim of keeping our formula simple and more understandable, so e.g., here to make each function visibly dependent on the parameters $\mathbf{C}$ we would write $f_{\text{d}}\left(\mathbf{v},\mathbf{C}\right)$ and $f_{\text{e}}\left(\mathbf{x},\mathbf{C}\right)$.</p>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>We can then write the Autoencoder cost function with this more general function notation as</p>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
+\text{model}_{\text{e}}\left(\mathbf{x},\mathbf{C}\right) = \mathbf{C}^T \mathbf{x}
+\end{equation}<p>which takes in $N$ dimensional input and whose output is $K$ dimensional, and our decoder model $\text{model}_{\text{d}}$ which takes a similar algebraic form</p>
 \begin{equation}
-g\left(\mathbf{C}\right) = \frac{1}{P}\sum_{p = 1}^P \left \Vert \,f_{\text{d}}\left(\,f_{\text{e}}\left(\mathbf{x}_p\right)\right) - \mathbf{x}_p \right\Vert_2^2
+\text{model}_{\text{d}}\left(\mathbf{v},\mathbf{C}\right) = \mathbf{C} \mathbf{v}
+\end{equation}<p>but that intakes $K$ dimensional input and whose output is $N$ dimensional.</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>In this notation our general linear Autoencoder model is then the <em>composition of these two individual models</em> as</p>
+\begin{equation}
+\text{model}\left(\mathbf{x},\mathbf{C}\right)  = \text{model}_{\text{d}}\left(\,\text{model}_{\text{e}}\left(\mathbf{x},\mathbf{C}\right),\mathbf{C}\right) 
 \end{equation}
 </div>
 </div>
@@ -11938,7 +11915,7 @@ g\left(\mathbf{C}\right) = \frac{1}{P}\sum_{p = 1}^P \left \Vert \,f_{\text{d}}\
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Now just as we discussed in the previous Sections, where we described how to extend linear regression and classification to the general nonlinear case, here the fact the <code>encoder</code> and <code>decoder</code> above are <em>linear</em> does not reflect a limitation of the Autoencoder framework but simply <em>modeling choice of ours</em>. We (originally) aimed to uncover the best <em>linear</em> subspace for an input dataset because this is the simplest model to work with, and allows us to flush out important technical details.  However nothing about the Autoencoder framework itself limits us to using <em>linear</em> encoding/decoding functions, and thus prevents us from extending the idea in order to uncover the best <em>nonlinear</em> manifold for a given set of input data.</p>
+<p>Just as we discussed in the previous Sections, where we described how to extend linear regression and classification to the general nonlinear case, here the fact the encoder and decoder above are <em>linear</em> does not reflect a limitation of the Autoencoder framework but simply <em>our own modeling choice</em>.  Nothing about the Autoencoder framework itself limits us to using <em>linear</em> encoding/decoding models, and thus prevents us from extending the idea in order to uncover the best <em>nonlinear</em> manifold for a given set of input data.  To get at potential nonlinearity we simply replace the linear encoder / decoder models above with general nonlinear versions of the form we have seen previously</p>
 </div>
 </div>
 </div>
@@ -11947,10 +11924,10 @@ g\left(\mathbf{C}\right) = \frac{1}{P}\sum_{p = 1}^P \left \Vert \,f_{\text{d}}\
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>In general we want an encoder/decoder pair so that</p>
 \begin{equation}
-f_{\text{d}}\left(\,f_{\text{e}}\left(\mathbf{x}_p\right)\right) \approx \mathbf{x}_p
-\end{equation}<p>In other words - we aim for our encoder/decoder pair to learn an <em>identity function</em> for our given input.</p>
+\text{model}_{\text{e}}\left(\mathbf{x},\Theta_e\right) = w^e_0 + f^e_1\left(\mathbf{x}\right){w}^e_{1} +  f^e_2\left(\mathbf{x}\right){w}^e_{2} + \cdots + f^e_{B_e}\left(\mathbf{x}\right)w^e_{B_e} \\ 
+\text{model}_{\text{d}}\left(\mathbf{x},\Theta_d\right) = w^d_0 + f^d_1\left(\mathbf{v}\right){w}^d_{1} +  f^d_2\left(\mathbf{v}\right){w}^d_{2} + \cdots + f^d_{B_d}\left(\mathbf{v}\right)w^d_{B_d}. \\ 
+\end{equation}
 </div>
 </div>
 </div>
@@ -11959,10 +11936,10 @@ f_{\text{d}}\left(\,f_{\text{e}}\left(\mathbf{x}_p\right)\right) \approx \mathbf
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>To make this extension we can introduce any two <em>parameterized</em> nonlinear functions: one for <code>encoding</code>  $\,\,f_{\text{e}}\left(\mathbf{x}\right)$ and one for <code>decoding</code> $ f_{\text{d}}\left(\mathbf{v}\right)$ (again leaving off explicit dependency on internal parameters with both functions for notational simplicity).  Each of these can be a nonlinear feature transformation or linear combination of $B$ such transformations, e.g., in general our encoder can take the form</p>
+<p>Here $f^e_1,\,f^e_2,\,...\,f^e_{B_e}$ are nonlinear feature transformations that take in $N$ dimensional input / whose output is $K$ dimensional and $\Theta_e$ is the parameter set for the encoding model containing internal weights of the combination $w^e_0$ through $w^e_{B_e}$ as well as any internal parameters of the feature transformations, and likewise for the feature transformations $f^d_1,\,f^d_2,\,...\,f^d_{B_d}$ which intake $K$ dimensional input / whose output is $N$ dimensional and $\Theta_d$ for the decoder model.   Regardless of their forms composing the two gives us a general nonlinear model for the Autoencoder as</p>
 \begin{equation}
-f_{\text{e}}\left(\mathbf{x}\right) = w_0 + f_1\left(\mathbf{x}_p\right){w}_{1} +  f_2\left(\mathbf{x}_p\right){w}_{2} + \cdots + f_B\left(\mathbf{x}_p\right)w_B  
-\end{equation}<p>where $f_1,\,f_2,\,...\,f_B$ are nonlinear parameterized or unparameterized feature transformations and $w_0$ through $w_B$ - as well as any weights internal to the nonlinear functions - must be tuned properly.  We can likewise think of the general decoder function $f_{\text{d}}\left(\mathbf{v}\right)$ this way as well.</p>
+\text{model}\left(\mathbf{x},\Theta\right) = \text{model}_{\text{d}}\left(\text{model}_{\text{e}}\left(\mathbf{x},\Theta_e\right),\Theta_d\right)  
+\end{equation}<p>where the parameter $\Theta$ set contains all parameters of $\Theta_e$ and $\Theta_d$.</p>
 </div>
 </div>
 </div>
@@ -11971,10 +11948,31 @@ f_{\text{e}}\left(\mathbf{x}\right) = w_0 + f_1\left(\mathbf{x}_p\right){w}_{1} 
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>If we swap out our linear encoding/decoding schemes for these more general functions we have a general Autoencoder function</p>
+<p>As with the nonlinear supervised framework detailed previously, here our challenge is to determine precisely what form each of these feature transformations should take, how many to use, etc.,   In analogy to the linear case, here we aim to chose the feature transformations and tune the parameters of $\Theta$ properly to learn an <em>identity function</em> i.e., so that the approximation</p>
 \begin{equation}
-g\left(\Omega\right) = \frac{1}{P}\sum_{p = 1}^P \left \Vert \,f_{\text{d}}\left(\,f_{\text{e}}\left(\mathbf{x}_p\right)\right) - \mathbf{x}_p \right\Vert_2^2
-\end{equation}<p>where we have denoted by $\Omega$ the entire set of parameters of both the <code>encoder</code> $f_{\text{e}}$ and <code>decoder</code> $f_\text{d}$. In the linear case we have $\Omega = \left\{\mathbf{C}\right\}$.  Note we could also use a linear combination of nonlinear feature transformations for both <code>encoder</code> and <code>decoder</code> as well.</p>
+\text{model}\left(\mathbf{x},\Theta\right)  \approx \mathbf{I}_{N\times N}
+\end{equation}<p>holds as well as possible.  For any given choice of feature transformations we can tune the parameters of $\Theta$ by minimizing the Autoencoder / Least Squares cost</p>
+\begin{equation}
+g\left(\Theta\right) = \frac{1}{P}\sum_{p = 1}^P \left \Vert \,\text{model}\left(\mathbf{x},\Theta\right) - \mathbf{x}_p \right\Vert_2^2.
+\end{equation}
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="10.5.3-A-feature-engineering-example">10.5.3 A feature engineering example<a class="anchor-link" href="#10.5.3-A-feature-engineering-example">¶</a></h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Given that both encoder and decoder models contain nonlinear features that must be determined, and the compositional way in which the model is formed, determining features properly ourselves by e.g., visual analysis of a dataset (feature engineering) for the Autoencoder can be quite tricky even for a simple example, which we provide here.</p>
 </div>
 </div>
 </div>
@@ -12006,10 +12004,10 @@ g\left(\Omega\right) = \frac{1}{P}\sum_{p = 1}^P \left \Vert \,f_{\text{d}}\left
 <div class="output_wrapper">
 <div class="output">
 <div class="output_area"><div class="prompt"></div>
-<div id="aa8f7d79-a6e7-46f6-aa81-bbac1ab862fd"></div>
+<div id="204fe0fb-5653-438f-bc33-a0085d0c6c29"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#aa8f7d79-a6e7-46f6-aa81-bbac1ab862fd');
+var element = $('#204fe0fb-5653-438f-bc33-a0085d0c6c29');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -12857,10 +12855,10 @@ r_2\,\text{sin}(\theta_p)+w_2
 <div class="output_wrapper">
 <div class="output">
 <div class="output_area"><div class="prompt"></div>
-<div id="1a263a4d-b181-4a97-83ec-eed0d5a9304a"></div>
+<div id="67281050-1a1d-4fb9-b1d3-0408014efa77"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#1a263a4d-b181-4a97-83ec-eed0d5a9304a');
+var element = $('#67281050-1a1d-4fb9-b1d3-0408014efa77');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -13658,10 +13656,10 @@ if (IPython.notebook.kernel != null) {
 <div class="output_wrapper">
 <div class="output">
 <div class="output_area"><div class="prompt"></div>
-<div id="cc9b4820-518c-49b0-bd3e-ecb76177f650"></div>
+<div id="590486b8-7b88-46ec-932d-52ef716e0255"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#cc9b4820-518c-49b0-bd3e-ecb76177f650');
+var element = $('#590486b8-7b88-46ec-932d-52ef716e0255');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -14438,10 +14436,10 @@ if (IPython.notebook.kernel != null) {
 </div>
 </div>
 <div class="output_area"><div class="prompt"></div>
-<div id="53f8387e-a766-4b9d-90d0-0d2d3174ac54"></div>
+<div id="281372a4-184b-441b-a16a-9bead56e3e8f"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#53f8387e-a766-4b9d-90d0-0d2d3174ac54');
+var element = $('#281372a4-184b-441b-a16a-9bead56e3e8f');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -15225,7 +15223,7 @@ if (IPython.notebook.kernel != null) {
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="10.5.3-Implementing-nonlinear-Autoencoder-in-Python">10.5.3 Implementing nonlinear Autoencoder in <code>Python</code><a class="anchor-link" href="#10.5.3-Implementing-nonlinear-Autoencoder-in-Python">¶</a></h2>
+<h2 id="10.5.4-Implementing-nonlinear-Autoencoder-in-Python">10.5.4 Implementing nonlinear Autoencoder in <code>Python</code><a class="anchor-link" href="#10.5.4-Implementing-nonlinear-Autoencoder-in-Python">¶</a></h2>
 </div>
 </div>
 </div>
@@ -15296,6 +15294,6 @@ if (IPython.notebook.kernel != null) {
 </div>
 </body>
 <script type="application/vnd.jupyter.widget-state+json">
-{"state": {}, "version_major": 1, "version_minor": 0}
+{"version_minor": 0, "state": {}, "version_major": 1}
 </script>
 </html>

@@ -11771,7 +11771,11 @@ div#notebook {
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>In the previous Chapter we saw how to inject arbitrary nonlinear features into both supervised and unsupervised learning paradigms. However the specific examples we examined there were rather simplistic both in the sense that they were all low-dimensional (allowing us to visualize each dataset) and contained common visual patterns that could identify 'by eye'.  In this Chapter we introduce the fundamental tools and principles of nonlinear <em>feature learning</em>, a set of diverse tools for automating the process of engineering nonlinear features for arbitrary datasets.</p>
+<p>In Chapter 10 we saw how supervised and unsupervised learners alike can be extended to perform nonlinear learning via the use of arbitrary linear combination of nonlinear functions / feature transformations that we engineered ourselves by visually examining data.  For example, we expressed a general nonlinear model for regression and two-class classification as a weighted sum of $B$ nonlinear functions of our input as</p>
+\begin{equation}
+\text{model}\left(\mathbf{x},\Theta\right) = w_0 + f_1\left(\mathbf{x}\right){w}_{1} +  f_2\left(\mathbf{x}\right){w}_{2} + \cdots + f_B\left(\mathbf{x}\right)w_B
+\end{equation}<p>where $f_1,\,f_2,\,...\,f_B$ are nonlinear parameterized or unparameterized functions / features and $w_0$ through $w_B$ (along with any additional weights internal to the nonlinear functions) are represented in the weight set $\Theta$.  In the prior Chapter we also saw how similar generic models alow us to generalize a variety of supervised / unsupervised tasks to the nonlinear case.</p>
+<p>In this Chapter we detail the fundamental tools and principles of <em>feature learning</em> that allow us to choose form of a nonlinear model like this - including the particular form of the nonlinear transformations $f_1,\,f_2,\,...,f_B$, the number $B$ of them employed, as well as how the parameters of $\Theta$ are tuned - <em>automatically for any dataset</em>.</p>
 
 </div>
 </div>
@@ -11781,7 +11785,7 @@ div#notebook {
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="10.0.1--The-practical-limitations-of-nonlinear-feature-engineering">10.0.1  The practical limitations of nonlinear feature engineering<a class="anchor-link" href="#10.0.1--The-practical-limitations-of-nonlinear-feature-engineering">&#182;</a></h2>
+<h2 id="11.0.1--The-limits-of-nonlinear-feature-engineering">11.0.1  The limits of nonlinear feature engineering<a class="anchor-link" href="#11.0.1--The-limits-of-nonlinear-feature-engineering">&#182;</a></h2>
 </div>
 </div>
 </div>
@@ -11825,16 +11829,7 @@ A regression (on the left - with true nonlinear model shown in dashed black) and
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="10.0.2--The-limitless-potential-of-nonlinear-feature-learning">10.0.2  The limitless potential of nonlinear feature learning<a class="anchor-link" href="#10.0.2--The-limitless-potential-of-nonlinear-feature-learning">&#182;</a></h2>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>It is precisely this challenge which motivates the fundamental <em>feature learning</em> tools described in this Chapter.  <em>In short these technologies </em>automate<em> the process of identifying appropriate nonlinear features for arbitrary datasets.</em>  With these tools in hand we no longer need to 'engineer' proper nonlinearites ourselves - we can their appropriate forms.  This why the phrase <em>feature learning</em> is used to collectively describe these tools, since using them we may <em>learn</em> proper nonlinear features automatically as opposed to engineering them ourselves.  Compared to our own limited nonlinear pattern recognition abilities, feature learning tools can identify virtually any nonlinear pattern present in a dataset regardless of its input dimension.</p>
+<p>It is precisely this challenge which motivates the fundamental <em>feature learning</em> tools described in this Chapter.  <em>In short these technologies </em>automate<em> the process of identifying appropriate nonlinear features for arbitrary datasets.</em>  With these tools in hand we no longer need to 'engineer' proper nonlinearites - at least in terms of how we 'engineered' nonlinear features in the previous Chapter - we instead aim at <em>learning</em> their appropriate forms (hence the phrase <em>feature learning</em>).  Compared to our own limited nonlinear pattern recognition abilities, feature learning tools can identify virtually any nonlinear pattern present in a dataset regardless of its input dimension.</p>
 
 </div>
 </div>
@@ -11844,7 +11839,7 @@ A regression (on the left - with true nonlinear model shown in dashed black) and
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="10.0.2--Chapter-summary">10.0.2  Chapter summary<a class="anchor-link" href="#10.0.2--Chapter-summary">&#182;</a></h2>
+<h2 id="11.0.2--Chapter-summary">11.0.2  Chapter summary<a class="anchor-link" href="#11.0.2--Chapter-summary">&#182;</a></h2>
 </div>
 </div>
 </div>
@@ -11855,6 +11850,7 @@ A regression (on the left - with true nonlinear model shown in dashed black) and
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>The aim to automate nonnlinear learning is an ambitious one and is perhaps at first glance an intimidating one as well, for there are an infinite variety of nonlinearities / nonlinear functions to choose from.  How do we, in general, parse this infinitude automatically to determine the appropriate nonlinearity for a given dataset?</p>
 <p>The first step - as we will see in Section 10.1 - is to organize the pursuit of automation by first placing the fundamental building blocks of this infinitude into <em>managable collections</em> of (relatively simple) nonlinear functions.  These collections are often called <em>universal approximators</em>, of which three strains are popularly used and which we introduce here: kernels, neural networks, and trees.  After introducing universal approximators we then discuss the fundamental concepts underlying how they are employed automatically - including a description of the <em>bias-variance tradeoff</em> in Section 11.2, the necessity for <em>validation error</em> as a measurement tool in Section 11.3, the automatic tuning of nonlinear capacity via <em>boostingn and regularization</em> in Sections 11.4 and 11.5 respectively, and the notion <em>ensembling</em> in Section 11.6, and finally <em>testing error</em> in Section 11.7.</p>
+<p>There is - as we will see - still considerable engineering effort required to perform feature learning properly.  However this engineering effort is of a completely different nature than the highly 'visualization-based' engineering effort detailed in the previous Chapter.</p>
 
 </div>
 </div>
@@ -11876,7 +11872,7 @@ A regression (on the left - with true nonlinear model shown in dashed black) and
  
 
 <script type="application/vnd.jupyter.widget-state+json">
-{"version_minor": 0, "state": {}, "version_major": 1}
+{"state": {}, "version_major": 1, "version_minor": 0}
 </script>
 
 

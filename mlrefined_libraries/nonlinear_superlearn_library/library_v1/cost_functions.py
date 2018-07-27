@@ -81,7 +81,7 @@ class Setup:
         return cost/float(np.size(y_p))
 
     # a compact least absolute deviations cost function
-    def least_absolute_deviations(self,w):
+    def least_absolute_deviations(self,w,iter):
         # get batch of points
         x_p = self.x[:,iter]
         y_p = self.y[:,iter]

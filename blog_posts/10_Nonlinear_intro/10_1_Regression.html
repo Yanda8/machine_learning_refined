@@ -11820,7 +11820,7 @@ div#notebook {
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="10.1.1--Modeling-principles-of-nonlinear-regression">10.1.1  Modeling principles of nonlinear regression<a class="anchor-link" href="#10.1.1--Modeling-principles-of-nonlinear-regression">&#182;</a></h2>
+<h2 id="10.1.1--Modeling-principles-of-linear-regression">10.1.1  Modeling principles of linear regression<a class="anchor-link" href="#10.1.1--Modeling-principles-of-linear-regression">&#182;</a></h2>
 </div>
 </div>
 </div>
@@ -11829,19 +11829,10 @@ div#notebook {
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>We can easily  move from linear to general <em>nonlinear</em> regression - in both its principles and implementation - with few obstacles.  We do this by swapping out the linear model used in the construction of our linear regression (introduced in Chapter 5),</p>
+<p>In Chapter 5 we detailed the basic linear model for regression using a generic dataset of $P$ points $\left(\mathbf{x}_p,y_p\right)$ as</p>
 \begin{equation}
 \text{model}\left(\mathbf{x},\mathbf{w}\right) = w_0 + x_{1}w_1 + \cdots + x_{N}w_N
-\end{equation}
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>or more compactly denoting</p>
+\end{equation}<p>or more compactly denoting</p>
 \begin{equation}
 \mathbf{w}=\begin{bmatrix}
 w_{0}\\
@@ -11858,12 +11849,50 @@ x_{2}\\
 \vdots\\
 x_{N}
 \end{bmatrix}
+\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,
+\mathring{\mathbf{x}}_{p}=\begin{bmatrix}
+1 \\
+x_{1,p}\\
+x_{2,p}\\
+\vdots\\
+x_{N,p}
+\end{bmatrix}
 \end{equation}<p>as</p>
 \begin{equation}
 \text{model}\left(\mathbf{x},\mathbf{w}\right) = \mathring{\mathbf{x}}_{\,}^T\mathbf{w}^{\,} 
-\end{equation}<p>with a <em>nonlinear</em> one.  For example, instead of using a linear model we could use a nonlinear one, involving a single nonlinear function $f$ that can be parameterized or unparameterized (e.g., tanh, a sine wave, etc.,).  In the jargon of machine learning such a nonlinear function $f$ is often called a nonlinear <em>feature transformation</em>, since we it transforms our original input features $\mathbf{x}$.  Our corresponding nonlinear model then takes the form</p>
+\end{equation}
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>To tune the parameters of our linear model over a dataset we minimized a proper regression cost function like e.g., the Least Squares (from Section 5.1)</p>
 \begin{equation}
-\text{model}\left(\mathbf{x},\Omega\right)  = 
+ g\left(\mathbf{w}\right) = \frac{1}{P}\sum_{p=1}^{P} \left(  \mathring{\mathbf{x}}_{p}^T \mathbf{w}   - \overset{\,}{{y}}_{p}^{\,} \right)^2.
+\end{equation}
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="10.1.2--Modeling-principles-of-nonlinear-regression">10.1.2  Modeling principles of nonlinear regression<a class="anchor-link" href="#10.1.2--Modeling-principles-of-nonlinear-regression">&#182;</a></h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>We can easily  move from linear to general <em>nonlinear</em> regression - in both its principles and implementation - with few obstacles.  We do this by swapping out the linear model used in the construction of our linear regression (introduced in Chapter 5) with a <em>nonlinear</em> one.  For example, instead of using a linear model we could use a nonlinear one, involving a single nonlinear function $f$ that can be parameterized or unparameterized (e.g., tanh, a sine wave, etc.,).  In the jargon of machine learning such a nonlinear function $f$ is often called a nonlinear <em>feature transformation</em>, since we it transforms our original input features $\mathbf{x}$.  Our corresponding nonlinear model then takes the form</p>
+\begin{equation}
+\text{model}\left(\mathbf{x},\Theta\right)  = 
 w_0^{\,} + f\left(\mathbf{x}\right){w}_{1}^{\,}.
 \end{equation}
 </div>
@@ -11874,9 +11903,9 @@ w_0^{\,} + f\left(\mathbf{x}\right){w}_{1}^{\,}.
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Here we represent our set of parameters - both those potentially internal parameters of the function $f$ and those weights in the linear combination - via the set $\Omega$.  For example, in the case $f$ is trivially the identity $f\left(x\right) = x$ and our model is linear our parameter set $\Omega$ reduces to the weights of our linear combination.  As we did in the case of <em>linear regression</em>, here we could consider the ideal case - where we have knowledge of the best possible weights so that</p>
+<p>Here we represent our set of parameters - both those potentially internal parameters of the function $f$ and those weights in the linear combination - via the set $\Theta$.  For example, in the case $f$ is trivially the identity $f\left(x\right) = x$ and our model is linear our parameter set $\Theta$ reduces to the weights of our linear combination.  As we did in the case of <em>linear regression</em>, here we could consider the ideal case - where we have knowledge of the best possible weights so that</p>
 \begin{equation}
-\text{model}\left(\mathbf{x}_p,\Omega\right) \approx y_p
+\text{model}\left(\mathbf{x}_p,\Theta\right)   \approx y_p
 \end{equation}
 </div>
 </div>
@@ -11886,9 +11915,20 @@ w_0^{\,} + f\left(\mathbf{x}\right){w}_{1}^{\,}.
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>and to recover our ideal weights we would follow the same logic we used in deriving our cost functions for linear regression.  For example, we could square the difference between both sides of the above and sum over all the points, giving the Least Squares cost function $
-g\left(\mathbf{w}\right) = \frac{1}{P}\sum_{p=1}^{P}\left(\text{model}\left(\mathbf{x}_p,\Omega\right) - y_p\right)^2
-$ that - when minimized properly - still minimizes a squared error of our (now nonlinear) model and provides us with our desired weights.</p>
+<p>and to recover our ideal weights we would follow the same logic we used in deriving our cost functions for linear regression.  For example, we could minimize the Least Squares difference between both sides of the above and over all points.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Indeed in general we could create a nonlinear model that is the weighted sum of $B$ nonlinear functions of our input as</p>
+\begin{equation}
+\text{model}\left(\mathbf{x},\Theta\right) = w_0 + f_1\left(\mathbf{x}\right){w}_{1} +  f_2\left(\mathbf{x}\right){w}_{2} + \cdots + f_B\left(\mathbf{x}\right)w_B
+\end{equation}<p>where $f_1,\,f_2,\,...\,f_B$ are nonlinear parameterized or unparameterized functions - or <em>feature transformations</em> - and $w_0$ through $w_B$ (along with any additional weights internal to the nonlinear functions) are represented in the weight set $\Theta$ and must be tuned properly.   Nonetheless the steps we take to formally employ such a model, its ideal weight values, the derivation of a Least Squares cost function, etc., are entirely similar to what we have now seen in the simpler instance of nonlinear regression (which itself does not differ from the steps taken in modeling the linear case).</p>
 
 </div>
 </div>
@@ -11915,20 +11955,7 @@ Shown here is the prototypical problem of nonlinear regression, which we achieve
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Indeed in general we could create a nonlinear model that is the weighted sum of $B$ nonlinear functions of our input as</p>
-\begin{equation}
-\text{model}\left(\mathbf{x},\Omega\right) = w_0 + f_1\left(\mathbf{x}\right){w}_{1} +  f_2\left(\mathbf{x}\right){w}_{2} + \cdots + f_B\left(\mathbf{x}\right)w_B
-\end{equation}<p>where $f_1,\,f_2,\,...\,f_B$ are nonlinear parameterized or unparameterized functions - or <em>feature transformations</em> - and $w_0$ through $w_B$ (along with any additional weights internal to the nonlinear functions) are represented in the weight set $\Omega$ and must be tuned properly.   Nonetheless the steps we take to formally employ such a model, its ideal weight values, the derivation of a Least Squares cost function, etc., are entirely similar to what we have now seen in the simpler instance of nonlinear regression (which itself does not differ from the steps taken in modeling the linear case).</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>Finally, note we can write the generic nonlinear model above more compactly using similar notation similar that introduced in Section 5.1 for our linear modeling.  Stacking a $1$ on top of the vector of nonlinear feature transformation as</p>
+<p>In analogy to the linear case as shown in equation (3), here we too can compactly denote the generic nonlinear model in equation (6) by tacking a $1$ on top of the vector of nonlinear feature transformation as</p>
 
 </div>
 </div>
@@ -11954,39 +11981,14 @@ f_2\left(\mathbf{x}\right)\\
 \vdots\\
 f_B\left(\mathbf{x}\right)
 \end{bmatrix}
-\end{equation}
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>we can then express our generic nonlinear model above equivalently as</p>
-\begin{equation}
-\text{model}\left(\mathbf{x},\Omega\right) = \mathring{\mathbf{f}}_{\,}^T \mathbf{w}.
-\end{equation}
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>To denote our vector of feature transformations of a particular training point $\mathbf{x}_p$ we can also write</p>
-\begin{equation}
+\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,
 \mathring{\mathbf{f}}_{p}=\begin{bmatrix}
 1 \\
 f_1\left(\mathbf{x}_p\right)\\
 f_2\left(\mathbf{x}_p\right)\\
 \vdots\\
-f_B\left(\mathbf{x}_p\right).
+f_B\left(\mathbf{x}_p\right)
 \end{bmatrix}
-\end{equation}<p>To then compactly express our ideal desire that the parameters $\Omega$ of this set of feature transformations are tuned properly so that our model accurately transforms the input point $\mathbf{x}_p$ to represent its corresponding output value $y_p$ we may write</p>
-\begin{equation}
-\text{model}\left(\mathbf{x}_p,\Omega\right) = \mathring{\mathbf{f}}_{p}^T \mathbf{w} \approx y_p.
 \end{equation}
 </div>
 </div>
@@ -11996,7 +11998,41 @@ f_B\left(\mathbf{x}_p\right).
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>For some low-dimensional problems we can fairly easily engineer a proper set of nonlinear features for regression classification 'by eye', that is by examining a dataset visually.</p>
+<p>and then writing our generic nonlinear model as</p>
+\begin{equation}
+\text{model}\left(\mathbf{x},\Theta\right) = \mathring{\mathbf{f}}_{\,}^T \mathbf{w}.
+\end{equation}
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>To tune the parameters of our general nonlinear model consisting of a linear combination of $B$ nonlinear feature transformations to a set of input / output pairs we also do precisely what we did in the linear case - we minimize a proper regression cost function over $\Theta$ like e.g., the Least Squares</p>
+\begin{equation}
+ g\left(\Theta\right) = \frac{1}{P}\sum_{p=1}^{P} \left(  \mathring{\mathbf{f}}_{p}^T \mathbf{w}   - \overset{\,}{{y}}_{p}^{\,} \right)^2
+\end{equation}<p>which is a direct generalization of equation (4).</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="10.1.3-Feature-engineering-examples">10.1.3 Feature engineering examples<a class="anchor-link" href="#10.1.3-Feature-engineering-examples">&#182;</a></h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>How do we determine the appropriate nonlinear feature transformations for our model, and their number $B$?  This is one of the most important challenges we face in machine learning, and is one which we will discuss extensively in the current Chapter as well as several of those to come.  Here we begin by discussing some simple instances when we can determine these items by <em>visualizing the data</em> and relying on our own pattern recognition abilities to determine the appropriate nonlinearities.  This kind of practice is referred to as nonlinear feature engineering.</p>
 
 </div>
 </div>
@@ -12050,10 +12086,10 @@ f_B\left(\mathbf{x}_p\right).
 
 
 
-<div id="98286596-e525-49f2-8a6a-e00a2620fe4d"></div>
+<div id="a4716666-2696-44d1-a824-a8145608b039"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#98286596-e525-49f2-8a6a-e00a2620fe4d');
+var element = $('#a4716666-2696-44d1-a824-a8145608b039');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -12848,7 +12884,7 @@ if (IPython.notebook.kernel != null) {
 f\left(x\right) = x
 \end{equation}<p>and in this notation our linear model is then</p>
 \begin{equation}
-\text{model}\left(x,\Omega\right) = w_0 +f\left(x\right)w_{1\,}.
+\text{model}\left(x,\Theta\right) = w_0 +f\left(x\right)w_{1\,}.
 \end{equation}
 </div>
 </div>
@@ -12912,10 +12948,10 @@ f\left(x \right) = \frac{x - \mu}{\sigma}
 
 
 
-<div id="52c46e4f-7aee-4559-b85e-dbfead0de7fa"></div>
+<div id="b9aab515-df7d-4fd0-84b5-7887553a45e7"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#52c46e4f-7aee-4559-b85e-dbfead0de7fa');
+var element = $('#b9aab515-df7d-4fd0-84b5-7887553a45e7');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -13740,10 +13776,10 @@ if (IPython.notebook.kernel != null) {
 
 
 
-<div id="fb7df89f-ace4-47e6-b471-17adb47897e2"></div>
+<div id="d16094c7-9c35-4444-b298-02863eb0b2e0"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#fb7df89f-ace4-47e6-b471-17adb47897e2');
+var element = $('#d16094c7-9c35-4444-b298-02863eb0b2e0');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -14547,7 +14583,7 @@ f\left(x,\mathbf{w}\right) = \text{sin}\left(w_0 + xw_1\right).
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>We can then take as our model a linear combination of this nonlinear feature transformation as</p>
 \begin{equation}
-\text{model}\left(x,\Omega\right) = w_2 + f\left(x,\mathbf{w}\right)w_{3\,}.
+\text{model}\left(x,\Theta\right) = w_2 + f\left(x,\mathbf{w}\right)w_{3\,}.
 \end{equation}<p>This seems like it could fit the data well if its parameters were all tuned properly via e.g., minimizing the associated Least Squares cost.  Tuning these parameters via gradient descent we can produce the following fit to our original data employing the nonlinear model above, which fits quite well.</p>
 
 </div>
@@ -14596,10 +14632,10 @@ f\left(x,\mathbf{w}\right) = \text{sin}\left(w_0 + xw_1\right).
 
 
 
-<div id="ce66da58-7401-4a2f-82c4-370d17bef7d0"></div>
+<div id="a8d46892-1c78-4f6c-8da8-7448747095ca"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#ce66da58-7401-4a2f-82c4-370d17bef7d0');
+var element = $('#a8d46892-1c78-4f6c-8da8-7448747095ca');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -15390,7 +15426,7 @@ if (IPython.notebook.kernel != null) {
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>With our weights fully tuned notice that  since <code>model</code> is defined <em>linearly</em> in terms of its feature transformation we can represent our transformed input $x_p \longleftarrow f\left(x_p,\mathbf{w}^{\star}\right)$ and the correspnoding model fit $
-\text{model}\left(x,\Omega^{\star}\right)$ in what is called the <em>transformed feature space</em>.  This is simply the space whose input is the feature transformed input $\,f\left(x_p,\mathbf{w}^{\star}\right)$ and whose output remains as $y$.  In this space our <em>nonlinear</em> fit is a <em>linear</em> one.  In other words, with our model completely tuned if plot the points $\left(f\left(x_1,\mathbf{w}^{\star}\right),y_1\right),\,\left(f\left(x_2,\mathbf{w}^{\star}\right),y_2\right)...,\left(f\left(x_P,\mathbf{w}^{\star}\right),y_P\right)$ - as we do below in the right panel - our model fits the transformed data <em>linearly</em>.</p>
+\text{model}\left(x,\Theta^{\star}\right)$ in what is called the <em>transformed feature space</em>.  This is simply the space whose input is the feature transformed input $\,f\left(x_p,\mathbf{w}^{\star}\right)$ and whose output remains as $y$.  In this space our <em>nonlinear</em> fit is a <em>linear</em> one.  In other words, with our model completely tuned if plot the points $\left(f\left(x_1,\mathbf{w}^{\star}\right),y_1\right),\,\left(f\left(x_2,\mathbf{w}^{\star}\right),y_2\right)...,\left(f\left(x_P,\mathbf{w}^{\star}\right),y_P\right)$ - as we do below in the right panel - our model fits the transformed data <em>linearly</em>.</p>
 
 </div>
 </div>
@@ -15429,10 +15465,10 @@ if (IPython.notebook.kernel != null) {
 
 
 
-<div id="3969019c-c331-4082-b9c9-3b8a410d2602"></div>
+<div id="c01043d1-68fb-4ee6-bc07-004d8cd0a118"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#3969019c-c331-4082-b9c9-3b8a410d2602');
+var element = $('#c01043d1-68fb-4ee6-bc07-004d8cd0a118');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -16249,10 +16285,10 @@ if (IPython.notebook.kernel != null) {
 
 
 
-<div id="3a406d90-e73b-4d1c-9eca-37765068cbe6"></div>
+<div id="ba675a88-3be2-456f-a93b-fe0b207a7f40"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#3a406d90-e73b-4d1c-9eca-37765068cbe6');
+var element = $('#ba675a88-3be2-456f-a93b-fe0b207a7f40');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -17087,10 +17123,10 @@ if (IPython.notebook.kernel != null) {
 
 
 
-<div id="b2181a62-e821-4215-bdd4-c2ccac5544c4"></div>
+<div id="a5404249-8577-42a2-ba26-68287768c896"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#b2181a62-e821-4215-bdd4-c2ccac5544c4');
+var element = $('#a5404249-8577-42a2-ba26-68287768c896');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -17885,8 +17921,8 @@ if (IPython.notebook.kernel != null) {
 f\left(x,\mathbf{w}\right) = \text{tanh}\left(w_0 + xw_1\right).
 \end{equation}<p>we can then take as our model a linear combination of this nonlinear feature transformation as</p>
 \begin{equation}
-\text{model}\left(x,\Omega\right) = w_2 + f\left(x,\mathbf{w}\right)w_{3\,}.
-\end{equation}<p>Note here we that our parameter set $\Omega$ contains all weights present in the respective formula - that is $w_0 $ through $w_3$.</p>
+\text{model}\left(x,\Theta\right) = w_2 + f\left(x,\mathbf{w}\right)w_{3\,}.
+\end{equation}<p>Note here we that our parameter set $\Theta$ contains all weights present in the respective formula - that is $w_0 $ through $w_3$.</p>
 
 </div>
 </div>
@@ -17942,10 +17978,10 @@ f\left(x,\mathbf{w}\right) = \text{tanh}\left(w_0 + xw_1\right).
 
 
 
-<div id="bdabd5f7-3010-4a37-84bd-4ae1274da141"></div>
+<div id="156202df-0de8-4ff3-9168-200d2e878cbc"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#bdabd5f7-3010-4a37-84bd-4ae1274da141');
+var element = $('#156202df-0de8-4ff3-9168-200d2e878cbc');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -18821,10 +18857,10 @@ $\frac{3}{4}$, and all the way down the ramp.  </em>  </figcaption>
 
 
 
-<div id="3c856253-22c4-4415-928c-b37a51aa04bb"></div>
+<div id="2bfec08e-7451-449b-ba3b-c4c101ceb132"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#3c856253-22c4-4415-928c-b37a51aa04bb');
+var element = $('#2bfec08e-7451-449b-ba3b-c4c101ceb132');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -19616,7 +19652,7 @@ if (IPython.notebook.kernel != null) {
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>The data here certainly displays a nonlinear relationship and by viewing it - and using his physical intuition Galileo - intuited a <em>quadratic</em> relationship.  Or in our jargon that for some $w_0$, $w_1$, and $w_2$ the modeling function</p>
 \begin{equation}
-\text{model}(x,\Omega) = w_0 + xw_1 + x^2w_2
+\text{model}(x,\Theta) = w_0 + xw_1 + x^2w_2
 \end{equation}<p>provides the correct sort of nonlinearity to explain this data (albeit when the parameters are tuned correctly).</p>
 
 </div>
@@ -19629,7 +19665,7 @@ if (IPython.notebook.kernel != null) {
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Notice here how we have two <em>unparameterized</em> feature transformations: the identity $f_1(x) = x$ and the quadratic term $f_2(x) = x^2$, and so we may write the above equivalently as</p>
 \begin{equation}
-\text{model}(x,\Omega) = w_0 + f_1(x)\,w_1 + f_2(x)\,w_2
+\text{model}(x,\Theta) = w_0 + f_1(x)\,w_1 + f_2(x)\,w_2
 \end{equation}<p>which clearly shows how we are seeking out a proper linear relationship in the transformed feature space (which in this case is two-dimensional).  Note here - unlike the previous examples - neither of these feature transformations are <em>fixed</em> in that they take in no internal weights.</p>
 
 </div>
@@ -19683,10 +19719,10 @@ if (IPython.notebook.kernel != null) {
 
 
 
-<div id="96ba54ec-5236-4da6-aaea-af46cb33f666"></div>
+<div id="0ee00874-d4e1-4c7d-81eb-e529f5415531"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#96ba54ec-5236-4da6-aaea-af46cb33f666');
+var element = $('#0ee00874-d4e1-4c7d-81eb-e529f5415531');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -20478,7 +20514,7 @@ if (IPython.notebook.kernel != null) {
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Notice that trend is true more generally speaking: the more feature transforms we use the higher the up we go in terms of the dimensions of our transformed feature space / linear fit!  In general if our original input has dimension $N$ - and is written as $\mathbf{x}$ - and we use a <code>model</code> function that employs $B$ nonlinear feature transformations as</p>
 \begin{equation}
-\text{model}\left(\mathbf{x},\Omega\right) = w_0 + f_1\left(\mathbf{x}\right){w}_{1} +  f_2\left(\mathbf{x}\right){w}_{2} + \cdots + f_B\left(\mathbf{x}\right)w_B
+\text{model}\left(\mathbf{x},\Theta\right) = w_0 + f_1\left(\mathbf{x}\right){w}_{1} +  f_2\left(\mathbf{x}\right){w}_{2} + \cdots + f_B\left(\mathbf{x}\right)w_B
 \end{equation}<p>then our original space has $N$ dimensional input, while our transformed feature space is $B$ dimensional.  Note here that the set of all weights $\omega$ contains not only the weights $w_1,\,w_2,...,w_B$ from the linear combination, but also any features's internal parameters as well.</p>
 
 </div>
@@ -20489,7 +20525,7 @@ if (IPython.notebook.kernel != null) {
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="10.1.2-Implementing-nonlinear-regression-in-Python">10.1.2 Implementing nonlinear regression in <code>Python</code><a class="anchor-link" href="#10.1.2-Implementing-nonlinear-regression-in-Python">&#182;</a></h2>
+<h2 id="10.1.4-Implementing-nonlinear-regression-in-Python">10.1.4 Implementing nonlinear regression in <code>Python</code><a class="anchor-link" href="#10.1.4-Implementing-nonlinear-regression-in-Python">&#182;</a></h2>
 </div>
 </div>
 </div>
@@ -20498,7 +20534,7 @@ if (IPython.notebook.kernel != null) {
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Below we show a universal way to implement the generic nonlinear model shown in equation (4) above, generalizing our original linear implementation (see e.g., Section 5.1.3).</p>
+<p>Below we show a universal way to implement the generic nonlinear model shown in equation (6) above, generalizing our original linear implementation from Section 5.1.3.   In particular we implement the compact form given in equation (8).</p>
 
 </div>
 </div>
@@ -20528,7 +20564,8 @@ if (IPython.notebook.kernel != null) {
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Here our generic set of engineered feature transformations are implemented in the <code>Python</code> function <code>feature_transforms</code>.  Here we have implemented this function as generically as possible, to encompass the case where our desired feature transformations have internal parameters.  Here we package the model weights in the set $\Omega$ as <code>w</code>, which is a list containing the <em>internal weights</em> of  <code>feature_transforms</code> in its first entry <code>w[0]</code>, and the weights in the final linear combination of the model stored in second etnry <code>w[1]</code>).  e.g., the <code>feature_transforms</code> function employed in Example 2 above can be implemented as follows</p>
+<p>Here our generic set of engineered feature transformations are implemented in the <code>Python</code> function <code>feature_transforms</code>.  Here we have implemented this function as generically as possible, to encompass the case where our desired feature transformations have internal parameters.  Here we package the model weights in the set $\Theta$ as <code>w</code>, which is a list containing the <em>internal weights</em> of  <code>feature_transforms</code> in its first entry <code>w[0]</code>, and the weights in the final linear combination of the model stored in second etnry <code>w[1]</code>).</p>
+<p>e.g., the <code>feature_transforms</code> function employed in Example 2 above can be implemented as follows</p>
 
 </div>
 </div>
@@ -20595,7 +20632,7 @@ if (IPython.notebook.kernel != null) {
  
 
 <script type="application/vnd.jupyter.widget-state+json">
-{"version_minor": 0, "state": {}, "version_major": 1}
+{"version_major": 1, "state": {}, "version_minor": 0}
 </script>
 
 

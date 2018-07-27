@@ -11821,7 +11821,7 @@ div#notebook {
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="10.3.1--Modeling-principles--of-nonlinear-two-class-classification">10.3.1  Modeling principles  of nonlinear two class classification<a class="anchor-link" href="#10.3.1--Modeling-principles--of-nonlinear-two-class-classification">&#182;</a></h2>
+<h2 id="10.3.1--Modeling-principles--of-linear-two-class-classification">10.3.1  Modeling principles  of linear two class classification<a class="anchor-link" href="#10.3.1--Modeling-principles--of-linear-two-class-classification">&#182;</a></h2>
 </div>
 </div>
 </div>
@@ -11833,7 +11833,7 @@ div#notebook {
 <p>While we employed a <em>linear</em> model in deriving linear two-class classification in Chapter 6, this linearity was simply an <em>assumption</em> about the sort of boundary that (in general) largely distinguishe two classes of data.  Our assumption of a linear boundary translates precisely to the linear model</p>
 \begin{equation}
 \text{model}\left(\mathbf{x},\mathbf{w}\right) = \mathring{\mathbf{x}}_{\,}^T\mathbf{w}^{\,} 
-\end{equation}<p>where here we use the same notation here as in Section 10.1.1.  Our linear decision boundary  - employing by default label values $y_p \in \left\{-1,+1\right\}$ - then lies precisely where this formula (for a fixed set of parameters) for input $\mathbf{x}$ where $\mathring{\mathbf{x}}_{\,}^T\mathbf{w}^{\,}  = 0$ and label predictions are made (see Section 7.5) as</p>
+\end{equation}<p>where here we use the same compact notation here as in e.g., Section 10.1.1.  Our linear decision boundary  - employing by default label values $y_p \in \left\{-1,+1\right\}$ - then lies precisely where this formula (for a fixed set of parameters) for input $\mathbf{x}$ where $\mathring{\mathbf{x}}_{\,}^T\mathbf{w}^{\,}  = 0$ and label predictions are made (see Section 6.5) as</p>
 \begin{equation}
 y = \text{sign}\left(\mathring{\mathbf{x}}_{\,}^T\mathbf{w}^{\,}\right).
 \end{equation}
@@ -11845,17 +11845,39 @@ y = \text{sign}\left(\mathring{\mathbf{x}}_{\,}^T\mathbf{w}^{\,}\right).
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>However like the linear assumption made with regression, this was simply an assumption - we can just as easily assume <em>nonlinear</em> models / decision boundaries and derive precisely the same cost functions we arrived at there.</p>
-<p>In other words while we employed a <em>linear</em> model throughout Chapter 6 in deriving two-class classification schemes</p>
-<p>we could have just as well use any <em>nonlinear</em> model</p>
+<p>To tune the set of weights properly for a given dataset we must minimize a proper two-class classification cost function like e.g., the Softmax / Cross-Entropy</p>
 \begin{equation}
-\text{model}\left(\mathbf{x},\Omega\right) = w_0 + f_1\left(\mathbf{x}\right){w}_{1} +  f_2\left(\mathbf{x}\right){w}_{2} + \cdots + f_B\left(\mathbf{x}\right)w_B
-\end{equation}<p>where $f_1,\,f_2,\,...\,f_B$ are nonlinear parameterized or unparameterized functions - or <em>feature transformations</em> - and $w_0$ through $w_B$ (along with any additional weights internal to the nonlinear functions) are represented in the weight set $\Omega$ and must be tuned properly.  We can express this - using the same compact notation introduced in 10.1.1 - equivalently as</p>
+ g\left(\mathbf{w}\right) = \frac{1}{P}\sum_{p=1}^{P} \text{log}\left(1 + e^{-y_p  \mathring{\mathbf{x}}_{p}^T \mathbf{w}}\right).
+\end{equation}
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="10.3.2--Modeling-principles--of-nonlinear-two-class-classification">10.3.2  Modeling principles  of nonlinear two class classification<a class="anchor-link" href="#10.3.2--Modeling-principles--of-nonlinear-two-class-classification">&#182;</a></h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>However like the linear assumption made with regression, this was simply an assumption - we can just as easily assume <em>nonlinear</em> models / decision boundaries and derive precisely the same cost functions we arrived at there.  In other words while we employed a <em>linear</em> model throughout Chapter 6 in deriving two-class classification schemes we could have just as well use any <em>nonlinear</em> model of the general form we have employed throughout this Chapter</p>
 \begin{equation}
-\text{model}\left(\mathbf{x},\Omega\right) = \mathring{\mathbf{f}}_{\,}^T \mathbf{w}.
+\text{model}\left(\mathbf{x},\Theta\right) = w_0 + f_1\left(\mathbf{x}\right){w}_{1} +  f_2\left(\mathbf{x}\right){w}_{2} + \cdots + f_B\left(\mathbf{x}\right)w_B
+\end{equation}<p>where $f_1,\,f_2,\,...\,f_B$ are nonlinear parameterized or unparameterized functions - or <em>feature transformations</em> - and $w_0$ through $w_B$ (along with any additional weights internal to the nonlinear functions) are represented in the weight set $\Theta$ and must be tuned properly.  We can express this - using the same compact notation introduced in 10.1.2 - equivalently as</p>
+\begin{equation}
+\text{model}\left(\mathbf{x},\Theta\right) = \mathring{\mathbf{f}}_{\,}^T \mathbf{w}.
 \end{equation}<p>In complete analogy to the linear case, here our decision boundary consists of all inputs $\mathbf{x}$ where $\mathring{\mathbf{f}}_{\,}^T \mathbf{w} = 0$ and likewise predictions are made as</p>
 \begin{equation}
 y = \text{sign}\left(\mathring{\mathbf{f}}_{\,}^T \mathbf{w}\right).
+\end{equation}<p>Likewise to properly tune the paramters of $\Theta$ we must minimize a proper cost function with respect to it, like e.g., the Softmax cost</p>
+\begin{equation}
+ g\left(\Theta\right) = \frac{1}{P}\sum_{p=1}^{P} \text{log}\left(1 + e^{-y_p  \mathring{\mathbf{f}}_{p}^T \mathbf{w}}\right).
 \end{equation}
 </div>
 </div>
@@ -11882,7 +11904,16 @@ A figurative drawing of the nonlinear two-class classification scenario, which w
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>For some low-dimensional problems we can fairly easily engineer a proper set of nonlinear features for two-class classification 'by eye', that is by examining a dataset visually.  Below we explore several such examples.</p>
+<h2 id="10.3.3-Feature-engineering-examples">10.3.3 Feature engineering examples<a class="anchor-link" href="#10.3.3-Feature-engineering-examples">&#182;</a></h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>In rare cases like e.g., for some low-dimensional datasets we can fairly easily engineer a proper set of nonlinear features for two-class classification 'by eye', that is by examining a dataset visually.  Below we explore several such examples.</p>
 
 </div>
 </div>
@@ -11937,10 +11968,10 @@ A figurative drawing of the nonlinear two-class classification scenario, which w
 
 
 
-<div id="563f4831-1981-4be2-a57f-37669f046f36"></div>
+<div id="bf219d53-65a4-4a61-870c-c52f0ceb1651"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#563f4831-1981-4be2-a57f-37669f046f36');
+var element = $('#bf219d53-65a4-4a61-870c-c52f0ceb1651');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -12738,7 +12769,7 @@ if (IPython.notebook.kernel != null) {
 f\left(x\right) = x
 \end{equation}<p>and in this notation our <code>model</code> is then equivalently</p>
 \begin{equation}
-\text{model}\left(x,\Omega\right) = w_0 + f\left(x\right)w_{1\,}.
+\text{model}\left(x,\Theta\right) = w_0 + f\left(x\right)w_{1\,}.
 \end{equation}<p>Note here that the weight set $\Omega = \left\{\mathbf{w}\right\}$.</p>
 
 </div>
@@ -12803,10 +12834,10 @@ f\left(x \right) = \frac{x - \mu}{\sigma}
 
 
 
-<div id="a203d490-8c83-4ec1-888a-3127916dbbd1"></div>
+<div id="45758455-c552-4611-a173-d805731e6686"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#a203d490-8c83-4ec1-888a-3127916dbbd1');
+var element = $('#45758455-c552-4611-a173-d805731e6686');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -13693,10 +13724,10 @@ A prototypical $N = 1$ dimensional input shown from the regression perspective (
 
 
 
-<div id="fa35e7e7-1a63-4591-9fd6-e7cb70b2a4bc"></div>
+<div id="79fbb008-2cd0-460a-ac99-030191be43f6"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#fa35e7e7-1a63-4591-9fd6-e7cb70b2a4bc');
+var element = $('#79fbb008-2cd0-460a-ac99-030191be43f6');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -14518,8 +14549,8 @@ An example dataset like the one we are currently looking to learn a classifier o
 \text{model}(x,\mathbf{w}) = w_0 + xw_1 + x^2w_2.
 \end{equation}<p>Notice here how we have two <em>unparameterized</em> feature transformations: the identity $f_1(x) = x$ and the quadratic term $f_2(x) = x^2$, and so we may write the above equivalently as</p>
 \begin{equation}
-\text{model}(x,\Omega) = w_0 + f_1(x)\,w_1 + f_2(x)\,w_2
-\end{equation}<p>where here the weight set $\Omega = \left\{\mathbf{w}\right\}$.</p>
+\text{model}(x,\Theta) = w_0 + f_1(x)\,w_1 + f_2(x)\,w_2
+\end{equation}<p>where here the weight set $\Theta = \left\{\mathbf{w}\right\}$.</p>
 
 </div>
 </div>
@@ -14571,10 +14602,10 @@ An example dataset like the one we are currently looking to learn a classifier o
 
 
 
-<div id="3af4ce69-00e4-4672-be6e-47dac185865b"></div>
+<div id="c90ce58c-aa2a-426b-9840-0cc814e8b7ca"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#3af4ce69-00e4-4672-be6e-47dac185865b');
+var element = $('#c90ce58c-aa2a-426b-9840-0cc814e8b7ca');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -15425,10 +15456,10 @@ if (IPython.notebook.kernel != null) {
 
 
 
-<div id="f933ed27-1c9d-409d-a75a-16d3ead3f8d5"></div>
+<div id="4220f723-7f8e-4720-8ff2-35122436f224"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#f933ed27-1c9d-409d-a75a-16d3ead3f8d5');
+var element = $('#4220f723-7f8e-4720-8ff2-35122436f224');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -16220,7 +16251,7 @@ if (IPython.notebook.kernel != null) {
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Visually examining the dataset it appears that some sort of elliptical decision boundary centered at the origin might do a fine job of classification.  Thus we set our <code>model</code> function to the general parameterized form of such an ellipse</p>
 \begin{equation}
-\text{model}(\mathbf{x},\Omega) = w_0^{\,} + x_1^2w_1^{\,} + x_2^2w_2^{\,}.
+\text{model}(\mathbf{x},\Theta) = w_0^{\,} + x_1^2w_1^{\,} + x_2^2w_2^{\,}.
 \end{equation}
 </div>
 </div>
@@ -16230,7 +16261,7 @@ if (IPython.notebook.kernel != null) {
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Parsing this formula ,we can see that we have used two feature transformations $f_1(\mathbf{x})=x_1^2$, $f_2(\mathbf{x}) = x_2^2$, and the parameter set $\Omega = \left\{w_0,\,w_1,\,w_2\right\}$.</p>
+<p>Parsing this formula ,we can see that we have used two feature transformations $f_1(\mathbf{x})=x_1^2$, $f_2(\mathbf{x}) = x_2^2$, and the parameter set $\Theta = \left\{w_0,\,w_1,\,w_2\right\}$.</p>
 
 </div>
 </div>
@@ -16282,10 +16313,10 @@ if (IPython.notebook.kernel != null) {
 
 
 
-<div id="b89ca3b3-7c07-4fc1-b429-ee0723def62d"></div>
+<div id="ccbd5955-3e89-46fb-b955-c3ed0d66db8a"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#b89ca3b3-7c07-4fc1-b429-ee0723def62d');
+var element = $('#ccbd5955-3e89-46fb-b955-c3ed0d66db8a');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -17075,7 +17106,7 @@ if (IPython.notebook.kernel != null) {
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="10.3.2-Implementing-nonlinear-two-class-classification-in-Python">10.3.2 Implementing nonlinear two-class classification in <code>Python</code><a class="anchor-link" href="#10.3.2-Implementing-nonlinear-two-class-classification-in-Python">&#182;</a></h2>
+<h2 id="10.3.4-Implementing-nonlinear-two-class-classification-in-Python">10.3.4 Implementing nonlinear two-class classification in <code>Python</code><a class="anchor-link" href="#10.3.4-Implementing-nonlinear-two-class-classification-in-Python">&#182;</a></h2>
 </div>
 </div>
 </div>
@@ -17084,7 +17115,7 @@ if (IPython.notebook.kernel != null) {
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>The general nonlinear model in equation (4) above can be implemented precisely as described in Section 10.1.3. since - indeed - it is the same general nonlinear model we use with nonlinear regression.  Therefore, just as with regression, the we need not alter the implementation of any two-class classification cost function introduced in Chapter 6 to perform nonlinear classification: all we need to do is properly define our nonlinear transformation(s) in <code>Python</code> (if we wish to use an automatic differentiator then these should be expressed using <code>autograd</code>'s <code>numpy</code> wrapper).</p>
+<p>The general nonlinear model in equation (4) above can be implemented precisely as described in Section 10.1.4. since - indeed - it is the same general nonlinear model we use with nonlinear regression.  Therefore, just as with regression, the we need not alter the implementation of any two-class classification cost function introduced in Chapter 6 to perform nonlinear classification: all we need to do is properly define our nonlinear transformation(s) in <code>Python</code> (if we wish to use an automatic differentiator then these should be expressed using <code>autograd</code>'s <code>numpy</code> wrapper).</p>
 
 </div>
 </div>
@@ -17133,7 +17164,7 @@ if (IPython.notebook.kernel != null) {
  
 
 <script type="application/vnd.jupyter.widget-state+json">
-{"version_minor": 0, "version_major": 1, "state": {}}
+{"state": {}, "version_major": 1, "version_minor": 0}
 </script>
 
 

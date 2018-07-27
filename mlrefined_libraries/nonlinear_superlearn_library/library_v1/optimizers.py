@@ -39,15 +39,15 @@ def gradient_descent(g, alpha, max_its, w, num_pts, batch_size,**kwargs):
 # newtons method function - inputs: g (input function), max_its (maximum number of iterations), w (initialization)
 def newtons_method(g,max_its,w,num_pts,batch_size,**kwargs):
     # flatten input funciton, in case it takes in matrices of weights
-    flat_g, unflatten, w = flatten_func(g, w)
+    g_flat, unflatten, w = flatten_func(g, w)
     
     # compute the gradient / hessian functions of our input function -
     # note these are themselves functions.  In particular the gradient - 
     # - when evaluated - returns both the gradient and function evaluations (remember
     # as discussed in Chapter 3 we always ge the function evaluation 'for free' when we use
     # an Automatic Differntiator to evaluate the gradient)
-    gradient = value_and_grad(flat_g)
-    hess = hessian(flat_g)
+    gradient = value_and_grad(g_flat)
+    hess = hessian(g_flat)
     
     # set numericxal stability parameter / regularization parameter
     epsilon = 10**(-7)
@@ -57,7 +57,7 @@ def newtons_method(g,max_its,w,num_pts,batch_size,**kwargs):
     # record history
     w_hist = []
     w_hist.append(unflatten(w))
-    cost_hist = [g_flat(w)]
+    cost_hist = [g_flat(w,np.arange(num_pts))]
 
     # how many mini-batches equal the entire dataset?
     num_batches = int(np.ceil(np.divide(num_pts, batch_size)))
@@ -87,6 +87,6 @@ def newtons_method(g,max_its,w,num_pts,batch_size,**kwargs):
             
         # record weights after each epoch
         w_hist.append(unflatten(w))
-        cost_hist.append(g_flat(w))
+        cost_hist.append(g_flat(w,np.arange(num_pts)))
 
     return w_hist,cost_hist
