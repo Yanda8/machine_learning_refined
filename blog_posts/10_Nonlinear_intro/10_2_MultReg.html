@@ -11904,7 +11904,7 @@ Nonlineaer multi-output regression: we can either solve each regression problem 
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>With the latter approach to nonlinear multi-output regression - that is we engineer a <em>single set of nonlinear feature transfomations and share them among all $C$ regressions</em> -  we simply use <em>the same nonlinear features</em> for all $C$ models.  This is very often done to simplify the chores of nonlinear feature engineering and - as we will see - nonlinear feature <em>learning</em>.  if we choose the same set $B$ nonlinear features for all $C$ models the $c^{th}$ of which looks like</p>
 \begin{equation}
-\text{model}_c\left(\mathbf{x},\Theta_c\right) = w_{c,0} + f_{1}\left(\mathbf{x}\right){w}_{c,1} +  f_{2}\left(\mathbf{x}\right){w}_{c,2} + \cdots + f_{B_c}\left(\mathbf{x}\right)w_{c,B}
+\text{model}_c\left(\mathbf{x},\Theta_c\right) = w_{c,0} + f_{1}\left(\mathbf{x}\right){w}_{c,1} +  f_{2}\left(\mathbf{x}\right){w}_{c,2} + \cdots + f_{B}\left(\mathbf{x}\right)w_{c,B}
 \end{equation}<p>Note here while $\Theta_c$ contains both those weights from the linear combination $w_{c,0},\,...w_{c,B}$ as well as any weights internal to the feature transformatinos, the <em>only</em> parameters unique to this model alone are the linear combination weights (since every model shares any weights internal to the feature transformations).</p>
 
 </div>
@@ -12012,10 +12012,10 @@ w_{N,0}  &  w_{N,1} & w_{N,2}  &  \cdots  &  w_{N,C-1}  \\
 
 
 
-<div id="75987965-072b-4872-93f3-9c51cc47a18b"></div>
+<div id="f80d1c94-6a89-43da-9582-4db02e78d656"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#75987965-072b-4872-93f3-9c51cc47a18b');
+var element = $('#f80d1c94-6a89-43da-9582-4db02e78d656');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -12887,10 +12887,10 @@ f_2\left(\mathbf{x}\right) = \text{sin}\left(w_{2,0} + w_{2,1}x_1 + w_{2,2}x_2\r
 
 
 
-<div id="58f5c712-a5d5-4d20-bbdf-4777122d6f5e"></div>
+<div id="1c5b9db7-3919-4627-9274-e85c0284f7b1"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#58f5c712-a5d5-4d20-bbdf-4777122d6f5e');
+var element = $('#1c5b9db7-3919-4627-9274-e85c0284f7b1');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
