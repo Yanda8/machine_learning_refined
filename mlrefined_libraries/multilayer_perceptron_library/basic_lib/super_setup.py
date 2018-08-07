@@ -51,7 +51,7 @@ class Setup:
         # define training and testing sets
         self.x_train = self.x[:,self.train_inds]
         self.x_val = self.x[:,self.val_inds]
-        
+
         self.y_train = self.y[:,self.train_inds]
         self.y_val = self.y[:,self.val_inds]
      

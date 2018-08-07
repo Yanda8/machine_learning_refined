@@ -11890,7 +11890,7 @@ x_{N,p}
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>We can easily  move from linear to general <em>nonlinear</em> regression - in both its principles and implementation - with few obstacles.  We do this by swapping out the linear model used in the construction of our linear regression (introduced in Chapter 5) with a <em>nonlinear</em> one.  For example, instead of using a linear model we could use a nonlinear one, involving a single nonlinear function $f$ that can be parameterized or unparameterized (e.g., tanh, a sine wave, etc.,).  In the jargon of machine learning such a nonlinear function $f$ is often called a nonlinear <em>feature transformation</em>, since we it transforms our original input features $\mathbf{x}$.  Our corresponding nonlinear model then takes the form</p>
+<p>We can easily  move from linear to general <em>nonlinear</em> regression - in both its principles and implementation - with few obstacles.  We do this by swapping out the linear model used in the construction of our linear regression (introduced in Chapter 5) with a <em>nonlinear</em> one.  For example, instead of using a linear model we could use a nonlinear one, involving a single nonlinear function $f$ that can be parameterized or unparameterized (e.g., tanh, a sine wave, etc.,).  In the jargon of machine learning such a nonlinear function $f$ is often called a nonlinear <em>feature transformation</em>, since it transforms our original input features $\mathbf{x}$.  Our corresponding nonlinear model then takes the form</p>
 \begin{equation}
 \text{model}\left(\mathbf{x},\Theta\right)  = 
 w_0^{\,} + f\left(\mathbf{x}\right){w}_{1}^{\,}.
@@ -11940,10 +11940,10 @@ w_0^{\,} + f\left(\mathbf{x}\right){w}_{1}^{\,}.
 <div class="text_cell_render border-box-sizing rendered_html">
 <figure>
 <p>
-  <img src= '../../mlrefined_images/nonlinear_superlearn_images/nonlinear_regression.png' width="65%" height="65%" alt=""/>
+  <img src= '../../mlrefined_images/nonlinear_superlearn_images/10_1.png' width="85%"  alt=""/>
 </p>
-<figcaption> <strong>Figure 1:</strong> <em> 
-Shown here is the prototypical problem of nonlinear regression, which we achieve by injecting nonlinear feature transformations into our model.  As in the linear case here we aim to tune all parameters of our model to minimize an average error, here shown as vertical dashed lines measured from each point to the nonlinear `model`.
+<figcaption> <strong>Figure:</strong> <em> 
+(left) Linear regression illustrated. Here the fit to the data is defined by the linear model $\mathring{\mathbf{x}}_{\,}^T\mathbf{w}^{\,}$. (right) Nonlinear regression is achieved by injecting nonlinear feature transformations into our model. Here the fit to the data is a nonlinear curve defined by $\mathring{\mathbf{f}}_{\,}^T\mathbf{w}^{\,}$.
 </em>
 </figcaption>
 </figure>
@@ -12086,10 +12086,10 @@ f_B\left(\mathbf{x}_p\right)
 
 
 
-<div id="a4716666-2696-44d1-a824-a8145608b039"></div>
+<div id="cf8b6bd3-4c43-4e23-b356-dc3dce11285a"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#a4716666-2696-44d1-a824-a8145608b039');
+var element = $('#cf8b6bd3-4c43-4e23-b356-dc3dce11285a');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -12948,10 +12948,10 @@ f\left(x \right) = \frac{x - \mu}{\sigma}
 
 
 
-<div id="b9aab515-df7d-4fd0-84b5-7887553a45e7"></div>
+<div id="cf8c8f4f-76c6-4ab0-9e36-ad7eb4d032e2"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#b9aab515-df7d-4fd0-84b5-7887553a45e7');
+var element = $('#cf8c8f4f-76c6-4ab0-9e36-ad7eb4d032e2');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -13776,10 +13776,10 @@ if (IPython.notebook.kernel != null) {
 
 
 
-<div id="d16094c7-9c35-4444-b298-02863eb0b2e0"></div>
+<div id="375402ea-4557-47ab-a835-811c724398a4"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#d16094c7-9c35-4444-b298-02863eb0b2e0');
+var element = $('#375402ea-4557-47ab-a835-811c724398a4');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -14632,10 +14632,10 @@ f\left(x,\mathbf{w}\right) = \text{sin}\left(w_0 + xw_1\right).
 
 
 
-<div id="a8d46892-1c78-4f6c-8da8-7448747095ca"></div>
+<div id="faa2b51d-92e6-4b10-83fd-aae9fa14b808"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#a8d46892-1c78-4f6c-8da8-7448747095ca');
+var element = $('#faa2b51d-92e6-4b10-83fd-aae9fa14b808');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -15465,10 +15465,10 @@ if (IPython.notebook.kernel != null) {
 
 
 
-<div id="c01043d1-68fb-4ee6-bc07-004d8cd0a118"></div>
+<div id="571e63ae-fecf-4769-8b84-e50f82aa474d"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#c01043d1-68fb-4ee6-bc07-004d8cd0a118');
+var element = $('#571e63ae-fecf-4769-8b84-e50f82aa474d');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -16285,10 +16285,10 @@ if (IPython.notebook.kernel != null) {
 
 
 
-<div id="ba675a88-3be2-456f-a93b-fe0b207a7f40"></div>
+<div id="f3bf71a6-0363-4a49-b398-e2c0fe87212d"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#ba675a88-3be2-456f-a93b-fe0b207a7f40');
+var element = $('#f3bf71a6-0363-4a49-b398-e2c0fe87212d');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -17123,10 +17123,10 @@ if (IPython.notebook.kernel != null) {
 
 
 
-<div id="a5404249-8577-42a2-ba26-68287768c896"></div>
+<div id="7de5a843-8e31-4fc6-a649-2cc487346352"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#a5404249-8577-42a2-ba26-68287768c896');
+var element = $('#7de5a843-8e31-4fc6-a649-2cc487346352');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -17978,10 +17978,10 @@ f\left(x,\mathbf{w}\right) = \text{tanh}\left(w_0 + xw_1\right).
 
 
 
-<div id="156202df-0de8-4ff3-9168-200d2e878cbc"></div>
+<div id="e55e88cc-8677-4d14-8c45-4d5dba16d7d5"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#156202df-0de8-4ff3-9168-200d2e878cbc');
+var element = $('#e55e88cc-8677-4d14-8c45-4d5dba16d7d5');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -18857,10 +18857,10 @@ $\frac{3}{4}$, and all the way down the ramp.  </em>  </figcaption>
 
 
 
-<div id="2bfec08e-7451-449b-ba3b-c4c101ceb132"></div>
+<div id="59831edb-407b-4629-b99e-09d31d8b73a4"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#2bfec08e-7451-449b-ba3b-c4c101ceb132');
+var element = $('#59831edb-407b-4629-b99e-09d31d8b73a4');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -19719,10 +19719,10 @@ if (IPython.notebook.kernel != null) {
 
 
 
-<div id="0ee00874-d4e1-4c7d-81eb-e529f5415531"></div>
+<div id="f50a040f-3989-4942-a8fe-fb28ff698d09"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#0ee00874-d4e1-4c7d-81eb-e529f5415531');
+var element = $('#f50a040f-3989-4942-a8fe-fb28ff698d09');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -20632,7 +20632,7 @@ if (IPython.notebook.kernel != null) {
  
 
 <script type="application/vnd.jupyter.widget-state+json">
-{"version_major": 1, "state": {}, "version_minor": 0}
+{"version_minor": 0, "state": {}, "version_major": 1}
 </script>
 
 

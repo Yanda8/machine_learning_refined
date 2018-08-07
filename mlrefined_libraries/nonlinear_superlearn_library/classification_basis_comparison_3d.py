@@ -253,22 +253,12 @@ class Visualizer:
 
     def brows_single_fits(self, num_units, basis,**kwargs):
         ### polynomials - run over num units and collect - here we collect full degrees, then sift out individual units from there ###
-        # setup plots
-        zplane = 'on'
-        if 'zplane' in kwargs:
-            zplane = kwargs['zplane']
-        view = [20,45]
-        if 'view' in kwargs:
-            view = kwargs['view']
+        num_elements = num_units
 
         # setup 
         self.num_units = max(num_units)
         self.dial_settings()
         opt = optimimzers.MyOptimizers()
-        
-        if basis == 'tree':                   
-            self.F = self.F_tree
-            self.weight_history = self.boosting(self.F,self.y,its = self.num_elements)
         
         # viewing ranges
         xmin1 = copy.deepcopy(min(self.x[:,0]))
@@ -292,86 +282,71 @@ class Visualizer:
         # initialize figure
         fig = plt.figure(figsize = (9,4))
         artist = fig
-        gs = gridspec.GridSpec(1, 2,width_ratios = [1,1.25]) 
         
-        #### left plot - data and fit in original space ####
-        # setup current axis
-        ax1 = plt.subplot(gs[0],aspect = 'equal');
-        ax2 = plt.subplot(gs[1],projection = '3d');
+        # create subplot with 3 panels, plot input function in center plot
+        gs = gridspec.GridSpec(1, 3, width_ratios=[2,1,0.25]) 
+        ax1 = plt.subplot(gs[0],aspect = 'equal'); ax1.axis('off');
+        ax2 = plt.subplot(gs[1]); 
+        ax = plt.subplot(gs[2]); ax.axis('off');
+        
+        
+        # store weights
+        weight_history = []
+        cost_evals = []
+        for k in range(len(num_units)):
+            # loop over panels, produce plots
+            self.D = num_units[k] + 1
+ 
+            #### initialize poly transform ####
+            self.F = self.poly_feats(self.D)
+
+            ###### optiimize #####
+            w = opt.newtons_method(g = self.softmax,win = np.zeros((np.shape(self.F)[1],1)),max_its = 5,output = 'best',verbose = False,beta = 10**(-7))
             
+            # store
+            weight_history.append(w)
+            cost = self.softmax(w)
+            cost_evals.append(cost)
+            
+        cost_evals = [v/float(np.size(self.y)) for v in cost_evals]
+       
         ### animate ###
         print ('beginning animation rendering...')
         def animate(k):
             ax1.cla()
             ax2.cla()
-            
+           
             #### scatter data ####
             # plot points in 2d and 3d
             ind0 = np.argwhere(self.y == +1)
             ind0 = [e[0] for e in ind0]
             ax1.scatter(self.x[ind0,0],self.x[ind0,1],s = 55, color = self.colors[0], edgecolor = 'k')
-            ax2.scatter(self.x[ind0,0],self.x[ind0,1],self.y[ind0],s = 55, color = self.colors[0], edgecolor = 'k')
                         
             ind1 = np.argwhere(self.y == -1)
             ind1 = [e[0] for e in ind1]
             ax1.scatter(self.x[ind1,0],self.x[ind1,1],s = 55, color = self.colors[1], edgecolor = 'k')
-            ax2.scatter(self.x[ind1,0],self.x[ind1,1],self.y[ind1],s = 55, color = self.colors[1], edgecolor = 'k')
             
             # print rendering update
             if np.mod(k+1,5) == 0:
                 print ('rendering animation frame ' + str(k+1) + ' of ' + str(len(num_units)))
-            if k == len(num_units):
+            if k == len(num_units) - 1:
                 print ('animation rendering complete!')
                 time.sleep(1)
                 clear_output()
 
             if k > 0:
-                # loop over panels, produce plots
+                w = weight_history[k-1] 
                 self.D = num_units[k-1] + 1
-                cs = 0
-
-                # fit to data
-                ax = 0
-                predict = 0
-                w = 0
-                if basis == 'poly':
-                    #### initialize poly transform ####
-                    self.F = self.poly_feats(self.D)
-                    title = 'degree ' + str(self.D) + ' poly (first ' + str(np.shape(self.F)[1]-1) + ' units)'
-                    ax1.set_title(title,fontsize = 14)
-                    self.predict = self.poly_predict
-
-                elif basis == 'net':
-                    ax = ax2
-                    self.F = self.F_tanh[:,:self.D]
-                    ax1.set_title('first ' + str(self.D - 1) + ' tanh units',fontsize = 14)
-                    self.predict = self.tanh_predict
-
-                elif basis == 'tree':
-                    # pick self.D stumps!                    
-                    # set predictor
-                    self.predict = self.tree_predict
- 
-
-                    # fit tree
-                    # reset D for stumps 
-                    self.num_trees = min(self.D,len(self.y) - 1) 
-                    F = self.F_tree[:,:self.num_trees]
-                    self.splits = copy.deepcopy(self.orig_splits[:self.num_trees - 1])
-                    self.levels = copy.deepcopy(self.orig_levels[:self.num_trees - 1])
-                    self.dims = copy.deepcopy(self.orig_dims[:self.num_trees - 1])
-
-                    #### looks like the most visually interesting overfitting happens with the lstsq solver: solving Fw = y (this is one Newton step)
-                    w = np.linalg.lstsq(F, self.y)[0]
-                    ax1.set_title('first ' + str(self.num_trees - 1) + ' tree units',fontsize = 14)
-
-                ###### optiimize #####
-                w = opt.newtons_method(g = self.softmax,win = np.zeros((np.shape(self.F)[1],1)),max_its = 5,output = 'best',verbose = False,beta = 10**(-7))
-
+                self.F = self.poly_feats(self.D)
+                title = 'degree ' + str(self.D) + ' poly (first ' + str(np.shape(self.F)[1]-1) + ' units)'
+                ax1.set_title(title,fontsize = 14)
+                self.predict = self.poly_predict
+                
+                
                 ###### plot all #######
                 # plot boundary for 2d plot
-                r1 = np.linspace(xmin1,xmax1,100)
-                r2 = np.linspace(xmin2,xmax2,100)
+                r1 = np.linspace(xmin1,xmax1,300)
+                r2 = np.linspace(xmin2,xmax2,300)
                 s,t = np.meshgrid(r1,r2)
                 s = np.reshape(s,(np.size(s),1))
                 t = np.reshape(t,(np.size(t),1))
@@ -391,27 +366,43 @@ class Visualizer:
                 #### plot contour, color regions ####
                 ax1.contour(s,t,z,colors='k', linewidths=2.5,levels = [0],zorder = 2)
                 ax1.contourf(s,t,z,colors = [self.colors[1],self.colors[0]],alpha = 0.15,levels = range(-1,2))
-                ax2.plot_surface(s,t,z,alpha = 0.25,color = 'w',rstride=10, cstride=10,linewidth=1,edgecolor = 'k') 
+                
+                
+                # plot cost path - scale to fit inside same aspect as classification plots
+                # compute cost eval history
+                for i in range(len(weight_history)):
+                    item = copy.deepcopy(i)
+                    w = weight_history[item]
+                    self.D = len(weight_history) - 1
 
-                # plot zplane = 0 in left 3d panel - showing intersection of regressor with z = 0 (i.e., its contour, the separator, in the 3d plot too)?
-                zplane = 'off'
-                if zplane == 'on':
-                    # plot zplane
-                    ax2.plot_surface(s,t,z*0,alpha = 0.1,rstride=20, cstride=20,linewidth=0.15,color = 'w',edgecolor = 'k') 
+                num_iterations = len(weight_history)
+                minxc = min(num_elements)-1
+                maxxc = max(num_elements)+1
+                gapxc = (maxxc - minxc)*0.1
+                minxc -= gapxc
+                maxxc += gapxc
+                minc = min(copy.deepcopy(cost_evals))
+                maxc = max(copy.deepcopy(cost_evals))
+                gapc = (maxc - minc)*0.1
+                minc -= gapc
+                maxc += gapc
 
-                    # plot separator curve in left plot
-                    ax2.contour(s,t,z,colors = 'k',levels = [0],linewidths = 3,zorder = 1)
-                    ax2.contourf(s,t,z,colors = self.colors[0],levels = [0,1],zorder = 1,alpha = 0.1)
-                    ax2.contourf(s,t,z+1,colors = self.colors[1],levels = [0,1],zorder = 1,alpha = 0.1)
-         
+
+
+                # cost function value
+                ax2.plot(num_elements,cost_evals,color = 'k',linewidth = 2.5,zorder = 1)
+                ax2.scatter(num_elements[k-1],cost_evals[k-1],color = self.colors[0],s = 70,edgecolor = 'w',linewidth = 1.5,zorder = 3)
+
+                ax2.set_xlabel('number of units',fontsize = 12)
+                ax2.set_title('cost function plot',fontsize = 12)
+
+                # cleanp panel
+                ax2.set_xlim([minxc,maxxc])
+                ax2.set_ylim([minc,maxc])
+                  
             ### cleanup left plots, create max view ranges ###
             ax1.set_xlim([xmin1,xmax1])
-            ax2.set_xlim([xmin1,xmax1])
             ax1.set_ylim([xmin2,xmax2])
-            ax2.set_ylim([xmin2,xmax2])
-            ax2.set_zlim([ymin,ymax])
-            ax2.axis('off')
-            ax2.view_init(view[0],view[1])
 
             ax1.set_yticklabels([])
             ax1.set_xticklabels([])

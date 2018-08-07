@@ -5,10 +5,10 @@ from autograd.misc.flatten import flatten_func
 
 # minibatch gradient descent
 def gradient_descent(g, alpha, max_its, w, num_pts, batch_size,**kwargs):    
-    # flatten the input function, create gradient based on flat function
+    # flatten the input function, create gradient based on flat function    
     g_flat, unflatten, w = flatten_func(g, w)
     grad = value_and_grad(g_flat)
-
+    
     # record history
     w_hist = []
     w_hist.append(unflatten(w))

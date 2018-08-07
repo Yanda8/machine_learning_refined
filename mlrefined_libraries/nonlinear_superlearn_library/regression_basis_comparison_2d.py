@@ -265,7 +265,7 @@ class Visualizer:
         # set viewing range for all 3 panels
         xmax = max(copy.deepcopy(self.x))
         xmin = min(copy.deepcopy(self.x))
-        xgap = (xmax - xmin)*0.05
+        xgap = (xmax - xmin)*0.0
         xmax += xgap
         xmin -= xgap
         ymax = max(copy.deepcopy(self.y))[0]
@@ -323,9 +323,9 @@ class Visualizer:
     
                 # plot approximation and data in panel
                 if scatter == 'off':
-                    ax.scatter(self.x,self.y,c = 'k',s = 20,zorder = 1)
+                    ax.plot(self.x,self.y,c = 'k',linewidth = 2)
                 elif scatter == 'on':
-                    ax.scatter(self.x,self.y,c = 'k',edgecolor = 'w',s = 50,zorder = 1)
+                    ax.scatter(self.x,self.y,c = 'k',edgecolor = 'w',s = 30,zorder = 1)
 
                 ax.plot(s,t,linewidth = 2.75,color = self.colors[cs],zorder = 3)
                 cs += 1

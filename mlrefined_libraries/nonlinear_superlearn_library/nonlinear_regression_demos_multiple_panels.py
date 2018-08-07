@@ -57,6 +57,8 @@ class Visualizer:
         model1 = run1.model
         model2 = run2.model
         model3 = run3.model
+        
+        all_colors = [[1,0,0.4], [ 0, 0.4, 1],[0, 1, 0.5],[1, 0.7, 0.5],[0.7, 0.6, 0.5],'mediumaquamarine']
 
         normalizer1 = run1.normalizer
         normalizer2 = run2.normalizer
@@ -111,10 +113,10 @@ class Visualizer:
                 ax.set_title('overfitting',fontsize = 14)
             if ax == ax3:
                 t = model3(normalizer3(s),w3)
-                ax.set_title('"good"',fontsize = 14)
+                ax.set_title('"just right"',fontsize = 14)
 
-            ax.plot(s.T,t.T,linewidth = 4,c = 'k')
-            ax.plot(s.T,t.T,linewidth = 2,c = 'r')
+            ax.plot(s.T,t.T,linewidth = 3,c = 'k')
+            ax.plot(s.T,t.T,linewidth = 2.5,c = all_colors[2])
  
     def scatter_pts_2d(self,x,ax):
         # set plotting limits

@@ -11908,21 +11908,6 @@ g\left(\mathbf{W}\right) = \frac{1}{P}\sum_{p = 1}^P \left[\text{log}\left( \sum
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>
-<img alt="" height="100%" src="../../mlrefined_images/nonlinear_superlearn_images/sharing_feature_transforms_general.png" width="90%"/>
-</p>
-<figcaption>
-<strong>Figure 4:</strong> <em> 
-A figurative illustration of the sharing *parameterized* feature transformations across classifiers in the simultaneous multiclass classification scenario.  (left panel) Using OvA we must assign an independent sets of parameterized nonlinear feature transformations to each classifier.  We cannot share weights across the classifiers, since each classifier's weights are tuned *independently*. (right panel) On the other hand, since all parameters are tuned at once with a simultaneous approach we can indeed share parameterized feature transformations across various classifiers.
-</em> </figcaption>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
 <p>If we choose the former approach - forming $C$ distinct nonlinear models - each feature engineering / noonlinear two-class classification is executed precisely as we have seen in previous the Section.  We can also, on the other hand, tune the parameters of these $C$ distinct nonlinear models simultaneously by minimizing an appropriate cost function like e.g., the Multiclass Softmax.</p>
 </div>
 </div>
@@ -11951,7 +11936,33 @@ y = \underset{c=0,..,C-1}{\text{argmax}}\,\,\mathring{\mathbf{f}}_{\,}^T \mathbf
 <p>Precisely as with multi-output regression detailed in Section 10.2.2 we can combine these $C$ models together (using precisely the same notation employed there) as</p>
 \begin{equation}
 \text{model}\left(\mathbf{x},\Theta\right) = \mathring{\mathbf{f}}_{\,}^T \mathbf{W} = \sum_{c=0}^{C-1} \mathring{\mathbf{f}}_{\,}^T \mathbf{w}_c
-\end{equation}<p>where note in particular here $\Theta$ contains the parameters of all $C$ individual models.  To properly tune the parameters here we must minimize an appropriate cost like e.g., the Multiclass Softmax</p>
+\end{equation}<p>where note in particular here $\Theta$ contains the parameters of all $C$ individual models.</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<figure>
+<p>
+<img alt="" src="../../mlrefined_images/nonlinear_superlearn_images/10_4.png" width="85%"/>
+</p>
+<figcaption> <strong>Figure:</strong> <em> 
+(left) Linear multi-class classification. (middle) Nonlinear multi-class classification where each class uses its own distinct nonlinear feature transformation. (right) Nonlinear multi-class classification where all classes use the same nonlinear feature transformation (a case of feature-sharing). In all three panels individual per-class boundaries are shown prior to fusion.  
+</em>
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>To properly tune the parameters here we must minimize an appropriate cost like e.g., the Multiclass Softmax</p>
 \begin{equation}
 g\left(\Theta\right) = \frac{1}{P}\sum_{p = 1}^P \left[\text{log}\left( \sum_{c = 0}^{C-1}  e^{ \mathring{\mathbf{f}}_{p}^T \overset{\,}{\mathbf{w}}_c^{\,}}  \right) - \mathring{\mathbf{f}}_{p}^T \overset{\,}{\mathbf{w}}_{y_p}^{\,}\right]
 \end{equation}
@@ -12004,10 +12015,10 @@ g\left(\Theta\right) = \frac{1}{P}\sum_{p = 1}^P \left[\text{log}\left( \sum_{c 
 <div class="output_wrapper">
 <div class="output">
 <div class="output_area"><div class="prompt"></div>
-<div id="ba12a178-8392-4523-a88a-ead44cfc4248"></div>
+<div id="1cbd710c-c5b4-48d5-956d-c877327d83d3"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#ba12a178-8392-4523-a88a-ead44cfc4248');
+var element = $('#1cbd710c-c5b4-48d5-956d-c877327d83d3');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -12820,10 +12831,10 @@ f\left(\mathbf{x}\right) = x_1^ix_2^j
 <div class="output_wrapper">
 <div class="output">
 <div class="output_area"><div class="prompt"></div>
-<div id="7bc56c7d-bc2e-452a-858c-951e79d6c075"></div>
+<div id="c4a06ac3-dd63-4345-8f1d-760162fe9c07"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#7bc56c7d-bc2e-452a-858c-951e79d6c075');
+var element = $('#c4a06ac3-dd63-4345-8f1d-760162fe9c07');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -13621,10 +13632,10 @@ if (IPython.notebook.kernel != null) {
 <div class="output_wrapper">
 <div class="output">
 <div class="output_area"><div class="prompt"></div>
-<div id="a3817db3-8997-47ae-9e43-af627a0fbf46"></div>
+<div id="b6078205-1985-4549-b08a-d40215c5e5ec"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#a3817db3-8997-47ae-9e43-af627a0fbf46');
+var element = $('#b6078205-1985-4549-b08a-d40215c5e5ec');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 

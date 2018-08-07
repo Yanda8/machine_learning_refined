@@ -11875,9 +11875,6 @@ y = \text{sign}\left(\mathring{\mathbf{x}}_{\,}^T\mathbf{w}^{\,}\right).
 \end{equation}<p>In complete analogy to the linear case, here our decision boundary consists of all inputs $\mathbf{x}$ where $\mathring{\mathbf{f}}_{\,}^T \mathbf{w} = 0$ and likewise predictions are made as</p>
 \begin{equation}
 y = \text{sign}\left(\mathring{\mathbf{f}}_{\,}^T \mathbf{w}\right).
-\end{equation}<p>Likewise to properly tune the paramters of $\Theta$ we must minimize a proper cost function with respect to it, like e.g., the Softmax cost</p>
-\begin{equation}
- g\left(\Theta\right) = \frac{1}{P}\sum_{p=1}^{P} \text{log}\left(1 + e^{-y_p  \mathring{\mathbf{f}}_{p}^T \mathbf{w}}\right).
 \end{equation}
 </div>
 </div>
@@ -11889,13 +11886,26 @@ y = \text{sign}\left(\mathring{\mathbf{f}}_{\,}^T \mathbf{w}\right).
 <div class="text_cell_render border-box-sizing rendered_html">
 <figure>
 <p>
-<img src= '../../mlrefined_images/nonlinear_superlearn_images/nonlinear_classification.png' width="80%" height="80%" alt=""/>
+  <img src= '../../mlrefined_images/nonlinear_superlearn_images/10_3.png' width="85%"  alt=""/>
 </p>
-<figcaption> <strong>Figure 1:</strong> <em> 
-A figurative drawing of the nonlinear two-class classification scenario, which we can achieve by injecting nonlinear feature transformations into our `model` in precisely the same way we did in the previous Section with nonlinear regression.  In the top panel we show the 'regression' perspective on two-class classification, where in the nonlinear context we aim to learn a step function with *nonlinear* boundary that separates the two classes of our data as best as possible.  From the 'separator' point of view we aim to simultaneously learn a proper nonlinear boundary that separates the two classes. 
+<figcaption> <strong>Figure:</strong> <em> 
+(left) Linear two-class classification illustrated. Here the separating boundary is defined by $\mathring{\mathbf{x}}_{\,}^T\mathbf{w}^{\,}=0$. (right) Nonlinear two-class classification is achieved by injecting nonlinear feature transformations into our model in precisely the same way we did in the previous Section with nonlinear regression. Here the separating boundary is a nonlinear curve defined by $\mathring{\mathbf{f}}_{\,}^T\mathbf{w}^{\,}=0$.
+
 </em>
 </figcaption>
 </figure>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Likewise to properly tune the paramters of $\Theta$ we must minimize a proper cost function with respect to it, like e.g., the Softmax cost</p>
+\begin{equation}
+ g\left(\Theta\right) = \frac{1}{P}\sum_{p=1}^{P} \text{log}\left(1 + e^{-y_p  \mathring{\mathbf{f}}_{p}^T \mathbf{w}}\right).
+\end{equation}
 </div>
 </div>
 </div>
@@ -11968,10 +11978,10 @@ A figurative drawing of the nonlinear two-class classification scenario, which w
 
 
 
-<div id="bf219d53-65a4-4a61-870c-c52f0ceb1651"></div>
+<div id="9724534d-4a01-4f2b-ab31-ee307414ba4b"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#bf219d53-65a4-4a61-870c-c52f0ceb1651');
+var element = $('#9724534d-4a01-4f2b-ab31-ee307414ba4b');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -12834,10 +12844,10 @@ f\left(x \right) = \frac{x - \mu}{\sigma}
 
 
 
-<div id="45758455-c552-4611-a173-d805731e6686"></div>
+<div id="e07e6d1b-1115-451b-ac0c-25cb3d3ed0c4"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#45758455-c552-4611-a173-d805731e6686');
+var element = $('#e07e6d1b-1115-451b-ac0c-25cb3d3ed0c4');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -13724,10 +13734,10 @@ A prototypical $N = 1$ dimensional input shown from the regression perspective (
 
 
 
-<div id="79fbb008-2cd0-460a-ac99-030191be43f6"></div>
+<div id="621dfd23-29c6-4fd8-8261-f72ab9d5c4d1"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#79fbb008-2cd0-460a-ac99-030191be43f6');
+var element = $('#621dfd23-29c6-4fd8-8261-f72ab9d5c4d1');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -14602,10 +14612,10 @@ An example dataset like the one we are currently looking to learn a classifier o
 
 
 
-<div id="c90ce58c-aa2a-426b-9840-0cc814e8b7ca"></div>
+<div id="6e008abd-7290-4c55-9fd2-6a591293326b"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#c90ce58c-aa2a-426b-9840-0cc814e8b7ca');
+var element = $('#6e008abd-7290-4c55-9fd2-6a591293326b');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -15456,10 +15466,10 @@ if (IPython.notebook.kernel != null) {
 
 
 
-<div id="4220f723-7f8e-4720-8ff2-35122436f224"></div>
+<div id="e4e02119-d2b6-4008-ab7a-3b759404887e"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#4220f723-7f8e-4720-8ff2-35122436f224');
+var element = $('#e4e02119-d2b6-4008-ab7a-3b759404887e');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -16313,10 +16323,10 @@ if (IPython.notebook.kernel != null) {
 
 
 
-<div id="ccbd5955-3e89-46fb-b955-c3ed0d66db8a"></div>
+<div id="e7d3d684-4a53-4b52-ac73-ba574789f183"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#ccbd5955-3e89-46fb-b955-c3ed0d66db8a');
+var element = $('#e7d3d684-4a53-4b52-ac73-ba574789f183');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -17164,7 +17174,7 @@ if (IPython.notebook.kernel != null) {
  
 
 <script type="application/vnd.jupyter.widget-state+json">
-{"state": {}, "version_major": 1, "version_minor": 0}
+{"version_minor": 0, "version_major": 1, "state": {}}
 </script>
 
 

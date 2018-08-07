@@ -11918,7 +11918,33 @@ Nonlineaer multi-output regression: we can either solve each regression problem 
 <p>Employing the same compact notation for our feature transformations introduced in Section 10.1.2 we can express each of these models more compactly as</p>
 \begin{equation}
 \text{model}_c\left(\mathbf{x},\Theta_c\right) = \mathring{\mathbf{f}}_{\,}^T \mathbf{w}_c.
-\end{equation}<p>Alternatively we formulate them all in one model by stacking the linear combination weights from our $C$ nonlinear models from equation (3) into an $\left(N + 1\right) \times C$ array of the form</p>
+\end{equation}
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<figure>
+<p>
+  <img src= '../../mlrefined_images/nonlinear_superlearn_images/10_2.png' width="85%"  alt=""/>
+</p>
+<figcaption> <strong>Figure:</strong> <em> 
+(left) Linear multi-output regression. (middle) Nonlinear multi-output regression where each output uses its own distinct nonlinear feature transformation. (right) Nonlinear multi-output regression where both outputs use the same nonlinear feature transformation (a case of feature-sharing).
+</em>
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Alternatively we formulate them all in one model by stacking the linear combination weights from our $C$ nonlinear models from equation (3) into an $\left(N + 1\right) \times C$ array of the form</p>
 \begin{equation}
 \mathbf{W}=\begin{bmatrix} 
 w_{0,0}  &  w_{0,1}  &  w_{0,2}  & \cdots   &  w_{0,C-1}  \\
@@ -12012,10 +12038,10 @@ w_{N,0}  &  w_{N,1} & w_{N,2}  &  \cdots  &  w_{N,C-1}  \\
 
 
 
-<div id="f80d1c94-6a89-43da-9582-4db02e78d656"></div>
+<div id="58bad2bf-e9f7-4cd0-aa10-525ad305f4d1"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#f80d1c94-6a89-43da-9582-4db02e78d656');
+var element = $('#58bad2bf-e9f7-4cd0-aa10-525ad305f4d1');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -12887,10 +12913,10 @@ f_2\left(\mathbf{x}\right) = \text{sin}\left(w_{2,0} + w_{2,1}x_1 + w_{2,2}x_2\r
 
 
 
-<div id="1c5b9db7-3919-4627-9274-e85c0284f7b1"></div>
+<div id="dfa72d85-ea1f-4d49-b553-6b4414d4d473"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#1c5b9db7-3919-4627-9274-e85c0284f7b1');
+var element = $('#dfa72d85-ea1f-4d49-b553-6b4414d4d473');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 

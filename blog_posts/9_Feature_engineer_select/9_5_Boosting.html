@@ -11854,7 +11854,7 @@ div#notebook {
 <p>To begin we first tune the <em>bias</em> parameter $w_0$ by minimizing an appropriate cost (depending on whether we are solving a regression or classification problem) over <em>this variable alone</em>.  For example, if we are performing regression employing the Least Squares cost and we minimize</p>
 \begin{equation}
 \frac{1}{P}\sum_{p=1}^{P}\left(\text{model}_0^{\,}\left(\mathbf{x},\mathbf{w}\right)  - \overset{\,}{y}_{p}^{\,}\right)^{2} =  \frac{1}{P}\sum_{p=1}^{P}\left(w_0^{\,}   - \overset{\,}{y}_{p}^{\,}\right)^{2}
-\end{equation}<p>which gives the optimal value for our bias $w_0^{\,} \longleftarrow w_0^{\star}$.  Thus our starting <code>model</code> is now</p>
+\end{equation}<p>which gives the optimal value for our bias $w_0^{\,} \longleftarrow w_0^{\star}$.  Thus our starting model is now</p>
 \begin{equation}
 \text{model}_0^{\,}\left(\mathbf{x},\mathbf{w}\right) = w_0^{\star}.
 \end{equation}
@@ -11866,7 +11866,7 @@ div#notebook {
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Next, at the round stage of boosting, in order to determine the most important feature-touching weight $w_1,\,w_2,\,...,w_N$ we <em>try out each one</em> by minimizing a cost over each one individually having already set the bias optimally.  That is we minimize $N$ cost functions over a single feature-touching weight alone, so e.g., in the case of Least Squares regression the $n^{th}$ of these subproblems takes the form</p>
+<p>Next, at the first round of boosting, in order to determine the most important feature-touching weight $w_1,\,w_2,\,...,w_N$ we <em>try out each one</em> by minimizing a cost over each one individually having already set the bias optimally.  That is we minimize $N$ cost functions over a single feature-touching weight alone, so e.g., in the case of Least Squares regression the $n^{th}$ of these subproblems takes the form</p>
 \begin{equation}
  \frac{1}{P}\sum_{p=1}^{P}\left(\text{model}_0^{\,}\left(\mathbf{x}_p,\mathbf{w}\right) + w_n^{\,}x_{n,p}   - \overset{\,}{y}_{p}^{\,}\right)^{2} =  \frac{1}{P}\sum_{p=1}^{P}\left(w_0^{\star} + x_{n,p}w_n^{\,}   - \overset{\,}{y}_{p}^{\,}\right)^{2}.
 \end{equation}<p>Again, the bias weight has already been set optimally and is <em>not</em> tuned in each subproblem above - we only tune the weight $w_n$.</p>
@@ -11891,7 +11891,7 @@ div#notebook {
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Next, at the second round of boosting, we determine the <em>second</em> most important feature-touching weight we then sweep through the remaining $N-1$ weights (i.e., excluding $w_0$ and $w_{s_1}$ which we have already tuned) and try out each one individually by minimizing a cost over each weight independently.  e.g., in the case of Least squares regression $n^{th}$ such cost looks like</p>
+<p>Next, at the second round of boosting, we determine the <em>second</em> most important feature-touching weight we then sweep through the remaining $N-1$ weights (i.e., excluding $w_0$ and $w_{s_1}$ which we have already tuned) and try out each one individually by minimizing a cost over each weight independently.  e.g., in the case of Least Squares regression $n^{th}$ such cost looks like</p>
 \begin{equation}
  \frac{1}{P}\sum_{p=1}^{P}\left(\text{model}_1^{\,}\left(\mathbf{x}_p,\mathbf{w}\right) + w_n^{\,}x_{n,p}   - \overset{\,}{y}_{p}^{\,}\right)^{2} =  \frac{1}{P}\sum_{p=1}^{P}\left(w_0^{\star} + x_{s_1}^{\,}w_{s_1}^{\star} + x_{n,p}w_n^{\,}   - \overset{\,}{y}_{p}^{\,}\right)^{2}.
 \end{equation}<p>Again with each of these subproblems $w_0^{\star}$ and $w_{s_1}^{\star}$ have already been set optimally, we only tune the weight $w_n$ in each instance.</p>
@@ -11904,9 +11904,9 @@ div#notebook {
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>The feature-touching weight that produces the <em>smallest</em> value from these $\left(N-1\right)$ subproblems corresponds to the second most important feature that helps explain the relationship between the input and output of our dataset.  Denoting the cost minimizing weight $w_{s_2}$, we then <em>fix</em> the value of this weight at its optimally determined value $w_{s_2}^{\,} \longleftarrow w_{s_2}^{\star}$ (and none of the other weights tuned in each of these subproblems) and update our <code>model</code> accordingly.  We call our updated <code>model</code> $\text{model}_2$ which is a sum of our first three optimally tuned weights</p>
+<p>The feature-touching weight that produces the <em>smallest</em> value from these $\left(N-1\right)$ subproblems corresponds to the second most important feature that helps explain the relationship between the input and output of our dataset.  Denoting the cost minimizing weight $w_{s_2}$, we then <em>fix</em> the value of this weight at its optimally determined value $w_{s_2}^{\,} \longleftarrow w_{s_2}^{\star}$ (and none of the other weights tuned in each of these subproblems) and update our model accordingly.  We call our updated model $\text{model}_2$ which is a sum of our first three optimally tuned weights</p>
 \begin{equation}
-\text{model}_2^{\,}\left(\mathbf{x},\mathbf{w}\right) = \text{model}_1^{\,}\left(\mathbf{x},\mathbf{w}\right) + x_{s_2}^{\,}w_{s_2}^{\star}= w_1^{\star} + x_{s_1}^{\,}w_{s_1}^{\star} + x_{s_2}^{\,}w_{s_2}^{\star}.
+\text{model}_2^{\,}\left(\mathbf{x},\mathbf{w}\right) = \text{model}_1^{\,}\left(\mathbf{x},\mathbf{w}\right) + x_{s_2}^{\,}w_{s_2}^{\star}= w_0^{\star} + x_{s_1}^{\,}w_{s_1}^{\star} + x_{s_2}^{\,}w_{s_2}^{\star}.
 \end{equation}
 </div>
 </div>
@@ -11916,9 +11916,9 @@ div#notebook {
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>In general, at the $M^{th}$ round of boosting, to determine the $M^{th}$ most important feature-touching weight (where $M\geq 2$) we follow the same pattern.  When we do this we have already determined the optimal setting of our bias and the top $M-1$ most important feature-touching weights, our <code>model</code> taking the form</p>
+<p>In general, at the $M^{th}$ round of boosting, to determine the $M^{th}$ most important feature-touching weight (where $M\geq 2$) we follow the same pattern.  When we do this we have already determined the optimal setting of our bias and the top $M-1$ most important feature-touching weights, our model taking the form</p>
 \begin{equation}
-\text{model}_{M-1}^{\,}\left(\mathbf{x},\mathbf{w}\right) = \text{model}_{M-2}^{\,}\left(\mathbf{x},\mathbf{w}\right) + x_{s_{m-1}}^{\,}w_{s_{M-1}}^{\star}= w_1^{\star} + x_{s_1}^{\,}w_{s_1}^{\star} + \cdots + x_{s_{M-1}}^{\,}w_{s_{M-1}}^{\star}.
+\text{model}_{M-1}^{\,}\left(\mathbf{x},\mathbf{w}\right) = \text{model}_{M-2}^{\,}\left(\mathbf{x},\mathbf{w}\right) + x_{s_{m-1}}^{\,}w_{s_{M-1}}^{\star}= w_0^{\star} + x_{s_1}^{\,}w_{s_1}^{\star} + \cdots + x_{s_{M-1}}^{\,}w_{s_{M-1}}^{\star}.
 \end{equation}<p>where here $w_{M-1}^{\star}$ denotes our optimally tuned $\left(M-1\right)^{th}$ most important feature-touching weight.</p>
 <p>We then must setup and solve $\left(N-M + 1\right)$ subproblems, one for each feature-touching weight we have not yet resolved.  For example, in the case of Least Squares regression the $n^{th}$ of these  takes the form</p>
 \begin{equation}
@@ -12051,10 +12051,10 @@ div#notebook {
 
 
 
-<div id="24ce5c86-c56a-4d04-82ef-60576665d810"></div>
+<div id="be8eff11-523b-4125-a9be-663866e2783e"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#24ce5c86-c56a-4d04-82ef-60576665d810');
+var element = $('#be8eff11-523b-4125-a9be-663866e2783e');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -12911,10 +12911,10 @@ if (IPython.notebook.kernel != null) {
 
 
 
-<div id="6e40946d-7d57-4082-9e74-6e198116ccfc"></div>
+<div id="1a697ab0-aa66-45e7-80ba-a6b7b00158a9"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#6e40946d-7d57-4082-9e74-6e198116ccfc');
+var element = $('#1a697ab0-aa66-45e7-80ba-a6b7b00158a9');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 

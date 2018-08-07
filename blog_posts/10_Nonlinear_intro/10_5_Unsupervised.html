@@ -11948,10 +11948,36 @@ g\left(\mathbf{C}\right) = \frac{1}{P}\sum_{p = 1}^P \left \Vert \mathbf{C}_{\,}
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
+<figure>
+<p>
+<img alt="" src="../../mlrefined_images/nonlinear_superlearn_images/10_5.png" width="85%"/>
+</p>
+<figcaption> <strong>Figure:</strong> <em> 
+(left) Linear autoencoder illustrated. Here the encoder is defined by the linear model $\mathring{\mathbf{x}}_{\,}^T\mathbf{w}^{\,}$. (right) Nonlinear autoencoder is achieved by injecting nonlinear feature transformations into our model. Here the encoder is a nonlinear curve defined by $\mathring{\mathbf{f}}_{\,}^T\mathbf{w}^{\,}$.
+</em>
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
 <p>As with the nonlinear supervised framework detailed previously, here our challenge is to determine precisely what form each of these feature transformations should take, how many to use, etc.,   In analogy to the linear case, here we aim to chose the feature transformations and tune the parameters of $\Theta$ properly to learn an <em>identity function</em> i.e., so that the approximation</p>
 \begin{equation}
 \text{model}\left(\mathbf{x},\Theta\right)  \approx \mathbf{I}_{N\times N}
-\end{equation}<p>holds as well as possible.  For any given choice of feature transformations we can tune the parameters of $\Theta$ by minimizing the Autoencoder / Least Squares cost</p>
+\end{equation}<p>holds as well as possible.</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>For any given choice of feature transformations we can tune the parameters of $\Theta$ by minimizing the Autoencoder / Least Squares cost</p>
 \begin{equation}
 g\left(\Theta\right) = \frac{1}{P}\sum_{p = 1}^P \left \Vert \,\text{model}\left(\mathbf{x},\Theta\right) - \mathbf{x}_p \right\Vert_2^2.
 \end{equation}
@@ -12004,10 +12030,10 @@ g\left(\Theta\right) = \frac{1}{P}\sum_{p = 1}^P \left \Vert \,\text{model}\left
 <div class="output_wrapper">
 <div class="output">
 <div class="output_area"><div class="prompt"></div>
-<div id="204fe0fb-5653-438f-bc33-a0085d0c6c29"></div>
+<div id="126bed2b-fedb-4270-b2be-81c16c0e584f"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#204fe0fb-5653-438f-bc33-a0085d0c6c29');
+var element = $('#126bed2b-fedb-4270-b2be-81c16c0e584f');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -12855,10 +12881,10 @@ r_2\,\text{sin}(\theta_p)+w_2
 <div class="output_wrapper">
 <div class="output">
 <div class="output_area"><div class="prompt"></div>
-<div id="67281050-1a1d-4fb9-b1d3-0408014efa77"></div>
+<div id="314dce64-ff91-438c-908b-eb2f6581137f"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#67281050-1a1d-4fb9-b1d3-0408014efa77');
+var element = $('#314dce64-ff91-438c-908b-eb2f6581137f');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -13656,10 +13682,10 @@ if (IPython.notebook.kernel != null) {
 <div class="output_wrapper">
 <div class="output">
 <div class="output_area"><div class="prompt"></div>
-<div id="590486b8-7b88-46ec-932d-52ef716e0255"></div>
+<div id="88bb08a9-b51a-4c8e-8928-1c9eaeb4e2c1"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#590486b8-7b88-46ec-932d-52ef716e0255');
+var element = $('#88bb08a9-b51a-4c8e-8928-1c9eaeb4e2c1');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -14436,10 +14462,10 @@ if (IPython.notebook.kernel != null) {
 </div>
 </div>
 <div class="output_area"><div class="prompt"></div>
-<div id="281372a4-184b-441b-a16a-9bead56e3e8f"></div>
+<div id="17a46696-a82b-4488-be48-46b40fc77be8"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#281372a4-184b-441b-a16a-9bead56e3e8f');
+var element = $('#17a46696-a82b-4488-be48-46b40fc77be8');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -15294,6 +15320,6 @@ if (IPython.notebook.kernel != null) {
 </div>
 </body>
 <script type="application/vnd.jupyter.widget-state+json">
-{"version_minor": 0, "state": {}, "version_major": 1}
+{"state": {}, "version_major": 1, "version_minor": 0}
 </script>
 </html>

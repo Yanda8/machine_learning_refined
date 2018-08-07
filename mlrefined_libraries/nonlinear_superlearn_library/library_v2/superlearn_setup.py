@@ -22,8 +22,7 @@ class Setup:
         self.valid_count_histories = []
         
     #### define feature transformation ####
-    def choose_features(self,name,**kwargs): 
-        ### select from pre-made feature transforms ###
+    def choose_features(self,name,**kwargs):         
         # multilayer perceptron #
         if name == 'multilayer_perceptron':
             self.transformer = multilayer_perceptron.Setup(**kwargs)

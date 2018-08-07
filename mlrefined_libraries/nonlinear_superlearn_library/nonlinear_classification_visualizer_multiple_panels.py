@@ -105,7 +105,7 @@ class Visualizer:
                 ax.set_title('overfitting',fontsize = 14)
             if ax == ax3:
                 z = model3(normalizer3(h.T),w3)
-                ax.set_title(r'"good"',fontsize = 14)
+                ax.set_title(r'"just right"',fontsize = 14)
             z = np.sign(z)
 
             # reshape it

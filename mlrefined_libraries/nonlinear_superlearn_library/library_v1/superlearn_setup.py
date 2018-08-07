@@ -110,6 +110,9 @@ class Setup:
             # run gradient descent
             weight_history,cost_history = optimizers.gradient_descent(self.cost,self.alpha_choice,self.max_its,self.w_init,self.num_pts,self.batch_size)
             
+        if optimizer == 'RMSprop':
+            weight_history,cost_history = optimizers.RMSprop(self.cost,self.alpha_choice,self.max_its,self.w_init,self.num_pts,self.batch_size)                
+                
         if optimizer == 'newtons method':
             epsilon = 10**(-7)
             if 'epsilon' in kwargs:

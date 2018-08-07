@@ -186,13 +186,14 @@ class Visualizer:
         return w_history
     
     ###### fit and compare ######
-    def brows_single_fit(self,**kwargs):
+    def browse_single_fit(self,**kwargs):
         # parse input args
         num_elements = [1,10,len(self.y)]
         if 'num_units' in kwargs:
             num_elements = kwargs['num_units']
             
         basis = kwargs['basis']
+       
         self.colors = [[1,0,0.4], [ 0, 0.4, 1],[0, 1, 0.5],[1, 0.7, 0.5],[0.7, 0.6, 0.5],'mediumaquamarine']
         
         # construct figure
@@ -206,7 +207,7 @@ class Visualizer:
         ax3 = plt.subplot(gs[2]); ax3.axis('off');
 
         # set dials for tanh network and trees
-        #num_elements = [v+1 for v in num_elements]
+        num_elements = [v+1 for v in num_elements]
         self.num_elements = max(num_elements)
         opt = optimimzers.MyOptimizers()
 
@@ -323,42 +324,55 @@ class Visualizer:
             # print rendering update
             if np.mod(k+1,5) == 0:
                 print ('rendering animation frame ' + str(k+1) + ' of ' + str(len(num_elements)))
-            if k == len(num_elements) - 1:
+            if k == len(num_elements):
                 print ('animation rendering complete!')
                 time.sleep(1)
                 clear_output()
                 
             # loop over panels, produce plots
-            self.D = num_elements[k] 
-            cs = 0
+            if k > 0:
+                self.D = num_elements[k-1] + 1
+                cs = 0
 
-            # fit to data
-            F = 0
-            predict = 0
-            w = 0
-            if basis == 'poly': 
-                w = weight_history[k]
-                self.D = len(w) - 1
-                ax1.set_title(str(self.D) + ' poly units',fontsize = 14)
-                self.predict = self.poly_predict
-                                       
-            elif basis == 'tanh':
-                w = weight_history[k]
-                self.D = len(w) - 1
-                ax1.set_title(str(self.D) + ' tanh units',fontsize = 14)
-                self.predict = self.tanh_predict
-                    
-            elif basis == 'tree':
-                item = min(len(self.y)-1, num_elements[k]-1,len(weight_history)-1) 
-                w = weight_history[item]
-                ax1.set_title(str(item) + ' tree units',fontsize = 14)
-                self.predict = self.tree_predict
+                # fit to data
+                F = 0
+                predict = 0
+                w = 0
+                if basis == 'poly': 
+                    w = weight_history[k-1]
+                    self.D = len(w) - 1
+                    ax1.set_title(str(self.D) + ' poly units',fontsize = 14)
+                    self.predict = self.poly_predict
 
-            ####### plot all and dress panel ######
-            # produce learned predictor
-            s = np.linspace(xmin,xmax,400)
-            t = [self.predict(np.asarray([v]),w) for v in s]
-            ax1.plot(s,t,linewidth = 2.75,color = self.colors[0],zorder = 3)
+                elif basis == 'tanh':
+                    w = weight_history[k-1]
+                    self.D = len(w) - 1
+                    ax1.set_title(str(self.D) + ' tanh units',fontsize = 14)
+                    self.predict = self.tanh_predict
+
+                elif basis == 'tree':
+                    item = min(len(self.y)-1, num_elements[k]-1,len(weight_history)-1) 
+                    w = weight_history[item]
+                    ax1.set_title(str(item) + ' tree units',fontsize = 14)
+                    self.predict = self.tree_predict
+
+                ####### plot all and dress panel ######
+                # produce learned predictor
+                s = np.linspace(xmin,xmax,400)
+                t = [self.predict(np.asarray([v]),w) for v in s]
+                ax1.plot(s,t,linewidth = 2.75,color = self.colors[2],zorder = 3)
+                            
+                # cost function value
+                ax2.plot(num_elements,cost_evals,color = 'k',linewidth = 2.5,zorder = 1)
+                ax2.scatter(num_elements[k-1],cost_evals[k-1],color = self.colors[2],s = 70,edgecolor = 'w',linewidth = 1.5,zorder = 3)
+
+                ax2.set_xlabel('model',fontsize = 12)
+                ax2.set_title('cost function plot',fontsize = 12)
+
+                # cleanp panel
+                ax2.set_xlim([minxc,maxxc])
+                ax2.set_ylim([minc,maxc])
+                #ax2.xaxis.set_major_locator(MaxNLocator(integer=True))
 
             # plot approximation and data in panel
             ax1.scatter(self.x,self.y,c = 'k',edgecolor = 'w',s = 50,zorder = 1)
@@ -371,18 +385,6 @@ class Visualizer:
             ax1.set_ylabel(r'$y$', rotation = 0,fontsize = 14,labelpad = 10)
             ax1.set_xticks(np.arange(round(xmin), round(xmax)+1, 1.0))
             #ax1.set_yticks(np.arange(round(ymin), round(ymax)+1, 1.0))
-            
-            # cost function value
-            ax2.plot(num_elements,cost_evals,color = 'k',linewidth = 2.5,zorder = 1)
-            ax2.scatter(num_elements[k],cost_evals[k],color = self.colors[0],s = 70,edgecolor = 'w',linewidth = 1.5,zorder = 3)
-
-            ax2.set_xlabel('number of units',fontsize = 12)
-            ax2.set_title('cost function plot',fontsize = 12)
-            
-            # cleanp panel
-            ax2.set_xlim([minxc,maxxc])
-            ax2.set_ylim([minc,maxc])
-            #ax2.xaxis.set_major_locator(MaxNLocator(integer=True))
             
             ### if basis == tree, show the most recently added element as well
             if basis == 'tree':
@@ -418,8 +420,7 @@ class Visualizer:
                 ax.set_xticks(np.arange(round(xmin), round(xmax)+1, 1.0))
                 ax.set_yticks(np.arange(round(ymin), round(ymax)+1, 1.0))
                 
-                
-        anim = animation.FuncAnimation(fig, animate,frames = len(num_elements), interval = len(num_elements), blit=True)
+        anim = animation.FuncAnimation(fig, animate,frames = len(num_elements)+1, interval = len(num_elements)+1, blit=True)
         
         return(anim)
     
@@ -578,8 +579,8 @@ class Visualizer:
         minxc -= gapxc
         maxxc += gapxc
         minc = min(min(copy.deepcopy(train_errors)),min(copy.deepcopy(test_errors)))
-        maxc = max(max(copy.deepcopy(train_errors[:5])),max(copy.deepcopy(test_errors[:5])))
-        gapc = (maxc - minc)*0.5
+        maxc = max(max(copy.deepcopy(train_errors[:])),max(copy.deepcopy(test_errors[:5])))
+        gapc = (maxc - minc)*0.1
         minc -= gapc
         maxc += gapc
 
@@ -657,7 +658,7 @@ class Visualizer:
             ax2.set_title('validation data',fontsize = 15)
                           
              # cleanup
-            ax3.set_xlabel('number of units',fontsize = 12)
+            ax3.set_xlabel('model',fontsize = 12)
             ax3.set_title('errors',fontsize = 15)
            
             # cleanp panel
@@ -709,8 +710,6 @@ class Visualizer:
 
                 ax3.plot([v-1 for v in num_elements[:k]],test_errors[:k],color = [1,0.8,0.5],linewidth = 1.5,zorder = 1,label = 'validation')
                 ax3.scatter([v-1 for v in num_elements[:k]],test_errors[:k],color= [1,0.8,0.5],s = 70,edgecolor = 'w',linewidth = 1.5,zorder = 3)
-
-
                 #legend = ax3.legend(loc='upper right')
 
             
