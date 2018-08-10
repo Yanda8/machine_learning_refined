@@ -20,7 +20,6 @@ def gradient_descent(g,w,x,y,alpha_choice,max_its,batch_size):
 
     # over the line
     alpha = 0
-    print ('grads')
 
     for k in range(max_its):             
         # check if diminishing steplength rule used

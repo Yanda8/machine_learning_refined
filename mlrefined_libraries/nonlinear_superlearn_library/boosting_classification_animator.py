@@ -37,8 +37,8 @@ class Visualizer:
         valid_errors = []
         for run in runs:
             # get histories
-            train_counts = run.train_cost_histories[0]
-            valid_counts = run.valid_cost_histories[0]
+            train_counts = run.train_count_histories[0]
+            valid_counts = run.valid_count_histories[0]
             weights = run.weight_histories[0]
             
             # select based on minimum training
