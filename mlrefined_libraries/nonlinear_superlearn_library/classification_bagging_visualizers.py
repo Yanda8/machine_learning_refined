@@ -30,11 +30,13 @@ class Visualizer:
         self.colors = ['salmon','cornflowerblue','lime','bisque','mediumaquamarine','b','m','g']
         self.plot_colors = ['lime','violet','orange','b']
         
+        '''
         # if 1-d regression data make sure points are sorted
         if np.shape(self.x)[1] == 1:
             ind = np.argsort(self.x.flatten())
             self.x = self.x[ind,:]
             self.y = self.y[ind,:]
+        '''
             
     ########## show boosting crossval on 1d regression, with fit to residual ##########
     def show_runs(self,runs,**kwargs):
@@ -144,11 +146,11 @@ class Visualizer:
         ####### plot total model on original dataset #######
         # scatter original data - training and validation sets
         train_inds = run.train_inds
-        valid_inds = run.val_inds
+        valid_inds = run.valid_inds
         x_train = run.x_train
         y_train = run.y_train
-        x_val = run.x_val
-        y_val = run.y_val
+        x_val = run.x_valid
+        y_val = run.y_valid
         
         # plot data  
         ind0 = np.argwhere(y_train == +1)
@@ -180,7 +182,6 @@ class Visualizer:
         h = np.concatenate((a,b),axis = 1)
         a.shape = (np.size(s1),np.size(s2))     
         b.shape = (np.size(s1),np.size(s2))  
-        
         
         cost = run.cost
         model = run.model
@@ -287,7 +288,7 @@ class Visualizer:
             #### plot contour, color regions ####
             col = np.random.rand(1,3)
             ax.contour(s1,s2,t, linewidths=2.5,levels = [0],colors = col,zorder = 2,alpha = 0.4)
-            ax1.contour(s1,s2,t, linewidths=2.5,levels = [0],colors = col,zorder = 2,alpha = 0.4)
+            #ax1.contour(s1,s2,t, linewidths=2.5,levels = [0],colors = col,zorder = 2,alpha = 0.4)
 
             t_ave.append(t)
         

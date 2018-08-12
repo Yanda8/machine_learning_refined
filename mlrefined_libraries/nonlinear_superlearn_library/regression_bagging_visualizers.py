@@ -209,7 +209,7 @@ class Visualizer:
         ####### plot total model on original dataset #######
         # scatter original data - training and validation sets
         train_inds = run.train_inds
-        valid_inds = run.val_inds
+        valid_inds = run.valid_inds
         ax.scatter(self.x[:,train_inds],self.y[:,train_inds],color = self.colors[1],s = 40,edgecolor = 'k',linewidth = 0.9)
         ax.scatter(self.x[:,valid_inds],self.y[:,valid_inds],color = self.colors[0],s = 40,edgecolor = 'k',linewidth = 0.9)
         

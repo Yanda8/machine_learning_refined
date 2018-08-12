@@ -43,7 +43,7 @@ class Visualizer:
         for run in runs:
             # get histories
             train_costs = run.train_cost_histories[0]
-            valid_costs = run.val_cost_histories[0]
+            valid_costs = run.valid_cost_histories[0]
             weights = run.weight_histories[0]
             
             # select based on minimum training
@@ -146,11 +146,11 @@ class Visualizer:
 
     def plot_train_valid_errors(self,ax,k,train_errors,valid_errors,labels,plot):      
         if plot == True:
-            ax.plot(labels[:k+1] ,train_errors[:k+1],color = [0,0.7,1],linewidth = 1.5,zorder = 1,label = 'training')
-            ax.scatter(labels[:k+1],train_errors[:k+1],color = [0,0.7,1],s = 70,edgecolor = 'w',linewidth = 1.5,zorder = 3)
+            ax.plot(labels[:k+1] ,train_errors[:k+1],color = [0,0.7,1],linewidth = 2.5,zorder = 1,label = 'training')
+            #ax.scatter(labels[:k+1],train_errors[:k+1],color = [0,0.7,1],s = 70,edgecolor = 'w',linewidth = 1.5,zorder = 3)
 
-            ax.plot(labels[:k+1] ,valid_errors[:k+1],color = [1,0.8,0.5],linewidth = 1.5,zorder = 1,label = 'validation')
-            ax.scatter(labels[:k+1] ,valid_errors[:k+1],color= [1,0.8,0.5],s = 70,edgecolor = 'w',linewidth = 1.5,zorder = 3)
+            ax.plot(labels[:k+1] ,valid_errors[:k+1],color = [1,0.8,0.5],linewidth = 2.5,zorder = 1,label = 'validation')
+            #ax.scatter(labels[:k+1] ,valid_errors[:k+1],color= [1,0.8,0.5],s = 70,edgecolor = 'w',linewidth = 1.5,zorder = 3)
 
         # cleanup
         ax.set_xlabel(r'$\lambda$',fontsize = 12)
@@ -158,14 +158,16 @@ class Visualizer:
 
         # cleanp panel                
         num_iterations = len(train_errors)
-        minxc = -0.25
-        maxxc = max(labels) + 0.1
+        minxc = -0.05
+        maxxc = max(labels) + 0.05
         minc = min(min(copy.deepcopy(train_errors)),min(copy.deepcopy(valid_errors)))
         maxc = max(max(copy.deepcopy(train_errors[:])),max(copy.deepcopy(valid_errors[5:])))
+        
         
         gapc = (maxc - minc)*0.1
         minc -= gapc
         maxc += gapc
+        maxc = min(maxc,35)
         
         ax.set_xlim([minxc,maxxc])
         ax.set_ylim([minc,maxc])

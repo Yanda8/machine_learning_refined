@@ -23,7 +23,7 @@ def gradient_descent(g,w,x_train,y_train,x_val,y_val,alpha,max_its,batch_size,ve
 
     # how many mini-batches equal the entire dataset?
     num_batches = int(np.ceil(np.divide(num_train, batch_size)))
-
+    
     # over the line
     for k in range(max_its):                   
         # loop over each minibatch

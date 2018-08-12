@@ -18,24 +18,24 @@ class Setup:
         # make containers for all histories
         self.weight_histories = []
         self.train_cost_histories = []
-        self.train_accuracy_histories = []
-        self.val_cost_histories = []
-        self.val_accuracy_histories = []
+        self.train_count_histories = []
+        self.valid_cost_histories = []
+        self.valid_count_histories = []
         self.train_costs = []
         self.train_counts = []
-        self.val_costs = []
-        self.val_counts = []
+        self.valid_costs = []
+        self.valid_counts = []
         
     #### define preprocessing steps ####
     def preprocessing_steps(self,**kwargs):        
         ### produce / use data normalizer ###
-        normalizer_name = 'standard'
-        if 'normalizer_name' in kwargs:
-            normalizer_name = kwargs['normalizer_name']
-        self.normalizer_name = normalizer_name
+        name = 'standard'
+        if 'name' in kwargs:
+            name = kwargs['name']
+        self.normalizer_name = name
 
         # produce normalizer / inverse normalizer
-        s = normalizers.Setup(self.x,normalizer_name)
+        s = normalizers.Setup(self.x,name)
         self.normalizer = s.normalizer
         self.inverse_normalizer = s.inverse_normalizer
         
@@ -49,14 +49,14 @@ class Setup:
         r = np.random.permutation(self.x.shape[1])
         train_num = int(np.round(train_portion*len(r)))
         self.train_inds = r[:train_num]
-        self.val_inds = r[train_num:]
+        self.valid_inds = r[train_num:]
         
         # define training and testing sets
         self.x_train = self.x[:,self.train_inds]
-        self.x_val = self.x[:,self.val_inds]
+        self.x_valid = self.x[:,self.valid_inds]
         
         self.y_train = self.y[:,self.train_inds]
-        self.y_val = self.y[:,self.val_inds]
+        self.y_valid = self.y[:,self.valid_inds]
      
     #### define cost function ####
     def choose_cost(self,name,**kwargs):
@@ -94,11 +94,11 @@ class Setup:
                 layer_sizes.append(num_labels)
         
         # multilayer perceptron #
-        feature_name = 'multilayer_perceptron'
-        if 'feature_name' in kwargs:
-            feature_name = kwargs['feature_name']
+        name = 'multilayer_perceptron'
+        if 'name' in kwargs:
+            name = kwargs['name']
            
-        if feature_name == 'multilayer_perceptron':
+        if name == 'multilayer_perceptron':
             transformer = multilayer_perceptron.Setup(**kwargs)
             self.feature_transforms = transformer.standard_feature_transforms
             self.initializer = transformer.standard_initializer
@@ -108,7 +108,7 @@ class Setup:
                     self.initializer = transformer.maxout_initializer                   
             self.layer_sizes = transformer.layer_sizes
             
-        if feature_name == 'multilayer_perceptron_batch_normalized':
+        if name == 'multilayer_perceptron_batch_normalized':
             transformer = multilayer_perceptron_batch_normalized.Setup(**kwargs)
             self.feature_transforms = transformer.feature_transforms
             self.initializer = transformer.initializer
@@ -119,20 +119,20 @@ class Setup:
             self.layer_sizes = transformer.layer_sizes
             
         # polynomials #
-        if feature_name == 'polys':
+        if name == 'polys':
             self.transformer = polys.Setup(self.x,self.y,**kwargs)
             self.feature_transforms = self.transformer.feature_transforms
             self.initializer = self.transformer.initializer
             self.degs = self.transformer.D
             
         # cos
-        if feature_name == 'fourier':
+        if name == 'fourier':
             self.transformer = fourier.Setup(self.x,self.y,**kwargs)
             self.feature_transforms = self.transformer.feature_transforms
             self.initializer = self.transformer.initializer
             self.degs = self.transformer.D
             
-        self.feature_name = feature_name
+        self.feat_name = name
         
         ### with feature transformation constructed, pass on to cost function ###
         self.cost_object.define_feature_transform(self.feature_transforms)
@@ -167,7 +167,7 @@ class Setup:
         
         # batch size for gradient descent?
         self.train_num = np.size(self.y_train)
-        self.val_num = np.size(self.y_val)
+        self.valid_num = np.size(self.y_valid)
         self.batch_size = np.size(self.y_train)
         if 'batch_size' in kwargs:
             self.batch_size = min(kwargs['batch_size'],self.batch_size)
@@ -181,30 +181,32 @@ class Setup:
         weight_history = []
         cost_history = []
         
+        # set numericxal stability parameter / regularization parameter
+        lam = 10**(-7)
+        if 'lam' in kwargs:
+            lam = kwargs['lam']
+                
         # run gradient descent
         if self.algo == 'gradient_descent':
-            weight_history,train_cost_history,val_cost_history = super_optimizers.gradient_descent(self.cost,self.w_init,self.x_train,self.y_train,self.x_val,self.y_val,self.alpha_choice,self.max_its,self.batch_size,verbose,self.lam)
-        if self.algo == 'newtons_method':
-            # set numericxal stability parameter / regularization parameter
-            lam = 10**(-7)
-            if 'lam' in kwargs:
-                lam = kwargs['lam']
-                
-            weight_history,train_cost_history,val_cost_history = super_optimizers.newtons_method(self.cost,self.w_init,self.x_train,self.y_train,self.x_val,self.y_val,self.alpha_choice,self.max_its,self.batch_size,verbose,self.lam)
+            weight_history,train_cost_history,valid_cost_history = super_optimizers.gradient_descent(self.cost,self.w_init,self.x_train,self.y_train,self.x_valid,self.y_valid,self.alpha_choice,self.max_its,self.batch_size,verbose,lam)
+            
+            
+        if self.algo == 'newtons_method':                
+            weight_history,train_cost_history,valid_cost_history = super_optimizers.newtons_method(self.cost,self.w_init,self.x_train,self.y_train,self.x_valid,self.y_valid,self.alpha_choice,self.max_its,self.batch_size,verbose,lam)
                                                                                          
         # store all new histories
         self.weight_histories.append(weight_history)
         self.train_cost_histories.append(train_cost_history)
-        self.val_cost_histories.append(val_cost_history)
+        self.valid_cost_histories.append(valid_cost_history)
 
         # if classification produce count history
         if self.cost_name == 'softmax' or self.cost_name == 'perceptron' or self.cost_name == 'multiclass_softmax' or self.cost_name == 'multiclass_perceptron':
-            train_accuracy_history = [1 - self.counter(v,self.x_train,self.y_train)/float(self.y_train.size) for v in weight_history]
-            val_accuracy_history = [1 - self.counter(v,self.x_val,self.y_val)/float(self.y_val.size) for v in weight_history]
+            train_count_history = [self.counter(v,self.x_train,self.y_train) for v in weight_history]
+            valid_count_history = [self.counter(v,self.x_valid,self.y_valid) for v in weight_history]
 
             # store count history
-            self.train_accuracy_histories.append(train_accuracy_history)
-            self.val_accuracy_histories.append(val_accuracy_history)
+            self.train_count_histories.append(train_count_history)
+            self.valid_count_histories.append(valid_count_history)
  
     #### plot histories ###
     def show_histories(self,**kwargs):
@@ -212,9 +214,9 @@ class Setup:
         if 'start' in kwargs:
             start = kwargs['start']
         if self.train_portion == 1:
-            self.val_cost_histories = [[] for s in range(len(self.val_cost_histories))]
-            self.val_accuracy_histories = [[] for s in range(len(self.val_accuracy_histories))]
-        history_plotters.Setup(self.train_cost_histories,self.train_accuracy_histories,self.val_cost_histories,self.val_accuracy_histories,start)
+            self.valid_cost_histories = [[] for s in range(len(self.valid_cost_histories))]
+            self.valid_count_histories = [[] for s in range(len(self.valid_count_histories))]
+        history_plotters.Setup(self.train_cost_histories,self.train_count_histories,self.valid_cost_histories,self.valid_count_histories,start)
         
     #### for batch normalized multilayer architecture only - set normalizers to desired settings ####
     def fix_normalizers(self,w):
