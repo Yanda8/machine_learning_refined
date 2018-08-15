@@ -69,7 +69,7 @@ def gradient_descent(g,w,x_train,y_train,x_val,y_val,alpha,max_its,batch_size,ve
 
 
 # newtons method function - inputs: g (input function), max_its (maximum number of iterations), w (initialization)
-def newtons_method(g,w,x_train,y_train,x_val,y_val,alpha,max_its,batch_size,verbose,lam):     
+def newtons_method(g,w,x_train,y_train,x_val,y_val,alpha,max_its,batch_size,verbose,lam,epsilon):     
     # flatten input funciton, in case it takes in matrices of weights
     g_flat, unflatten, w = flatten_func(g, w)
     
@@ -111,13 +111,14 @@ def newtons_method(g,w,x_train,y_train,x_val,y_val,alpha,max_its,batch_size,verb
 
             # reshape for numpy linalg functionality
             hess_eval.shape = (int((np.size(hess_eval))**(0.5)),int((np.size(hess_eval))**(0.5)))
+            hess_eval += epsilon*np.eye(np.size(w))
 
             # solve second order system system for weight update
             A = hess_eval 
             b = grad_eval
-            w = np.linalg.lstsq(A,np.dot(A,w) - b)[0]
+            #w = np.linalg.lstsq(A,np.dot(A,w) - b)[0]
             
-            #w = w - np.dot(np.linalg.pinv(A),b)
+            w = w - np.dot(np.linalg.pinv(A),b)
             
         end = timer()
         

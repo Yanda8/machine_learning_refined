@@ -191,8 +191,11 @@ class Setup:
             weight_history,train_cost_history,valid_cost_history = super_optimizers.gradient_descent(self.cost,self.w_init,self.x_train,self.y_train,self.x_valid,self.y_valid,self.alpha_choice,self.max_its,self.batch_size,verbose,lam)
             
             
-        if self.algo == 'newtons_method':                
-            weight_history,train_cost_history,valid_cost_history = super_optimizers.newtons_method(self.cost,self.w_init,self.x_train,self.y_train,self.x_valid,self.y_valid,self.alpha_choice,self.max_its,self.batch_size,verbose,lam)
+        if self.algo == 'newtons_method':   
+            epsilon = 10**(-8)
+            if 'epsilon' in kwargs:
+                epsilon = kwargs['epsilon']
+            weight_history,train_cost_history,valid_cost_history = super_optimizers.newtons_method(self.cost,self.w_init,self.x_train,self.y_train,self.x_valid,self.y_valid,self.alpha_choice,self.max_its,self.batch_size,verbose,lam,epsilon)
                                                                                          
         # store all new histories
         self.weight_histories.append(weight_history)

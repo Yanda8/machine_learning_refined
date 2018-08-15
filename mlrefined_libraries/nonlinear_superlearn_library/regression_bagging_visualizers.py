@@ -118,9 +118,7 @@ class Visualizer:
         for k in range(len(runs)):
             # get current run
             run = runs[k]
-            cost = run.cost
             model = run.model
-            feat = run.feature_transforms
             normalizer = run.normalizer
             w = run.weight_histories
 
@@ -217,9 +215,7 @@ class Visualizer:
         s = np.linspace(xmin,xmax,2000)[np.newaxis,:]
 
         # get current run
-        cost = run.cost
         model = run.model
-        feat = run.feature_transforms
         normalizer = run.normalizer
         w = run.weight_histories
 
