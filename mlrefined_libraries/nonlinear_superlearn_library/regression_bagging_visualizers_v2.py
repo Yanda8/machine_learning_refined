@@ -65,11 +65,19 @@ class Visualizer:
             ax.yaxis.tick_left()
             plt.setp(ax.get_xticklabels(), visible=False)
             ax.xaxis.set_tick_params(size=0)
-            #ax.xaxis.tick_left()
         
         # plot all models and ave
         ax = plt.subplot2grid((6,5), (1,2), colspan=4, rowspan=3)
         self.draw_models(ax,all_fits)
+        
+        # turn off ticks and labels
+        plt.setp(ax.get_yticklabels(), visible=False)
+        ax.yaxis.set_tick_params(size=0)
+        ax.yaxis.tick_left()
+        plt.setp(ax.get_xticklabels(), visible=False)
+        ax.xaxis.set_tick_params(size=0)
+        
+        
         #fig.tight_layout()
         #plt.show()
 
@@ -93,21 +101,21 @@ class Visualizer:
         ####### plot total model on original dataset #######
         # scatter original data - training and validation sets
         ax = axs[0]
-        ax.scatter(self.x,self.y,color = 'k',s = 40,edgecolor = 'w',linewidth = 0.9)
+        ax.scatter(self.x,self.y,color = 'k',s = 40,edgecolor = 'w',linewidth = 0.9,zorder = 1)
         
         ### clean up panels ###             
         ax.set_xlim([xmin,xmax])
         ax.set_ylim([ymin,ymax])
         
         # label axes
-        ax.set_xlabel(r'$x$', fontsize = 14)
-        ax.set_ylabel(r'$y$', rotation = 0,fontsize = 14,labelpad = 15)
+        #ax.set_xlabel(r'$x$', fontsize = 14)
+        #ax.set_ylabel(r'$y$', rotation = 0,fontsize = 14,labelpad = 15)
         ax.set_title('individual models')
         
         ax1 = axs[1]
         ax2 = axs[2]
-        ax1.scatter(self.x,self.y,color = 'k',s = 40,edgecolor = 'w',linewidth = 0.9)
-        ax2.scatter(self.x,self.y,color = 'k',s = 40,edgecolor = 'w',linewidth = 0.9)
+        ax1.scatter(self.x,self.y,color = 'k',s = 40,edgecolor = 'w',linewidth = 0.9,zorder = 1)
+        ax2.scatter(self.x,self.y,color = 'k',s = 40,edgecolor = 'w',linewidth = 0.9,zorder = 1)
         
         ### clean up panels ###             
         ax1.set_xlim([xmin,xmax])
@@ -117,11 +125,11 @@ class Visualizer:
         ax2.set_ylim([ymin,ymax])
         
         # label axes
-        ax1.set_xlabel(r'$x$', fontsize = 14)
-        ax1.set_ylabel(r'$y$', rotation = 0,fontsize = 14,labelpad = 15)
+        #ax1.set_xlabel(r'$x$', fontsize = 14)
+        #ax1.set_ylabel(r'$y$', rotation = 0,fontsize = 14,labelpad = 15)
         
-        ax2.set_xlabel(r'$x$', fontsize = 14)
-        ax2.set_ylabel(r'$y$', rotation = 0,fontsize = 14,labelpad = 15)
+        #ax2.set_xlabel(r'$x$', fontsize = 14)
+        #ax2.set_ylabel(r'$y$', rotation = 0,fontsize = 14,labelpad = 15)
         
         # plot fit on residual
         s = np.linspace(xmin,xmax,2000)[np.newaxis,:]
@@ -138,7 +146,7 @@ class Visualizer:
 
             # get best weights                
             t = model(normalizer(s),w)
-            ax.plot(s.T,t.T,linewidth = 2,alpha = 0.4,color = self.plot_colors[self.univ_ind])
+            ax.plot(s.T,t.T,linewidth = 2,alpha = 0.4,color = self.plot_colors[self.univ_ind],zorder = 0)
             #ax1.plot(s.T,t.T,linewidth = 2,alpha = 0.4,color = self.plot_colors[self.univ_ind])
             #ax2.plot(s.T,t.T,linewidth = 2,alpha = 0.4,color = self.plot_colors[self.univ_ind])
 
@@ -151,13 +159,13 @@ class Visualizer:
         t_ave2 = np.median(t_ave,axis = 0)
         
         # plot mean model
-        ax2.plot(s.T,t_ave1.T,linewidth = 4,c = 'k',alpha = 1)
-        ax2.plot(s.T,t_ave1.T,linewidth = 3.5,c = 'r',alpha = 1)
+        ax2.plot(s.T,t_ave1.T,linewidth = 4,c = 'k',alpha = 1,zorder = 0)
+        ax2.plot(s.T,t_ave1.T,linewidth = 3.5,c = 'r',alpha = 1,zorder = 0)
         ax2.set_title('mean model')
 
         # plot median model
-        ax1.plot(s.T,t_ave2.T,linewidth = 4,c = 'k',alpha = 1)
-        ax1.plot(s.T,t_ave2.T,linewidth = 3.5,c = 'r',alpha = 1)
+        ax1.plot(s.T,t_ave2.T,linewidth = 4,c = 'k',alpha = 1,zorder = 0)
+        ax1.plot(s.T,t_ave2.T,linewidth = 3.5,c = 'r',alpha = 1,zorder = 0)
         ax1.set_title('median model')
         
         for axis in [ax,ax1,ax2]:
@@ -184,7 +192,7 @@ class Visualizer:
 
         ####### plot total model on original dataset #######
         # scatter original data - training and validation sets
-        ax.scatter(self.x,self.y,color = 'k',s = 90,edgecolor = 'w',linewidth = 1.5)
+        ax.scatter(self.x,self.y,color = 'k',s = 110,edgecolor = 'w',linewidth = 1.5,zorder = 1)
         
         # plot fit on residual
         t_ave = []
@@ -197,22 +205,22 @@ class Visualizer:
             t_ave.append(t)
         t_ave = np.array(t_ave)
         t_ave = np.swapaxes(t_ave,0,1)[0,:,:]
-        t_ave1 = np.mean(t_ave,axis = 0)   
+        #t_ave1 = np.mean(t_ave,axis = 0)   
         t_ave2 = np.median(t_ave,axis = 0)   
         
         # plot ave model
         s = all_models[0][0]
 
-        #ax.plot(s.T,t_ave1.T,linewidth = 4,c = 'k',alpha = 1)
-        ax.plot(s.T,t_ave2.T,linewidth = 4,c = 'r',alpha = 1)
+        ax.plot(s.T,t_ave2.T,linewidth = 5,c = 'k',alpha = 1,zorder = 0)
+        ax.plot(s.T,t_ave2.T,linewidth = 4,c = 'r',alpha = 1,zorder = 0)
 
         ### clean up panels ###             
         ax.set_xlim([xmin,xmax])
         ax.set_ylim([ymin,ymax])
         
         # label axes
-        ax.set_xlabel(r'$x$', fontsize = 14)
-        ax.set_ylabel(r'$y$', rotation = 0,fontsize = 14,labelpad = 5)
+        #ax.set_xlabel(r'$x$', fontsize = 14)
+        #ax.set_ylabel(r'$y$', rotation = 0,fontsize = 14,labelpad = 5)
             
     def draw_fit_trainval(self,ax,run):
         # set plotting limits
@@ -232,8 +240,8 @@ class Visualizer:
         # scatter original data - training and validation sets
         train_inds = run.train_inds
         valid_inds = run.valid_inds
-        ax.scatter(self.x[:,train_inds],self.y[:,train_inds],color = self.colors[1],s = 12,edgecolor = 'k',linewidth = 0.9)
-        ax.scatter(self.x[:,valid_inds],self.y[:,valid_inds],color = self.colors[0],s = 12,edgecolor = 'k',linewidth = 0.9)
+        ax.scatter(self.x[:,train_inds],self.y[:,train_inds],color = self.colors[1],s = 17,edgecolor = 'k',linewidth = 0.9,zorder = 1)
+        ax.scatter(self.x[:,valid_inds],self.y[:,valid_inds],color = self.colors[0],s = 17,edgecolor = 'k',linewidth = 0.9,zorder = 1)
         
         # plot fit on residual
         s = np.linspace(xmin,xmax,2000)[np.newaxis,:]
@@ -246,8 +254,8 @@ class Visualizer:
         # get best weights                
         t = model(normalizer(s),w)
 
-        ax.plot(s.T,t.T,linewidth = 2,c = 'k',alpha = 0.4)
-        ax.plot(s.T,t.T,linewidth = 1,alpha = 1,color = self.plot_colors[self.univ_ind])
+        ax.plot(s.T,t.T,linewidth = 2,c = 'k',alpha = 1,zorder = 0)
+        ax.plot(s.T,t.T,linewidth = 1,alpha = 1,color = self.plot_colors[self.univ_ind],zorder = 0)
 
         ### clean up panels ###             
         ax.set_xlim([xmin,xmax])

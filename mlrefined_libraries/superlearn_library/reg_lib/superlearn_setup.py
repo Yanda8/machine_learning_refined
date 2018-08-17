@@ -40,13 +40,8 @@ class Setup:
         self.x = self.normalizer(self.x_orig)
         self.normalizer_name = name
         
-        # produce normalizer / inverse normalizer
-        s = normalizers.Setup(self.y_orig,name)
-        self.normalizer = s.normalizer
-        self.inverse_normalizer = s.inverse_normalizer
-        
         # normalize input 
-        self.y = self.normalizer(self.y_orig)
+        self.y = self.y_orig
   
     #### define cost function ####
     def choose_cost(self,cost_name,reg_name,**kwargs):

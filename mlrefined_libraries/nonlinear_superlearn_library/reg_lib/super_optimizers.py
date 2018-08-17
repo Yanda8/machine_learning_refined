@@ -116,9 +116,9 @@ def newtons_method(g,w,x_train,y_train,x_val,y_val,alpha,max_its,batch_size,verb
             # solve second order system system for weight update
             A = hess_eval 
             b = grad_eval
-            #w = np.linalg.lstsq(A,np.dot(A,w) - b)[0]
+            w = np.linalg.lstsq(A,np.dot(A,w) - b)[0]
             
-            w = w - np.dot(np.linalg.pinv(A),b)
+            #w = w - np.dot(np.linalg.pinv(A),b)
             
         end = timer()
         

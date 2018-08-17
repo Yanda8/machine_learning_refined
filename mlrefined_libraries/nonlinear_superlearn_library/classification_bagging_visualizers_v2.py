@@ -71,6 +71,12 @@ class Visualizer:
             ax = plt.subplot2grid((6,5), (1,1), colspan=3, rowspan=3)
                 
         # plot all models and ave
+        plt.setp(ax.get_yticklabels(), visible=False)
+        ax.yaxis.set_tick_params(size=0)
+        ax.yaxis.tick_left()
+        plt.setp(ax.get_xticklabels(), visible=False)
+        ax.xaxis.set_tick_params(size=0)
+            
         self.draw_models(ax,best_runs)
         #ax.axis('equal')
 
@@ -92,19 +98,19 @@ class Visualizer:
         # plot data
         ind0 = np.argwhere(self.y == +1)
         ind0 = [v[1] for v in ind0]
-        ax.scatter(self.x[0,ind0],self.x[1,ind0],s = 45, color = self.colors[0],edgecolor = 'k',linewidth = 1,zorder = 3)
+        ax.scatter(self.x[0,ind0],self.x[1,ind0],s = 60, color = self.colors[0],edgecolor = 'k',linewidth = 1,zorder = 3)
 
         ind1 = np.argwhere(self.y == -1)
         ind1 = [v[1] for v in ind1]
-        ax.scatter(self.x[0,ind1],self.x[1,ind1],s = 45, color = self.colors[1], edgecolor = 'k',linewidth = 1,zorder = 3)
+        ax.scatter(self.x[0,ind1],self.x[1,ind1],s = 60, color = self.colors[1], edgecolor = 'k',linewidth = 1,zorder = 3)
            
         ### clean up panels ###             
         ax.set_xlim([xmin1,xmax1])
         ax.set_ylim([xmin2,xmax2])
         
         # label axes
-        ax.set_xlabel(r'$x_1$', fontsize = 14)
-        ax.set_ylabel(r'$x_2$', rotation = 0,fontsize = 14,labelpad = 10)
+        #ax.set_xlabel(r'$x_1$', fontsize = 14)
+        #ax.set_ylabel(r'$x_2$', rotation = 0,fontsize = 14,labelpad = 10)
         
         # plot boundary for 2d plot
         s1 = np.linspace(xmin1,xmax1,400)
@@ -171,19 +177,19 @@ class Visualizer:
         # plot data  
         ind0 = np.argwhere(y_train == +1)
         ind0 = [v[1] for v in ind0]
-        ax.scatter(x_train[0,ind0],x_train[1,ind0],s = 10, color = self.colors[0],edgecolor = 'k',linewidth = 1,zorder = 3)
+        ax.scatter(x_train[0,ind0],x_train[1,ind0],s = 20, color = self.colors[0],edgecolor = 'k',linewidth = 1,zorder = 3)
         
         ind0 = np.argwhere(y_valid == +1)
         ind0 = [v[1] for v in ind0]
-        ax.scatter(x_valid[0,ind0],x_valid[1,ind0],s = 10, color = self.colors[0],edgecolor = [1,0.8,0.5],linewidth = 1,zorder = 3)
+        ax.scatter(x_valid[0,ind0],x_valid[1,ind0],s = 20, color = self.colors[0],edgecolor = [1,0.8,0.5],linewidth = 1,zorder = 3)
         
         ind0 = np.argwhere(y_train == -1)
         ind0 = [v[1] for v in ind0]
-        ax.scatter(x_train[0,ind0],x_train[1,ind0],s = 10, color = self.colors[1],edgecolor = 'k',linewidth = 1,zorder = 3)
+        ax.scatter(x_train[0,ind0],x_train[1,ind0],s = 20, color = self.colors[1],edgecolor = 'k',linewidth = 1,zorder = 3)
         
         ind0 = np.argwhere(y_valid == -1)
         ind0 = [v[1] for v in ind0]
-        ax.scatter(x_valid[0,ind0],x_valid[1,ind0],s = 10, color = self.colors[1],edgecolor = [1,0.8,0.5],linewidth = 1,zorder = 3)
+        ax.scatter(x_valid[0,ind0],x_valid[1,ind0],s = 20, color = self.colors[1],edgecolor = [1,0.8,0.5],linewidth = 1,zorder = 3)
         
         # plot boundary for 2d plot
         s1 = np.linspace(xmin1,xmax1,400)
