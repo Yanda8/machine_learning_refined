@@ -11802,66 +11802,6 @@ g\left(b_{1},...,b_{C},\mathbf{z}_{1},...,\mathbf{z}_{C}\right)=\underset{c=1}{\
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="Example-3.--Kernelizing-the-PCA-Least-Squares-cost"><span style="color:#a50e3e;">Example 3. </span> Kernelizing the PCA Least Squares cost<a class="anchor-link" href="#Example-3.--Kernelizing-the-PCA-Least-Squares-cost">&#182;</a></h4>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>In Exercise 10.?? we described the nonlinear extension of PCA via the PCA Least Squares cost introduced in Section 8.2 as</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-\begin{equation}
-g\left(\mathbf{w}_1,...,\mathbf{w}_P,\mathbf{C}\right) = \frac{1}{P}\sum_{p = 1}^P \left \Vert \mathbf{C}\mathbf{w}_p - \mathbf{f}_p \right\Vert_2^2.
-\end{equation}
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>Suppose here that the feature transformed input $\mathbf{f}_p$ of the input $\mathbf{x}_p$ is precisely as defined in the prior Examples.  The classic solution to this cost is provided by the <em>eigenvector-eigenvalue decomposition</em> of the feature-transformed covariance matrix (see Section 8.4) $\frac{1}{P}\mathbf{F}\mathbf{F}^{T} = \mathbf{V}\mathbf{D}\mathbf{V}^T$.  However this is an $N\times N$ matrix, and is <em>not</em> $P\times P$ kernel matrix, which is given as $\mathbf{H} = \mathbf{F}^{T}\mathbf{F}$.  While this simple fact indicates the impossibility of computing the eigenvectors of the <em>kernelized</em> feature tranformed input, we can compute the <em>encoded</em> version of the this kernelized input $\mathbf{w}_p = \mathbf{V}^T\mathbf{f}_p$ directly via the kernel matrix as you will explore in this exercise.</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p><strong>a)</strong> As shown in Section 8.4, the eigenvectors of classic solution to the original PCA problem $\frac{1}{P}\mathbf{X}\mathbf{X}^T = \mathbf{V}\mathbf{D}\mathbf{V}^T$ may each be represented as some linear combination of the input points i.e., $\mathbf{V} = \mathbf{X}^T$.</p>
-<p>are given as a linear combination of the input.  In the feature transformed case this statement still holds, and thus we ma</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="Example-?.---Kernelize-K-means"><span style="color:#a50e3e;">Example ?. </span>  Kernelize K-means<a class="anchor-link" href="#Example-?.---Kernelize-K-means">&#182;</a></h4>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
 
 </div>
 </div>
