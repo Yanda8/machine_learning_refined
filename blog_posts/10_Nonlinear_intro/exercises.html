@@ -11753,7 +11753,149 @@ div#notebook {
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="Multi-output">Multi-output<a class="anchor-link" href="#Multi-output">&#182;</a></h1>
+<h4 id="Example-1.---The-principle-of-Kernel-PCA"><span style="color:#a50e3e;">Example 1. </span>  The principle of Kernel PCA<a class="anchor-link" href="#Example-1.---The-principle-of-Kernel-PCA">&#182;</a></h4>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>As we saw in Section 8.2 in minimizing the PCA Least Squares cost</p>
+\begin{equation}
+g\left(\mathbf{w}_1,...,\mathbf{w}_P,\mathbf{C}\right) = \frac{1}{P}\sum_{p = 1}^P \left \Vert \mathbf{C}\mathbf{w}_p - \mathbf{x}_p \right\Vert_2^2.
+\end{equation}<p>over the $N\times K$ spanning set $\mathbf{C}$ and corresponding $K\times 1$ weight vectors $\mathbf{w}_1,\,...,\mathbf{w}_P$ determines a proper $K$ dimensional linear subspace for the set of input points $\mathbf{x}_1,..,\mathbf{x}_P$.</p>
+<p>As an alternative to extending autoencoder to allow PCA to capture nonlinear subspaces (as described at length in Section 10.5), we can instead extend this PCA Least Squares cost.  This is a more restricted version of nonlinear PCA, often termed <em>Kernel PCA</em>, that is the basis for similar nonlinear extensions of other unsupervised problems like e.g., K-means as well.  In this exercise you will investigate fundamental principles involved in this nonlinear extension.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>To do this we begin by choosing a set of $B$ nonlinear features $f_1,\,f_2,\,...,f_B$ <em>that have no internal parameters</em> and <em>transform the input directly</em>, and denote the transformation of $\mathbf{x}_p$ using this entire set of feature transformations as</p>
+\begin{equation}
+\mathbf{f}_p = 
+\begin{bmatrix}
+f_1\left(\mathbf{x}_p\right) \\
+f_2\left(\mathbf{x}_p\right) \\
+\vdots \\
+f_B\left(\mathbf{x}_p\right)
+\end{bmatrix}.
+\end{equation}
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Then, instead of learning a linear subspace for our input data, we learn one for these transformed input as</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+\begin{equation}
+g\left(\mathbf{w}_1,...,\mathbf{w}_P,\mathbf{C}\right) = \frac{1}{P}\sum_{p = 1}^P \left \Vert \mathbf{C}\mathbf{w}_p - \mathbf{f}_p \right\Vert_2^2.
+\end{equation}
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Note here that since each $\mathbf{f}_p$ has size $B \times 1$, our spanning set $\mathbf{C}$ must necessarily consist of equal length vectors and be of size $B \times K$.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><strong>a)</strong> Assuming that the set of $B$ feature transformations chosen <em>have no internal parameters</em>, describe the <em>classic PCA solution</em>  to the problem of minimizing the cost function above (hint: see Section 8.4).  This means that the spanning set $\mathbf{C}$ is assumed to be <em>orthogonal</em>.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><strong>b)</strong>  Suppose that we have a dataset of input points distributed roughly on the unit circle in $N=2$ dimensional space, and that we use the two feature transformations $f_1\left(\mathbf{x}\right) = x_1^2$ and $f_2\left(\mathbf{x}\right) = x_2^2$.  What kind of subspace will we find in both the original and feature transformed space if we use use just the first principle component from the classical PCA solution to represent our data?  Draw a picture of what this looks like in both spaces.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><strong>c)</strong>  What can you conclude in general about what is going on simultaneously - in terms of the kind of subspace on which input and its feature transformed version are being projected onto - in both the <em>original</em> input space and the <em>feature transformed</em> space of this problem in general?  hint: it is entirely analagous to what we saw in the cases of nonlinear regression, two-class, and multi-class classification in this Chapter (see e.g., Example 2 in Section 10.1 and 10.3).</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="Example-1.---The-principle-of-Kernel-K-means"><span style="color:#a50e3e;">Example 1. </span>  The principle of Kernel K-means<a class="anchor-link" href="#Example-1.---The-principle-of-Kernel-K-means">&#182;</a></h4>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>The same idea introduced in the previous exercise can also be used to extend K-means clustering (see Section 8.4) to a nonlinear setting as well - and is the basis for so-called <em>kernel K-means</em>.  This can be done by first noting that both PCA and K-means <em>have the same Least Squares cost function</em>.  With K-means however the minimization of this cost function is <em>constrained</em> so that each weight vector $\mathbf{w}_p \in \left\{\mathbf{e}_k\right\}_{k=1}^K$ is a standard basis vector (see Section 8.7).  Here you will explore the same extension for K-means used with PCA in the previous Exercise.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><strong>a)</strong> Extend the K-means problem precisely as shown with PCA in the previous exercise.  Compare this to the same sort of clustering performed on the original input - in words what is being clustered in each instance?</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><strong>b)</strong>  Suppose that we have a dataset of $N=2$ input points distributed roughly in two clusters: one cluster consists of points distributed roughly on the unit circle, and another consists of points distributed roughly on the circle of radius two centered at the origin.  Using the two $f_1\left(\mathbf{x}\right) = x_1^2$ and $f_2\left(\mathbf{x}\right) = x_2^2$ and $K=2$ what kind of clusters will we find upon proper execution of K-means, both the original and feature transformed space? Draw a picture of what this looks like in both spaces.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><strong>c)</strong>  What can you conclude in general about what is going on simultaneously - in terms of the kind of clustering of both the input and its feature transformed version - in both the <em>original</em> input space and the <em>feature transformed</em> space of this problem in general?  hint: it is entirely analagous to what we saw in the cases of nonlinear regression, two-class, and multi-class classification in this Chapter (see e.g., Example 2 in Section 10.1 and 10.3).</p>
+
 </div>
 </div>
 </div>
@@ -12007,10 +12149,10 @@ div#notebook {
 
 
 
-<div id="a68be786-e711-4870-acf9-5fd57db0b500"></div>
+<div id="05a7dc4c-ebc0-4123-a395-72daffbe209c"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#a68be786-e711-4870-acf9-5fd57db0b500');
+var element = $('#05a7dc4c-ebc0-4123-a395-72daffbe209c');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -12881,10 +13023,10 @@ f\left(\mathbf{x},\mathbf{w}\right) = \text{sin}\left(w_0 + x_1w_1 + x_2w_2\righ
 
 
 
-<div id="0ccf9f84-c82b-460e-afd8-07836b9f2cf3"></div>
+<div id="8c7de55a-62ca-4b5f-89c4-f480a410e904"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#0ccf9f84-c82b-460e-afd8-07836b9f2cf3');
+var element = $('#8c7de55a-62ca-4b5f-89c4-f480a410e904');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -13777,10 +13919,10 @@ if (IPython.notebook.kernel != null) {
 
 
 
-<div id="91bfb26a-bc16-4d91-b52c-fdf1a9e3c9f0"></div>
+<div id="8810d24f-74c9-4ebc-bb1c-ed9f1e41617a"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#91bfb26a-bc16-4d91-b52c-fdf1a9e3c9f0');
+var element = $('#8810d24f-74c9-4ebc-bb1c-ed9f1e41617a');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -14633,10 +14775,10 @@ if (IPython.notebook.kernel != null) {
 
 
 
-<div id="48010650-7064-4d2a-8fd6-8aa316eec5d7"></div>
+<div id="8c5110b0-10f8-4b4c-bc0b-7acd9fb8b995"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#48010650-7064-4d2a-8fd6-8aa316eec5d7');
+var element = $('#8c5110b0-10f8-4b4c-bc0b-7acd9fb8b995');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -15421,10 +15563,10 @@ if (IPython.notebook.kernel != null) {
 
 
 
-<div id="cb5b6aa2-73fc-4183-8be1-499bbffa6311"></div>
+<div id="91d0adcf-85cf-4ca9-9f03-80dbd89246c0"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#cb5b6aa2-73fc-4183-8be1-499bbffa6311');
+var element = $('#91d0adcf-85cf-4ca9-9f03-80dbd89246c0');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -16354,10 +16496,10 @@ if (IPython.notebook.kernel != null) {
 
 
 
-<div id="0dbc0117-cc4a-4d42-9df9-20be1580e6d6"></div>
+<div id="887697e6-204b-47c4-9b7d-30d2874defee"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#0dbc0117-cc4a-4d42-9df9-20be1580e6d6');
+var element = $('#887697e6-204b-47c4-9b7d-30d2874defee');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -17208,10 +17350,10 @@ if (IPython.notebook.kernel != null) {
 
 
 
-<div id="277655f4-923b-4a29-8788-466c8d71dd0e"></div>
+<div id="47e43d9b-9dfd-4b79-a41d-5d83ecc4699e"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#277655f4-923b-4a29-8788-466c8d71dd0e');
+var element = $('#47e43d9b-9dfd-4b79-a41d-5d83ecc4699e');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -18017,10 +18159,10 @@ if (IPython.notebook.kernel != null) {
 
 
 
-<div id="0166e19c-7a1d-4986-8341-a918f60b6caa"></div>
+<div id="fb77c49d-27f8-49ff-8715-526fe713d0d2"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#0166e19c-7a1d-4986-8341-a918f60b6caa');
+var element = $('#fb77c49d-27f8-49ff-8715-526fe713d0d2');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -18860,10 +19002,10 @@ if (IPython.notebook.kernel != null) {
 
 
 
-<div id="87371783-f3ca-4df1-b513-ba67e11c743f"></div>
+<div id="6c78a9bc-bb43-4a7c-a61c-03c9ed2f6d8a"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#87371783-f3ca-4df1-b513-ba67e11c743f');
+var element = $('#6c78a9bc-bb43-4a7c-a61c-03c9ed2f6d8a');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 

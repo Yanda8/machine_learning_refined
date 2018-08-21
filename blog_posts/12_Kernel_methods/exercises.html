@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head><meta charset="utf-8" />
-<title>1_Motivation</title><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
+<title>exercises</title><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
 
 <style type="text/css">
@@ -11753,7 +11753,7 @@ div#notebook {
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="Motivation">Motivation<a class="anchor-link" href="#Motivation">&#182;</a></h1>
+<h4 id="Example-?.---Kernelizing-the-multiclass-softmax-loss"><span style="color:#a50e3e;">Example ?. </span>  Kernelizing the multiclass softmax loss<a class="anchor-link" href="#Example-?.---Kernelizing-the-multiclass-softmax-loss">&#182;</a></h4>
 </div>
 </div>
 </div>
@@ -11762,7 +11762,18 @@ div#notebook {
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>In this Chapter we describe fixed feature kernels, which is a method of representing fixed basis features so that they scale more gracefully when applied to vector valued input.</p>
+<p>Recall that the multiclass softmax cost function is written as</p>
+\begin{equation}
+g\left(b_{1},...,b_{C},\mathbf{w}_{1},...,\mathbf{w}_{C}\right)=\underset{c=1}{\overset{C}{\sum}}\underset{p\in\Omega_{c}}{\sum}\mbox{log}\left(1+\underset{\underset{j\neq c}{j=1}}{\overset{C}{\sum}}e^{\left(b_{j}^{\,}-b_{c}^{\,}\right)+\mathbf{f}_{p}^{T}\left(\mathbf{w}_{j}^{\,}-\mathbf{w}_{c}^{\,}\right)}\right)
+\end{equation}<p>Rewriting each $\mathbf{w}_{j}$ as $\mathbf{w}_{j}=\mathbf{F}\mathbf{z}_{j}+\mathbf{r}_{j}$
+where $\mathbf{F}^{T}\mathbf{r}_{j}=\mathbf{0}_{P\times1}$ for all
+$j$ we can rewrite each $\mathbf{f}_{p}^{T}\left(\mathbf{w}_{j}^{\,}-\mathbf{w}_{c}^{\,}\right)$
+term as $\mathbf{f}_{p}^{T}\left(\mathbf{w}_{j}^{\,}-\mathbf{w}_{c}^{\,}\right)=\mathbf{f}_{p}^{T}\left(\mathbf{F}\left(\mathbf{z}_{j}-\mathbf{z}_{c}\right)+\left(\mathbf{r}_{j}-\mathbf{r}_{c}\right)\right)=\mathbf{f}_{p}^{T}\mathbf{F}\left(\mathbf{z}_{j}-\mathbf{z}_{c}\right)$.
+And denoting $\mathbf{H}=\mathbf{F}^{T}\mathbf{F}$ the kernel matrix
+this we have that $\mathbf{f}_{p}^{T}\left(\mathbf{w}_{j}^{\,}-\mathbf{w}_{c}^{\,}\right)=\mathbf{h}_{p}^{T}\left(\mathbf{z}_{j}-\mathbf{z}_{c}\right)$, and so the cost may be written eqvuivalently (kernelized) as</p>
+\begin{equation}
+g\left(b_{1},...,b_{C},\mathbf{z}_{1},...,\mathbf{z}_{C}\right)=\underset{c=1}{\overset{C}{\sum}}\underset{p\in\Omega_{c}}{\sum}\mbox{log}\left(1+\underset{\underset{j\neq c}{j=1}}{\overset{C}{\sum}}e^{\left(b_{j}^{\,}-b_{c}^{\,}\right)+\mathbf{h}_{p}^{T}\left(\mathbf{z}_{j}-\mathbf{z}_{c}\right)}\right)
+\end{equation}<p>as shown in Table \ref{tab:kernelized-versions}.</p>
 
 </div>
 </div>
@@ -11772,14 +11783,16 @@ div#notebook {
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>A serious practical issue presents itself when applying fixed basis features to vector valued input: even with a moderate sized input dimension $N$, the corresponding dimension
-$M$ of the transformed features grows rapidly with $N$ and quickly becomes prohibitively
-large in terms of storage and computation. For example, the precise number $M$ of non-
-bias features/feature weights of a degree $D$ polynomial of an input with dimension
-$N$ is $\left(\begin{array}{c}
-N+D\\
-D
-\end{array}\right)-1=\frac{\left(N+D\right)!}{N!D!}-1$. Even if the input dimension is of reasonably small size, for instance $N=100$ or $N=500$, then just the associated degree $D=5$ polynomial feature map of these input dimensions has dimension $M= 96,560,645$ and $M=268,318,178,226$ respectively! In the latter case we cannot even hold the feature vectors in memory on a modern computer.</p>
+<h4 id="Example-?.---Prove-the-high-capacity-units-grow-combinatorially-as-well"><span style="color:#a50e3e;">Example ?. </span>  Prove the high capacity units grow combinatorially as well<a class="anchor-link" href="#Example-?.---Prove-the-high-capacity-units-grow-combinatorially-as-well">&#182;</a></h4>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>For example, if we chose a smaller set of say just those units with the same capacity - e.g., for polynomials this would be all units where $m_1 + m_2 + \cdots + m_N = D$ -</p>
 
 </div>
 </div>
@@ -11789,7 +11802,16 @@ D
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>The corresponding number of transformed features with a Fourier basis/map is even more gargantuan: the degree $D$ Fourier feature map of arbitrary input dimension $N$ has $\left(2D + 1\right)^N$ associated/feature weights. When $D=5$ and $N=80$ this is $11^{80}$, a number larger than current estimates of the number of atoms in the visible universe!</p>
+<h4 id="Example-3.--Kernelizing-the-PCA-Least-Squares-cost"><span style="color:#a50e3e;">Example 3. </span> Kernelizing the PCA Least Squares cost<a class="anchor-link" href="#Example-3.--Kernelizing-the-PCA-Least-Squares-cost">&#182;</a></h4>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>In Exercise 10.?? we described the nonlinear extension of PCA via the PCA Least Squares cost introduced in Section 8.2 as</p>
 
 </div>
 </div>
@@ -11799,7 +11821,47 @@ D
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>This crucial issue, of not being able to effectively store high dimensional fixed basis feature transformations, motivates the search for more efficient representations of fixed bases. Here we introduce kernels or kernelized representations of fixed feature transformations, which are clever ways of constructing them that do not require explicit construction of the fixed features themselves. Kernels allow us to avoid this combinatorial storage problem and use fixed features with vector input (at the cost, as we will see, of scaling poorly with the size of a dataset). Additionally they provide a way of generating new fixed feature maps defined solely through such a kernelized representation.</p>
+\begin{equation}
+g\left(\mathbf{w}_1,...,\mathbf{w}_P,\mathbf{C}\right) = \frac{1}{P}\sum_{p = 1}^P \left \Vert \mathbf{C}\mathbf{w}_p - \mathbf{f}_p \right\Vert_2^2.
+\end{equation}
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Suppose here that the feature transformed input $\mathbf{f}_p$ of the input $\mathbf{x}_p$ is precisely as defined in the prior Examples.  The classic solution to this cost is provided by the <em>eigenvector-eigenvalue decomposition</em> of the feature-transformed covariance matrix (see Section 8.4) $\frac{1}{P}\mathbf{F}\mathbf{F}^{T} = \mathbf{V}\mathbf{D}\mathbf{V}^T$.  However this is an $N\times N$ matrix, and is <em>not</em> $P\times P$ kernel matrix, which is given as $\mathbf{H} = \mathbf{F}^{T}\mathbf{F}$.  While this simple fact indicates the impossibility of computing the eigenvectors of the <em>kernelized</em> feature tranformed input, we can compute the <em>encoded</em> version of the this kernelized input $\mathbf{w}_p = \mathbf{V}^T\mathbf{f}_p$ directly via the kernel matrix as you will explore in this exercise.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><strong>a)</strong> As shown in Section 8.4, the eigenvectors of classic solution to the original PCA problem $\frac{1}{P}\mathbf{X}\mathbf{X}^T = \mathbf{V}\mathbf{D}\mathbf{V}^T$ may each be represented as some linear combination of the input points i.e., $\mathbf{V} = \mathbf{X}^T$.</p>
+<p>are given as a linear combination of the input.  In the feature transformed case this statement still holds, and thus we ma</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="Example-?.---Kernelize-K-means"><span style="color:#a50e3e;">Example ?. </span>  Kernelize K-means<a class="anchor-link" href="#Example-?.---Kernelize-K-means">&#182;</a></h4>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
 
 </div>
 </div>

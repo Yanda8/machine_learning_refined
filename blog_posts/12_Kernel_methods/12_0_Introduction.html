@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head><meta charset="utf-8" />
-<title>5_Examples_of_kernels</title><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
+<title>12_0_Introduction</title><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
 
 <style type="text/css">
@@ -11753,7 +11753,7 @@ div#notebook {
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="Examples-of-kernels">Examples of kernels<a class="anchor-link" href="#Examples-of-kernels">&#182;</a></h1>
+<h2 id="Chapter-12:-Kernel-methods">Chapter 12: Kernel methods<a class="anchor-link" href="#Chapter-12:-Kernel-methods">&#182;</a></h2>
 </div>
 </div>
 </div>
@@ -11762,8 +11762,7 @@ div#notebook {
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Here we present a list of examples of kernels for popular fixed feature transformations that may be built without first constructing the explicit feature transformation itself. While these are the most commonly used kernels in practice, the reader can see e.g., <a href="#bib_cell">[6,7]</a>) for a more exhaustive list of kernels and their properties.</p>
-
+<h1 id="12.0--Introduction">12.0  Introduction<a class="anchor-link" href="#12.0--Introduction">&#182;</a></h1>
 </div>
 </div>
 </div>
@@ -11772,194 +11771,7 @@ div#notebook {
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="Example-1.--The-polynomial-kernel"><span style="color:#a50e3e;">Example 1. </span> The polynomial kernel<a class="anchor-link" href="#Example-1.--The-polynomial-kernel">&#182;</a></h4>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>Consider the following second degree polynomial mapping from $N=2$ to $M=5$ dimensional space given by</p>
-\begin{equation}
-\mathbf{f}\left(\left[\begin{array}{c}
-x_{1}\\
-x_{2}
-\end{array}\right]\right)=\left[\begin{array}{ccccc}
-\sqrt{2}x_{1}^{\,} & \sqrt{2}x_{2}^{\,} & x_{1}^{2} & \sqrt{2}x_{1}^{\,}x_{2}^{\,} & x_{2}^{2}\end{array}\right]^{T}
-\end{equation}<p>This is entirely equivalent to a standard degree $2$ polynomial, as the $\sqrt{2}$ attached to several of the terms can be absorbed by their associated weights when taking the corresponding weighted sum $\underset{m=1}{\overset{5}{\sum}}f_{m}\left(\mathbf{x}\right)w_{m}$.</p>
-<p>Denoting briefly by $\mathbf{u}=\mathbf{x}_{i}$ and $\mathbf{v}=\mathbf{x}_{j}$
-the $i^{\textrm{th}}$ and $j^{\textrm{th}}$ input data points respectively,
-the $\left(i,j\right)^{\textrm{th}}$ element of the kernel matrix
-for a degree 2 polynomial $\mathbf{H}=\mathbf{F}^{T}\mathbf{F}$ may
-be written as</p>
-\begin{equation}
-\begin{array}{c}
-\mathbf{H}_{ij}=\left[\begin{array}{ccccc}
-\sqrt{2}u_{1} & \sqrt{2}u_{2} & u_{1}^{2} & \sqrt{2}u_{1}u_{2} & u_{2}^{2}\end{array}\right]\left[\begin{array}{c}
-\sqrt{2}v_{1}\\
-\sqrt{2}v_{2}\\
-v_{1}^{2}\\
-\sqrt{2}v_{1}v_{2}\\
-v_{2}^{2}
-\end{array}\right]\end{array}
-\\
-=\left(1+2u_{1}v_{1}+2u_{2}v_{2}+u_{1}^{2}v_{1}^{2}+2u_{1}u_{2}v_{1}v_{2}+u_{2}^{2}v_{2}^{2}\right)-1
-\\
-=\left(1+u_{1}v_{1}+u_{2}v_{2}\right)^{2}-1=\left(1+\mathbf{u}^{T}\mathbf{v}\right)^{2}-1
-\end{equation}<p>In short, the <em>polynomial kernel</em> matrix $\mathbf{H}$ may be built without first constructing the explicit features in Equation (10), and may be simply defined
-entry-wise as</p>
-\begin{equation}
-\mathbf{H}_{ij}=\left(1+\mathbf{x}_{i}^{T}\mathbf{x}_{j}\right)^{2}-1
-\end{equation}<p>Again note that with the polynomial kernel defined above we only require access to the original input data, not the explicit polynomial features themselves.</p>
-<p>Although the kernel construction rule in Equation (12) was derived specifically for $N=2$ and a degree two polynomial, one can show that a polynomial kernel can be defined entry-wise for general $N$ and degree $D$ analogously as</p>
-\begin{equation}
-\mathbf{H}_{ij}=\left(1+\mathbf{x}_{i}^{T}\mathbf{x}_{j}\right)^{D}-1
-\end{equation}
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="Example-2.---The-Fourier-kernel"><span style="color:#a50e3e;">Example 2. </span>  The Fourier kernel<a class="anchor-link" href="#Example-2.---The-Fourier-kernel">&#182;</a></h4>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>The degree $D$ Fourier feature transformation from $N=1$ to $M=2D$ dimensional
-space is given as</p>
-\begin{equation}
-\mathbf{f}_{p}=\left[\begin{array}{ccccc}
-\sqrt{2}\mbox{cos}\left(2\pi x_{p}\right) & \sqrt{2}\mbox{sin}\left(2\pi x_{p}\right) & \cdots & \sqrt{2}\mbox{cos}\left(2D\pi x_{p}\right) & \sqrt{2}\mbox{sin}\left(2D\pi x_{p}\right)\end{array}\right]^{T}
-\end{equation}<p>For a dataset of $P$ points the corresponding $\left(i,j\right)^{th}$
-element of the corresponding kernel matrix $\mathbf{H}$ can be written
-as</p>
-\begin{equation}
-\mathbf{H}_{ij}=\mathbf{f}_{i}^{T}\mathbf{f}_{j}=2 \sum_{m=1}^{D}\mbox{cos}\left(2\pi mx_{i}\right)\mbox{cos}\left(2\pi mx_{j}\right)+\mbox{sin}\left(2\pi mx_{i}\right)\mbox{sin}\left(2\pi mx_{j}\right)
-\end{equation}<p>Using trigonometric identities one can show (see Section \ref{subsec:Fourier-kernel-calculations-scalar})
-that this may equivalently be written as</p>
-\begin{equation}
-\mathbf{H}_{ij}=\frac{\mbox{sin}\left(\left(2D+1\right)\pi\left(x_{i}-x_{j}\right)\right)}{\mbox{sin}\left(\pi\left(x_{i}-x_{j}\right)\right)}-1.
-\end{equation}<p>Note that whenever $x_{i}-x_{j}$ is integer valued the term $\frac{\text{sin}\left(\left(2D+1\right)\pi\left(x_{i}-x_{j}\right)\right)}{\text{sin}\left(\pi\left(x_{i}-x_{j}\right)\right)}$
-is not technically defined. In these case it is simply replaced by
-its associated limit which, regardless of the integer value $x_{i}-x_{j}$,
-is always equal to $2D+1$ meaning that $\mathbf{H}_{ij}=2D$.</p>
-<p>Moreover for general $N$ dimensional input the corresponding kernel
-can be written similarly entry-wise as</p>
-\begin{equation}
-\mathbf{H}_{ij}=\underset{n=1}{\overset{N}{\prod}}\frac{\mbox{sin}\left(\left(2D+1\right)\pi\left(x_{in}-x_{jn}\right)\right)}{\mbox{sin}\left(\pi\left(x_{in}-x_{jn}\right)\right)}-1.
-\end{equation}<p>As with the one dimensional version whenever $x_{in}-x_{jn}$ is integer
-valued the associated term $\frac{\mbox{sin}\left(\left(2D+1\right)\pi\left(x_{in}-x_{jn}\right)\right)}{\mbox{sin}\left(\pi\left(x_{in}-x_{jn}\right)\right)}$
-in the product is replaced by its limit which, regardless of the value
-of $x_{in}-x_{jn}$, is always equal to $2D+1$. See Section \ref{subsec:Fourier-kernel-calculations-vector-input}
-for further details.</p>
-<p>With this formula we may compute the degree $D$ Fourier features
-for arbitrary $N$ dimensional input vectors without calculating the
-enormous number (see footnote \ref{fn:high-dim-fourier-basis}) of
-basis features explicitly.</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="Example-3.---Kernel-representation-of-radial-basis-function-(RBF)-features"><span style="color:#a50e3e;">Example 3. </span>  Kernel representation of radial basis function (RBF) features<a class="anchor-link" href="#Example-3.---Kernel-representation-of-radial-basis-function-(RBF)-features">&#182;</a></h4>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>Another popular choice of kernel is the\emph{ radial basis function
-}(RBF) kernel which is typically defined explicitly as a kernel matrix
-over the input data as</p>
-\begin{equation}
-\mathbf{H}_{ij}=e^{-\beta\left\Vert \mathbf{x}_{i}-\mathbf{x}_{j}\right\Vert _{2}^{2}}
-\end{equation}<p>Here the kernel parameter $\beta$ is tuned to the data in practice
-via cross-validation.</p>
-<p>While the RBF kernel is typically defined directly as above, it can be traced back to an explicit fixed feature basis as with the polynomial and Fourier kernels i.e., we have that</p>
-\begin{equation}
-\mathbf{H}_{ij}=\mathbf{f}_{i}^{T}\mathbf{f}_{j},
-\end{equation}<p>where $\mathbf{f}_{i}$ is the fixed feature transformation of the input $\mathbf{x}_{i}$ based on a fixed basis. While the length of a feature transformation corresponding to a degree $D$ polynomial/Fourier kernel matrix can be extremely large (as discussed in the introduction to this Section), with the RBF kernel the associated feature transformation is always \emph{infinite }dimensional. For example when $N=1$ the feature vector $\mathbf{f}_{i}$ takes the form $\mathbf{f}_{i}=\left[\begin{array}{cccc}
-f_{1}\left(x_{i}\right) & f_{2}\left(x_{i}\right) & f_{3}\left(x_{i}\right) & \cdots\end{array}\right]^{T}$, where the $m^{th}$ fixed basis feature is defined as</p>
-\begin{equation}
-f_{m}\left(x_{i}\right)=e^{-\beta x_{i}^{2}}\sqrt{\frac{\left(2\beta\right)^{m-1}}{\left(m-1\right)!}}x_{i}^{m-1}\quad\textrm{for all }m\geq1
-\end{equation}<p>When $N>1$ the corresponding feature vector takes on an analogous form (and is also infinite in length), but regardless of the input dimension it would impossible to even construct and store a single $\mathbf{f}_{i}$ let alone such transformations of the entire dataset.</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>The polynomial, Fourier, and RBF kernel matrices introduced earlier are all similarity matrices, essentially encoding how close or similar a collection of data points are to one another, with points in proximity to one another receiving a high value and those far apart receiving a low value. In this sense all three kernels discussed here, and hence all three corresponding fixed feature bases, define some kind of similarity between data points xi and xj from different geometric perspectives.</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>In Figure \ref{fig:kernels} we compare these three kernels geometrically
-by fixing a point $\mathbf{x}_{p}=\left[\begin{array}{cc}
-0.5 & 0.5\end{array}\right]^{T}$ and plotting $\mathbf{H}\left(\mathbf{x},\mathbf{x}_{p}\right)$
-over the range $\mathbf{x}\in\left[0,1\right]^{2}$, producing a color-coded
-surface showing how each kernel treats points near $\mathbf{x}_{p}$.
-Analyzing this Figure we can judge more generally how the three kernels
-define 'similarity' between points.</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<figure>
-  <img src= '../../mlrefined_images/kernel_images/Fig_7_2.png' width="80%"/>
-  <figcaption> 
-      <strong>Figure 2:</strong> 
-      <em> 
-Surfaces generated by polynomial, Fourier, and RBF kernels centered at xp =   0.5 0.5  T with the surfaces color-coded based on their similarity to xp. (left panel) A degree 2 polynomial kernel, (middle panel) degree 3 Fourier kernel, and (right panel) RBF kernel with β = 10. See text for further details.
-      </em>
-  </figcaption>
-</figure>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>Firstly, we can see that a polynomial kernel treats data points xi and xj similarly if their inner product is high or, in other words, they highly correlate with each other. Likewise the points are treated as dissimilar when they are orthogonal to one another. On the other hand, the Fourier kernel treats points as similar if they lie close together, but their similarity differs like a “sinc” function as their distance from each other grows. Finally an RBF kernel provides a smooth similarity between points. If they are close to each other in a Euclidean sense they are highly similar; however, once the distance between them passes a certain threshold they are deemed rapidly dissimilar.</p>
+<p>In this Chapter we describe fixed feature kernels, which is a method of representing fixed basis features so that they scale more gracefully when applied to vector valued input.</p>
 
 </div>
 </div>

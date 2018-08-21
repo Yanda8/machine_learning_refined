@@ -17,9 +17,6 @@ import copy
 from inspect import signature
 
 class Visualizer:
-    '''
-    Visualize linear regression in 2 and 3 dimensions.  For single input cases (2 dimensions) the path of gradient descent on the cost function can be animated.
-    '''
     #### initialize ####
     def __init__(self,csvname):
         # grab input

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head><meta charset="utf-8" />
-<title>3_Kernelizing_cost_functions</title><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
+<title>12_4_Optimization</title><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
 
 <style type="text/css">
@@ -11753,7 +11753,7 @@ div#notebook {
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="Kernelizing-cost-functions">Kernelizing cost functions<a class="anchor-link" href="#Kernelizing-cost-functions">&#182;</a></h1>
+<h2 id="Chapter-12:-Kernel-methods">Chapter 12: Kernel methods<a class="anchor-link" href="#Chapter-12:-Kernel-methods">&#182;</a></h2>
 </div>
 </div>
 </div>
@@ -11762,18 +11762,16 @@ div#notebook {
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Suppose that we have a dataset of $P$ points  $\left\{\left(\mathbf{x}_p,y_p\right)\right\}_{p=1}^P$ where each input $\mathbf{x}_p$ has dimension $N$. Recall, when employing any fixed feature basis we learn proper parameters by minimizing the Least Squares regression cost</p>
-\begin{equation}
-g\left(b,\mathbf{w}\right) = \sum_{p=1}^{P} \left(b+\mathbf{f}_p^T\mathbf{w}-y_p\right)^2
-\end{equation}<p>where we have used the vector notation</p>
-\begin{equation}
-\mathbf{f}_{p}=\left[\begin{array}{c}
-f_{1}\left(\mathbf{x}_{p}\right)\\
-f_{1}\left(\mathbf{x}_{p}\right)\\
-\vdots\\
-f_{1}\left(\mathbf{x}_{p}\right)
-\end{array}\right]
-\end{equation}<p>to denote the $M$ fixed basis feature transformations of the input $\mathbf{x}_p$.</p>
+<h1 id="12.4--Optimization-of-kernelized-models">12.4  Optimization of kernelized models<a class="anchor-link" href="#12.4--Optimization-of-kernelized-models">&#182;</a></h1>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>We have seen that virtually any machine learning model - supervised or unsupervised - can be kernelized.  The real value in kernelization is that - for a large range of kernel features - we can actually construct the kernelized version $\mathbf{H}$ <em>without</em> explicitly defining the kernel functions themselves, while allowing for the construction of new kernels directly via their kernel matrix (like e.g., the RBF kernel).  As we have seen this allows us to get around the issue of scaling kernel features with large input dimension.  Moreover, because the final kernelized model remains linear in its parameters (the kernels themselves having no internal parameters tuned duiring optimization), corresponding kernelized cost functions themselves are quite 'nice' in terms of their general shape.  For example, any convex cost function for regression and classification <em>remains convex when kernelized</em>.  This allows virtually any optimization method to be used to tune a kernelized supervised learner - from zero to first order and even powerful second order approaches like Newton's method.</p>
 
 </div>
 </div>
@@ -11783,46 +11781,7 @@ f_{1}\left(\mathbf{x}_{p}\right)
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Denote by $\mathbf{F}$ the $M \times P$ matrix $\mathbf{F}$ formed by stacking the vectors $\mathbf{f}_p$ column-wise. Now, employing the fundamental theorem of linear algebra discussed in the previous section we may write $\mathbf{w}$ here as</p>
-\begin{equation}
-\mathbf{w} = \mathbf{F}\mathbf{z}+\mathbf{r}
-\end{equation}<p>where $\mathbf{r}$ satisfies $\mathbf{F}^T\mathbf{r}=\mathbf{0}_{P \times 1}$.  Plugging this representation of $\mathbf{w}$ back into the cost function then gives</p>
-\begin{equation}
-\sum_{p=1}^{P} \left(b+\mathbf{f}_p^T\left(\mathbf{F}\mathbf{z}+\mathbf{r}\right)-y_p\right)^2 = \sum_{p=1}^{P} \left(b+\mathbf{f}_p^T\mathbf{F}\mathbf{z}-y_p\right)^2 
-\end{equation}
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>Finally, denoting the symmetric matrix $\mathbf{H} = \mathbf{F}^T\mathbf{F}$ (and where $\mathbf{h}_p = \mathbf{F}^T\mathbf{f}_p$ is the $p^{th}$ column of this matrix), referred to as a fixed basis <em>kernel matrix</em>, our original cost function becomes equivalently</p>
-\begin{equation}
-g\left(b,\mathbf{z}\right) = \sum_{p=1}^{P} \left(b+\mathbf{h}_p^T\mathbf{z}-y_p\right)^2
-\end{equation}
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>Note that we have changed the arguments of the cost function from $g\left(b,\mathbf{w}\right)$ to $g\left(b,\mathbf{z}\right)$ due to our substitution of $\mathbf{w}$. The original problem of minimizing the Least Squares cost may now be written equivalently in this <em>kernelized form</em> as</p>
-\begin{equation}
-\underset{b,\,\mathbf{z}}{\text{minimize}}\,\, \sum_{p=1}^{P} \left(b+\mathbf{h}_p^T\mathbf{z}-y_p\right)^2
-\end{equation}
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>Using precisely the same argument given here we may kernelize all of the cost functions discussed in this book including: the softmax cost/logistic regression classifier, the squared margin-perceptron/soft-margin SVMs, the multiclass softmax cost function, as well as any $\ell_2$ regularized version of these models. We show both the original and kernelized forms of these formulae in Table 1 for easy reference.</p>
+<p>However, because kernel matrices $\mathbf{H}$ are sized $P \times P$ - where $P$ is the size of the training set - they inherently scale very poorly in the size of training data.  For example, with $P=10,000$ the corresponding kernel matrix will be of size $10,000 \times 10,000$, with $10^8$ values to store, far more than a modern computer can store all at once.  This obviously makes training kernelized models extremely challenging on large datasets, as even the amount of computation required to perform even less computationally intensive optimization like e.g., gradient descent grows dramatically with the size of a kernel matrix due to its explosive size.  Even predictions using a kernelized model  - which as we saw require the evaluation of <em>every training datapoint</em> - become more challenging as the size of training data increases.</p>
 
 </div>
 </div>
@@ -11832,9 +11791,8 @@ g\left(b,\mathbf{z}\right) = \sum_{p=1}^{P} \left(b+\mathbf{h}_p^T\mathbf{z}-y_p
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<figure>
-  <img src= '../../mlrefined_images/kernel_images/kernel_table.png' width="60%"/>
-</figure>
+<p>Most standard ways of dealing with this crippling scaling issue revolve around avoiding the creation of the entire kernel matrix $\mathbf{H}$, especially during training.  For example one can use first order methods such as stochastic gradient descent to avoid construction of the entire kernel $\mathbf{H}$, i.e., so that only a small number of the training points are dealt with at a time when training - meaning that only a small subset of columns of $\mathbf{H}$ are ever created concurrently when training.  Sometimes the explicit structure of certain problems allows can allow for the avoidance of explicit kernel construction <a href="#bib_cell">[3,4,5]</a>) as well.</p>
+
 </div>
 </div>
 </div>

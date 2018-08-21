@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head><meta charset="utf-8" />
-<title>6_Further_kernel_calculations</title><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
+<title>12_5_CrossValid</title><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
 
 <style type="text/css">
@@ -11753,7 +11753,7 @@ div#notebook {
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="Further-kernel-calculations">Further kernel calculations<a class="anchor-link" href="#Further-kernel-calculations">&#182;</a></h1>
+<h2 id="Chapter-12:-Kernel-methods">Chapter 12: Kernel methods<a class="anchor-link" href="#Chapter-12:-Kernel-methods">&#182;</a></h2>
 </div>
 </div>
 </div>
@@ -11762,7 +11762,7 @@ div#notebook {
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Kernelizing-various-cost-functions">Kernelizing various cost functions<a class="anchor-link" href="#Kernelizing-various-cost-functions">&#182;</a></h2>
+<h1 id="12.5--Cross-validating-kernel-based-learners">12.5  Cross-validating kernel based learners<a class="anchor-link" href="#12.5--Cross-validating-kernel-based-learners">&#182;</a></h1>
 </div>
 </div>
 </div>
@@ -11771,204 +11771,8 @@ div#notebook {
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Here we derive the kernelization of the three core classification models: softmax cost/logistic regression, soft-margin SVMs, and the multiclass softmax classifier. Although we will only describe how to kernelize the $\ell_{2}$ regularizer along with the SVM model, precisely the same argument can be made in combination with either the two or multiclass softmax classifiers. As with the derivation
-for Least Squares regression shown in Section \ref{subsec:Kernelizing-cost-functions}
-here the main tool for kernelizing these models is again the <em>Fundamental Theorem of Linear Algebra</em> described in Section \ref{subsec:The-fundamental-theorem-linear-algebra}.</p>
-<p>Throughout this Section we will suppose that an arbitrary $M$ dimensional fixed feature vector has been taken of the input of $P$ points $\left\{ \left(\mathbf{x}_{p},y_{p}\right)\right\} _{p=1}^{P}$
-giving feature vectors $\mathbf{f}_{p}=\left[\begin{array}{cccc}
-f_{1}\left(\mathbf{x}_{p}\right) & f_{2}\left(\mathbf{x}_{p}\right) & \cdots & f_{M}\left(\mathbf{x}_{p}\right)\end{array}\right]^{T}$ for each $\mathbf{x}_{p}$.</p>
+<p>In general there is an large difference between the capacity of subsequent degrees $D$ and $D+1$ polynomial and Fourier kernels.  Take for instance the polynomial kernel.  Given the number of polynomial units $B$ encapsulated in a degree $D$ polynomial kernel (according to our calculations in Section 12.1.3) there are, for example, $20,958,500$ more polynomial units encapsulated in a degree $D=3$ kernel matrix than a degree $D=2$ kernel when $N=500$.  Because of this enormous leap in capacity between subsequent degree kernels cross-validation via <em>regularization</em> with the $\ell_2$ norm, as detailed in Section 11.4, is common practice.  Since the hyperparameter of $\gamma$ of the RBF kernel is continuous models employing it can - in addition to the regularization approach - be cross-validated in principle by comparing various values of $\gamma$ directly.</p>
 
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="Example-?.--Kernelizing-two-class-softmax-classification/logistic-regression"><span style="color:#a50e3e;">Example ?. </span> Kernelizing two-class softmax classification/logistic regression<a class="anchor-link" href="#Example-?.--Kernelizing-two-class-softmax-classification/logistic-regression">&#182;</a></h4>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>Recall the softmax perceptron cost function using with fixed feature
-mapped input is given as</p>
-\begin{equation}
-g\left(b,\mathbf{w}\right)=\underset{p=1}{\overset{P}{\sum}}\mbox{log}\left(1+e^{-y_{p}\left(b+\mathbf{f}_{p}^{T}\mathbf{w}\right)}\right)
-\end{equation}<p>Using the fundamental theorem of linear algebra for any $\mathbf{w}$
-we can then write $\mathbf{w}=\mathbf{F}\mathbf{z}+\mathbf{r}$ where
-$\mathbf{F}^{T}\mathbf{r}=\mathbf{0}_{P\times1}$. Making this substitution
-into the above and simplifying gives</p>
-\begin{equation}
-g\left(b,\mathbf{z}\right)=\begin{aligned}\underset{p=1}{\overset{P}{\sum}}\mbox{log}\left(1+e^{-y_{p}\left(b+\mathbf{f}_{p}^{T}\mathbf{F}\mathbf{z}\right)}\right)\end{aligned}
-\end{equation}<p>and denoting the kernel matrix $\mathbf{H}=\mathbf{F}^{T}\mathbf{F}$
-(where $\mathbf{h}_{p}=\mathbf{F}^{T}\mathbf{f}_{p}$ is the $p^{th}$
-column of $\mathbf{H}$) we can then write the above in kernelized
-form as</p>
-\begin{equation}
-g\left(b,\mathbf{z}\right)=\begin{aligned}\underset{p=1}{\overset{P}{\sum}}\mbox{log}\left(1+e^{-y_{p}\left(b+\mathbf{h}_{p}^{T}\mathbf{z}\right)}\right)\end{aligned}
-\end{equation}<p>This is the kernelized form of logistic regression shown in Table
-\ref{tab:kernelized-versions}.</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="Example-?.--Kernelizing-soft-margin-SVM/regularized-margin-perceptron"><span style="color:#a50e3e;">Example ?. </span> Kernelizing soft-margin SVM/regularized margin-perceptron<a class="anchor-link" href="#Example-?.--Kernelizing-soft-margin-SVM/regularized-margin-perceptron">&#182;</a></h4>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>Recall the soft-margin SVM cost/regularized margin-perceptron cost</p>
-\begin{equation}
-g\left(b,\mathbf{w}\right)=\underset{p=1}{\overset{P}{\sum}}\mbox{max}^{2}\left(0,1-y_{p}^{\,}\left(b+\mathbf{f}_{p}^{T}\mathbf{w}\right)\right)+\lambda\left\Vert \mathbf{w}\right\Vert _{2}^{2}
-\end{equation}<p>Applying the fundamental theorem of linear algebra we may then write
-$\mathbf{w}$ as $\mathbf{w}=\mathbf{F}\mathbf{z}+\mathbf{r}$ where
-$\mathbf{F}^{T}\mathbf{r}=\mathbf{0}_{P\times1}$. Substituting this
-into the cost and noting that then $\mathbf{w}^{T}\mathbf{w}=\left(\mathbf{F}\mathbf{z}+\mathbf{r}\right)^{T}\left(\mathbf{F}\mathbf{z}+\mathbf{r}\right)=\mathbf{z}^{T}\mathbf{F}^{T}\mathbf{F}\mathbf{z}+\mathbf{r}^{T}\mathbf{r}=\mathbf{z}^{T}\mathbf{H}\mathbf{z}+\left\Vert \mathbf{r}\right\Vert _{2}^{2}$
-denoting $\mathbf{H}=\mathbf{F}^{T}\mathbf{F}$ as the kernel matrix
-we may rewrite the above equivalently as</p>
-\begin{equation}
-\begin{aligned}g\left(b,\mathbf{z},\mathbf{r}\right)=\underset{p=1}{\overset{P}{\sum}}\mbox{max}^{2}\left(0,1-y_{p}^{\,}\left(b+\mathbf{h}_{p}^{T}\mathbf{z}\right)\right)+\lambda\mathbf{z}^{T}\mathbf{H}\mathbf{z}+\lambda\left\Vert \mathbf{r}\right\Vert _{2}^{2}\end{aligned}
-\end{equation}<p>Notice that since we are aiming to minimize the quantity above over
-$\left(b,\mathbf{z},\mathbf{r}\right)$, and since the only term with
-$\mathbf{r}$ remaining is $\left\Vert \mathbf{r}\right\Vert _{2}^{2}$,
-that the optimal value of $\mathbf{r}$ is zero for otherwise the
-value of the cost function would be larger than necessary. Therefore
-we can ignore $\mathbf{r}$ and write the cost function above in kernelized
-form as</p>
-\begin{equation}
-g\left(b,\mathbf{z}\right)=\underset{p=1}{\overset{P}{\sum}}\mbox{max}^{2}\left(0,1-y_{p}^{\,}\left(b+\mathbf{h}_{p}^{T}\mathbf{z}\right)\right)+\lambda\mathbf{z}^{T}\mathbf{H}\mathbf{z}
-\end{equation}<p>as originally shown in Table \ref{tab:kernelized-versions}.</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="Example-?.---Kernelizing-the-multiclass-softmax-loss"><span style="color:#a50e3e;">Example ?. </span>  Kernelizing the multiclass softmax loss<a class="anchor-link" href="#Example-?.---Kernelizing-the-multiclass-softmax-loss">&#182;</a></h4>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>Recall that the multiclass softmax cost function is written as</p>
-\begin{equation}
-g\left(b_{1},...,b_{C},\mathbf{w}_{1},...,\mathbf{w}_{C}\right)=\underset{c=1}{\overset{C}{\sum}}\underset{p\in\Omega_{c}}{\sum}\mbox{log}\left(1+\underset{\underset{j\neq c}{j=1}}{\overset{C}{\sum}}e^{\left(b_{j}^{\,}-b_{c}^{\,}\right)+\mathbf{f}_{p}^{T}\left(\mathbf{w}_{j}^{\,}-\mathbf{w}_{c}^{\,}\right)}\right)
-\end{equation}<p>Rewriting each $\mathbf{w}_{j}$ as $\mathbf{w}_{j}=\mathbf{F}\mathbf{z}_{j}+\mathbf{r}_{j}$
-where $\mathbf{F}^{T}\mathbf{r}_{j}=\mathbf{0}_{P\times1}$ for all
-$j$ we can rewrite each $\mathbf{f}_{p}^{T}\left(\mathbf{w}_{j}^{\,}-\mathbf{w}_{c}^{\,}\right)$
-term as $\mathbf{f}_{p}^{T}\left(\mathbf{w}_{j}^{\,}-\mathbf{w}_{c}^{\,}\right)=\mathbf{f}_{p}^{T}\left(\mathbf{F}\left(\mathbf{z}_{j}-\mathbf{z}_{c}\right)+\left(\mathbf{r}_{j}-\mathbf{r}_{c}\right)\right)=\mathbf{f}_{p}^{T}\mathbf{F}\left(\mathbf{z}_{j}-\mathbf{z}_{c}\right)$.
-And denoting $\mathbf{H}=\mathbf{F}^{T}\mathbf{F}$ the kernel matrix
-this we have that $\mathbf{f}_{p}^{T}\left(\mathbf{w}_{j}^{\,}-\mathbf{w}_{c}^{\,}\right)=\mathbf{h}_{p}^{T}\left(\mathbf{z}_{j}-\mathbf{z}_{c}\right)$, and so the cost may be written eqvuivalently (kernelized) as</p>
-\begin{equation}
-g\left(b_{1},...,b_{C},\mathbf{z}_{1},...,\mathbf{z}_{C}\right)=\underset{c=1}{\overset{C}{\sum}}\underset{p\in\Omega_{c}}{\sum}\mbox{log}\left(1+\underset{\underset{j\neq c}{j=1}}{\overset{C}{\sum}}e^{\left(b_{j}^{\,}-b_{c}^{\,}\right)+\mathbf{h}_{p}^{T}\left(\mathbf{z}_{j}-\mathbf{z}_{c}\right)}\right)
-\end{equation}<p>as shown in Table \ref{tab:kernelized-versions}.</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="Fourier-kernel-calculations---scalar-input">Fourier kernel calculations - scalar input<a class="anchor-link" href="#Fourier-kernel-calculations---scalar-input">&#182;</a></h4>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>From Example \ref{Fourier-kernel} the $\left(i,j\right)^{th}$ element
-of the kernel matrix $\mathbf{H}$ is given as</p>
-\begin{equation}
-\begin{array}{c}
-\mathbf{H}_{ij}=2\underset{m=1}{\overset{D}{\sum}}\mbox{cos}\left(2\pi mx_{i}\right)\mbox{cos}\left(2\pi mx_{j}\right)+\mbox{sin}\left(2\pi mx_{i}\right)\mbox{sin}\left(2\pi mx_{j}\right)\end{array}
-\end{equation}<p>Writing this using the complex exponential notation (see Exercise
-\ref{exercise-complex-Fourier-representation}) we have equivalently</p>
-\begin{equation}
-\begin{array}{c}
-\mathbf{H}_{ij}=\underset{m=-D}{\overset{D}{\sum}}e^{2\pi im\left(x_{i}-x_{j}\right)}-1\end{array}
-\end{equation}<p>If $x_{i}-x_{j}$ is an integer then $e^{2\pi im\left(x_{i}-x_{j}\right)}=1$
-and so clearly the above sums to $2D$. Supposing this is not the
-case, examining the summation alone we may write</p>
-\begin{equation}
-\underset{m=-D}{\overset{D}{\sum}}e^{2\pi im\left(x_{i}-x_{j}\right)}=e^{-2\pi iD\left(x_{i}-x_{j}\right)}\underset{m=0}{\overset{2D}{\sum}}e^{2\pi im\left(x_{i}-x_{j}\right)}
-\end{equation}<p>Now, the sum on the right hand side above is a geometric series, thus
-we have the above is equal to</p>
-\begin{equation}
-e^{-2\pi iD\left(x_{i}-x_{j}\right)}\frac{1-e^{2\pi i\left(x_{i}-x_{j}\right)\left(2D+1\right)}}{1-e^{2\pi i\left(x_{i}-x_{j}\right)}}=\frac{\mbox{sin}\left(\left(2D+1\right)\pi\left(x_{i}-x_{j}\right)\right)}{\mbox{sin}\left(\pi\left(x_{i}-x_{j}\right)\right)}
-\end{equation}<p>where final equality follows from the definition of the complex exponential.
-Because in the limit as $t$ approaches any integer value $\frac{\mbox{sin}\left(\left(2D+1\right)\pi t\right)}{\mbox{sin}\left(\pi t\right)}=2D+1$,
-which one can show using L'Hospital's rule from basic calculus, we
-may therefore generally write in conclusion that</p>
-\begin{equation}
-\mathbf{H}_{ij}=\frac{\mbox{sin}\left(\left(2D+1\right)\pi\left(x_{i}-x_{j}\right)\right)}{\mbox{sin}\left(\pi\left(x_{i}-x_{j}\right)\right)}-1
-\end{equation}<p>where at integer values of the input it is defined by the associated limit.</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Fourier-kernel-calculations---vector-input">Fourier kernel calculations - vector input<a class="anchor-link" href="#Fourier-kernel-calculations---vector-input">&#182;</a></h2>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>Like the multidimensional polynomial basis element (see Footnote \ref{fn:N-dim-input-poly/fourier})
-with the complex exponential notation for a general $N$ dimensional
-input each Fourier basis element takes the form $f_{\mathbf{m}}\left(\mathbf{x}\right)=e^{2\pi im_{1}x_{1}}e^{2\pi im_{2}x_{2}}\cdots e^{2\pi im_{N}x_{N}}=e^{2\pi i\mathbf{m}^{T}\mathbf{x}}$
-where $\mathbf{m}=\left[\begin{array}{cccc}
-m_{1} & m_{2} & \cdots & m_{N}\end{array}\right]^{T}$, a product of one dimensional basis elements. Further a 'degree $D$'
-sum contains all such basis elements where $-D\leq m_{1},\,m_{2},\,\cdots,\,m_{N}\leq D$,
-and one may deduce that there are $M=\left(2D+1\right)^{N}-1$ non
-constant basis elements in this sum.</p>
-<p>The the corresponding $\left(i,j\right)$th entry of the kernel matrix
-in this instance takes the form</p>
-\begin{equation}
-\mathbf{H}_{ij}=\mathbf{f}{}_{i}^{T}\overline{\mathbf{f}_{j}}=\left(\underset{-D\leq m_{1},\,m_{2},\,\cdots,\,m_{N}\leq D}{\sum}e^{2\pi i\mathbf{m}^{T}\left(\mathbf{x}_{i}-\mathbf{x}_{j}\right)}\right)-1
-\end{equation}<p>Since $e^{a+b}=e^{a}e^{b}$ we may write each summand above as $e^{2\pi i\mathbf{m}^{T}\left(\mathbf{x}_{i}-\mathbf{x}_{j}\right)}=\underset{n=1}{\overset{N}{\prod}}e^{2\pi im_{n}\left(x_{in}-x_{jn}\right)}$,
-and the entire summation as</p>
-\begin{equation}
-\underset{-D\leq m_{1},\,m_{2},\,\cdots,\,m_{N}\leq D}{\sum}\,\,\,\underset{n=1}{\overset{N}{\prod}}e^{2\pi im_{n}\left(x_{in}-x_{jn}\right)}
-\end{equation}<p>Finally one can show that the above can be written simply as</p>
-\begin{equation}
-\underset{-D\leq m_{1},\,m_{2},\,\cdots,\,m_{N}\leq D}{\sum}\,\,\,\underset{n=1}{\overset{N}{\prod}}e^{2\pi im_{n}\left(x_{in}-x_{jn}\right)}=\underset{n=1}{\overset{N}{\prod}}\left(\underset{m=-D}{\overset{D}{\sum}}e^{2\pi im\left(x_{in}-x_{jn}\right)}\right)
-\end{equation}<p>Since we already have that $\underset{m=-D}{\overset{D}{\sum}}e^{2\pi im\left(x_{in}-x_{jn}\right)}=\frac{\sin\left(\left(2D+1\right)\pi\left(x_{in}-x_{jn}\right)\right)}{\sin\left(\pi\left(x_{in}-x_{jn}\right)\right)}$,
-the $\left(i,j\right)$th entry of the kernel matrix can easily be
-calculated as</p>
-\begin{equation}
-\mathbf{H}_{ij}=\underset{n=1}{\overset{N}{\prod}}\frac{\mbox{sin}\left(\left(2D+1\right)\pi\left(x_{in}-x_{jn}\right)\right)}{\mbox{sin}\left(\pi\left(x_{in}-x_{jn}\right)\right)}-1
-\end{equation}
 </div>
 </div>
 </div>

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head><meta charset="utf-8" />
-<title>4_The_value_of_kernelization</title><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
+<title>12_5_Random</title><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
 
 <style type="text/css">
@@ -11753,7 +11753,7 @@ div#notebook {
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="The-value-of-kernelization">The value of kernelization<a class="anchor-link" href="#The-value-of-kernelization">&#182;</a></h1>
+<h2 id="12.1.3--Random-kernels">12.1.3  Random kernels<a class="anchor-link" href="#12.1.3--Random-kernels">&#182;</a></h2>
 </div>
 </div>
 </div>
@@ -11762,7 +11762,18 @@ div#notebook {
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>The real value of kernelizing any cost function is that for many fixed feature maps, including polynomials and Fourier features, the kernel matrix $\mathbf{H}$ may be constructed without first building the matrix $\mathbf{F}$, that is we need not construct it explicitly as $\mathbf{H}=\mathbf{F}^T\mathbf{F}$, but this matrix may be constructed entry-wise via simple formulae. In fact, as we will see, thinking about constructing kernel matrices in this way leads to the construction of fixed feature bases by defining the kernel matrix first (that is, not by beginning with an explicit feature transformation). As we see in the next section this can be done for both degree $D$ polynomial and Fourier feature bases, as well as many other fixed maps. This is highly advantageous since, as discussed previously, even with moderate sized input dimension $N$ the dimension of a fixed feature transformation $M$ will likely be gargantuan, so large that we may not even be able to store the matrix $\mathbf{F}$, let alone compute with it.</p>
+<ul>
+<li>The notion of a random kernel is a slight twist on the classic kernels above, but is a far more recent development.</li>
+</ul>
+<ul>
+<li>Simple example of random kernel: using random units from any of the classic kernels detailed above (instead of using packages, which have serious scaling issues)</li>
+</ul>
+<ul>
+<li>Other examples: choose a sinusoid with random internal parameters instead of integer / single layer neural networks with <em>randomly set internal parameters</em>.  </li>
+</ul>
+<ul>
+<li>These do not suffer from the scaling issues that the standard packages do</li>
+</ul>
 
 </div>
 </div>
@@ -11772,8 +11783,7 @@ div#notebook {
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>However, note that the non-bias optimization variable from the original to kernelized form has changed from $\mathbf{w}$, which had dimension $M$ in Equation (4), to $\mathbf{z}$, which has dimension $P$ in the kernelized version shown in Equation (8). This is precisely how the dimension of the non-bias optimization variable changes with kernelized cost functions as well, like those shown in Table 1.</p>
-
+<h4 id="Example-3.---Random-sinusoidal-kernel"><span style="color:#a50e3e;">Example 3. </span>  Random sinusoidal kernel<a class="anchor-link" href="#Example-3.---Random-sinusoidal-kernel">&#182;</a></h4>
 </div>
 </div>
 </div>
@@ -11782,20 +11792,45 @@ div#notebook {
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>While it is true that for large datasets (that is large values of $P$, e.g., in the thousands or tens of thousands) the minimization of a kernelized cost function becomes more challenging, the main obstacle is storing the $P \times P$ kernel matrix itself, which for large values of $P$ is difficult or even impossible to do completely. For example, with $P=10,000$ the corresponding kernel matrix will be of size $10,000 \times 10,000$, with $10^8$ values to store, far more than a modern computer can store all at once. Moreover, the amount of computation required to perform, e.g. gradient descent, grows dramatically with the size of a kernel matrix due to its explosive size.</p>
+<p><a id='bib_cell'></a></p>
+<h2 id="References">References<a class="anchor-link" href="#References">&#182;</a></h2><p>[1] Léon Bottou and Chih-Jen Lin. Support vector machine solvers. Large Scale Kernel Machines, pp. 301–320, MIT Press, 2007.</p>
+<p>[2] Zhiyun Lu, Avner May, Kuan Liu, et al. How to scale up kernel methods to be as good as
+deep neural nets. arXiv preprint arXiv:1411.4000, 2014.</p>
+<p>[3] Jeffrey Pennington, Felix Yu, and Sanjiv Kumar. Spherical random features for polynomial kernels. In Advances in Neural Information Processing Systems, pages 1837–1845, NIPS, 2015.</p>
+<p>[4] Ali Rahimi and Benjamin Recht. Random features for large-scale kernel machines. In Advances in Neural Information Processing Systems, pp. 1177–1184, NIPS, 2007.</p>
+<p>[5] Ali Rahimi and Benjamin Recht. Uniform approximation of functions with random bases. In Communication, Control, and Computing, 2008 46th Annual Allerton Conference on, pp. 555–561. IEEE, 2008.</p>
+<p>[6] Christopher M Bishop et al. Pattern Recognition and Machine Learning, volume 4. Springer, 2006.</p>
+<p>[7] David J C MacKay. Introduction to gaussian processes. NATO ASI Series F Computer and
+Systems Sciences, 168 133–166, 1998.</p>
 
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
 <div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>Common ways of dealing with these issues for large datasets include: 1) using advanced first order methods such as stochastic gradient descent, discussed in Chapter 13, so that only a small number of the kernelized points are dealt with at a time when optimizing; 2) reducing the dimension of data using techniques like Principal Component Analysis and hence avoiding the need for kernelized versions of fixed bases; 3) using the explicit structure of certain problems (see e.g., <a href="#bib_cell">[1,2]</a>); and 4) employing the tools from function approximation to avoid explicit construction of the kernel matrix <a href="#bib_cell">[3,4,5]</a>).</p>
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span> 
+</pre></div>
 
 </div>
 </div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+
+</div>
+</div>
+</div>
+
 </div>
     </div>
   </div>
