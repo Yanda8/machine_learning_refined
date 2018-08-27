@@ -61,10 +61,17 @@ class Visualizer:
         view = [20,100]
         if 'view' in kwargs:
             view = kwargs['view']
+        label_axes = True
+        if 'label_axes' in kwargs:
+            label_axes = kwargs['label_axes']
         
         # make contour plot in each panel
         g = self.sigmoid_least_squares
         self.surface_plot(g,ax2,viewmax,view)
+        
+        if label_axes == True:
+            ax2.set_xlabel(r'$w_0$',fontsize = 12)
+            ax2.set_ylabel(r'$w_1$',fontsize = 12,rotation = 0)
         plt.show()
         
     ### visualize the surface plot of cost function ###
@@ -99,14 +106,14 @@ class Visualizer:
 
                 # plot the current level
                 z.shape = (len(r),len(r)) 
-                ax.plot_surface(w1_vals,w2_vals,z,alpha = 0.4,color = '#696969',zorder = 0,shade = True,linewidth=0)
+                ax.plot_surface(w1_vals,w2_vals,z,alpha = 1,color = '#696969',zorder = 0,shade = True,linewidth=0)
 
         else: # smooth cost function, plot usual
             # reshape and plot the surface, as well as where the zero-plane is
             g_vals.shape = (np.size(r),np.size(r))
 
             # plot cost surface
-            ax.plot_surface(w1_vals,w2_vals,g_vals,alpha = 0.1,color = 'w',rstride=25, cstride=25,linewidth=1,edgecolor = 'k',zorder = 2)  
+            ax.plot_surface(w1_vals,w2_vals,g_vals,alpha = 1,color = 'w',rstride=25, cstride=25,linewidth=1,edgecolor = 'k',zorder = 2)  
         
         ### clean up panel ###
         ax.xaxis.pane.fill = False
@@ -120,9 +127,6 @@ class Visualizer:
         ax.xaxis._axinfo["grid"]['color'] =  (1,1,1,0)
         ax.yaxis._axinfo["grid"]['color'] =  (1,1,1,0)
         ax.zaxis._axinfo["grid"]['color'] =  (1,1,1,0)
-
-        ax.set_xlabel(r'$w_0$',fontsize = 12)
-        ax.set_ylabel(r'$w_1$',fontsize = 12,rotation = 0)
 
         ax.view_init(view[0],view[1])
         

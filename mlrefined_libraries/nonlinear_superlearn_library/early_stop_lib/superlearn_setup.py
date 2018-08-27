@@ -4,8 +4,6 @@ from . import cost_functions
 from . import normalizers
 from . import multilayer_perceptron
 from . import multilayer_perceptron_batch_normalized
-from . import stumps
-from . import polys
 from . import history_plotters
 
 class Setup:
@@ -37,23 +35,6 @@ class Setup:
             self.initializer = self.transformer.initializer
             self.layer_sizes = self.transformer.layer_sizes
             
-        # stumps #
-        if name == 'stumps':
-            self.transformer = stumps.Setup(self.x,self.y,**kwargs)
-            self.feature_transforms = self.transformer.feature_transforms
-            self.initializer = self.transformer.initializer
-            
-        # polynomials #
-        if name == 'polys':
-            self.transformer = polys.Setup(self.x,self.y,**kwargs)
-            self.feature_transforms = self.transformer.feature_transforms
-            self.initializer = self.transformer.initializer
-            self.degs = self.transformer.D
-            
-        # input a custom feature transformation
-        if 'feature_transforms' in kwargs:
-            self.feature_transforms = kwargs['feature_transforms']
-            self.initializer = kwargs['initializer']
         self.feature_name = name
 
     #### define normalizer ####
@@ -149,26 +130,29 @@ class Setup:
         if optimizer == 'gradient_descent':
             weight_history = optimizers.gradient_descent(self.cost,self.alpha_choice,self.max_its,self.w_init,self.num_pts,self.batch_size)
         
-        if optimizer == 'newtons_method':
-            weight_history = optimizers.newtons_method(self.cost,self.max_its,self.w_init,self.num_pts,self.batch_size,epsilon = epsilon)
+        if optimizer == 'RMSprop':
+            weight_history = optimizers.RMSprop(self.cost,self.alpha_choice,self.max_its,self.w_init,self.num_pts,self.batch_size)
         
-        # compute training and validation cost histories
+        # compute training history
         train_cost_history = [self.cost(v,np.arange(np.size(self.y_train))) for v in weight_history]
-        valid_cost_history = [self.valid_cost(v,np.arange(np.size(self.y_valid))) for v in weight_history]
         
         # store all new histories
         self.weight_histories.append(weight_history)
         self.train_cost_histories.append(train_cost_history)
-        self.valid_cost_histories.append(valid_cost_history)
+        
+        # compute validation history
+        if len(self.valid_inds) > 0:
+            valid_cost_history = [self.valid_cost(v,np.arange(np.size(self.y_valid))) for v in weight_history]
+            self.valid_cost_histories.append(valid_cost_history)
         
         # if classification produce count history
         if self.cost_name == 'softmax' or self.cost_name == 'perceptron' or self.cost_name == 'multiclass_softmax' or self.cost_name == 'multiclass_perceptron':
             train_count_history = [self.counter(v) for v in weight_history]
-            valid_count_history = [self.valid_counter(v) for v in weight_history]
-
-            # store count history
             self.train_count_histories.append(train_count_history)
-            self.valid_count_histories.append(valid_count_history)
+            
+            if len(self.valid_inds) > 0:
+                valid_count_history = [self.valid_counter(v) for v in weight_history]
+                self.valid_count_histories.append(valid_count_history)
  
     #### plot histories ###
     def show_histories(self,**kwargs):
