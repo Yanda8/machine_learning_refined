@@ -97,7 +97,6 @@ class Setup:
         name = 'multilayer_perceptron'
         if 'name' in kwargs:
             name = kwargs['name']
-           
         if name == 'multilayer_perceptron':
             transformer = multilayer_perceptron.Setup(**kwargs)
             self.feature_transforms = transformer.standard_feature_transforms
