@@ -11893,10 +11893,10 @@ div#notebook {
 <div class="output_wrapper">
 <div class="output">
 <div class="output_area"><div class="prompt"></div>
-<div id="2b0670e6-ec7e-4e4a-8ae2-f5764acc7b29"></div>
+<div id="36d76445-b234-4973-823e-4a41d753cc11"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#2b0670e6-ec7e-4e4a-8ae2-f5764acc7b29');
+var element = $('#36d76445-b234-4973-823e-4a41d753cc11');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -12713,10 +12713,9 @@ if (IPython.notebook.kernel != null) {
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>The <a href="https://arxiv.org/pdf/1302.4389.pdf"><em>maxout</em> activation</a>, defined as</p>
-\begin{array}
-\
+\begin{equation}
 a(x) = \text{max}(v_0 + v_1x, \,w_0 + w_1x) \\
-\end{array}<p>takes maximum of two linear combinations of the input, instead of one linear combination and zero like the ReLU function (four instances of such a maxout unit are plotted below, in each instance its parameters are chosen at random).  While this change seems algebraically rather minor, multi-layer perceptron architectures employing the <em>maxout</em> activation tends to have certain advantages over those employing tanh and relu activations, including i) fewer issues with problematic initialization  e.g., values close too (or equal to) zero for the <em>ReLU</em> activation are bad because the relu is minimized at zero ii) fewer issues with gradients vanishing iii) emprically faster convergence with far fewer gradient descent steps.  These advantages come with a simple price: the maxout activation has twice as many internal parameters as either the ReLU or $\text{tanh}$, hence architectures built with them have roughly twice as many parameters to tune.</p>
+\end{equation}<p>is a relative of the ReLU that takes maximum of two linear combinations of the input, instead of one linear combination and zero like the ReLU function (four instances of such a maxout unit are plotted below, in each instance its parameters are chosen at random).  While this change seems algebraically rather minor, multi-layer perceptron architectures employing the <em>maxout</em> activation tends to have certain advantages over those employing tanh and relu activations, including i) fewer issues with problematic initialization  e.g., values close too (or equal to) zero for the <em>ReLU</em> activation are bad because the relu is minimized at zero ii) fewer issues with gradients vanishing iii) emprically faster convergence with far fewer gradient descent steps.  These advantages come with a simple price: the maxout activation has twice as many internal parameters as either the ReLU or $\text{tanh}$, hence architectures built with them have roughly twice as many parameters to tune.</p>
 </div>
 </div>
 </div>
@@ -12730,10 +12729,10 @@ a(x) = \text{max}(v_0 + v_1x, \,w_0 + w_1x) \\
 <div class="output_wrapper">
 <div class="output">
 <div class="output_area"><div class="prompt"></div>
-<div id="38980428-8c35-4409-9696-cc6f0d9e61f5"></div>
+<div id="be3e382c-06dd-4d70-be05-bdc70ec7337b"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#38980428-8c35-4409-9696-cc6f0d9e61f5');
+var element = $('#be3e382c-06dd-4d70-be05-bdc70ec7337b');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -13538,6 +13537,6 @@ if (IPython.notebook.kernel != null) {
 </div>
 </body>
 <script type="application/vnd.jupyter.widget-state+json">
-{"version_major": 1, "state": {}, "version_minor": 0}
+{"state": {}, "version_minor": 0, "version_major": 1}
 </script>
 </html>
