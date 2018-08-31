@@ -4,7 +4,6 @@ from bs4 import BeautifulSoup
 
 # extract filename
 filename = str(sys.argv[1])
-
 soup = BeautifulSoup(open(filename),"lxml")
 
 # page_title becomes the page title and series becomes the series name (duh!)
