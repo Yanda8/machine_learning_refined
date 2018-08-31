@@ -114,13 +114,14 @@ class Setup:
             # loop over points and create stump in between each 
             # in dimension n
             for p in range(P - 1):
-                # compute split point
-                split = (x_n[p] + x_n[p+1])/float(2)
+                if self.y[p] != self.y[p+1]:
+                    # compute split point
+                    split = (x_n[p] + x_n[p+1])/float(2)
 
-                ### create non-zero stump to 'left' of split ###
-                # compute and store split point
-                splits.append(split)
-                dims.append(n)
+                    ### create non-zero stump to 'left' of split ###
+                    # compute and store split point
+                    splits.append(split)
+                    dims.append(n)
 
         ### create stumps out of splits and dims ###
         all_steps = []
