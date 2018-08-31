@@ -63,7 +63,12 @@ if 'selection' in series.lower() and 'engin' in series.lower():
     series_url = '9_Feature_engineer_select' 
     
 if 'nonlinear' in series.lower() and 'feature' in series.lower():
-    series_url = '10_Nonlinear_intro'                
+    series_url = '10_Nonlinear_intro'  
+    
+if 'principle' in series.lower() and 'learning' in series.lower():
+    series_url = '11_Feature_learning'      
+    
+          
          
 
 # This script adds navigation bar + sharing logos + title

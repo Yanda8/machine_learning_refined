@@ -1,9 +1,8 @@
 <!DOCTYPE html>
 <html>
-<head><meta charset="utf-8" />
-<title>11_0_Intro</title><script src="https://unpkg.com/jupyter-js-widgets@2.0.*/dist/embed.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
+<head><meta charset="utf-8"/>
+<title>11.0  Introduction</title><script src="https://unpkg.com/jupyter-js-widgets@2.0.*/dist/embed.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
-
 <style type="text/css">
     /*!
 *
@@ -11689,8 +11688,6 @@ ul.typeahead-list > li > a {
 .ansi-bold { font-weight: bold; }
 
     </style>
-
-
 <style type="text/css">
 /* Overrides of notebook CSS for static HTML export */
 body {
@@ -11718,16 +11715,15 @@ div#notebook {
   }
 }
 </style>
-
 <!-- Custom stylesheet, it must be in the same directory as the html file -->
-<link rel="stylesheet" href="custom.css">
-
+<link href="custom.css" rel="stylesheet"/>
 <!-- Loading mathjax macro -->
 <!-- Load mathjax -->
-    <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML"></script>
-    <!-- MathJax configuration -->
-    <script type="text/x-mathjax-config">
+<script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML"></script>
+<!-- MathJax configuration -->
+<script type="text/x-mathjax-config">
     MathJax.Hub.Config({
+    	TeX: { equationNumbers: { autoNumber: "AMS" } },
         tex2jax: {
             inlineMath: [ ['$','$'], ["\\(","\\)"] ],
             displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
@@ -11738,22 +11734,90 @@ div#notebook {
         // we use CSS to left justify single line equations in code cells.
         displayAlign: 'center',
         "HTML-CSS": {
+            availableFonts: ["TeX"],
+            preferredFont: "TeX",
             styles: {'.MathJax_Display': {"margin": 0}},
             linebreaks: { automatic: true }
         }
     });
     </script>
-    <!-- End of mathjax configuration --></head>
+<link href="../../html/CSS/custom.css" rel="stylesheet"/>
+<style>
+        p {
+            text-align: justify !important;
+            text-justify: inter-word !important;
+        }
+    </style>
+<!-- End of mathjax configuration --></head>
 <body>
-  <div tabindex="-1" id="notebook" class="border-box-sizing">
-    <div class="container" id="notebook-container">
+<!-- uncomment to add back menu
+<div style="text-align:center !important; padding-top:58px;">
 
+				<a href="../../../index.html" style="font-family: inherit; font-weight: 200; letter-spacing: 1.5px; color: #222; font-size: 97%;">HOME</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="../../../about.html" style="font-family: inherit; font-weight: 200; letter-spacing: 1.5px; color: #222; font-size: 97%;">ABOUT</a>
+
+
+</div> -->
+<br/><br/><br/>
+<!-- share buttons -->
+<div style="width: 53%; margin:auto;">
+<div id="1" style="width: 75%; float:left;">
+<span style="color:black; font-family:'lato', sans-serif; font-size: 18px;">code</span>
+<div style="width: 95px; border-bottom: solid 1px; border-color:black;">
+<div class="logo-share"></div>
+<div class="logo-share"></div>
+<div class="logo-share">
+<!-- github -->
+<a href="https://github.com/jermwatt/mlrefined/blob/gh-pages/blog_posts/11_Feature_learning/11_0_Intro.ipynb" target="_blank">
+<img height="28" onmouseout="this.src='../../html/pics/github.png';" onmouseover="this.src='../../html/pics/github_filled.png';" src="../../html/pics/github.png" width="28"/>
+</a>
+</div>
+</div>
+</div>
+<div id="2" style="width: 25%; float:left;">
+<span style="color:black; font-family:'lato', sans-serif; font-size: 18px;">share</span>
+<div style="width: 210px; border-bottom: solid 1px; border-color:black;">
+<div class="logo-share"></div>
+<div class="logo-share"></div>
+<div class="logo-share">
+<!-- linkedin -->
+<a href="https://www.linkedin.com/cws/share?url=https%3A%2F%2Fjermwatt.github.io%2Fmlrefined%2Fblog_posts%2F11_Feature_learning%2F11_0_Intro.html" target="_blank">
+<img height="28" onmouseout="this.src='../../html/pics/linkedin.png';" onmouseover="this.src='../../html/pics/linkedin_filled.png';" src="../../html/pics/linkedin.png" width="28"/>
+</a>
+</div>
+<div class="logo-share"></div>
+<div class="logo-share">
+<!-- twitter -->
+<a href="https://twitter.com/intent/tweet?ref_src=twsrc%5Etfw&amp;tw_p=tweetbutton&amp;url=https%3A%2F%2Fjermwatt.github.io%2Fmlrefined%2Fblog_posts%2F11_Feature_learning%2F11_0_Intro.html" target="_blank">
+<img height="28" onmouseout="this.src='../../html/pics/twitter.png';" onmouseover="this.src='../../html/pics/twitter_filled.png';" src="../../html/pics/twitter.png" width="28"/>
+</a>
+</div>
+<div class="logo-share"></div>
+<div class="logo-share">
+<!-- facebook -->
+<a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fjermwatt.github.io%2Fmlrefined%2Fblog_posts%2F11_Feature_learning%2F11_0_Intro.html" target="_blank">
+<img height="28" onmouseout="this.src='../../html/pics/facebook.png';" onmouseover="this.src='../../html/pics/facebook_filled.png';" src="../../html/pics/facebook.png" width="28"/>
+</a>
+</div>
+</div>
+</div>
+</div>
+<br/><br/>
+<div class="page-title" style="text-align: center !important;">
+<span style="color: #333; font-size: 40%; letter-spacing: 3px;">
+<span style="font-size: 80%;">► </span><a href="https://jermwatt.github.io/mlrefined/index.html" style="color: black; cursor: pointer; text-transform: uppercase; font-weight:bold;" target="_blank">Chapter 11: Principles of Feature Learning</a>
+</span>
+<br/><br/>
+<mark style="padding: 0px; background-color: #f9f3c2;">11.0  Introduction</mark>
+</div>
+<br/>
+<div class="border-box-sizing" id="notebook" tabindex="-1">
+<div class="container" id="notebook-container">
 <div class="cell border-box-sizing text_cell rendered">
 <div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Chapter-11:-Principles-of-Feature-Learning">Chapter 11: Principles of Feature Learning<a class="anchor-link" href="#Chapter-11:-Principles-of-Feature-Learning">&#182;</a></h2>
+
 </div>
 </div>
 </div>
@@ -11762,7 +11826,7 @@ div#notebook {
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="11.0--Introduction">11.0  Introduction<a class="anchor-link" href="#11.0--Introduction">&#182;</a></h1>
+
 </div>
 </div>
 </div>
@@ -11776,7 +11840,6 @@ div#notebook {
 \text{model}\left(\mathbf{x},\Theta\right) = w_0 + f_1\left(\mathbf{x}\right){w}_{1} +  f_2\left(\mathbf{x}\right){w}_{2} + \cdots + f_B\left(\mathbf{x}\right)w_B
 \end{equation}<p>where $f_1,\,f_2,\,...\,f_B$ are nonlinear parameterized or unparameterized functions / features and $w_0$ through $w_B$ (along with any additional weights internal to the nonlinear functions) are represented in the weight set $\Theta$.  In the prior Chapter we also saw how similar generic models alow us to generalize a variety of supervised / unsupervised tasks to the nonlinear case.</p>
 <p>In this Chapter we detail the fundamental tools and principles of <em>feature learning</em> that allow us to choose form of a nonlinear model like this - including the particular form of the nonlinear transformations $f_1,\,f_2,\,...,f_B$, the number $B$ of them employed, as well as how the parameters of $\Theta$ are tuned - <em>automatically for any dataset</em>.</p>
-
 </div>
 </div>
 </div>
@@ -11785,7 +11848,7 @@ div#notebook {
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="11.0.1--The-limits-of-nonlinear-feature-engineering">11.0.1  The limits of nonlinear feature engineering<a class="anchor-link" href="#11.0.1--The-limits-of-nonlinear-feature-engineering">&#182;</a></h2>
+<h2 id="11.0.1--The-limits-of-nonlinear-feature-engineering">11.0.1  The limits of nonlinear feature engineering<a class="anchor-link" href="#11.0.1--The-limits-of-nonlinear-feature-engineering">¶</a></h2>
 </div>
 </div>
 </div>
@@ -11795,7 +11858,6 @@ div#notebook {
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>In order to engineer nonlinear feature properly we cannot in general rely on visualizations - as most (particularly modern) datasets have far more than two inputs making visualization impossible.  Morever, even in cases where data visualization is possible, we cannot rely on our own pattern recognition skills either.  Take the two simple examples below - one (on the left) a regression dataset with $N=1$ dimensional input and the other (on the right) a two-class classification dataset with $N=2$ dimensional input.  Note that the true underlying nonlinear model used to generate the regression data is shown in dashed black, and likewise the true nonlinear decision boundary separating the two classes of the classification data is shown in dashed black as well.  We humans are typically taught only how to recognize the simplest of nonlinear patterns 'by eye' - like those created by elementary functions (e.g., low degree polynomials, exponential functions, sine waves) and simple shapes (e.g., circles, squares, etc.,).   Neither of the patterns shown here match such simple nonlinear functionality.</p>
-
 </div>
 </div>
 </div>
@@ -11805,11 +11867,11 @@ div#notebook {
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <figure>
-    <img src= '../../mlrefined_images/nonlinear_superlearn_images/nonlinear_combined.png' width="75%" height="75%" alt=""/>
-<figcaption>   
+<img alt="" height="75%" src="../../mlrefined_images/nonlinear_superlearn_images/nonlinear_combined.png" width="75%"/>
+<figcaption>
 <strong>Figure 1:</strong> <em> 
 A regression (on the left - with true nonlinear model shown in dashed black) and two-class classification (on the right - with true nonlinear decision boundary shown in dashed black) datasets that clearly exhibit nonlinear behavior.  However in each case this behavior is difficult to assess 'by eye', since neither belongs to the basic set of nonlinear patterns we humans are taught to recognize.  Therefore even in cases like these - where we can visualize data - it can be difficult if not impossible to properly engineer nonlinear features ourselves.
-</em>  </figcaption> 
+</em> </figcaption>
 </figure>
 </div>
 </div>
@@ -11820,7 +11882,6 @@ A regression (on the left - with true nonlinear model shown in dashed black) and
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>So whether or not a dataset can be visualized, as the two examples above illustrate, engineering proper nonlinear features ourselves can be difficult if not impossible to do ourselves.</p>
-
 </div>
 </div>
 </div>
@@ -11830,7 +11891,6 @@ A regression (on the left - with true nonlinear model shown in dashed black) and
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>It is precisely this challenge which motivates the fundamental <em>feature learning</em> tools described in this Chapter.  <em>In short these technologies </em>automate<em> the process of identifying appropriate nonlinear features for arbitrary datasets.</em>  With these tools in hand we no longer need to 'engineer' proper nonlinearites - at least in terms of how we 'engineered' nonlinear features in the previous Chapter - we instead aim at <em>learning</em> their appropriate forms (hence the phrase <em>feature learning</em>).  Compared to our own limited nonlinear pattern recognition abilities, feature learning tools can identify virtually any nonlinear pattern present in a dataset regardless of its input dimension.</p>
-
 </div>
 </div>
 </div>
@@ -11839,7 +11899,7 @@ A regression (on the left - with true nonlinear model shown in dashed black) and
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="11.0.2--Chapter-summary">11.0.2  Chapter summary<a class="anchor-link" href="#11.0.2--Chapter-summary">&#182;</a></h2>
+<h2 id="11.0.2--Chapter-summary">11.0.2  Chapter summary<a class="anchor-link" href="#11.0.2--Chapter-summary">¶</a></h2>
 </div>
 </div>
 </div>
@@ -11851,7 +11911,6 @@ A regression (on the left - with true nonlinear model shown in dashed black) and
 <p>The aim to automate nonnlinear learning is an ambitious one and is perhaps at first glance an intimidating one as well, for there are an infinite variety of nonlinearities / nonlinear functions to choose from.  How do we, in general, parse this infinitude automatically to determine the appropriate nonlinearity for a given dataset?</p>
 <p>The first step - as we will see in Section 10.1 - is to organize the pursuit of automation by first placing the fundamental building blocks of this infinitude into <em>managable collections</em> of (relatively simple) nonlinear functions.  These collections are often called <em>universal approximators</em>, of which three strains are popularly used and which we introduce here: kernels, neural networks, and trees.  After introducing universal approximators we then discuss the fundamental concepts underlying how they are employed automatically - including a description of the <em>bias-variance tradeoff</em> in Section 11.2, the necessity for <em>validation error</em> as a measurement tool in Section 11.3, the automatic tuning of nonlinear capacity via <em>boostingn and regularization</em> in Sections 11.4 and 11.5 respectively, and the notion <em>ensembling</em> in Section 11.6, and finally <em>testing error</em> in Section 11.7.</p>
 <p>There is - as we will see - still considerable engineering effort required to perform feature learning properly.  However this engineering effort is of a completely different nature than the highly 'visualization-based' engineering effort detailed in the previous Chapter.</p>
-
 </div>
 </div>
 </div>
@@ -11860,20 +11919,14 @@ A regression (on the left - with true nonlinear model shown in dashed black) and
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>&copy; This material is not to be distributed, copied, or reused without written permission from the authors.</p>
-
+<p>© This material is not to be distributed, copied, or reused without written permission from the authors.</p>
 </div>
 </div>
 </div>
-    </div>
-  </div>
+</div>
+</div>
 </body>
-
- 
-
 <script type="application/vnd.jupyter.widget-state+json">
 {"state": {}, "version_major": 1, "version_minor": 0}
 </script>
-
-
 </html>
