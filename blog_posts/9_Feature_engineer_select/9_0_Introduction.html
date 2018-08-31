@@ -1,9 +1,8 @@
 <!DOCTYPE html>
 <html>
-<head><meta charset="utf-8" />
-<title>9_0_Introduction</title><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
+<head><meta charset="utf-8"/>
+<title>9.0  Introduction</title><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
-
 <style type="text/css">
     /*!
 *
@@ -11689,8 +11688,6 @@ ul.typeahead-list > li > a {
 .ansi-bold { font-weight: bold; }
 
     </style>
-
-
 <style type="text/css">
 /* Overrides of notebook CSS for static HTML export */
 body {
@@ -11718,16 +11715,15 @@ div#notebook {
   }
 }
 </style>
-
 <!-- Custom stylesheet, it must be in the same directory as the html file -->
-<link rel="stylesheet" href="custom.css">
-
+<link href="custom.css" rel="stylesheet"/>
 <!-- Loading mathjax macro -->
 <!-- Load mathjax -->
-    <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML"></script>
-    <!-- MathJax configuration -->
-    <script type="text/x-mathjax-config">
+<script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML"></script>
+<!-- MathJax configuration -->
+<script type="text/x-mathjax-config">
     MathJax.Hub.Config({
+    	TeX: { equationNumbers: { autoNumber: "AMS" } },
         tex2jax: {
             inlineMath: [ ['$','$'], ["\\(","\\)"] ],
             displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
@@ -11738,22 +11734,90 @@ div#notebook {
         // we use CSS to left justify single line equations in code cells.
         displayAlign: 'center',
         "HTML-CSS": {
+            availableFonts: ["TeX"],
+            preferredFont: "TeX",
             styles: {'.MathJax_Display': {"margin": 0}},
             linebreaks: { automatic: true }
         }
     });
     </script>
-    <!-- End of mathjax configuration --></head>
+<link href="../../html/CSS/custom.css" rel="stylesheet"/>
+<style>
+        p {
+            text-align: justify !important;
+            text-justify: inter-word !important;
+        }
+    </style>
+<!-- End of mathjax configuration --></head>
 <body>
-  <div tabindex="-1" id="notebook" class="border-box-sizing">
-    <div class="container" id="notebook-container">
+<!-- uncomment to add back menu
+<div style="text-align:center !important; padding-top:58px;">
 
+				<a href="../../../index.html" style="font-family: inherit; font-weight: 200; letter-spacing: 1.5px; color: #222; font-size: 97%;">HOME</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="../../../about.html" style="font-family: inherit; font-weight: 200; letter-spacing: 1.5px; color: #222; font-size: 97%;">ABOUT</a>
+
+
+</div> -->
+<br/><br/><br/>
+<!-- share buttons -->
+<div style="width: 53%; margin:auto;">
+<div id="1" style="width: 75%; float:left;">
+<span style="color:black; font-family:'lato', sans-serif; font-size: 18px;">code</span>
+<div style="width: 95px; border-bottom: solid 1px; border-color:black;">
+<div class="logo-share"></div>
+<div class="logo-share"></div>
+<div class="logo-share">
+<!-- github -->
+<a href="https://github.com/jermwatt/mlrefined/blob/gh-pages/blog_posts/9_Feature_engineer_select/9_0_Introduction.ipynb" target="_blank">
+<img height="28" onmouseout="this.src='../../html/pics/github.png';" onmouseover="this.src='../../html/pics/github_filled.png';" src="../../html/pics/github.png" width="28"/>
+</a>
+</div>
+</div>
+</div>
+<div id="2" style="width: 25%; float:left;">
+<span style="color:black; font-family:'lato', sans-serif; font-size: 18px;">share</span>
+<div style="width: 210px; border-bottom: solid 1px; border-color:black;">
+<div class="logo-share"></div>
+<div class="logo-share"></div>
+<div class="logo-share">
+<!-- linkedin -->
+<a href="https://www.linkedin.com/cws/share?url=https%3A%2F%2Fjermwatt.github.io%2Fmlrefined%2Fblog_posts%2F9_Feature_engineer_select%2F9_0_Introduction.html" target="_blank">
+<img height="28" onmouseout="this.src='../../html/pics/linkedin.png';" onmouseover="this.src='../../html/pics/linkedin_filled.png';" src="../../html/pics/linkedin.png" width="28"/>
+</a>
+</div>
+<div class="logo-share"></div>
+<div class="logo-share">
+<!-- twitter -->
+<a href="https://twitter.com/intent/tweet?ref_src=twsrc%5Etfw&amp;tw_p=tweetbutton&amp;url=https%3A%2F%2Fjermwatt.github.io%2Fmlrefined%2Fblog_posts%2F9_Feature_engineer_select%2F9_0_Introduction.html" target="_blank">
+<img height="28" onmouseout="this.src='../../html/pics/twitter.png';" onmouseover="this.src='../../html/pics/twitter_filled.png';" src="../../html/pics/twitter.png" width="28"/>
+</a>
+</div>
+<div class="logo-share"></div>
+<div class="logo-share">
+<!-- facebook -->
+<a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fjermwatt.github.io%2Fmlrefined%2Fblog_posts%2F9_Feature_engineer_select%2F9_0_Introduction.html" target="_blank">
+<img height="28" onmouseout="this.src='../../html/pics/facebook.png';" onmouseover="this.src='../../html/pics/facebook_filled.png';" src="../../html/pics/facebook.png" width="28"/>
+</a>
+</div>
+</div>
+</div>
+</div>
+<br/><br/>
+<div class="page-title" style="text-align: center !important;">
+<span style="color: #333; font-size: 40%; letter-spacing: 3px;">
+<span style="font-size: 80%;">► </span><a href="https://jermwatt.github.io/mlrefined/index.html" style="color: black; cursor: pointer; text-transform: uppercase; font-weight:bold;" target="_blank">Chapter 9: Principles of Feature Engineering and Selection</a>
+</span>
+<br/><br/>
+<mark style="padding: 0px; background-color: #f9f3c2;">9.0  Introduction</mark>
+</div>
+<br/>
+<div class="border-box-sizing" id="notebook" tabindex="-1">
+<div class="container" id="notebook-container">
 <div class="cell border-box-sizing text_cell rendered">
 <div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Chapter-9:-Principles-of-Feature-Engineering-and-Selection">Chapter 9: Principles of Feature Engineering and Selection<a class="anchor-link" href="#Chapter-9:-Principles-of-Feature-Engineering-and-Selection">&#182;</a></h2>
+
 </div>
 </div>
 </div>
@@ -11762,7 +11826,7 @@ div#notebook {
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="9.0--Introduction">9.0  Introduction<a class="anchor-link" href="#9.0--Introduction">&#182;</a></h1>
+
 </div>
 </div>
 </div>
@@ -11772,7 +11836,6 @@ div#notebook {
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>In this Chapter we discuss a number of principle facets of both <em>feature engineering</em> and <em>feature selection</em>.</p>
-
 </div>
 </div>
 </div>
@@ -11781,7 +11844,7 @@ div#notebook {
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="9.0.2--Feature-engineering">9.0.2  Feature engineering<a class="anchor-link" href="#9.0.2--Feature-engineering">&#182;</a></h2>
+<h2 id="9.0.2--Feature-engineering">9.0.2  Feature engineering<a class="anchor-link" href="#9.0.2--Feature-engineering">¶</a></h2>
 </div>
 </div>
 </div>
@@ -11791,7 +11854,6 @@ div#notebook {
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Feature engineering methods consist of an array of technicques that are applied to data <em>before</em> they are used by either supervsised or unsupervised models.  Some of these tools - like the <em>feature scaling</em> techniques described in Sections 9.1 through 9.3 - properly <em>normalize</em> and cleans input data.  This provides a consistent preprocessing pipeline for learning, and drastically improves the efficacy of zero / first order local optimization methods in tuning machine learning models.</p>
-
 </div>
 </div>
 </div>
@@ -11801,7 +11863,6 @@ div#notebook {
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Another branch of feature engineering focuses the development of data transformations that extract the <em>maximal</em> amount of useful information from input data.  For example in the case of  a two-class classification, these tools aim to extract critical elements of a dataset that ensure instances within a single class are seen as ”similar” while those from different classes are ”dissimilar”.  Designing such tools can require significant domain knowledge - or in other words, a rich set of experiences dealing witth particular kinds of data.  However one simple concept - the <em>histogram</em> feature transformation - is a widely used tool for employed for this task across a variety fields for machine learning problems involving an array of data types - including categorical, text, image, and audio data.  We give a high level overview of this popular approach to feature engineering in Section 9.4.</p>
-
 </div>
 </div>
 </div>
@@ -11810,7 +11871,7 @@ div#notebook {
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="9.0.2--Feature-selection">9.0.2  Feature selection<a class="anchor-link" href="#9.0.2--Feature-selection">&#182;</a></h2>
+<h2 id="9.0.2--Feature-selection">9.0.2  Feature selection<a class="anchor-link" href="#9.0.2--Feature-selection">¶</a></h2>
 </div>
 </div>
 </div>
@@ -11820,7 +11881,6 @@ div#notebook {
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Human beings can be an integral component of the machine learning paradigm, and in practice it can be crucial that individuals be able to interpret and / or derive insights from a fully machine learning model.  The <em>performance</em> of a model is a common and relatively easy metric for humans to interpret - i.e., does the model provide a good predictive result (where 'good' can mean it e.g., the learner achieves an agreed on benchmark value).  It can also be very useful to understand which <em>input features</em> were the most pertinent to achieving solid performance (remember each dimension of input is called a <em>feature</em> or <em>input feature</em> in the parlance of machine learning).  Doing this helps us refine our understanding of the nature of the problem at hand and - depending on the application - can help us make <em>informed decisions</em> based on the results of <em>supervised learning</em>.</p>
-
 </div>
 </div>
 </div>
@@ -11833,7 +11893,6 @@ div#notebook {
 \begin{equation}
 \text{model}\left(\mathbf{x},\mathbf{w}^{\star}\right) =  \mathring{\mathbf{x}}_{\,}^T\mathbf{w}^{\star}   = w_0^{\star} + x_{1}^{\,}w_1^{\star} + x_{2}^{\,}w_2^{\star} + \cdots + x_{N}^{\,}w_N^{\star}.
 \end{equation}<p>where the weights $w_0^{\star},\,w_1^{\star}\,...,w_N^{\star}$ are been tuned by minimizing an appropriate cost function like e.g., the Least Squares when solving a regression problem of the Softmax cost when dealing with classification.  Understanding the intricate connections input features correspond with output naturally boils down to human analysis of the model's $N+1$ tuned weights.  However human beings often struggle to derive meaning from $N+1$ numbers (the value of all these weights) taken in all at once, and the idea of human interpretability quickly becomes untenable as $N$ grows.</p>
-
 </div>
 </div>
 </div>
@@ -11843,15 +11902,10 @@ div#notebook {
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>To aid in this human investigation we often perform what is called <em>feature selection</em> which helps highlight the weights corresponding to the most pertinent features of a, i.e., those that lead to strong performance.  In this Chapter we discuss two popular ways for performing feature selection: boosting and regularization.</p>
-
 </div>
 </div>
 </div>
-    </div>
-  </div>
+</div>
+</div>
 </body>
-
- 
-
-
 </html>

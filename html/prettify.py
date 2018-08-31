@@ -57,7 +57,14 @@ if 'convolution' in series.lower() and 'network' in series.lower():
     series_url = '14_Convolutional_networks'   
 
 if 'recurrent' in series.lower() and 'network' in series.lower():
-    series_url = '15_Recurrent_Networks'            
+    series_url = '15_Recurrent_Networks'  
+    
+if 'selection' in series.lower() and 'engin' in series.lower():
+    series_url = '9_Feature_engineer_select' 
+    
+if 'nonlinear' in series.lower() and 'feature' in series.lower():
+    series_url = '10_Nonlinear_intro'                
+         
 
 # This script adds navigation bar + sharing logos + title
 script_1 = '''

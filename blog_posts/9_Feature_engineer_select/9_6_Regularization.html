@@ -1,9 +1,8 @@
 <!DOCTYPE html>
 <html>
-<head><meta charset="utf-8" />
-<title>9_6_Regularization</title><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
+<head><meta charset="utf-8"/>
+<title>9.6 Feature selection via regularization</title><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
-
 <style type="text/css">
     /*!
 *
@@ -11689,8 +11688,6 @@ ul.typeahead-list > li > a {
 .ansi-bold { font-weight: bold; }
 
     </style>
-
-
 <style type="text/css">
 /* Overrides of notebook CSS for static HTML export */
 body {
@@ -11718,16 +11715,15 @@ div#notebook {
   }
 }
 </style>
-
 <!-- Custom stylesheet, it must be in the same directory as the html file -->
-<link rel="stylesheet" href="custom.css">
-
+<link href="custom.css" rel="stylesheet"/>
 <!-- Loading mathjax macro -->
 <!-- Load mathjax -->
-    <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML"></script>
-    <!-- MathJax configuration -->
-    <script type="text/x-mathjax-config">
+<script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML"></script>
+<!-- MathJax configuration -->
+<script type="text/x-mathjax-config">
     MathJax.Hub.Config({
+    	TeX: { equationNumbers: { autoNumber: "AMS" } },
         tex2jax: {
             inlineMath: [ ['$','$'], ["\\(","\\)"] ],
             displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
@@ -11738,22 +11734,90 @@ div#notebook {
         // we use CSS to left justify single line equations in code cells.
         displayAlign: 'center',
         "HTML-CSS": {
+            availableFonts: ["TeX"],
+            preferredFont: "TeX",
             styles: {'.MathJax_Display': {"margin": 0}},
             linebreaks: { automatic: true }
         }
     });
     </script>
-    <!-- End of mathjax configuration --></head>
+<link href="../../html/CSS/custom.css" rel="stylesheet"/>
+<style>
+        p {
+            text-align: justify !important;
+            text-justify: inter-word !important;
+        }
+    </style>
+<!-- End of mathjax configuration --></head>
 <body>
-  <div tabindex="-1" id="notebook" class="border-box-sizing">
-    <div class="container" id="notebook-container">
+<!-- uncomment to add back menu
+<div style="text-align:center !important; padding-top:58px;">
 
+				<a href="../../../index.html" style="font-family: inherit; font-weight: 200; letter-spacing: 1.5px; color: #222; font-size: 97%;">HOME</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="../../../about.html" style="font-family: inherit; font-weight: 200; letter-spacing: 1.5px; color: #222; font-size: 97%;">ABOUT</a>
+
+
+</div> -->
+<br/><br/><br/>
+<!-- share buttons -->
+<div style="width: 53%; margin:auto;">
+<div id="1" style="width: 75%; float:left;">
+<span style="color:black; font-family:'lato', sans-serif; font-size: 18px;">code</span>
+<div style="width: 95px; border-bottom: solid 1px; border-color:black;">
+<div class="logo-share"></div>
+<div class="logo-share"></div>
+<div class="logo-share">
+<!-- github -->
+<a href="https://github.com/jermwatt/mlrefined/blob/gh-pages/blog_posts/9_Feature_engineer_select/9_6_Regularization.ipynb" target="_blank">
+<img height="28" onmouseout="this.src='../../html/pics/github.png';" onmouseover="this.src='../../html/pics/github_filled.png';" src="../../html/pics/github.png" width="28"/>
+</a>
+</div>
+</div>
+</div>
+<div id="2" style="width: 25%; float:left;">
+<span style="color:black; font-family:'lato', sans-serif; font-size: 18px;">share</span>
+<div style="width: 210px; border-bottom: solid 1px; border-color:black;">
+<div class="logo-share"></div>
+<div class="logo-share"></div>
+<div class="logo-share">
+<!-- linkedin -->
+<a href="https://www.linkedin.com/cws/share?url=https%3A%2F%2Fjermwatt.github.io%2Fmlrefined%2Fblog_posts%2F9_Feature_engineer_select%2F9_6_Regularization.html" target="_blank">
+<img height="28" onmouseout="this.src='../../html/pics/linkedin.png';" onmouseover="this.src='../../html/pics/linkedin_filled.png';" src="../../html/pics/linkedin.png" width="28"/>
+</a>
+</div>
+<div class="logo-share"></div>
+<div class="logo-share">
+<!-- twitter -->
+<a href="https://twitter.com/intent/tweet?ref_src=twsrc%5Etfw&amp;tw_p=tweetbutton&amp;url=https%3A%2F%2Fjermwatt.github.io%2Fmlrefined%2Fblog_posts%2F9_Feature_engineer_select%2F9_6_Regularization.html" target="_blank">
+<img height="28" onmouseout="this.src='../../html/pics/twitter.png';" onmouseover="this.src='../../html/pics/twitter_filled.png';" src="../../html/pics/twitter.png" width="28"/>
+</a>
+</div>
+<div class="logo-share"></div>
+<div class="logo-share">
+<!-- facebook -->
+<a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fjermwatt.github.io%2Fmlrefined%2Fblog_posts%2F9_Feature_engineer_select%2F9_6_Regularization.html" target="_blank">
+<img height="28" onmouseout="this.src='../../html/pics/facebook.png';" onmouseover="this.src='../../html/pics/facebook_filled.png';" src="../../html/pics/facebook.png" width="28"/>
+</a>
+</div>
+</div>
+</div>
+</div>
+<br/><br/>
+<div class="page-title" style="text-align: center !important;">
+<span style="color: #333; font-size: 40%; letter-spacing: 3px;">
+<span style="font-size: 80%;">► </span><a href="https://jermwatt.github.io/mlrefined/index.html" style="color: black; cursor: pointer; text-transform: uppercase; font-weight:bold;" target="_blank">Chapter 9: Principles of Feature Engineering and Selection</a>
+</span>
+<br/><br/>
+<mark style="padding: 0px; background-color: #f9f3c2;">9.6 Feature selection via regularization</mark>
+</div>
+<br/>
+<div class="border-box-sizing" id="notebook" tabindex="-1">
+<div class="container" id="notebook-container">
 <div class="cell border-box-sizing text_cell rendered">
 <div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Chapter-9:-Principles-of-Feature-Engineering-and-Selection">Chapter 9: Principles of Feature Engineering and Selection<a class="anchor-link" href="#Chapter-9:-Principles-of-Feature-Engineering-and-Selection">&#182;</a></h2>
+
 </div>
 </div>
 </div>
@@ -11762,7 +11826,7 @@ div#notebook {
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="9.6-Feature-selection-via-regularization">9.6 Feature selection via regularization<a class="anchor-link" href="#9.6-Feature-selection-via-regularization">&#182;</a></h1>
+
 </div>
 </div>
 </div>
@@ -11772,56 +11836,23 @@ div#notebook {
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>With the first approach to feature selection discussed in the previous Section - <em>boosting</em> - we took a 'bottom-up' approach to feature selection: that is we began by tuning the bias and then added new features to our model one-at-a-time.  In this Section we introduce a complementary approach - called <em>regularization</em>.  Instead of building up a model 'starting at the bottom', with regularization we take a 'top-down' view and start off with a complete model that includes every one of our input features, and then we gradually remove input features of inferior importance.  We do this by adding a second function to our cost - called a <em>regularizer</em>  - that penalizes weights associated with less important input features.</p>
-
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[3]:</div>
+<div class="prompt input_prompt">In [3]:</div>
 <div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">## This code cell will not be shown in the HTML version of this notebook</span>
-<span class="c1"># imports from custom library</span>
-<span class="kn">import</span> <span class="nn">sys</span>
-<span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;../../&#39;</span><span class="p">)</span>
-<span class="kn">from</span> <span class="nn">mlrefined_libraries</span> <span class="k">import</span> <span class="n">superlearn_library</span> <span class="k">as</span> <span class="n">superlearn</span>
-<span class="kn">from</span> <span class="nn">mlrefined_libraries</span> <span class="k">import</span> <span class="n">math_optimization_library</span> <span class="k">as</span> <span class="n">optlib</span>
-<span class="kn">from</span> <span class="nn">mlrefined_libraries</span> <span class="k">import</span> <span class="n">basics_library</span> <span class="k">as</span> <span class="n">baslib</span>
-
-<span class="c1"># demos for this notebook</span>
-<span class="n">plotter</span> <span class="o">=</span> <span class="n">superlearn</span><span class="o">.</span><span class="n">sparse_feature_selection_static</span>
-<span class="n">optimizers</span> <span class="o">=</span> <span class="n">optlib</span><span class="o">.</span><span class="n">optimizers</span>
-<span class="n">datapath</span> <span class="o">=</span> <span class="s1">&#39;../../mlrefined_datasets/superlearn_datasets/&#39;</span>
-<span class="n">cost_lib</span> <span class="o">=</span> <span class="n">superlearn</span><span class="o">.</span><span class="n">cost_functions</span>
-<span class="n">classification_plotter</span> <span class="o">=</span> <span class="n">superlearn</span><span class="o">.</span><span class="n">classification_static_plotter</span><span class="o">.</span><span class="n">Visualizer</span><span class="p">();</span>
-
-<span class="c1"># import autograd functionality to bulid function&#39;s properly for optimizers</span>
-<span class="kn">import</span> <span class="nn">autograd.numpy</span> <span class="k">as</span> <span class="nn">np</span>
-
-<span class="c1"># import timer</span>
-<span class="kn">from</span> <span class="nn">datetime</span> <span class="k">import</span> <span class="n">datetime</span> 
-
-<span class="c1"># this is needed to compensate for %matplotlib notebook&#39;s tendancy to blow up images when plotted inline</span>
-<span class="o">%</span><span class="k">matplotlib</span> notebook
-<span class="kn">from</span> <span class="nn">matplotlib</span> <span class="k">import</span> <span class="n">rcParams</span>
-<span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;figure.autolayout&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
-
-<span class="o">%</span><span class="k">load_ext</span> autoreload
-<span class="o">%</span><span class="k">autoreload</span> 2
-</pre></div>
 
 </div>
 </div>
-</div>
-
 </div>
 <div class="cell border-box-sizing text_cell rendered">
 <div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="9.6.1-Regularization-using-simple-vector-norms">9.6.1 Regularization using simple vector norms<a class="anchor-link" href="#9.6.1-Regularization-using-simple-vector-norms">&#182;</a></h2>
+<h2 id="9.6.1-Regularization-using-simple-vector-norms">9.6.1 Regularization using simple vector norms<a class="anchor-link" href="#9.6.1-Regularization-using-simple-vector-norms">¶</a></h2>
 </div>
 </div>
 </div>
@@ -11835,7 +11866,6 @@ div#notebook {
 f\left(\mathbf{w}\right) = f_1(\mathbf{w})+\lambda\,\,f_2(\mathbf{w})
 \end{equation}<p>is often referred to as <em>regularization</em> in the parlance of machine learning.  More specifically the function $f_2$ is called a <em>regularizer</em> in the jargon of machine learning, since by adding it to function $f_1$ we adjust its shape, and $\lambda \geq 0$ is referred to as a penalty or regularization parameter (we have already seen one instance of regularization in discussing how to adjust Newton's method to deal with non-convex functions in Chapter 5).</p>
 <p>Here when $\lambda = 0$ the above combination reduces to $f_1$, and as we increase $\lambda$ the two functions $f_1$ and $f_2$ 'compete for dominance' in a linear combination of the two functions which takes on properties of both functions (see the book Appendix for several visual examples).  As we set $\lambda$ to larger and larger values the function $f_2$ dominates the combination, and eventually completely drowns out function $f_1$.  In this instance what we end up with is a highly positively scaled version of the regularizer $f_2$.</p>
-
 </div>
 </div>
 </div>
@@ -11858,7 +11888,6 @@ f\left(\mathbf{w}\right) = g\left(\mathbf{w}\right) + \lambda \, h\left(\mathbf{
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>By adding the regularizer $h\left(\mathbf{w}\right)$ to $g$ we alter its very nature, and in particular change the location of its minima (see example 3 in the book Appendix).  The larger we set the regularization parameter $\lambda$ the more the combination $f$ drifts towards a positively scaled version of the regularizer $h$ with minima that mirror closely those of $h$.</p>
 <p>By carefully engineering $h$ and the value of $\lambda$, we can construct a <em>regularized</em> form of the original cost function that retains the essence of $g$ - in that it measures a regression error of a model against a set of input/output data points - but whose altered minima better reflect <em>only the most input features of a dataset</em>.  One can do this just as easily with a <em>convex combination</em> of a cost function and another function $h$ - but the regularization paradigm is more popular in machine learning.</p>
-
 </div>
 </div>
 </div>
@@ -11868,7 +11897,6 @@ f\left(\mathbf{w}\right) = g\left(\mathbf{w}\right) + \lambda \, h\left(\mathbf{
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>A common choice for $h$ that achieve these desired aims is a  <em>vector norm</em> - in particular the so-called $\ell_1$ norm.  Remember that a vector norm is a simple function for measuring the <em>magnitude</em> or <em>length</em> of a vector (see Appendix for further details).  Below we discuss several basic choices of vector norms, the latter two of which are very commonly used in machine learning applications.</p>
-
 </div>
 </div>
 </div>
@@ -11877,7 +11905,7 @@ f\left(\mathbf{w}\right) = g\left(\mathbf{w}\right) + \lambda \, h\left(\mathbf{
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="Example-4:---Regularization-using-the-$\ell_0$-norm"><span style="color:#a50e3e;">Example 4: </span>  Regularization using the $\ell_0$ norm<a class="anchor-link" href="#Example-4:---Regularization-using-the-$\ell_0$-norm">&#182;</a></h4>
+<h4 id="Example-4:---Regularization-using-the-$\ell_0$-norm"><span style="color:#a50e3e;">Example 4: </span>  Regularization using the $\ell_0$ norm<a class="anchor-link" href="#Example-4:---Regularization-using-the-$\ell_0$-norm">¶</a></h4>
 </div>
 </div>
 </div>
@@ -11893,7 +11921,6 @@ f\left(\mathbf{w}\right) = g\left(\mathbf{w}\right) + \lambda \, h\left(\mathbf{
 \begin{equation}
 f\left(\mathbf{w}\right) = g\left(\mathbf{w}\right) + \lambda \,  \left \Vert \mathbf{w} \right \Vert_0
 \end{equation}<p>notice what we are doing: we are <em>penalizing</em> the regularized cost <em>for every non-zero entry of $\mathbf{w}$</em> since every non-zero entry <em>adds $+1$</em> to the magnitude $\left \Vert \mathbf{w} \right \Vert_0$.  Conversely then, in  <em>minimizing this sum</em>, the two functions $g$ and $\left \Vert \mathbf{w} \right \Vert_0$ 'compete for dominance' with $g$ wanting $\mathbf{w}$ to be resolved so that we attain a strong regression fit, while the regularizer $\left \Vert \mathbf{w} \right \Vert_0$ <em>aims to determine a 'small' $\mathbf{w}$ that has as few non-zero elements as possible</em> (or - in other words - a weight vector $\mathbf{w}$ that is very <em>sparse</em>).</p>
-
 </div>
 </div>
 </div>
@@ -11902,7 +11929,7 @@ f\left(\mathbf{w}\right) = g\left(\mathbf{w}\right) + \lambda \,  \left \Vert \m
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="Example-5:---Regularization-using-the-$\ell_1$-norm"><span style="color:#a50e3e;">Example 5: </span>  Regularization using the $\ell_1$ norm<a class="anchor-link" href="#Example-5:---Regularization-using-the-$\ell_1$-norm">&#182;</a></h4>
+<h4 id="Example-5:---Regularization-using-the-$\ell_1$-norm"><span style="color:#a50e3e;">Example 5: </span>  Regularization using the $\ell_1$ norm<a class="anchor-link" href="#Example-5:---Regularization-using-the-$\ell_1$-norm">¶</a></h4>
 </div>
 </div>
 </div>
@@ -11919,7 +11946,6 @@ f\left(\mathbf{w}\right) = g\left(\mathbf{w}\right) + \lambda \,  \left \Vert \m
 f\left(\mathbf{w}\right) = g\left(\mathbf{w}\right) + \lambda \,  \left \Vert \mathbf{w} \right \Vert_1
 \end{equation}<p>notice what we are doing: we are <em>penalizing</em> the regularized cost <em>based on the sum of the absolute value of the entries of $\mathbf{w}$</em>.</p>
 <p>Conversely then, in  <em>minimizing this sum</em>, the two functions $g$ and $\left \Vert \mathbf{w} \right \Vert_1$ 'compete for dominance' with $g$ wanting $\mathbf{w}$ to be resolved so that we attain a strong regression fit, while the regularizer $\left \Vert \mathbf{w} \right \Vert_1$ aims to determine a $\mathbf{w}$ that is small both in terms of the absolute value of each of its components but also - because the $\ell_1$ norm is so closely related to the $\ell_0$ norm (see Appendix) - one that has few non-zero entries and is quite <em>sparse</em>.</p>
-
 </div>
 </div>
 </div>
@@ -11928,7 +11954,7 @@ f\left(\mathbf{w}\right) = g\left(\mathbf{w}\right) + \lambda \,  \left \Vert \m
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="Example-6:---Regularization-using-the-$\ell_2$-norm"><span style="color:#a50e3e;">Example 6: </span>  Regularization using the $\ell_2$ norm<a class="anchor-link" href="#Example-6:---Regularization-using-the-$\ell_2$-norm">&#182;</a></h4>
+<h4 id="Example-6:---Regularization-using-the-$\ell_2$-norm"><span style="color:#a50e3e;">Example 6: </span>  Regularization using the $\ell_2$ norm<a class="anchor-link" href="#Example-6:---Regularization-using-the-$\ell_2$-norm">¶</a></h4>
 </div>
 </div>
 </div>
@@ -11945,7 +11971,6 @@ f\left(\mathbf{w}\right) = g\left(\mathbf{w}\right) + \lambda \,  \left \Vert \m
 f\left(\mathbf{w}\right) = g\left(\mathbf{w}\right) + \lambda \,  \left \Vert \mathbf{w} \right \Vert_2
 \end{equation}<p>notice what we are doing: we are <em>penalizing</em> the regularized cost <em>based on the sum of squares of the entries of $\mathbf{w}$</em>.</p>
 <p>Conversely then, in  <em>minimizing this sum</em>, the two functions $g$ and $\left \Vert \mathbf{w} \right \Vert_2$ 'compete for dominance' with $g$ wanting $\mathbf{w}$ to be resolved so that we attain a strong regression fit, while the regularizer $\left \Vert \mathbf{w} \right \Vert_2$ aims to determine a $\mathbf{w}$ that is small in the sense that <em>all of its entries</em> have a small <em>squared</em> value.</p>
-
 </div>
 </div>
 </div>
@@ -11954,7 +11979,7 @@ f\left(\mathbf{w}\right) = g\left(\mathbf{w}\right) + \lambda \,  \left \Vert \m
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="9.6.2--Feature-selection-via-$\ell_1$-regularization">9.6.2  Feature selection via $\ell_1$ regularization<a class="anchor-link" href="#9.6.2--Feature-selection-via-$\ell_1$-regularization">&#182;</a></h2>
+<h2 id="9.6.2--Feature-selection-via-$\ell_1$-regularization">9.6.2  Feature selection via $\ell_1$ regularization<a class="anchor-link" href="#9.6.2--Feature-selection-via-$\ell_1$-regularization">¶</a></h2>
 </div>
 </div>
 </div>
@@ -11964,7 +11989,6 @@ f\left(\mathbf{w}\right) = g\left(\mathbf{w}\right) + \lambda \,  \left \Vert \m
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>From the perspective of machine learning, by inducing the discovery of <em>sparse minima</em> the $\ell_0$ and $\ell_1$ reguarlizers help uncover the identity of a dataset's <em>most important features</em>: these are precisely the features associated with the non-zero feature-touching weights.  This makes both norms - at least in principle - quite appropriate for our current application.  On the other hand, the drive for general 'smallness' induced by minimizing a cost with the $\ell_2$ regularizer means - provided $\lambda$ is set correctly - that typically <em>every</em> weight is included in the minima recovered.  This makes the $\ell_2$ intuitively less appealing for the application of feature selection (although it is used throughout machine learning as a regularizer for applications other than feature selection, as we will see).</p>
-
 </div>
 </div>
 </div>
@@ -11974,7 +11998,6 @@ f\left(\mathbf{w}\right) = g\left(\mathbf{w}\right) + \lambda \,  \left \Vert \m
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Of the two sparsity-inducing norms described here the $\ell_0$ norm - while promoting sparsity to the greatest degree - is also the most challenging to employ since it is <em>discontinuous</em> making the minimization of an $\ell_0$ regularized cost function quite difficult.  While the $\ell_1$ norm induces sparsity to less of a degree, it is <em>convex and continuous</em> and so we have no practical problem minimizing a cost function where it is used as regularizer.  Because of this practical advantage the $\ell_1$ norm is by far the more commonly used regularizer for feature selection.</p>
-
 </div>
 </div>
 </div>
@@ -11987,7 +12010,6 @@ f\left(\mathbf{w}\right) = g\left(\mathbf{w}\right) + \lambda \,  \left \Vert \m
 \begin{equation}
 f\left(\mathbf{w}\right) = g\left(\mathbf{w}\right) + \lambda \,  \sum_{n=1}^N \left\vert w_n \right\vert.
 \end{equation}<p>where $g$ is any supervised learning cost function.</p>
-
 </div>
 </div>
 </div>
@@ -12018,7 +12040,6 @@ f\left(b,\boldsymbol{\omega}\right) = g\left(b,\boldsymbol{\omega}\right)  + \la
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>We have seen feature-touching regularized supervised learning cost functions before, e.g., throughout Chapters 6 and 7.</p>
-
 </div>
 </div>
 </div>
@@ -12027,7 +12048,7 @@ f\left(b,\boldsymbol{\omega}\right) = g\left(b,\boldsymbol{\omega}\right)  + \la
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="9.6.3--What-value-should-$\lambda$-be-set-too?">9.6.3  What value should $\lambda$ be set too?<a class="anchor-link" href="#9.6.3--What-value-should-$\lambda$-be-set-too?">&#182;</a></h2>
+<h2 id="9.6.3--What-value-should-$\lambda$-be-set-too?">9.6.3  What value should $\lambda$ be set too?<a class="anchor-link" href="#9.6.3--What-value-should-$\lambda$-be-set-too?">¶</a></h2>
 </div>
 </div>
 </div>
@@ -12037,7 +12058,6 @@ f\left(b,\boldsymbol{\omega}\right) = g\left(b,\boldsymbol{\omega}\right)  + \la
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Because feature selection is done for the purposes of <em>human interpretation</em> the value of $\lambda$ can be based on several factors.  A benchmark value for $\lambda$ can be hand chosen based on the desire to explore a dataset, finding a value that provides sufficient sparsity while retaining a low cost value.  Finally, $\lambda$ can be chosen entirely based on the sample statistics of the dataset via a procedure known as <em>cross-validation</em> (which we discuss in Section 12.6).</p>
-
 </div>
 </div>
 </div>
@@ -12047,7 +12067,6 @@ f\left(b,\boldsymbol{\omega}\right) = g\left(b,\boldsymbol{\omega}\right)  + \la
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Regardless of how we select $\lambda$, note that because we are trying to determine the <em>importance</em> of each input feature here that before we begin the process of boosting we <em>always need to standard normalize the input to our dataset</em> as detailed in Section 8.3.  By normalizing each input feature distribution we can fairly compare each input feature's contribution and determine the importance of each.</p>
-
 </div>
 </div>
 </div>
@@ -12056,7 +12075,7 @@ f\left(b,\boldsymbol{\omega}\right) = g\left(b,\boldsymbol{\omega}\right)  + \la
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="Example-1:---Exploring-features-for-predicting-housing-prices-via-$\ell_1$-regularized-regression"><span style="color:#a50e3e;">Example 1: </span>  Exploring features for predicting housing prices via $\ell_1$ regularized regression<a class="anchor-link" href="#Example-1:---Exploring-features-for-predicting-housing-prices-via-$\ell_1$-regularized-regression">&#182;</a></h4>
+<h4 id="Example-1:---Exploring-features-for-predicting-housing-prices-via-$\ell_1$-regularized-regression"><span style="color:#a50e3e;">Example 1: </span>  Exploring features for predicting housing prices via $\ell_1$ regularized regression<a class="anchor-link" href="#Example-1:---Exploring-features-for-predicting-housing-prices-via-$\ell_1$-regularized-regression">¶</a></h4>
 </div>
 </div>
 </div>
@@ -12066,7 +12085,6 @@ f\left(b,\boldsymbol{\omega}\right) = g\left(b,\boldsymbol{\omega}\right)  + \la
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>In this example we use the Boston Housing dataset first introduced in Example 1 of the previous Section.  This dataset consists of $P=506$ datapoints with $N=13$ input features relating various statistics about homes in the Boston area to their median values (in U.S. dollars).  We use $\ell_1$ regularization with $50$ evenly spaced values for $\lambda$ in the range $\left[0, 130 \right]$.  Shown in the animated figure below is a histogram of the optimal <em>feature-touching</em> weights recovered by minimizing an $\ell_1$ regularized Least Squares cost function with these various $\lambda$ values.  In each case we run $1000$ steps of gradient descent were taken with $\alpha = 10^{-1}$ for all runs.</p>
-
 </div>
 </div>
 </div>
@@ -12077,54 +12095,20 @@ f\left(b,\boldsymbol{\omega}\right) = g\left(b,\boldsymbol{\omega}\right)  + \la
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Moving the slider from its starting position on the left (where $\lambda = 0$) rightwards increases the value of $\lambda$ and the associated optimal set of weights are shown.  Pushing the slider all the way to the right shows the optimal weights resulting in using the maximum value for $\lambda$ used in these experiments.  As you move the slider from left to right you can see how the resulting optimal featre-touching weights begin to <em>sparsify</em>, with many of them diminishing to near zero values.  By the time $\lambda \approx 75$ three major weights remain, corresponding to feature $6$, feature $13$, and feature $11$.  The first two features ($6$ and $13$) were also determined to be important via boosting - and can be easily interpreted.</p>
 <p>In comparison to the result found via boosting, the third feature $11$ found to be important here was <em>not</em> found to be as important via boosting.  Conversely as $\lambda$ is increased to even small values notice how many of the large (in magnitude) feature-touching weights seen when $\lambda = 0$ quickly disappear - in particular feature-touching weights $8$ and $11$ rapidly vanish (which were deemed more important when applying boosting).</p>
-
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[100]:</div>
+<div class="prompt input_prompt">In [100]:</div>
 <div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">## This code cell will not be shown in the HTML version of this notebook</span>
-<span class="c1"># load in data</span>
-<span class="n">csvname</span> <span class="o">=</span>  <span class="n">datapath</span> <span class="o">+</span> <span class="s1">&#39;boston_housing.csv&#39;</span>
-<span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">loadtxt</span><span class="p">(</span><span class="n">csvname</span><span class="p">,</span><span class="n">delimiter</span> <span class="o">=</span> <span class="s1">&#39;,&#39;</span><span class="p">)</span>
-<span class="n">x</span> <span class="o">=</span> <span class="n">data</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">,:]</span>
-<span class="n">y</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">:,:]</span> 
-
-<span class="c1"># import booster</span>
-<span class="n">mylib</span> <span class="o">=</span> <span class="n">superlearn</span><span class="o">.</span><span class="n">reg_lib</span><span class="o">.</span><span class="n">superlearn_setup</span><span class="o">.</span><span class="n">Setup</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">)</span>
-
-<span class="c1"># choose normalizer</span>
-<span class="n">mylib</span><span class="o">.</span><span class="n">choose_normalizer</span><span class="p">(</span><span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;standard&#39;</span><span class="p">)</span>
-
-<span class="c1"># choose cost</span>
-<span class="n">mylib</span><span class="o">.</span><span class="n">choose_cost</span><span class="p">(</span><span class="n">cost_name</span> <span class="o">=</span> <span class="s1">&#39;least_squares&#39;</span><span class="p">,</span><span class="n">reg_name</span> <span class="o">=</span> <span class="s1">&#39;L1&#39;</span><span class="p">)</span>
-
-<span class="c1"># choose optimizer</span>
-<span class="n">mylib</span><span class="o">.</span><span class="n">choose_optimizer</span><span class="p">(</span><span class="s1">&#39;gradient_descent&#39;</span><span class="p">,</span><span class="n">max_its</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span><span class="n">alpha_choice</span><span class="o">=</span><span class="mi">10</span><span class="o">**</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">))</span>
-
-<span class="c1"># run regularization</span>
-<span class="n">lams</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">mylib</span><span class="o">.</span><span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">*</span><span class="mi">10</span><span class="p">,</span><span class="mi">20</span><span class="p">)</span>
-<span class="n">mylib</span><span class="o">.</span><span class="n">tryout_lams</span><span class="p">(</span><span class="n">lams</span><span class="p">)</span>
-
-<span class="c1"># plot round history</span>
-<span class="n">mylib</span><span class="o">.</span><span class="n">animate_lams</span><span class="p">()</span>
-</pre></div>
 
 </div>
 </div>
-</div>
-
 <div class="output_wrapper">
 <div class="output">
-
-
 <div class="output_area"><div class="prompt output_prompt">Out[100]:</div>
-
 <div class="output_html rendered_html output_subarea output_execute_result">
-
 <script language="javascript">
   /* Define the Animation class */
   function Animation(frames, img_id, slider_id, interval, loop_select_id){
@@ -12174,20 +12158,15 @@ f\left(b,\boldsymbol{\omega}\right) = g\left(b,\boldsymbol{\omega}\right)  + \la
   
   
 </script>
-
-
 <!-- slider -->
-<link rel="stylesheet" type="text/css" href="../../mlrefined_libraries/JSAnimation_slider_only/icons/mystyle.css">
-
-<div class= "animation" align="center">
-    <img id="_anim_imgGISQGPKDBXZXBEFH">
-    <br>
-    <input class="range-slider__range" id="_anim_sliderGISQGPKDBXZXBEFH" type="range" style="width:350px" name="points" min="0" max="1" step="1" value="0" oninput="animGISQGPKDBXZXBEFH.set_frame(parseInt(this.value));"></input>
-    <!-- <div class="value">0</div> -->
-    <br><br>
+<link href="../../mlrefined_libraries/JSAnimation_slider_only/icons/mystyle.css" rel="stylesheet" type="text/css"/>
+<div align="center" class="animation">
+<img id="_anim_imgGISQGPKDBXZXBEFH"/>
+<br/>
+<input class="range-slider__range" id="_anim_sliderGISQGPKDBXZXBEFH" max="1" min="0" name="points" oninput="animGISQGPKDBXZXBEFH.set_frame(parseInt(this.value));" step="1" style="width:350px" type="range" value="0"/>
+<!-- <div class="value">0</div> -->
+<br/><br/>
 </div>
-
-
 <script language="javascript">
   /* Instantiate the Animation class. */
   /* The IDs given should match those used in the template above. */
@@ -12226,14 +12205,10 @@ f\left(b,\boldsymbol{\omega}\right) = g\left(b,\boldsymbol{\omega}\right)  + \la
     }, 0);
   })()
 </script>
-
-</div>
-
-</div>
-
 </div>
 </div>
-
+</div>
+</div>
 </div>
 <div class="cell border-box-sizing text_cell rendered">
 <div class="prompt input_prompt">
@@ -12241,54 +12216,20 @@ f\left(b,\boldsymbol{\omega}\right) = g\left(b,\boldsymbol{\omega}\right)  + \la
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Below we show the an analogous run - using the same range of values for $\lambda$ - employing the $\ell_2$ norm.  This does not sparsify the resulting weights like the $\ell_1$ norm does, and so results in optimal weights that are less human interpretable.</p>
-
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[101]:</div>
+<div class="prompt input_prompt">In [101]:</div>
 <div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">## This code cell will not be shown in the HTML version of this notebook</span>
-<span class="c1"># load in data</span>
-<span class="n">csvname</span> <span class="o">=</span>  <span class="n">datapath</span> <span class="o">+</span> <span class="s1">&#39;boston_housing.csv&#39;</span>
-<span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">loadtxt</span><span class="p">(</span><span class="n">csvname</span><span class="p">,</span><span class="n">delimiter</span> <span class="o">=</span> <span class="s1">&#39;,&#39;</span><span class="p">)</span>
-<span class="n">x</span> <span class="o">=</span> <span class="n">data</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">,:]</span>
-<span class="n">y</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">:,:]</span> 
-
-<span class="c1"># import booster</span>
-<span class="n">mylib</span> <span class="o">=</span> <span class="n">superlearn</span><span class="o">.</span><span class="n">reg_lib</span><span class="o">.</span><span class="n">superlearn_setup</span><span class="o">.</span><span class="n">Setup</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">)</span>
-
-<span class="c1"># choose normalizer</span>
-<span class="n">mylib</span><span class="o">.</span><span class="n">choose_normalizer</span><span class="p">(</span><span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;standard&#39;</span><span class="p">)</span>
-
-<span class="c1"># choose cost</span>
-<span class="n">mylib</span><span class="o">.</span><span class="n">choose_cost</span><span class="p">(</span><span class="n">cost_name</span> <span class="o">=</span> <span class="s1">&#39;least_squares&#39;</span><span class="p">,</span><span class="n">reg_name</span> <span class="o">=</span> <span class="s1">&#39;L2&#39;</span><span class="p">)</span>
-
-<span class="c1"># choose optimizer</span>
-<span class="n">mylib</span><span class="o">.</span><span class="n">choose_optimizer</span><span class="p">(</span><span class="s1">&#39;gradient_descent&#39;</span><span class="p">,</span><span class="n">max_its</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span><span class="n">alpha_choice</span><span class="o">=</span><span class="mi">10</span><span class="o">**</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">))</span>
-
-<span class="c1"># run boosting</span>
-<span class="n">lams</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">mylib</span><span class="o">.</span><span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">*</span><span class="mi">10</span><span class="p">,</span><span class="mi">20</span><span class="p">)</span>
-<span class="n">mylib</span><span class="o">.</span><span class="n">tryout_lams</span><span class="p">(</span><span class="n">lams</span><span class="p">)</span>
-
-<span class="c1"># plot round history</span>
-<span class="n">mylib</span><span class="o">.</span><span class="n">animate_lams</span><span class="p">()</span>
-</pre></div>
 
 </div>
 </div>
-</div>
-
 <div class="output_wrapper">
 <div class="output">
-
-
 <div class="output_area"><div class="prompt output_prompt">Out[101]:</div>
-
 <div class="output_html rendered_html output_subarea output_execute_result">
-
 <script language="javascript">
   /* Define the Animation class */
   function Animation(frames, img_id, slider_id, interval, loop_select_id){
@@ -12338,20 +12279,15 @@ f\left(b,\boldsymbol{\omega}\right) = g\left(b,\boldsymbol{\omega}\right)  + \la
   
   
 </script>
-
-
 <!-- slider -->
-<link rel="stylesheet" type="text/css" href="../../mlrefined_libraries/JSAnimation_slider_only/icons/mystyle.css">
-
-<div class= "animation" align="center">
-    <img id="_anim_imgPTCTKKWBWUDSGJTS">
-    <br>
-    <input class="range-slider__range" id="_anim_sliderPTCTKKWBWUDSGJTS" type="range" style="width:350px" name="points" min="0" max="1" step="1" value="0" oninput="animPTCTKKWBWUDSGJTS.set_frame(parseInt(this.value));"></input>
-    <!-- <div class="value">0</div> -->
-    <br><br>
+<link href="../../mlrefined_libraries/JSAnimation_slider_only/icons/mystyle.css" rel="stylesheet" type="text/css"/>
+<div align="center" class="animation">
+<img id="_anim_imgPTCTKKWBWUDSGJTS"/>
+<br/>
+<input class="range-slider__range" id="_anim_sliderPTCTKKWBWUDSGJTS" max="1" min="0" name="points" oninput="animPTCTKKWBWUDSGJTS.set_frame(parseInt(this.value));" step="1" style="width:350px" type="range" value="0"/>
+<!-- <div class="value">0</div> -->
+<br/><br/>
 </div>
-
-
 <script language="javascript">
   /* Instantiate the Animation class. */
   /* The IDs given should match those used in the template above. */
@@ -12390,21 +12326,17 @@ f\left(b,\boldsymbol{\omega}\right) = g\left(b,\boldsymbol{\omega}\right)  + \la
     }, 0);
   })()
 </script>
-
-</div>
-
-</div>
-
 </div>
 </div>
-
+</div>
+</div>
 </div>
 <div class="cell border-box-sizing text_cell rendered">
 <div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="Example-2:---Exploring-features-for-classifying-credit-risk-of-loan-applicants-via-$\ell_1$-regularization"><span style="color:#a50e3e;">Example 2: </span>  Exploring features for classifying credit risk of loan applicants via $\ell_1$ regularization<a class="anchor-link" href="#Example-2:---Exploring-features-for-classifying-credit-risk-of-loan-applicants-via-$\ell_1$-regularization">&#182;</a></h4>
+<h4 id="Example-2:---Exploring-features-for-classifying-credit-risk-of-loan-applicants-via-$\ell_1$-regularization"><span style="color:#a50e3e;">Example 2: </span>  Exploring features for classifying credit risk of loan applicants via $\ell_1$ regularization<a class="anchor-link" href="#Example-2:---Exploring-features-for-classifying-credit-risk-of-loan-applicants-via-$\ell_1$-regularization">¶</a></h4>
 </div>
 </div>
 </div>
@@ -12414,7 +12346,6 @@ f\left(b,\boldsymbol{\omega}\right) = g\left(b,\boldsymbol{\omega}\right)  + \la
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>In this example we use the Credit Risk dataset first introduced in Example 2 of the previous Section.  This dataset consists of $P=1000$ datapoints with $N=20$ input features relating various statistics about loan applicants to their assessed credit risk.  We use $\ell_1$ regularization with $50$ evenly spaced values for $\lambda$ in the range $\left[0, 130 \right]$.  Shown in the animated figure below is a histogram of the optimal <em>feature-touching</em> weights recovered by minimizing an $\ell_1$ regularized Least Squares cost function with these various $\lambda$ values.  In each case we run $1000$ steps of gradient descent were taken with $\alpha = 10^{-1}$ for all runs.</p>
-
 </div>
 </div>
 </div>
@@ -12424,18 +12355,17 @@ f\left(b,\boldsymbol{\omega}\right) = g\left(b,\boldsymbol{\omega}\right)  + \la
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Moving the slider from its starting position on the left (where $\lambda = 0$) rightwards increases the value of $\lambda$ and the associated optimal set of weights are shown.  Pushing the slider all the way to the right shows the optimal weights resulting in using the maximum value for $\lambda$ used in these experiments.  As you move the slider from left to right you can see how the resulting optimal featre-touching weights begin to <em>sparsify</em>, with many of them diminishing to near zero values.  By the time $\lambda \approx 40$ five major weights remain, corresponding to feature $1 - 3$ and $6 - 7$.  The first there features were also determined to be important via boosting - and can be easily interpreted.</p>
-
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[7]:</div>
+<div class="prompt input_prompt">In [7]:</div>
 <div class="inner_cell">
-    <div class="input_area">
+<div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># load in dataset</span>
-<span class="n">csvname</span> <span class="o">=</span> <span class="n">datapath</span> <span class="o">+</span> <span class="s1">&#39;credit_dataset.csv&#39;</span>
-<span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">loadtxt</span><span class="p">(</span><span class="n">csvname</span><span class="p">,</span><span class="n">delimiter</span> <span class="o">=</span> <span class="s1">&#39;,&#39;</span><span class="p">)</span>
+<span class="n">csvname</span> <span class="o">=</span> <span class="n">datapath</span> <span class="o">+</span> <span class="s1">'credit_dataset.csv'</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">loadtxt</span><span class="p">(</span><span class="n">csvname</span><span class="p">,</span><span class="n">delimiter</span> <span class="o">=</span> <span class="s1">','</span><span class="p">)</span>
 <span class="n">x</span> <span class="o">=</span> <span class="n">data</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">,:]</span>
 <span class="n">y</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">:,:]</span> 
 
@@ -12443,13 +12373,13 @@ f\left(b,\boldsymbol{\omega}\right) = g\left(b,\boldsymbol{\omega}\right)  + \la
 <span class="n">mylib</span> <span class="o">=</span> <span class="n">superlearn</span><span class="o">.</span><span class="n">reg_lib</span><span class="o">.</span><span class="n">superlearn_setup</span><span class="o">.</span><span class="n">Setup</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">)</span>
 
 <span class="c1"># choose normalizer</span>
-<span class="n">mylib</span><span class="o">.</span><span class="n">choose_normalizer</span><span class="p">(</span><span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;standard&#39;</span><span class="p">)</span>
+<span class="n">mylib</span><span class="o">.</span><span class="n">choose_normalizer</span><span class="p">(</span><span class="n">name</span> <span class="o">=</span> <span class="s1">'standard'</span><span class="p">)</span>
 
 <span class="c1"># choose cost</span>
-<span class="n">mylib</span><span class="o">.</span><span class="n">choose_cost</span><span class="p">(</span><span class="n">cost_name</span> <span class="o">=</span> <span class="s1">&#39;softmax&#39;</span><span class="p">,</span><span class="n">reg_name</span> <span class="o">=</span> <span class="s1">&#39;L1&#39;</span><span class="p">)</span>
+<span class="n">mylib</span><span class="o">.</span><span class="n">choose_cost</span><span class="p">(</span><span class="n">cost_name</span> <span class="o">=</span> <span class="s1">'softmax'</span><span class="p">,</span><span class="n">reg_name</span> <span class="o">=</span> <span class="s1">'L1'</span><span class="p">)</span>
 
 <span class="c1"># choose optimizer</span>
-<span class="n">mylib</span><span class="o">.</span><span class="n">choose_optimizer</span><span class="p">(</span><span class="s1">&#39;gradient_descent&#39;</span><span class="p">,</span><span class="n">max_its</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span><span class="n">alpha_choice</span><span class="o">=</span><span class="mi">10</span><span class="o">**</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">))</span>
+<span class="n">mylib</span><span class="o">.</span><span class="n">choose_optimizer</span><span class="p">(</span><span class="s1">'gradient_descent'</span><span class="p">,</span><span class="n">max_its</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span><span class="n">alpha_choice</span><span class="o">=</span><span class="mi">10</span><span class="o">**</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">))</span>
 
 <span class="c1"># run regularization</span>
 <span class="n">lams</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">demo</span><span class="o">.</span><span class="n">y</span><span class="o">.</span><span class="n">size</span><span class="o">*</span><span class="mi">10</span><span class="o">**</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">),</span><span class="mi">10</span><span class="p">)</span>
@@ -12458,19 +12388,13 @@ f\left(b,\boldsymbol{\omega}\right) = g\left(b,\boldsymbol{\omega}\right)  + \la
 <span class="c1"># plot round history</span>
 <span class="n">mylib</span><span class="o">.</span><span class="n">animate_lams</span><span class="p">()</span>
 </pre></div>
-
 </div>
 </div>
 </div>
-
 <div class="output_wrapper">
 <div class="output">
-
-
 <div class="output_area"><div class="prompt output_prompt">Out[7]:</div>
-
 <div class="output_html rendered_html output_subarea output_execute_result">
-
 <script language="javascript">
   /* Define the Animation class */
   function Animation(frames, img_id, slider_id, interval, loop_select_id){
@@ -12520,20 +12444,15 @@ f\left(b,\boldsymbol{\omega}\right) = g\left(b,\boldsymbol{\omega}\right)  + \la
   
   
 </script>
-
-
 <!-- slider -->
-<link rel="stylesheet" type="text/css" href="../../mlrefined_libraries/JSAnimation_slider_only/icons/mystyle.css">
-
-<div class= "animation" align="center">
-    <img id="_anim_imgCSATCPOIRUWLQWOL">
-    <br>
-    <input class="range-slider__range" id="_anim_sliderCSATCPOIRUWLQWOL" type="range" style="width:350px" name="points" min="0" max="1" step="1" value="0" oninput="animCSATCPOIRUWLQWOL.set_frame(parseInt(this.value));"></input>
-    <!-- <div class="value">0</div> -->
-    <br><br>
+<link href="../../mlrefined_libraries/JSAnimation_slider_only/icons/mystyle.css" rel="stylesheet" type="text/css"/>
+<div align="center" class="animation">
+<img id="_anim_imgCSATCPOIRUWLQWOL"/>
+<br/>
+<input class="range-slider__range" id="_anim_sliderCSATCPOIRUWLQWOL" max="1" min="0" name="points" oninput="animCSATCPOIRUWLQWOL.set_frame(parseInt(this.value));" step="1" style="width:350px" type="range" value="0"/>
+<!-- <div class="value">0</div> -->
+<br/><br/>
 </div>
-
-
 <script language="javascript">
   /* Instantiate the Animation class. */
   /* The IDs given should match those used in the template above. */
@@ -12562,21 +12481,17 @@ f\left(b,\boldsymbol{\omega}\right) = g\left(b,\boldsymbol{\omega}\right)  + \la
     }, 0);
   })()
 </script>
-
-</div>
-
-</div>
-
 </div>
 </div>
-
+</div>
+</div>
 </div>
 <div class="cell border-box-sizing text_cell rendered">
 <div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="9.6.4--Comparing-regularization-and-boosting">9.6.4  Comparing regularization and boosting<a class="anchor-link" href="#9.6.4--Comparing-regularization-and-boosting">&#182;</a></h2>
+<h2 id="9.6.4--Comparing-regularization-and-boosting">9.6.4  Comparing regularization and boosting<a class="anchor-link" href="#9.6.4--Comparing-regularization-and-boosting">¶</a></h2>
 </div>
 </div>
 </div>
@@ -12586,7 +12501,6 @@ f\left(b,\boldsymbol{\omega}\right) = g\left(b,\boldsymbol{\omega}\right)  + \la
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>While boosting is an efficient greedy scheme, the <em>regularization</em> idea detailed above can be computationally intensive to perform since for each value of $\lambda$ tried a full run of local optimization must be completed.  On the other hand, while boosting is a 'bottom-up' approach that identifies individual features one-at-a-time, regularization takes a more 'top-down' approach and identifies important features <em>all at once</em>.  In principle this allows regularization to uncover groups of important features that may be correlated in such an interconnected way with the output that they will be missed by boosting.</p>
-
 </div>
 </div>
 </div>
@@ -12595,16 +12509,11 @@ f\left(b,\boldsymbol{\omega}\right) = g\left(b,\boldsymbol{\omega}\right)  + \la
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>&copy; This material is not to be distributed, copied, or reused without written permission from the authors.</p>
-
+<p>© This material is not to be distributed, copied, or reused without written permission from the authors.</p>
 </div>
 </div>
 </div>
-    </div>
-  </div>
+</div>
+</div>
 </body>
-
- 
-
-
 </html>

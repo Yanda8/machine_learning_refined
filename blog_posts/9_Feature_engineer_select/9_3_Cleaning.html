@@ -1,9 +1,8 @@
 <!DOCTYPE html>
 <html>
-<head><meta charset="utf-8" />
-<title>9_3_Cleaning</title><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
+<head><meta charset="utf-8"/>
+<title>9.3  Imputing missing values in a dataset</title><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
-
 <style type="text/css">
     /*!
 *
@@ -11689,8 +11688,6 @@ ul.typeahead-list > li > a {
 .ansi-bold { font-weight: bold; }
 
     </style>
-
-
 <style type="text/css">
 /* Overrides of notebook CSS for static HTML export */
 body {
@@ -11718,16 +11715,15 @@ div#notebook {
   }
 }
 </style>
-
 <!-- Custom stylesheet, it must be in the same directory as the html file -->
-<link rel="stylesheet" href="custom.css">
-
+<link href="custom.css" rel="stylesheet"/>
 <!-- Loading mathjax macro -->
 <!-- Load mathjax -->
-    <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML"></script>
-    <!-- MathJax configuration -->
-    <script type="text/x-mathjax-config">
+<script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML"></script>
+<!-- MathJax configuration -->
+<script type="text/x-mathjax-config">
     MathJax.Hub.Config({
+    	TeX: { equationNumbers: { autoNumber: "AMS" } },
         tex2jax: {
             inlineMath: [ ['$','$'], ["\\(","\\)"] ],
             displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
@@ -11738,22 +11734,90 @@ div#notebook {
         // we use CSS to left justify single line equations in code cells.
         displayAlign: 'center',
         "HTML-CSS": {
+            availableFonts: ["TeX"],
+            preferredFont: "TeX",
             styles: {'.MathJax_Display': {"margin": 0}},
             linebreaks: { automatic: true }
         }
     });
     </script>
-    <!-- End of mathjax configuration --></head>
+<link href="../../html/CSS/custom.css" rel="stylesheet"/>
+<style>
+        p {
+            text-align: justify !important;
+            text-justify: inter-word !important;
+        }
+    </style>
+<!-- End of mathjax configuration --></head>
 <body>
-  <div tabindex="-1" id="notebook" class="border-box-sizing">
-    <div class="container" id="notebook-container">
+<!-- uncomment to add back menu
+<div style="text-align:center !important; padding-top:58px;">
 
+				<a href="../../../index.html" style="font-family: inherit; font-weight: 200; letter-spacing: 1.5px; color: #222; font-size: 97%;">HOME</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="../../../about.html" style="font-family: inherit; font-weight: 200; letter-spacing: 1.5px; color: #222; font-size: 97%;">ABOUT</a>
+
+
+</div> -->
+<br/><br/><br/>
+<!-- share buttons -->
+<div style="width: 53%; margin:auto;">
+<div id="1" style="width: 75%; float:left;">
+<span style="color:black; font-family:'lato', sans-serif; font-size: 18px;">code</span>
+<div style="width: 95px; border-bottom: solid 1px; border-color:black;">
+<div class="logo-share"></div>
+<div class="logo-share"></div>
+<div class="logo-share">
+<!-- github -->
+<a href="https://github.com/jermwatt/mlrefined/blob/gh-pages/blog_posts/9_Feature_engineer_select/9_3_Cleaning.ipynb" target="_blank">
+<img height="28" onmouseout="this.src='../../html/pics/github.png';" onmouseover="this.src='../../html/pics/github_filled.png';" src="../../html/pics/github.png" width="28"/>
+</a>
+</div>
+</div>
+</div>
+<div id="2" style="width: 25%; float:left;">
+<span style="color:black; font-family:'lato', sans-serif; font-size: 18px;">share</span>
+<div style="width: 210px; border-bottom: solid 1px; border-color:black;">
+<div class="logo-share"></div>
+<div class="logo-share"></div>
+<div class="logo-share">
+<!-- linkedin -->
+<a href="https://www.linkedin.com/cws/share?url=https%3A%2F%2Fjermwatt.github.io%2Fmlrefined%2Fblog_posts%2F9_Feature_engineer_select%2F9_3_Cleaning.html" target="_blank">
+<img height="28" onmouseout="this.src='../../html/pics/linkedin.png';" onmouseover="this.src='../../html/pics/linkedin_filled.png';" src="../../html/pics/linkedin.png" width="28"/>
+</a>
+</div>
+<div class="logo-share"></div>
+<div class="logo-share">
+<!-- twitter -->
+<a href="https://twitter.com/intent/tweet?ref_src=twsrc%5Etfw&amp;tw_p=tweetbutton&amp;url=https%3A%2F%2Fjermwatt.github.io%2Fmlrefined%2Fblog_posts%2F9_Feature_engineer_select%2F9_3_Cleaning.html" target="_blank">
+<img height="28" onmouseout="this.src='../../html/pics/twitter.png';" onmouseover="this.src='../../html/pics/twitter_filled.png';" src="../../html/pics/twitter.png" width="28"/>
+</a>
+</div>
+<div class="logo-share"></div>
+<div class="logo-share">
+<!-- facebook -->
+<a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fjermwatt.github.io%2Fmlrefined%2Fblog_posts%2F9_Feature_engineer_select%2F9_3_Cleaning.html" target="_blank">
+<img height="28" onmouseout="this.src='../../html/pics/facebook.png';" onmouseover="this.src='../../html/pics/facebook_filled.png';" src="../../html/pics/facebook.png" width="28"/>
+</a>
+</div>
+</div>
+</div>
+</div>
+<br/><br/>
+<div class="page-title" style="text-align: center !important;">
+<span style="color: #333; font-size: 40%; letter-spacing: 3px;">
+<span style="font-size: 80%;">► </span><a href="https://jermwatt.github.io/mlrefined/index.html" style="color: black; cursor: pointer; text-transform: uppercase; font-weight:bold;" target="_blank">Chapter 9: Principles of Feature Engineering and Selection</a>
+</span>
+<br/><br/>
+<mark style="padding: 0px; background-color: #f9f3c2;">9.3  Imputing missing values in a dataset</mark>
+</div>
+<br/>
+<div class="border-box-sizing" id="notebook" tabindex="-1">
+<div class="container" id="notebook-container">
 <div class="cell border-box-sizing text_cell rendered">
 <div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Chapter-9:-Principles-of-Feature-Engineering-and-Selection">Chapter 9: Principles of Feature Engineering and Selection<a class="anchor-link" href="#Chapter-9:-Principles-of-Feature-Engineering-and-Selection">&#182;</a></h2>
+
 </div>
 </div>
 </div>
@@ -11762,7 +11826,7 @@ div#notebook {
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="9.3--Imputing-missing-values-in-a-dataset">9.3  Imputing missing values in a dataset<a class="anchor-link" href="#9.3--Imputing-missing-values-in-a-dataset">&#182;</a></h1>
+
 </div>
 </div>
 </div>
@@ -11772,7 +11836,6 @@ div#notebook {
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Real world data can contain <em>missing values</em> due to human error in collection, storage issues, faulty sensors, etc.,  If a supervised learning datapoint is missing its <em>output</em> value - e.g., if a classification datapoint is missing its <em>label</em> - there can be little we can do to salvage the datapoint, and usually such a corrupted datapoint is thrown away.  Likewise, if a large number of the values of an input are missing the data is best discarded.  However a datapoint whose input is missing just a handful of <em>input (feature) values</em> can be salvaged, and such points should be salvaged since data is often a scarce resource.  Because machine learning models take in only numerical valued objects, in order for us to be able to use a datapoint with missing entries in training any machine learning model we must <em>fill in missing input features with numerical values</em> (this is often called <em>imputing</em>).  But what values should we set missing entries too?</p>
-
 </div>
 </div>
 </div>
@@ -11781,7 +11844,7 @@ div#notebook {
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="9.3.1-Imputing-using-the-mean">9.3.1 Imputing using the mean<a class="anchor-link" href="#9.3.1-Imputing-using-the-mean">&#182;</a></h2>
+<h2 id="9.3.1-Imputing-using-the-mean">9.3.1 Imputing using the mean<a class="anchor-link" href="#9.3.1-Imputing-using-the-mean">¶</a></h2>
 </div>
 </div>
 </div>
@@ -11803,7 +11866,6 @@ div#notebook {
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>This is often called <em>mean-imputation</em>.</p>
-
 </div>
 </div>
 </div>
@@ -11825,7 +11887,6 @@ div#notebook {
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Also notice that if we impute missing values of a dataset <em>using the mean along each input dimension</em> that if we then <em>standard normalize</em> this dataset, <em>all values imputed with the mean become exactly zero</em>.  Because the mean of an input feature that has been imputed with mean values does not change (as shown above), when we <em>mean-center</em> the dataset (the first step in standard normalization) by <em>subtracting</em> the mean of this input dimension the resulting value becomes exactly zero (this is illustrated in the figure below for a simple case where $N = 2$).  Any model weight touching such a mean-imputed entry is then comopletely nullified numerically.  In other words, in training any mean-imputed value will not directly contribute to the tuning of its associated feature weight (provided the input has been standard normalized).  This is very desireable given that such values were missing to begin with.</p>
-
 </div>
 </div>
 </div>
@@ -11835,7 +11896,6 @@ div#notebook {
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>More generally if our input is missing multiple entries along this dimension we can just as reasonably replace each one with the mean along the $n^{th}$ feature, where in computing this mean we once again exclude missing values.  Again one can see that with these imputed values the <em>mean along this dimension does not change</em>.</p>
-
 </div>
 </div>
 </div>
@@ -11845,20 +11905,16 @@ div#notebook {
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <figure>
-      <img src= '../../mlrefined_images/superlearn_images/mean_inpute_stadnard_normal.png' width="90%"  height="auto" alt=""/>
-  <figcaption>   
+<img alt="" height="auto" src="../../mlrefined_images/superlearn_images/mean_inpute_stadnard_normal.png" width="90%"/>
+<figcaption>
 <strong>Figure 1:</strong> <em> 
 (left panel) The input of a prototypical $N = 2$ dimensional dataset where a single point $\mathbf{x}_j$,  drawn as a *hollow* red dot, is missing its second entry.  The mean-imputed version of this point is then shown as a *filled-in* red point.  (right panel) By standard-normalizing such a dataset the mean-imputed value of $\mathbf{x}_j$ becomes *exactly equal to zero*.
-</em>  </figcaption> 
+</em> </figcaption>
 </figure>
 </div>
 </div>
 </div>
-    </div>
-  </div>
+</div>
+</div>
 </body>
-
- 
-
-
 </html>
