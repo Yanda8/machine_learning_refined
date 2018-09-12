@@ -114,7 +114,7 @@ class Setup:
             # loop over points and create stump in between each 
             # in dimension n
             for p in range(P - 1):
-                if self.y[p] != self.y[p+1]:
+                if self.y[:,p] != self.y[:,p+1]:
                     # compute split point
                     split = (x_n[p] + x_n[p+1])/float(2)
 
@@ -136,7 +136,11 @@ class Setup:
         return all_steps
     
     ### boost it ###
-    def boost(self,num_rounds,**kwargs):        
+    def boost(self,num_rounds,**kwargs): 
+        verbose = True
+        if 'verbose' in kwargs:
+            verbose = kwargs['verbose']
+            
         # create proto stumps
         all_steps = self.create_proto_stumps()        
                 
@@ -170,8 +174,10 @@ class Setup:
         self.models.append(copy.deepcopy(model))
         train_cost_val = c_hist[ind]
         self.train_cost_vals.append(train_cost_val)
-        valid_cost_val = self.cost.cost(best_w,self.x_valid,self.y_valid,np.arange(len(self.y_valid)))
-        self.valid_cost_vals.append(valid_cost_val)
+        
+        if self.y_valid.size > 0:
+            valid_cost_val = self.cost.cost(best_w,self.x_valid,self.y_valid,np.arange(len(self.y_valid)))
+            self.valid_cost_vals.append(valid_cost_val)
 
         # pluck counter
         if  self.cost_name == 'softmax' or self.cost_name == 'perceptron' or self.cost_name == 'multiclass_softmax' or self.cost_name == 'multiclass_perceptron':
@@ -183,10 +189,11 @@ class Setup:
             self.counter.set_model(model)
 
             train_count = self.counter.cost(self.x_train,self.y_train)
-            valid_count = self.counter.cost(self.x_valid,self.y_valid)
-
             self.train_count_vals.append(train_count)
-            self.valid_count_vals.append(valid_count)   
+            
+            if self.y_valid.size > 0:
+                valid_count = self.counter.cost(self.x_valid,self.y_valid)
+                self.valid_count_vals.append(valid_count)   
 
         for i in range(num_rounds):  
             # index sets to keep track of which feature-touching weights have been used
@@ -195,7 +202,9 @@ class Setup:
             check_inds = np.random.permutation(num_steps)[:max_check] + 1
             unused = {i for i in check_inds}
         
-            print ('starting round ' + str(i+1) + ' of ' + str(num_rounds) + ' of boosting')
+            if verbose == True:
+                print ('starting round ' + str(i+1) + ' of ' + str(num_rounds) + ' of boosting')
+                
             # loop over unused indices and try out each remaining corresponding weight
             best_weight = 0
             best_train_cost = np.inf
@@ -217,19 +226,25 @@ class Setup:
                 ind = np.argmin(c_hist)            
                 weight = w_hist[ind]
                 train_cost_val = c_hist[ind]
-                valid_cost_val = self.cost.cost(weight,self.x_valid,self.y_valid,np.arange(len(self.y_valid)))
+                
+                if self.y_valid.size > 0:
+                    valid_cost_val = self.cost.cost(weight,self.x_valid,self.y_valid,np.arange(len(self.y_valid)))
 
                 # update smallest cost val / associated weight
                 if train_cost_val < best_train_cost:
                     best_w = weight
                     best_train_cost = train_cost_val
-                    best_valid_cost = valid_cost_val
                     best_ind = n
+
+                    if self.y_valid.size > 0:
+                        best_valid_cost = valid_cost_val
 
             # after sweeping through and computing minimum for all subproblems
             # update the best weight value
             self.train_cost_vals.append(copy.deepcopy(best_train_cost))
-            self.valid_cost_vals.append(copy.deepcopy(best_valid_cost))
+            
+            if self.y_valid.size > 0:
+                self.valid_cost_vals.append(copy.deepcopy(best_valid_cost))
 
             best_step = lambda x,w=best_w,ind=best_ind-1: all_steps[ind](x,w)
             self.best_steps.append(copy.deepcopy(best_step))
@@ -242,11 +257,12 @@ class Setup:
             if  self.cost_name == 'softmax' or self.cost_name == 'perceptron' or self.cost_name == 'multiclass_softmax' or self.cost_name == 'multiclass_perceptron':
                 self.counter.set_model(model)
 
-                train_count = self.counter.cost(self.x_train,self.y_train)
-                valid_count = self.counter.cost(self.x_valid,self.y_valid)
-                
+                train_count = self.counter.cost(self.x_train,self.y_train)                
                 self.train_count_vals.append(train_count)
-                self.valid_count_vals.append(valid_count)   
+                
+                if self.y_valid.size > 0:
+                    valid_count = self.counter.cost(self.x_valid,self.y_valid)
+                    self.valid_count_vals.append(valid_count)   
             
             # remove best index from unused set, add to used set
             #unused -= {best_ind}
@@ -255,9 +271,10 @@ class Setup:
         # make universals
         self.used = used
         
-        print ('boosting complete!')
-        time.sleep(1.5)
-        clear_output()
+        if verbose == True:
+            print ('boosting complete!')
+            time.sleep(1.5)
+            clear_output()
         
     #### plotting functionality ###
     def plot_history(self):
