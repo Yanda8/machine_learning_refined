@@ -11762,7 +11762,7 @@ div#notebook {
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="12.2--The-Kernel-Trick">12.2  The Kernel Trick<a class="anchor-link" href="#12.2--The-Kernel-Trick">&#182;</a></h1>
+<h1 id="12.2-The-Kernel-Trick">12.2 The Kernel Trick<a class="anchor-link" href="#12.2-The-Kernel-Trick">&#182;</a></h1>
 </div>
 </div>
 </div>
@@ -11771,7 +11771,7 @@ div#notebook {
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>This crucial issue, of not being able to effectively store high dimensional kernel feature transformations, motivates the search for more efficient representations. Here we introduce the notion of <em>kernelization</em>, also called <em>the kernel trick</em>, which is a clever ways of constructing kernel-based features for virtually any machine learning problem that allows us to avoid the combinatorial explosion problem detailed at the end of the prior Section. Additionally kernelization provides a way of generating new kernel-based features defined solely through such a kernelized representation.  These representations - often simply referred to as <em>kernels</em> - not only provide a compact way of representing complete packages of kernel-based units, but allow for the creation of new kernel approximators as well.</p>
+<p>This crucial issue, of not being able to effectively store and compute with high dimensional fixed-shape feature transformations, motivates the search for more efficient representations. In this Section we introduce the notion of <em>kernelization</em>, also commonly called <em>the kernel trick</em>, as a clever way of constructing fixed-shape features for virtually any machine learning problem. Kernelization not only allows us to avoid the combinatorial explosion problem detailed at the end of the prior Section, but also provides a way of generating new fixed-shape features defined solely through such a kernelized representation.</p>
 
 </div>
 </div>
@@ -11824,7 +11824,7 @@ div#notebook {
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="12.2.1--The-Fundamental-Theorem-of-Linear-Algebra">12.2.1  The Fundamental Theorem of Linear Algebra<a class="anchor-link" href="#12.2.1--The-Fundamental-Theorem-of-Linear-Algebra">&#182;</a></h2>
+<h2 id="12.2.1--A-useful-fact-from-the-fundamental-theorem-of-linear-algebra">12.2.1  A useful fact from the fundamental theorem of linear algebra<a class="anchor-link" href="#12.2.1--A-useful-fact-from-the-fundamental-theorem-of-linear-algebra">&#182;</a></h2>
 </div>
 </div>
 </div>
@@ -11833,22 +11833,12 @@ div#notebook {
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Before discussing the concept of kernelization, it will be helpful to first recall a useful fact, generally referred to as the fundamental theorem of linear algebra. This is a simple statement about how to deconstruct an $B$ length vector $\boldsymbol{\omega}$ over the columns of a given matrix and will allow us to quickly kernelize machine learning problems.</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>Recall that a set of $B$-dimensional vectors $\left\{\mathbf{f}_p\right\}_{p=1}^P$ spans a subspace of dimension $P$, where $P \leq M$, and that any vector $\boldsymbol{\omega}$ in this subspace can be written as some linear combination of the vectors as</p>
+<p>Before discussing the concept of kernelization, it will be helpful to first recall a useful proposition from the fundamental theorem of linear algebra about decomposition of any vector $\boldsymbol{\omega}$ in $\mathbb{R}^M$ over the columns of a given $M \times P$ matrix $\mathbf{F}$. Denoting the $p^{th}$ column of $\mathbf{F}$ as $\mathbf{f}_p$, when $\boldsymbol{\omega}$ happens to lie <em>inside</em> the column space of $\mathbf{F}$ we can express it, via a linear combination of these columns, as</p>
 \begin{equation}
 \boldsymbol{\omega} = \sum_{p=1}^{P} \mathbf{f}_p\,z_p
-\end{equation}<p>where $z_p$ are weights associated with $\boldsymbol{\omega}$. By stacking the vectors $\mathbf{f}_p$ column-wise into an $B \times P$ matrix $\mathbf{F}$ and the $z_{p}$'s together into a $P \times 1$ vector $\mathbf{z}$ this relationship can be written more compactly as</p>
+\end{equation}<p>where $z_p$ is the weight associated with $\mathbf{f}_p$. By stacking these weights into a $P \times 1$  column vector $\mathbf{z}$ we can write this relationship more compactly as</p>
 \begin{equation}
-\boldsymbol{\omega} = \mathbf{F}\mathbf{z}.
+\boldsymbol{\omega} = \mathbf{F}\mathbf{z}
 \end{equation}
 </div>
 </div>
@@ -11858,10 +11848,10 @@ div#notebook {
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>As illustrated in Figure 1, any vector $B$ length $\boldsymbol{\omega}$ can then be decomposed into two pieces: the portion of $\boldsymbol{\omega}$ belonging to the subspace spanned by the columns of $\mathbf{F}$ and an orthogonal component $\mathbf{r}$. Formally this decomposition is written as</p>
+<p>If, on the other hand, $\boldsymbol{\omega}$ happens to lie <em>outside</em> the column space of $\mathbf{F}$, as illustrated pictorially in Figure 1, we can decompose it into two pieces: the portion of $\boldsymbol{\omega}$ belonging to the subspace spanned by the columns of $\mathbf{F}$ and an orthogonal component $\mathbf{r}$</p>
 \begin{equation}
-\boldsymbol{\omega} = \mathbf{F}\mathbf{z}+\mathbf{r}.
-\end{equation}<p>Note that $\mathbf{r}$ being orthogonal to the span of $\mathbf{F}$’s columns means formally that $\mathbf{F}^T\mathbf{r}=\mathbf{0}_{P \times 1}$.</p>
+\boldsymbol{\omega} = \mathbf{F}\mathbf{z}+\mathbf{r}
+\end{equation}<p>Note that $\mathbf{r}$ being orthogonal to the span of columns in $\mathbf{F}$ means, algebraically, that $\mathbf{F}^T\mathbf{r}=\mathbf{0}_{P \times 1}$. Moreover when $\boldsymbol{\omega}$ is in the column space of $\mathbf{F}$, we can still decompose it using the form given in Equation(?) by setting $\mathbf{r}=\mathbf{0}_{M \times 1}$, which clearly satisfies the orthogonality condition $\mathbf{F}^T\mathbf{r}=\mathbf{0}_{P \times 1}$. As we will now see this simple decomposition is the key to representing fixed-shape features more effectively.</p>
 
 </div>
 </div>
@@ -11876,20 +11866,10 @@ div#notebook {
   <figcaption> 
       <strong>Figure 1:</strong> 
       <em> 
-An illustration of the fundamental theorem of linear algebra which states that any vector $\boldsymbol{\omega}$ in an $B$-dimensional space can be decomposed as $\boldsymbol{\omega} = \mathbf{F}\mathbf{z}+\mathbf{r}$. Here the vector $\mathbf{F}\mathbf{z}$ belongs in the subspace determined by the columns of the matrix $\mathbf{F}$ and $\mathbf{r}$ is orthogonal to this subspace.
+Any vector $\boldsymbol{\omega}$ in an $M$-dimensional space can be decomposed over the column space of a given matrix $F$, as $\boldsymbol{\omega} = \mathbf{F}\mathbf{z}+\mathbf{r}$. The vector $\mathbf{F}\mathbf{z}$ belongs in the subspace determined by the columns of $\mathbf{F}$ while $\mathbf{r}$ is orthogonal to this subspace.
       </em>
   </figcaption>
 </figure>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>As we will now see this simple statement is the key to representing kernel-based features more effectively (when used to transform vector valued input for use) with virtually every cost function discussed in this book.</p>
-
 </div>
 </div>
 </div>
@@ -12410,10 +12390,10 @@ f_{b}\left(x_{i}\right)=e^{-\beta x_{i}^{2}}\sqrt{\frac{\left(2\beta\right)^{b-1
 
 
 
-<div id="07ba364a-0baa-4932-8220-b38924f3d797"></div>
+<div id="8707efb0-379a-4bd7-9b11-e4282ab936ec"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#07ba364a-0baa-4932-8220-b38924f3d797');
+var element = $('#8707efb0-379a-4bd7-9b11-e4282ab936ec');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -13198,10 +13178,10 @@ if (IPython.notebook.kernel != null) {
 
 
 
-<div id="04547cc5-d22a-40ca-9a42-e90a44b10fa6"></div>
+<div id="cd155c4f-4c6f-4f72-925b-327a63501c57"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#04547cc5-d22a-40ca-9a42-e90a44b10fa6');
+var element = $('#cd155c4f-4c6f-4f72-925b-327a63501c57');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -13986,10 +13966,10 @@ if (IPython.notebook.kernel != null) {
 
 
 
-<div id="275a0859-3a64-455b-a68d-c62bb2a20e6d"></div>
+<div id="f6307fea-b437-4445-a1e3-afc2f5d21796"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#275a0859-3a64-455b-a68d-c62bb2a20e6d');
+var element = $('#f6307fea-b437-4445-a1e3-afc2f5d21796');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
