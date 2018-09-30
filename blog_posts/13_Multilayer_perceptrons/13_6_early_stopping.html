@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head><meta charset="utf-8"/>
-<title>13.6 Efficient cross-validation via early stopping</title><script src="https://unpkg.com/jupyter-js-widgets@2.0.*/dist/embed.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
+<title>13.6 Cross-validation via early stopping</title><script src="https://unpkg.com/jupyter-js-widgets@2.0.*/dist/embed.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
 <style type="text/css">
     /*!
@@ -11807,7 +11807,7 @@ div#notebook {
 <span style="font-size: 80%;">► </span><a href="https://jermwatt.github.io/mlrefined/index.html" style="color: black; cursor: pointer; text-transform: uppercase; font-weight:bold;" target="_blank">Chapter 13: Multi-layer Perceptrons</a>
 </span>
 <br/><br/>
-<mark style="padding: 0px; background-color: #f9f3c2;">13.6 Efficient cross-validation via early stopping</mark>
+<mark style="padding: 0px; background-color: #f9f3c2;">13.6 Cross-validation via early stopping</mark>
 </div>
 <br/>
 <div class="border-box-sizing" id="notebook" tabindex="-1">
@@ -11835,7 +11835,7 @@ div#notebook {
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>The standard regularization procedure for cross-validation presented in Section 11.4 requires many complete minimizations of given cost function in order to determine the optimal setting of model weights.  However optimization of neural networks (particularly deeper neural networks i.e., those employing many hidden layers) can be challenging and computationally intensive, making cross-validation via the typical regularization approach very difficult.  In this Section we introduce an alternative regularization technique called <em>early stopping</em> that is commonly used with neural network models.  Early stopping presents a comparatively cheap alternative for regularizing network models, where optimal parameters are chosen from a single optimization run by halting it when validation error is at its lowest.</p>
+<p>The standard regularization procedure for cross-validation presented in Section 11.4 requires many complete minimizations of the given cost function in order to determine the optimal setting of model weights. However optimization of neural networks (particularly those employing many hidden layers) can be challenging and computationally intensive, making cross-validation via the typical regularization approach very difficult. In this Section we introduce an alternative regularization technique called <em>early stopping</em> that is commonly used with neural network models. Early stopping presents a comparatively cheap alternative for regularizing network models, where optimal parameters are chosen from a single optimization run by halting it when validation error is at its lowest.</p>
 </div>
 </div>
 </div>
@@ -11861,7 +11861,7 @@ div#notebook {
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>With any technique for cross-validation (introduced in Section 11.2) our ideal is to find a model that provides the <em>lowest possible error on a validation set</em>.  With early-stopping we do this by <em>stopping</em> the minimization of a cost function (which is measuring <em>training error</em>) when <em>validation error</em>  reaches its lowest point.  The basic idea is illustrated in the figure below.  In the left panel we show a prototypical nonlinear regression dataset, and in the middle the cost function of a high capacity model (like a deep neural network) we use to represent it shown figuratively in two dimensions.  As we begin a run of a local optimization method we measure both the training error (provided by the cost function we are minimizing) as well as validation error at each step of the procedure - as shown in the right panel.  We try to halt the procedure when the validation error has reached its lowest point.  This <em>regularization technique</em> is commonly used as a cheap alternative to the standard approach outlined in Section 11.4, particularly with deep neural network models that can be difficult to optimize, as it requires only a single optimization run.</p>
+<p>With any technique for cross-validation (introduced in Section 11.2) our ideal is to find a model that provides the lowest possible error on a validation set. With early stopping we do this by stopping the minimization of a cost function (which is measuring training error) when validation error reaches its lowest point. The basic idea is illustrated in the figure below. In the left panel we show a prototypical nonlinear regression dataset, and in the middle the cost function of a high capacity model (like a deep neural network) shown figuratively in two dimensions. As we begin a run of a local optimization method we measure both the training error (provided by the cost function we are minimizing) as well as validation error at each step of the procedure, as shown in the right panel. We try to halt the procedure when the validation error has reached its lowest point. This <em>regularization technique</em> is commonly used as a cheap alternative to the standard approach outlined in Section 11.4, particularly with deep neural network models that can be difficult to optimize, as it requires only a single optimization run.</p>
 </div>
 </div>
 </div>
@@ -11884,12 +11884,12 @@ div#notebook {
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>There are a number of important engineering details associated with making an effective early-stopping procedure, these include.</p>
+<p>There are a number of important engineering details associated with making an effective early stopping procedure. These include</p>
 <ul>
-<li><strong>When is validation error really at its lowest?</strong>  While generally speaking validation error decreases at the start of an optimization run and eventually increases (making somewhat of a 'U' shape) it can certainly fluctuate up and down during optimization, so it is not all together obvious <em>when the validation error has indeed reached its lowest point</em>.  To deal with this peculiarity often in practice a reasonable engineering choice is made as to when to stop based on how long it has been since the validation error has <em>not</em> decreased.</li>
+<li><strong>When is validation error really at its lowest?</strong> While generally speaking validation error decreases at the start of an optimization run and eventually increases (making somewhat of a 'U' shape) it can certainly fluctuate up and down during optimization. Therefore it is not all together obvious when the validation error has indeed reached its lowest point unless the optimization process is performed to completion. To deal with this peculiarity, often in practice a reasonable engineering choice is made as to when to stop based on how long it has been since the validation error has <em>not</em> decreased.</li>
 </ul>
 <ul>
-<li><strong>Large (local optimization) steps are to be avoided.</strong>  The idea with early stopping is to measure training / validation error often as an optimization procedure makes progress, so that the procedure can be halted when validation error is low.  If one uses a local optimization procedure that takes <em>very large steps</em> - like e.g., Newton's - optimization can quickly lead to weights that overfit the training data (in other words a set of weights that provide minimal validation error can be skipped over entirely).  Thus when employing early stopping one needs to use a local optimization method with moderate-length steps.</li>
+<li><strong>Large (local optimization) steps are to be avoided.</strong> The idea with early stopping is to measure training and validation errors often as an optimization procedure makes progress, so that the procedure can be halted when validation error is low. If one uses a local optimization procedure that takes very large steps (e.g., Newton's method) optimization can quickly lead to weights that overfit the training data. In other words, a set of weights that provide minimal validation error can be skipped over entirely. Thus when employing early stopping one needs to use a local optimization method with moderate-length steps.</li>
 </ul>
 <ul>
 <li><strong>Validation error should be measured often.</strong> Validation error should be measured frequently during the minimization process in order to determine a validation error minimizing set of weights.  When employing a mini-batch / stochastic first order method validation error should be measured <em>several times per epoch</em> to avoid taking too large of steps without measuring validation error (and perhaps skipping over error minimizing weights entirely).</li>
@@ -12237,10 +12237,10 @@ div#notebook {
 <div class="output_wrapper">
 <div class="output">
 <div class="output_area"><div class="prompt"></div>
-<div id="01dc303e-8df4-4190-9698-ebd040d1177e"></div>
+<div id="1d2a943a-5e01-4e1b-8ac0-621506f0fbc8"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#01dc303e-8df4-4190-9698-ebd040d1177e');
+var element = $('#1d2a943a-5e01-4e1b-8ac0-621506f0fbc8');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -13023,6 +13023,6 @@ if (IPython.notebook.kernel != null) {
 </div>
 </body>
 <script type="application/vnd.jupyter.widget-state+json">
-{"version_major": 1, "state": {}, "version_minor": 0}
+{"state": {}, "version_major": 1, "version_minor": 0}
 </script>
 </html>

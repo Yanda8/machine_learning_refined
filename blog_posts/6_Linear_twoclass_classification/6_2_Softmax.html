@@ -12035,10 +12035,10 @@ g(\mathbf{w}) = \frac{1}{P}\sum_{p=1}^P \left(\text{tanh}\left(\left(\mathring{\
 <div class="output_wrapper">
 <div class="output">
 <div class="output_area"><div class="prompt"></div>
-<div id="808df978-826f-4dfa-9324-ab5a1e6722ae"></div>
+<div id="bcce9ed5-bb95-4ef8-82ed-8b29b27cef6b"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#808df978-826f-4dfa-9324-ab5a1e6722ae');
+var element = $('#bcce9ed5-bb95-4ef8-82ed-8b29b27cef6b');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -12985,7 +12985,7 @@ g(\mathbf{w}) = \frac{1}{P}\sum_{p=1}^P g_p\left(\mathbf{w}\right) = \frac{1}{P}
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>This cost function, like the Cross Entropy cost detailed in the previous Section, is <em>always convex regardless of the dataset used</em>.  Moreover, as we can see here by its derivation, the Softmax and cross-entropy cost functions are completely equivalent (upon change of label value $y_p = -1$ to $y_p = 0$ and vice-versa) having been built using the same point-wise cost function.</p>
+<p>This cost function, like the Cross Entropy cost detailed in the previous Section, is <em>always convex regardless of the dataset used</em>.  Moreover, as we can see here by its derivation, the Softmax and Cross Entropy cost functions are completely equivalent (upon change of label value $y_p = -1$ to $y_p = 0$ and vice-versa) having been built using the same point-wise cost function.</p>
 </div>
 </div>
 </div>
@@ -12994,66 +12994,7 @@ g(\mathbf{w}) = \frac{1}{P}\sum_{p=1}^P g_p\left(\mathbf{w}\right) = \frac{1}{P}
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="6.2.5--The-Cross-Entropy-and-Softmax-costs-are-equivalent">6.2.5  The Cross Entropy and Softmax costs are equivalent<a class="anchor-link" href="#6.2.5--The-Cross-Entropy-and-Softmax-costs-are-equivalent">¶</a></h2>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>Comparing the derivation of the Softmax cost given above to the one given in Section 6.1.4 for the Cross Entropy cost, we can see that they are virtually identical.  In particular both cost functions are built using the same <em>Log Error</em> point-wise cost, with the sole difference being which label $0$ or $-1$ is used, which implies that the two cost functions are <em>completely equivalent</em> mathematically speaking.</p>
-<blockquote><p>The Cross Entropy and Softmax costs are completely equivalent mathematically speaking.</p>
-</blockquote>
-<p>This means for example that if one starts off with a dataset of $P$ points using label values $y_p \in \left\{0,1\right\}$ and formulates the Cross Entropy cost function over this data, if all label values $y_p = 0$ are changed so that $y_p = -1$ the Cross Entropy cost <em>becomes</em> the Softmax cost function.  The reverse holds as well, i.e., Softmax cost <em>becomes</em> the Cross Entropy if we begin with labels $y_p = -1$ and swap them out for $y_p = 0$ values.  This is why the choice of label values - whether $y_p \in \left\{0,1\right\}$ or $y_p \in \left\{-1,+1\right\}$ - is arbitrary.</p>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="6.2.6--The-linear-decision-boundary">6.2.6  The linear decision boundary<a class="anchor-link" href="#6.2.6--The-linear-decision-boundary">¶</a></h2>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>The linear decision boundary - the boundary learned to distinguish between both classes of data - is defined as the set of $\mathring{\mathbf{x}}_{\,}$ where</p>
-\begin{equation}
-\mathring{\mathbf{x}}_{\,}^{T}\mathbf{w}^{\,}=0
-\end{equation}<p>and where $\mathbf{w}$ is tuned properly by minimizing e.g., the Softmax cost function.  This decision boundary is formed precisely where our regressor $\text{tanh}\left(\mathring{\mathbf{x}}_{\,}^{T}\mathbf{w}^{\,}  \right)$ <em>pierces the plane $y = 0$</em> i.e., where $\text{tanh}\left(\mathring{\mathbf{x}}_{\,}^{T}\mathbf{w}^{\,}  \right) = 0$.</p>
-<p>This is also where the corresponding step function $\text{sign}\left(\mathring{\mathbf{x}}_{\,}^{T}\mathbf{w}^{\,} \right)$ transitions from its bottom to top step, and it is indeed this step function that we use to predict the label $y$ of an input $\mathbf{x}$ as</p>
-\begin{equation}
-\text{sign}\left(\mathring{\mathbf{x}}_{\,}^{T}\mathbf{w}^{\,} \right) = 
-\begin{cases}
-+1 \,\,\,\,\,\text{if} \,\, \mathring{\mathbf{x}}_{\,}^{T}\mathbf{w}^{\,}  &gt; 0 \\
--1 \,\,\,\,\,\text{if} \,\, \mathring{\mathbf{x}}_{\,}^{T}\mathbf{w}^{\,}  &lt; 0. \\
-\end{cases}
-\end{equation}<p>Any input lying <em>exactly</em> on the decision boundary can be assigned a label at random, since our linear rule cannot accurately determine its proper label.</p>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>A point is classified <em>correctly</em> when its true label is predicted correctly, that is when $\text{sign}\left(\mathring{\mathbf{x}}_{p}^{T}\mathbf{w}^{\,} \right) = y_p$, otherwise it is said to have been <em>mislcassified</em>.</p>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="6.2.7--Implementing-and-minimizing-a-modular-Softmax-cost-in-Python">6.2.7  Implementing and minimizing a modular Softmax cost in <code>Python</code><a class="anchor-link" href="#6.2.7--Implementing-and-minimizing-a-modular-Softmax-cost-in-Python">¶</a></h2>
+<h2 id="6.2.5--Implementing-and-minimizing-a-modular-Softmax-cost-in-Python">6.2.5  Implementing and minimizing a modular Softmax cost in <code>Python</code><a class="anchor-link" href="#6.2.5--Implementing-and-minimizing-a-modular-Softmax-cost-in-Python">¶</a></h2>
 </div>
 </div>
 </div>
@@ -13269,10 +13210,10 @@ of dividing two overflowing exponentials.</p>
 <div class="output_wrapper">
 <div class="output">
 <div class="output_area"><div class="prompt"></div>
-<div id="35f6804d-dbfb-491c-a420-c8a46f406623"></div>
+<div id="5d71f19b-e726-4ace-9a3f-88fe76305f60"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#35f6804d-dbfb-491c-a420-c8a46f406623');
+var element = $('#5d71f19b-e726-4ace-9a3f-88fe76305f60');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -14056,7 +13997,7 @@ if (IPython.notebook.kernel != null) {
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="6.1.8--'Noisy'-datasets">6.1.8  'Noisy' datasets<a class="anchor-link" href="#6.1.8--'Noisy'-datasets">¶</a></h2>
+<h2 id="6.1.6--'Noisy'-datasets">6.1.6  'Noisy' datasets<a class="anchor-link" href="#6.1.6--'Noisy'-datasets">¶</a></h2>
 </div>
 </div>
 </div>
@@ -14079,10 +14020,10 @@ if (IPython.notebook.kernel != null) {
 <div class="output_wrapper">
 <div class="output">
 <div class="output_area"><div class="prompt"></div>
-<div id="da45da20-1036-4ffc-87b9-c47bb7102468"></div>
+<div id="35e639ee-5083-4f9b-98c3-e83d83fe6795"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#da45da20-1036-4ffc-87b9-c47bb7102468');
+var element = $('#35e639ee-5083-4f9b-98c3-e83d83fe6795');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -14898,10 +14839,10 @@ if (IPython.notebook.kernel != null) {
 <div class="output_wrapper">
 <div class="output">
 <div class="output_area"><div class="prompt"></div>
-<div id="be954fa7-2686-4c82-8dd5-b9e1dd2fc142"></div>
+<div id="c5531d93-007c-428e-b699-c1024e1b7eca"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#be954fa7-2686-4c82-8dd5-b9e1dd2fc142');
+var element = $('#c5531d93-007c-428e-b699-c1024e1b7eca');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -15699,10 +15640,10 @@ if (IPython.notebook.kernel != null) {
 <div class="output_wrapper">
 <div class="output">
 <div class="output_area"><div class="prompt"></div>
-<div id="bc68a377-8c47-490c-813d-92c7a34a9701"></div>
+<div id="bd897745-d117-4c2a-b554-cf7e0749fb8a"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#bc68a377-8c47-490c-813d-92c7a34a9701');
+var element = $('#bd897745-d117-4c2a-b554-cf7e0749fb8a');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -16486,7 +16427,7 @@ if (IPython.notebook.kernel != null) {
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="6.2.9-Appendix*">6.2.9 Appendix*<a class="anchor-link" href="#6.2.9-Appendix*">¶</a></h2>
+<h2 id="6.2.7-Appendix*">6.2.7 Appendix*<a class="anchor-link" href="#6.2.7-Appendix*">¶</a></h2>
 </div>
 </div>
 </div>
@@ -16627,6 +16568,6 @@ L = \frac{1}{4P}\left\Vert \sum_{p=1}^{P}\mathring{\mathbf{x}}_p^{\,}\mathring{\
 </div>
 </body>
 <script type="application/vnd.jupyter.widget-state+json">
-{"state": {}, "version_major": 1, "version_minor": 0}
+{"version_major": 1, "state": {}, "version_minor": 0}
 </script>
 </html>

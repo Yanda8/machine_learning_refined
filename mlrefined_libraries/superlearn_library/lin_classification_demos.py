@@ -42,7 +42,7 @@ class Visualizer:
         self.scatter_pts(ax2)
         
     # plot regression fits
-    def plot_fit(self,weights,**kwargs):
+    def plot_fit(self,plotting_weights,**kwargs):
         # construct figure
         fig, axs = plt.subplots(1, 3, figsize=(9,4))
 
@@ -66,7 +66,7 @@ class Visualizer:
         ymax += ygap    
 
         # initialize points
-        ax.scatter(self.x,self.y,color = 'k', edgecolor = 'w',linewidth = 0.9,s = 80)
+        ax.scatter(self.x,self.y,color = 'k', edgecolor = 'w',linewidth = 0.9,s = 80,zorder = 3)
 
         # clean up panel
         ax.set_xlim([xmin,xmax])
@@ -81,19 +81,23 @@ class Visualizer:
         colors = ['k','magenta']
         if 'colors' in kwargs:
             colors = kwargs['colors']
-        c = 0
-        transformer = lambda a: a
-        if 'transformer' in kwargs:
-            transformer = kwargs['transformer']
+        
+        transformers = [lambda a: a for i in range(len(plotting_weights))]
+        if 'transformers' in kwargs:
+            transformers = kwargs['transformers']
 
-        # plot approximation
-        l = weights[0] + weights[1]*transformer(s)
-        t = np.tanh(l).flatten()
-        ax.plot(s,t,linewidth = 2,color = 'r',zorder = 3)
+        for i in range(len(plotting_weights)):
+            weights = plotting_weights[i]
+            transformer = transformers[i]
+            
+            # plot approximation
+            l = weights[0] + weights[1]*transformer(s)
+            t = np.tanh(l).flatten()
+            ax.plot(s,t,linewidth = 2,color = colors[i],zorder = 2)
         
         # plot counting cost 
-        t = np.sign(l).flatten()
-        ax.plot(s,t,linewidth = 4,color = 'b',zorder = 2)
+        #t = np.sign(l).flatten()
+        #ax.plot(s,t,linewidth = 4,color = 'b',zorder = 1)
     
     # scatter points
     def scatter_pts(self,ax):

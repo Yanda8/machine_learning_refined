@@ -311,7 +311,7 @@ class Visualizer:
         ymax += ygap    
 
         # initialize points
-        ax.scatter(self.x,self.y,color = 'k', edgecolor = 'w',linewidth = 0.9,s = 40)
+        ax.scatter(self.x,self.y,color = 'k', edgecolor = 'w',linewidth = 0.9,s = 40,zorder = 0)
 
         # clean up panel
         ax.set_xlim([xmin,xmax])
@@ -326,15 +326,16 @@ class Visualizer:
         colors = ['k','magenta']
         if 'colors' in kwargs:
             colors = kwargs['colors']
-        c = 0
  
-        transformer = lambda a: a
-        if 'transformer' in kwargs:
-            transformer = kwargs['transformer']
+        transformers = [lambda a: a for i in range(len(plotting_weights))]
+        if 'transformers' in kwargs:
+            transformers = kwargs['transformers']
 
-        for weights in plotting_weights:
+        for i in range(len(plotting_weights)):
+            weights = plotting_weights[i]
+            transformer = transformers[i]
             t = weights[0] + weights[1]*transformer(s).flatten()
-            ax.plot(s,t,linewidth = 2,color = colors[c])
+            ax.plot(s,t,linewidth = 2,color = colors[i],zorder = 3)
             c+=1
     
     # scatter points

@@ -11883,10 +11883,10 @@ div#notebook {
 <div class="output_wrapper">
 <div class="output">
 <div class="output_area"><div class="prompt"></div>
-<div id="133310bd-d7a5-4335-b4c7-fdd4512a9ae3"></div>
+<div id="ffeb9f1d-4170-42c9-b4e8-2f5cd8fb17fa"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#133310bd-d7a5-4335-b4c7-fdd4512a9ae3');
+var element = $('#ffeb9f1d-4170-42c9-b4e8-2f5cd8fb17fa');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -12773,10 +12773,10 @@ g(w) = \text{sin}\left(3w\right) + 0.1w^2
 <div class="output_wrapper">
 <div class="output">
 <div class="output_area"><div class="prompt"></div>
-<div id="3e7f82c7-22da-4a7d-8fb8-a041c022c635"></div>
+<div id="59561e5d-646b-40ab-84c4-bac06f4951b7"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#3e7f82c7-22da-4a7d-8fb8-a041c022c635');
+var element = $('#59561e5d-646b-40ab-84c4-bac06f4951b7');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -13725,10 +13725,10 @@ g(w) = \frac{1}{50}\left(w^4 + w^2 + 10w\right)
 <div class="output_wrapper">
 <div class="output">
 <div class="output_area"><div class="prompt"></div>
-<div id="7feb4968-5637-428f-a97b-9ba5db7da8de"></div>
+<div id="2e940cc4-24f8-49dd-91b2-c4e1afa725f4"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#7feb4968-5637-428f-a97b-9ba5db7da8de');
+var element = $('#2e940cc4-24f8-49dd-91b2-c4e1afa725f4');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -14567,102 +14567,6 @@ g\left(\mathbf{w}\right)=a + \mathbf{b}^{T}\mathbf{w} + \mathbf{w}^{T}\mathbf{C}
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="Example-5:-Stationary-points-of-a-simple-but-common-quadratic-function"><span style="color:#a50e3e;">Example 5:</span> Stationary points of a simple but common quadratic function<a class="anchor-link" href="#Example-5:-Stationary-points-of-a-simple-but-common-quadratic-function">¶</a></h4>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>A number of applications will find us employing a simple multi-input quadratic</p>
-\begin{equation}
-g\left(\mathbf{w}\right)=a + \mathbf{b}^{T}\mathbf{w} + \mathbf{w}^{T}\mathbf{C}\mathbf{w}
-\end{equation}<p>where the matrix $\mathbf{C} = \frac{1}{\beta} \mathbf{I}$. Here $\mathbf{I}$ is the $N\times N$ identity matrix, and $\beta &gt; 0$  a positive scalar. With this matrix notice how the quadratic term can be simplified considerably</p>
-\begin{equation}
-\mathbf{w}^T \mathbf{C} \mathbf{w} = \mathbf{w}^T \frac{1}{\beta} \mathbf{I} \mathbf{w} = \frac{1}{\beta}\mathbf{w}^T \mathbf{w} = \frac{1}{\beta} \Vert \mathbf{w} \Vert^2_2
-\end{equation}<p>The gradient of $g$ is then given as</p>
-\begin{equation}
-\nabla g(\mathbf{w}) = \frac{2}{\beta} \mathbf{w} + \mathbf{b}
-\end{equation}
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>and setting this equal to zero we can solve explicitly for the single stationary point - which is a global minimum - of this function</p>
-$$
-\mathbf{w} = -\frac{\beta}{2}\mathbf{b}
-$$
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="Example-6:-The-Rayleigh-Quotient"><span style="color:#a50e3e;">Example 6:</span> The Rayleigh Quotient<a class="anchor-link" href="#Example-6:-The-Rayleigh-Quotient">¶</a></h4>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>The Raleigh Quotient of an $N\times N$ matrix $\mathbf{C}$ is defined as the normalized quadratic function</p>
-\begin{equation}
-g(\mathbf{w}) = \frac{\mathbf{w}^T\mathbf{C}\mathbf{w}}{\mathbf{w}^T \mathbf{w}}
-\end{equation}<p>Computing, the gradient of this function is given by</p>
-\begin{equation}
-\nabla g(\mathbf{w}) = \frac{2}{\mathbf{w}^T \mathbf{w}}\left(\mathbf{C}\mathbf{w} - \frac{\mathbf{w}^T\mathbf{C}\mathbf{w}}{\mathbf{w}^T \mathbf{w}}\mathbf{w}\right)
-\end{equation}
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>Denote by $\mathbf{v}$ and $\lambda$ any eigenvector/eigenvalue pair of $\mathbf{C}$. Then plugging in $\mathbf{v}$ into the gradient we have, since by definition $\mathbf{C}\mathbf{v} = \lambda \mathbf{v}$, that</p>
-\begin{equation}
-\nabla g(\mathbf{v}) = \frac{2}{\mathbf{v}^T\mathbf{v}}\left(\lambda\mathbf{v}  - \lambda\frac{ \mathbf{v}^T\mathbf{v}}{\mathbf{v}^T\mathbf{v}}\mathbf{v}\right) =\frac{2}{\mathbf{v}^T\mathbf{v}}\left(\lambda\mathbf{v} - \lambda \mathbf{v}\right) = 0
-\end{equation}
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>In other words, the eigenvectors of $\mathbf{C}$ are stationary points of the Raleigh Quotient.  By plugging the stationary point/eigenvector $\mathbf{v}$ into the original function we can see that it takes the value $\lambda$ given by the corresponding eigenvalue</p>
-\begin{equation}
-g(\mathbf{v}) = \frac{\mathbf{v}^T\mathbf{C}\mathbf{v}}{\mathbf{v}^T \mathbf{v}} = \lambda\frac{\mathbf{v}^T\ \mathbf{v}}{\mathbf{v}^T \mathbf{v}} = \lambda
-\end{equation}
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>In particular this shows that the maximum value taken by the Raleigh Quotient is given by the maximum eigenvalue of $\mathbf{C}$, and likewise at its minimum the function takes on the value of the minimum eigenvalue of $\mathbf{C}$.</p>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="3.1.3--Coordinate-descent-and-the-first-order-optimality-condition">3.1.3  Coordinate descent and the first order optimality condition<a class="anchor-link" href="#3.1.3--Coordinate-descent-and-the-first-order-optimality-condition">¶</a></h2>
 </div>
 </div>
@@ -14732,109 +14636,7 @@ g(\mathbf{v}) = \frac{\mathbf{v}^T\mathbf{C}\mathbf{v}}{\mathbf{v}^T \mathbf{v}}
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Notice that this is indeed a local optimization method we have detailed here.  We did not write out the sequence of updates above in the familiar local optimization format of</p>
-\begin{equation}
-\mathbf{w}^k = \mathbf{w}^{k-1} + \alpha \mathbf{d}^{k}
-\end{equation}<p>because each update is more naturally written as the solution to a partial derivative equation.  However we could very well express the updates like this.  In particular on the $k^{th}$ sweep we can express the $n^{th}$ update above equivalently as</p>
-\begin{equation}
-\mathbf{w}^{k+n} = \mathbf{w}^{k+n-1} + \alpha \mathbf{e}_n
-\end{equation}<p>where $\mathbf{e}_n$ is the $n^{th}$ standard basis element and $\alpha = \left(w_n^{\star} - w_n^{k+n-1}\right)$ where $w_n^{\star}$ is the solution to equation (6).  So - in other words - this is a coordinate descent method akin to the zero-order method discussed in Section 5.5 only here we have used calculus (and the first order optimality condition in particular) to automatically tune the steplength $\alpha$ at each step.</p>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>Below we summarize this first order coordinate descent algorithm in pseudo-code, followed by a number of examples of its implementation.</p>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Coordinate-descent-algorithm">Coordinate descent algorithm<a class="anchor-link" href="#Coordinate-descent-algorithm">¶</a></h3><p></p><hr style="height:1px;border:none;color:#555;background-color:#555;"/>
-<p style="line-height: 1.7;">
-<strong>1:</strong>   <strong>Input:</strong> cost function $g\left(\mathbf{w}\right)$, initial point $\mathbf{w}^0$, maximum number of steps $K$, set $\mathbf{w}_{\text{best}} = \mathbf{w}^0$ <br/>
-<strong>2:</strong>   <code>for</code> $\,\,k = 1...K$<br/>
-<strong>3:</strong>           <code>for</code> $n=1...N$ <br/>
-<strong>4:
-</strong>                 <code> solve</code> $
-\frac{\partial}{\partial w_{n}}g(\mathbf{w}^{k + n -1})=0
-$ for $w_n^{\star}$
-
-<br/>
-<strong>5:</strong>                 $\,$ call  $\mathbf{w}^{k + n} = \mathbf{w}^{k + n-1}$, where $w_n^{k + n} \longleftarrow w_n^{\star}$ <br/>
-<strong>7:</strong>                   <code>if</code> $g\left(\mathbf{w}^{k + n}\right) &lt; g\left(\mathbf{w}^{k + n-1}\right)$  <br/>
-<strong>8:</strong>                        $\mathbf{w}^{k + n-1} \longleftarrow \mathbf{w}^{k + n}$<br/>
-<strong>9:</strong>   <strong>output:</strong> history of weights $\left\{\mathbf{w}^{b}\right\}_{b=0}^{KN}$ and corresponding function evaluations $\left\{g\left(\mathbf{w}^{b}\right)\right\}_{b=0}^{KN}$ <br/>
-</p><hr style="height:1px;border:none;color:#555;background-color:#555;"/>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="Example-7:--Minimizing-convex-quadratic-functions-via-first-order-coordinate-descent"><span style="color:#a50e3e;">Example 7:</span>  Minimizing convex quadratic functions via first order coordinate descent<a class="anchor-link" href="#Example-7:--Minimizing-convex-quadratic-functions-via-first-order-coordinate-descent">¶</a></h4>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>In this example we develop the coordinate descent for minimizing a convex quadratic function</p>
-\begin{equation}
-g\left(\mathbf{w}\right)=a + \mathbf{b}^{T}\mathbf{w} + \mathbf{w}^{T}\mathbf{C}\mathbf{w}
-\end{equation}<p>In practice we almost never care about finding the minimum of a function that dips down to negative infinity, so in keeping with this we will assume that the quadratic is convex (this means that the matrix $\mathbf{C}$ is both symmetric and has all nonnegative eigenvalues.</p>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>In Section 6.1 we saw that the first order system for a general quadratic is given as</p>
-\begin{equation}
-\nabla g(\mathbf{w}) = 2\mathbf{C}\mathbf{w} + \mathbf{b} = \mathbf{0}_{N\times 1}
-\end{equation}<p>or if we write out the system equation-wise</p>
-\begin{equation}
-\begin{array}
-\
-\frac{\partial}{\partial w_{1}}g(\mathbf{w})= 2\left(c_{11}w_1 + c_{12}w_2 + c_{13}w_3 +  \cdots + c_{1N}w_N\right) + b_1 = 0\\
-\frac{\partial}{\partial w_{2}}g(\mathbf{w})=2\left(c_{21}w_1 + c_{22}w_2 + c_{23}w_3 + \cdots + c_{2N}w_N\right) + b_2 = 0\\
-\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\vdots \\
-\frac{\partial}{\partial w_{N}}g(\mathbf{w})=2\left(c_{N1}w_1 + c_{N2}w_2 + c_{N3}w_3 +  \cdots + c_{NN}w_N\right) + b_N = 0.
-\end{array}
-\end{equation}
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>Solving the $n^{th}$ equation for $w_n$ gives</p>
-\begin{equation}
-w_n = -\frac{c_{n1}^{\,}w_1 + c_{n2}^{\,}w_2 + \cdots + c_{nN}^{\,}w_N + \frac{1}{2}b_n^{\,}}{c_{nn} }
-\end{equation}
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>In the next Python cell we implement this update scheme in Python in the function <code>coordinate_descent_for_quadratic</code>.  This Python function takes in the constants of a quadratic ($a$, $\mathbf{b}$, and $\mathbf{C}$) and outputs a weight history at each individual weight update.  This is done so that we can visualize the resulting cost function decrease in a variety of ways.  In practice one need not record the weights at each weight update but e.g., the weights after each sweep through the coordinates, or the weight corresponding to the lowest cost function value attained thus far.</p>
+<h4 id="Example-5:--Minimizing-convex-quadratic-functions-via-first-order-coordinate-descent"><span style="color:#a50e3e;">Example 5:</span>  Minimizing convex quadratic functions via first order coordinate descent<a class="anchor-link" href="#Example-5:--Minimizing-convex-quadratic-functions-via-first-order-coordinate-descent">¶</a></h4>
 </div>
 </div>
 </div>
@@ -14842,34 +14644,7 @@ w_n = -\frac{c_{n1}^{\,}w_1 + c_{n2}^{\,}w_2 + \cdots + c_{nN}^{\,}w_N + \frac{1
 <div class="input">
 <div class="prompt input_prompt">In [27]:</div>
 <div class="inner_cell">
-<div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">coordinate_descent_for_quadratic</span><span class="p">(</span><span class="n">g</span><span class="p">,</span><span class="n">w</span><span class="p">,</span><span class="n">max_its</span><span class="p">,</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">,</span><span class="n">C</span><span class="p">):</span>
-    <span class="sd">'''</span>
-<span class="sd">    Coordinate descent wrapper for general quadratic function. Here</span>
-<span class="sd">    </span>
-<span class="sd">    a - a constant</span>
-<span class="sd">    b - an Nx1 vector</span>
-<span class="sd">    C - an NxN matrix (symmetric and all nonnegative eigenvalues)</span>
-<span class="sd">    '''</span>
-        
-    <span class="c1"># record weights and cost history </span>
-    <span class="n">weight_history</span> <span class="o">=</span> <span class="p">[</span><span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="n">w</span><span class="p">)]</span>     
-    <span class="n">cost_history</span> <span class="o">=</span> <span class="p">[</span><span class="n">g</span><span class="p">(</span><span class="n">w</span><span class="p">)]</span>
-    <span class="n">N</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="n">w</span><span class="p">)</span>
-    
-    <span class="c1"># outer loop - each is a sweep through every variable once</span>
-    <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">max_its</span><span class="p">):</span>
-        <span class="c1"># inner loop - each is a single variable update</span>
-        <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">N</span><span class="p">):</span>
-            <span class="n">w</span><span class="p">[</span><span class="n">n</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">C</span><span class="p">[</span><span class="n">n</span><span class="p">,:],</span><span class="n">w</span><span class="p">)</span> <span class="o">-</span> <span class="n">C</span><span class="p">[</span><span class="n">n</span><span class="p">,</span><span class="n">n</span><span class="p">]</span><span class="o">*</span><span class="n">w</span><span class="p">[</span><span class="n">n</span><span class="p">]</span> <span class="o">+</span> <span class="mf">0.5</span><span class="o">*</span><span class="n">b</span><span class="p">[</span><span class="n">n</span><span class="p">])</span><span class="o">/</span><span class="nb">float</span><span class="p">(</span><span class="n">C</span><span class="p">[</span><span class="n">n</span><span class="p">,</span><span class="n">n</span><span class="p">])</span>
-            
-            <span class="c1"># record weights and cost value at each step</span>
-            <span class="n">weight_history</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="n">w</span><span class="p">))</span>
-            <span class="n">cost_history</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">g</span><span class="p">(</span><span class="n">w</span><span class="p">))</span>
 
-    <span class="k">return</span> <span class="n">weight_history</span><span class="p">,</span><span class="n">cost_history</span>
-</pre></div>
-</div>
 </div>
 </div>
 </div>
@@ -14895,10 +14670,10 @@ g(w_0,w_1) = w_0^2 + w_1^2 + 2
 <div class="output_wrapper">
 <div class="output">
 <div class="output_area"><div class="prompt"></div>
-<div id="a2334785-b850-445a-af5b-51f3c64f5a08"></div>
+<div id="665cd2f4-b676-4418-b6d2-8a9871f308eb"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#a2334785-b850-445a-af5b-51f3c64f5a08');
+var element = $('#665cd2f4-b676-4418-b6d2-8a9871f308eb');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -15696,10 +15471,10 @@ if (IPython.notebook.kernel != null) {
 <div class="output_wrapper">
 <div class="output">
 <div class="output_area"><div class="prompt"></div>
-<div id="37e2ec59-093d-4066-9cdd-2eb65749c72f"></div>
+<div id="28713085-ae52-460e-b060-df876862f84a"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#37e2ec59-093d-4066-9cdd-2eb65749c72f');
+var element = $('#28713085-ae52-460e-b060-df876862f84a');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 

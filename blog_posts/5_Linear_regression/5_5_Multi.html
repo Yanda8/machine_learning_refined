@@ -11835,7 +11835,7 @@ div#notebook {
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Thus far we have assumed that datapoints for linear regression consist of $N$ dimensional <em>vector valued</em> inputs and <em>scalar-valued</em> outputs.  That is, a prototypical datapoint takes the form  $\left(\mathbf{x}_p,\,y_p\right)$ where $\mathbf{x}_p$ is an $N$ dimensional <em>input vector</em> $\mathbf{x}_p$ and a <em>scalar</em> output $y_p$.  While this configuration covers the vast majority of regression cases one may well encounter in practice, it is possible to perform (linear) regression where both <em>input</em> and <em>output</em> are <em>vector-valued</em>.  This is often called <em>multiple-output regression</em>, and in this Section we describe how to extend the basic elements of this Chapter to properly handle it.</p>
+<p>Thus far we have assumed that datapoints for linear regression consist of $N$ dimensional <em>vector valued</em> inputs and <em>scalar-valued</em> outputs.  That is, a prototypical datapoint takes the form  $\left(\mathbf{x}_p,\,y_p\right)$ where $\mathbf{x}_p$ is an $N$ dimensional <em>input vector</em> and a $y_p$ is a <em>scalar</em> output.  While this configuration covers the vast majority of regression cases one may well encounter in practice, it is possible to perform (linear) regression where both <em>input</em> and <em>output</em> are <em>vector-valued</em>.  This is often called <em>multiple-output regression</em>, and in this Section we describe how to extend the basic elements of this Chapter to properly handle it.</p>
 </div>
 </div>
 </div>
@@ -11864,7 +11864,7 @@ div#notebook {
 <p>Suppose now that instead of being <em>scalar-valued</em> the output of a regression dataset were <em>vector-valued</em>.  That is our datapoints</p>
 \begin{equation}
  \left(\mathbf{x}_{1}^{\,},\mathbf{y}_{1}^{\,}\right),\,\left(\mathbf{x}_{2}^{\,},\mathbf{y}_{2}^{\,}\right),\,...,\,\left(\mathbf{x}_{P}^{\,},\mathbf{y}_{P}^{\,}\right)
-\end{equation}<p>have both <em>vector-valued</em> input <em>and</em> output.  The $p^{th}$ point $\left(\mathbf{x}_{p}^{\,},\mathbf{y}_{p}^{\,}\right)$ has $N$ dimensional input $\mathbf{x}_p$ and associated $C$ dimensional output $\mathbf{y}_p$.  While in principle we can treat $\mathbf{y}_p$ as a $P \times 1$ column vector, in order to keep the formulae that follows looking similar to what we have already seen in the scalar case we will treat the <em>input</em> as a $N\times 1$ <em>column</em> vector and the output as a $1 \times C$ <em>row</em> vector as</p>
+\end{equation}<p>have both <em>vector-valued</em> input <em>and</em> output.  The $p^{th}$ point $\left(\mathbf{x}_{p}^{\,},\mathbf{y}_{p}^{\,}\right)$ has $N$ dimensional input $\mathbf{x}_p$ and associated $C$ dimensional output $\mathbf{y}_p$.  While in principle we can treat $\mathbf{y}_p$ as a $C \times 1$ column vector, in order to keep the formulae that follows looking similar to what we have already seen in the scalar case we will treat the <em>input</em> as a $N\times 1$ <em>column</em> vector and the output as a $1 \times C$ <em>row</em> vector as</p>
 \begin{equation}
 \mathbf{x}_{p}=\begin{bmatrix}
 x_{1,p}\\
@@ -11905,7 +11905,7 @@ x_{2,p}\\
 \vdots\\
 x_{N,p}
 \end{bmatrix},\,\,\,\, p = 1,...,P
-\end{equation}<p>where $\mathbf{w}_c$ is a set of weights then - if these are tuned properly - then the assumption of a linear relationship looks like precisely what we have seen starting in Section 8.1</p>
+\end{equation}<p>where $\mathbf{w}_c$ is a set of weights then - if these are tuned properly - the assumption of a linear relationship looks like precisely what we have seen starting in Section 8.1</p>
 \begin{equation}
 \mathring{\mathbf{x}}_{p}^T  \overset{\,}{\mathbf{w}}_{c}^{\,}    \approx \overset{\,}{y}_{c,p}^{\,} \,\,\,\,\,\,\,\,\,\,\,    \,\,\,\,\,\,\,\,\,\,\, p=1,...,P.
 \end{equation}
@@ -12138,10 +12138,10 @@ w_{N,1} &amp; w_{N,2}  &amp;  \cdots  &amp;  w_{N,C-1}  \\
 <div class="output_wrapper">
 <div class="output">
 <div class="output_area"><div class="prompt"></div>
-<div id="09389a45-913f-4ebe-b906-4df5ee90e77c"></div>
+<div id="303613f4-0168-4b71-b7cb-2e4d0d5e4aae"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#09389a45-913f-4ebe-b906-4df5ee90e77c');
+var element = $('#303613f4-0168-4b71-b7cb-2e4d0d5e4aae');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -12939,10 +12939,10 @@ if (IPython.notebook.kernel != null) {
 <div class="output_wrapper">
 <div class="output">
 <div class="output_area"><div class="prompt"></div>
-<div id="0ea7864c-9d77-4c44-84ae-a62e7605fed0"></div>
+<div id="8e023eef-2ba1-4f20-8114-8fb0fd5e8db4"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#0ea7864c-9d77-4c44-84ae-a62e7605fed0');
+var element = $('#8e023eef-2ba1-4f20-8114-8fb0fd5e8db4');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -13740,10 +13740,10 @@ if (IPython.notebook.kernel != null) {
 <div class="output_wrapper">
 <div class="output">
 <div class="output_area"><div class="prompt"></div>
-<div id="72bf828f-4b94-43d5-872a-ce1e395e37da"></div>
+<div id="8d3bbd45-3f34-4902-903f-c7f6abbab83b"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#72bf828f-4b94-43d5-872a-ce1e395e37da');
+var element = $('#8d3bbd45-3f34-4902-903f-c7f6abbab83b');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
