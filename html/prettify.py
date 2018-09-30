@@ -68,7 +68,10 @@ if 'nonlinear' in series.lower() and 'feature' in series.lower():
     series_url = '10_Nonlinear_intro'  
     
 if 'principle' in series.lower() and 'learning' in series.lower():
-    series_url = '11_Feature_learning'      
+    series_url = '11_Feature_learning'  
+    
+if 'element' in series.lower() and 'algebra' in series.lower():
+    series_url = '16_Computational_linear_algebra'           
     
           
          
