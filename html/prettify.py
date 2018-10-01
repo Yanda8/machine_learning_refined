@@ -4,9 +4,6 @@ from bs4 import BeautifulSoup
 
 # extract filename
 filename = str(sys.argv[1])
-print('@@@@@@@@@@@@@@@@@@@')
-print(filename)
-print('@@@@@@@@@@@@@@@@@@@')
 soup = BeautifulSoup(open(filename),"lxml")
 
 # page_title becomes the page title and series becomes the series name (duh!)
@@ -245,4 +242,9 @@ for cell in soup.body.find_all(text=re.compile('in the HTML version')):
 with open(filename, "wt") as file:
     file.write(str(soup))
 
+print('----------------')
 print('Conversion done!')
+print(' ')
+print('   ¯\\_(ツ)_/¯')
+print(' ')
+print('----------------')
