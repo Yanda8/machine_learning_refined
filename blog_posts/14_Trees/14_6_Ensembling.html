@@ -11771,7 +11771,7 @@ div#notebook {
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Ensembling via <em>bagging</em> - as detailed in Section 11.5 - entails combining sets of cross-validated models to produce a single model with better overall performance.  In the context of tree-based universal approximators such an ensemble of purely tree-based models is often referred to as a <em>random forest</em>.  Each tree in the random forest is a cross-validated regression / classification tree (as detailed in Section 14.2 - 14.3) or boosted model (typically using stumps - as detailed in Sectino 14.5), with each built using a different partition of the training data as detailed in Section 11.5 (by convention with tree-based ensembling sampling is done <em>with replacement</em>).  This sort of ensembling is almost always used with regression and classification trees to counteract the use of cheap but coursely resolved cross-validation (like e.g., early stopping, as detailed in Section 14.4).</p>
+<p>Ensembling via <em>bagging</em> (as detailed in Section 11.5) entails combining sets of cross-validated models to produce a single model with better overall performance. In the context of tree-based universal approximators such an ensemble of purely tree-based models is often referred to as a <em>random forest</em>. Each tree in the random forest is a cross-validated regression or classification tree (as detailed in Sections 14.2 and 14.3) or boosted model (typically using stumps, as detailed in Section 14.5), with each built using a different partition of the training data as detailed in Section 11.5 (by convention with tree-based ensembling sampling is done <em>with replacement</em>).  This sort of ensembling is almost always used with regression and classification trees to counteract the use of cheap but coursely resolved cross-validation (like e.g., early stopping, as detailed in Section 14.4).</p>
 
 </div>
 </div>
@@ -11812,7 +11812,7 @@ div#notebook {
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Below we show an ensembling of $5$ classification trees on a simple two-class dataset, each cross-validated via early-stopping (see Section 14.4) using a different split of the data.  Each of the $5$ splits are illustrated in the small panels on the left, with the validation datapoints in each highlighted with a yellow boundary, and the decision boundary provided by each trained model shown as well.  Several of these individual trees overfit the data, however their ensemble (shown in the large panel on the right with the original dataset) does not.  This ensembled model - as detailed in Section 11.5 - is bulit by taking the <em>mode</em> of $5$ classification trees.</p>
+<p>Below we show an ensembling of $5$ classification trees on a simple two-class dataset, each cross-validated via early-stopping (see Section 14.4) using a different split of the data.  Each of the $5$ splits are illustrated in the small panels on the left, with the validation data points in each highlighted with a yellow boundary, and the decision boundary provided by each trained model shown as well.  Several of these individual trees overfit the data, however their ensemble (shown in the large panel on the right with the original dataset) does not.  This ensembled model - as detailed in Section 11.5 - is bulit by taking the <em>mode</em> of $5$ classification trees.</p>
 
 </div>
 </div>
@@ -11851,10 +11851,10 @@ div#notebook {
 
 
 
-<div id="6444297a-fcde-49ce-9a01-6e7a6b22a3d3"></div>
+<div id="403a58b6-20e8-484f-81c2-722d6fefa1d6"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#6444297a-fcde-49ce-9a01-6e7a6b22a3d3');
+var element = $('#403a58b6-20e8-484f-81c2-722d6fefa1d6');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 

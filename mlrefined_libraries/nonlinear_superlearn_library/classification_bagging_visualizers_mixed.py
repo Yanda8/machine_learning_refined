@@ -50,7 +50,7 @@ class Visualizer:
         ax1 = axs[0]
         ax1.set_xlim([xmin1,xmax1])
         ax1.set_ylim([xmin2,xmax2])        
-        ax1.set_title('kernel model')
+        ax1.set_title('fixed-shape model')
         
         ax2 = axs[1]
         ax2.set_xlim([xmin1,xmax1])
@@ -60,12 +60,12 @@ class Visualizer:
         ax3 = axs[2]
         ax3.set_xlim([xmin1,xmax1])
         ax3.set_ylim([xmin2,xmax2])
-        ax3.set_title('stump model')
+        ax3.set_title('tree model')
 
         ax4 = axs[3]
         ax4.set_xlim([xmin1,xmax1])
         ax4.set_ylim([xmin2,xmax2])
-        ax4.set_title('median model')
+        ax4.set_title('modal model')
         
         # turn off ticks and labels
         for ax in [ax1,ax2,ax3,ax4]:
@@ -148,11 +148,11 @@ class Visualizer:
             # compute decision boundary
             o = model(normalizer(h.T))
             t = np.sign(o)             
-            t.shape = (np.size(s1),np.size(s2))     
+            t.shape = (np.size(s1),np.size(s2))  
 
             # plot decision boundary
             ax3.contour(a,b,t,linewidths=2.5,levels = [0],colors = self.plot_colors[2],zorder = 5,alpha = 1.0)
-            ax3.contour(a,b,t, linewidths=3.5,levels = [0],colors = 'k',zorder = 4,alpha = 1.0)
+            ax3.contour(a,b,t,linewidths=3.5,levels = [0],colors = 'k',zorder = 4,alpha = 1.0)
 
             t_ave.append(t)
             

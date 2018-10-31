@@ -106,15 +106,17 @@ class Setup:
         for n in range(N):
             # make a copy of the n^th dimension of the input data (we will sort after this)
             x_n = copy.deepcopy(self.x[n,:])
+            y_n = copy.deepcopy(self.y)
 
             # sort x_n and y_n according to ascending order in x_n
             sorted_inds = np.argsort(x_n,axis = 0)
             x_n = x_n[sorted_inds]
+            y_n = y_n[0,sorted_inds]
 
             # loop over points and create stump in between each 
             # in dimension n
             for p in range(P - 1):
-                if self.y[:,p] != self.y[:,p+1]:
+                if y_n[p] != y_n[p+1]:
                     # compute split point
                     split = (x_n[p] + x_n[p+1])/float(2)
 

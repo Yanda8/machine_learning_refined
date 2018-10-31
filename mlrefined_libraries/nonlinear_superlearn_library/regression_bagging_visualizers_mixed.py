@@ -53,7 +53,7 @@ class Visualizer:
         ax1 = axs[0]
         ax1.set_xlim([xmin,xmax])
         ax1.set_ylim([ymin,ymax])        
-        ax1.set_title('kernel model')
+        ax1.set_title('fixed-shape model')
         
         ax2 = axs[1]
         ax2.set_xlim([xmin,xmax])
@@ -63,7 +63,7 @@ class Visualizer:
         ax3 = axs[2]
         ax3.set_xlim([xmin,xmax])
         ax3.set_ylim([ymin,ymax])
-        ax3.set_title('stump model')
+        ax3.set_title('tree model')
 
         ax4 = axs[3]
         ax4.set_xlim([xmin,xmax])
@@ -87,8 +87,8 @@ class Visualizer:
         ### plot kernel run ###
         train_inds = kernel_models[0].train_inds
         valid_inds = kernel_models[0].valid_inds
-        ax1.scatter(self.x[:,train_inds],self.y[:,train_inds],color = self.colors[1],s = 40,edgecolor = 'k',linewidth = 0.9)
-        ax1.scatter(self.x[:,valid_inds],self.y[:,valid_inds],color = self.colors[0],s = 40,edgecolor = 'k',linewidth = 0.9)
+        ax1.scatter(self.x[:,train_inds],self.y[:,train_inds],color = self.colors[1],s = 40,edgecolor = 'k',linewidth = 0.9,zorder = 1)
+        ax1.scatter(self.x[:,valid_inds],self.y[:,valid_inds],color = self.colors[0],s = 40,edgecolor = 'k',linewidth = 0.9,zorder = 1)
         
         for kernel_run in kernel_models:
             model = kernel_run.model
@@ -97,14 +97,14 @@ class Visualizer:
 
             # get best weights                
             t = model(normalizer(s),w)
-            ax1.plot(s.T,t.T,linewidth = 3,alpha = 1,color = self.plot_colors[0])
+            ax1.plot(s.T,t.T,linewidth = 3,alpha = 1,color = self.plot_colors[0],zorder = 0)
             t_ave.append(t)
             
         ### get network run ###
         train_inds = network_models[0].train_inds
         valid_inds = network_models[0].valid_inds
-        ax2.scatter(self.x[:,train_inds],self.y[:,train_inds],color = self.colors[1],s = 40,edgecolor = 'k',linewidth = 0.9)
-        ax2.scatter(self.x[:,valid_inds],self.y[:,valid_inds],color = self.colors[0],s = 40,edgecolor = 'k',linewidth = 0.9)
+        ax2.scatter(self.x[:,train_inds],self.y[:,train_inds],color = self.colors[1],s = 40,edgecolor = 'k',linewidth = 0.9,zorder = 1)
+        ax2.scatter(self.x[:,valid_inds],self.y[:,valid_inds],color = self.colors[0],s = 40,edgecolor = 'k',linewidth = 0.9,zorder = 1)
         
         for network_run in network_models:
             model = network_run.model
@@ -115,32 +115,32 @@ class Visualizer:
 
             # get best weights                
             t = model(normalizer(s),w)
-            ax2.plot(s.T,t.T,linewidth = 3,alpha = 1,color = self.plot_colors[1])
+            ax2.plot(s.T,t.T,linewidth = 3,alpha = 1,color = self.plot_colors[1],zorder = 0)
             t_ave.append(t)
             
         ### get stump run ####
         train_inds = stump_models[0].train_inds
         valid_inds = stump_models[0].valid_inds
-        ax3.scatter(self.x[:,train_inds],self.y[:,train_inds],color = self.colors[1],s = 40,edgecolor = 'k',linewidth = 0.9)
-        ax3.scatter(self.x[:,valid_inds],self.y[:,valid_inds],color = self.colors[0],s = 40,edgecolor = 'k',linewidth = 0.9)
+        ax3.scatter(self.x[:,train_inds],self.y[:,train_inds],color = self.colors[1],s = 40,edgecolor = 'k',linewidth = 0.9,zorder = 1)
+        ax3.scatter(self.x[:,valid_inds],self.y[:,valid_inds],color = self.colors[0],s = 40,edgecolor = 'k',linewidth = 0.9,zorder = 1)
         
         for stump_run in stump_models:
             model = stump_run.model
             normalizer = stump_run.normalizer
 
             t = model(normalizer(s))
-            ax3.plot(s.T,t.T,linewidth = 3,alpha = 1,color = self.plot_colors[2])
+            ax3.plot(s.T,t.T,linewidth = 3,alpha = 1,color = self.plot_colors[2],zorder = 0)
             t_ave.append(t)
            
         ### plot ave ###
-        ax4.scatter(self.x,self.y,color = 'k',s = 50,edgecolor = 'w',linewidth = 0.9)        
+        ax4.scatter(self.x,self.y,color = 'k',s = 50,edgecolor = 'w',linewidth = 0.9,zorder = 1)        
         t_ave = np.array(t_ave)
         t_ave = np.swapaxes(t_ave,0,1)[0,:,:]
         t_ave2 = np.median(t_ave,axis = 0)
 
         # plot median model
-        ax4.plot(s.T,t_ave2.T,linewidth = 4,c = 'k',alpha = 1)
-        ax4.plot(s.T,t_ave2.T,linewidth = 3.5,c = 'r',alpha = 1)
+        ax4.plot(s.T,t_ave2.T,linewidth = 4,c = 'k',alpha = 1,zorder = 0)
+        ax4.plot(s.T,t_ave2.T,linewidth = 3.5,c = 'r',alpha = 1,zorder = 0)
         
     def draw_models(self,ax,all_models):
         # set plotting limits

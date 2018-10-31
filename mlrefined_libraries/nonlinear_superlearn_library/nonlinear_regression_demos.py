@@ -85,8 +85,8 @@ class Visualizer:
             normalizer = kwargs['normalizer']
 
         t = model(normalizer(s),w)
-        ax.plot(s.T,t.T,linewidth = 4,c = 'k')
-        ax.plot(s.T,t.T,linewidth = 2,c = 'lime')
+        ax.plot(s.T,t.T,linewidth = 4,c = 'k',zorder = 0)
+        ax.plot(s.T,t.T,linewidth = 2,c = 'lime',zorder = 0)
          
     # plot regression fits
     def plot_fit_and_feature_space(self,w,model,feat,**kwargs):        
@@ -122,8 +122,10 @@ class Visualizer:
             normalizer = kwargs['normalizer']
 
         t = model(normalizer(s),w)
-        ax1.plot(s.flatten(),t.flatten(),linewidth = 2,c = 'lime')    
         
+        ax1.plot(s.flatten(),t.flatten(),linewidth = 4,c = 'k',zorder = 0)    
+        ax1.plot(s.flatten(),t.flatten(),linewidth = 2,c = 'lime',zorder = 0)
+
         #### plot fit in transformed feature space #####
         # check if feature transform has internal parameters
         x_transformed = 0
@@ -153,7 +155,9 @@ class Visualizer:
             else: 
                 s2 = feat(normalizer(s))
             t = model(normalizer(s),w)
-            ax2.plot(s2.flatten(),t.flatten(),linewidth = 2,c = 'lime')    
+            
+            ax2.plot(s2.flatten(),t.flatten(),linewidth = 4,c = 'k',zorder = 0)    
+            ax2.plot(s2.flatten(),t.flatten(),linewidth = 2,c = 'lime',zorder = 0)
             
             # label axes
             ax2.set_xlabel(r'$f\left(x,\mathbf{w}^{\star}\right)$', fontsize = 16)
@@ -249,7 +253,7 @@ class Visualizer:
         ymax += ygap    
 
         # initialize points
-        ax.scatter(x.flatten(),self.y.flatten(),color = 'k', edgecolor = 'w',linewidth = 0.9,s = 40)
+        ax.scatter(x.flatten(),self.y.flatten(),color = 'k', edgecolor = 'w',linewidth = 0.9,s = 60,zorder = 3)
 
         # clean up panel
         ax.set_xlim([xmin,xmax])
