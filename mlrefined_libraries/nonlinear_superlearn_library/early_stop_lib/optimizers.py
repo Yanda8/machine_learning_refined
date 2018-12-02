@@ -43,7 +43,7 @@ def gradient_descent(g, alpha, max_its, w, num_pts, batch_size,**kwargs):
                 grad_eval = np.sign(grad_eval)
                 
             # momentum step 
-            h = beta*h - (1 - beta)*grad_eval    
+            # h = beta*h - (1 - beta)*grad_eval    
             
             # take descent step with momentum
             w = w - alpha*grad_eval
@@ -97,4 +97,50 @@ def RMSprop(g, alpha, max_its, w, num_pts, batch_size,**kwargs):
         # record weight update, train and val costs
         w_hist.append(unflatten(w))
         
+    return w_hist
+
+
+# newtons method function - inputs: g (input function), max_its (maximum number of iterations), w (initialization)
+def newtons_method(g, epsilon, max_its, w, num_pts, batch_size,**kwargs):      
+    
+    # flatten the input function, create gradient based on flat function
+    g_flat, unflatten, w = flatten_func(g, w)
+    grad = value_and_grad(g_flat)
+    hess = hessian(g_flat)
+
+    # record history
+    w_hist = []
+    w_hist.append(unflatten(w))
+   
+    # how many mini-batches equal the entire dataset?
+    num_batches = int(np.ceil(np.divide(num_pts, batch_size)))
+    
+    # over the line
+    for k in range(max_its):   
+        for b in range(num_batches):
+            # collect indices of current mini-batch
+            batch_inds = np.arange(b*batch_size, min((b+1)*batch_size, num_pts))
+            
+            # plug in value into func and derivative
+            cost_eval,grad_eval = grad(w,batch_inds)
+            grad_eval.shape = np.shape(w)
+
+            # evaluate the hessian
+            hess_eval = hess(w,batch_inds)
+
+            # reshape for numpy linalg functionality
+            hess_eval.shape = (int((np.size(hess_eval))**(0.5)),int((np.size(hess_eval))**(0.5)))
+            hess_eval += epsilon*np.eye(np.size(w))
+
+            # solve second order system system for weight update
+            A = hess_eval 
+            b = grad_eval
+            w = np.linalg.lstsq(A,np.dot(A,w) - b)[0]            
+        
+        # record weight update, train and val costs
+        w_hist.append(unflatten(w))
+        
+        if np.linalg.norm(w) > 100:
+            return w_hist
+
     return w_hist

@@ -11841,7 +11841,7 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In [2]:</div>
+<div class="prompt input_prompt">In [1]:</div>
 <div class="inner_cell">
 
 </div>
@@ -11948,10 +11948,10 @@ Schematic illustration of K-folds cross-validation for $K=3$. The original data 
 <div class="output_wrapper">
 <div class="output">
 <div class="output_area"><div class="prompt"></div>
-<div id="57d7fd9b-db15-4fb1-8909-1f60640b213b"></div>
+<div id="4606517b-96cd-4d2f-9c5a-3958ef23cfef"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#57d7fd9b-db15-4fb1-8909-1f60640b213b');
+var element = $('#4606517b-96cd-4d2f-9c5a-3958ef23cfef');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -12802,11 +12802,149 @@ if (IPython.notebook.kernel != null) {
 </div>
 </div>
 </div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>K = 10 folds cross validation, using $\ell_1$ regularizer</li>
+</ul>
+</div>
+</div>
+</div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In [3]:</div>
+<div class="prompt input_prompt">In [4]:</div>
 <div class="inner_cell">
+<div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">time</span>
+<span class="kn">from</span> <span class="nn">IPython.display</span> <span class="k">import</span> <span class="n">clear_output</span>
 
+<span class="c1"># function for assigning each point in a dataset to one of K folds</span>
+<span class="k">def</span> <span class="nf">assign_to_folds</span><span class="p">(</span><span class="n">L</span><span class="p">,</span><span class="n">K</span><span class="p">):</span>
+    <span class="c1"># split data into k equal (as possible) sized sets</span>
+    <span class="n">order</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">permutation</span><span class="p">(</span><span class="n">L</span><span class="p">)</span>
+    <span class="n">c</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">((</span><span class="n">L</span><span class="p">,</span><span class="mi">1</span><span class="p">))</span>
+    <span class="n">L</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">((</span><span class="mi">1</span><span class="o">/</span><span class="n">K</span><span class="p">)</span><span class="o">*</span><span class="n">L</span><span class="p">))</span>
+    <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">K</span><span class="o">-</span><span class="mi">2</span><span class="p">):</span>
+        <span class="n">c</span><span class="p">[</span><span class="n">order</span><span class="p">[</span><span class="n">s</span><span class="o">*</span><span class="n">L</span><span class="p">:(</span><span class="n">s</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="n">L</span><span class="p">]]</span> <span class="o">=</span> <span class="n">s</span> <span class="o">+</span> <span class="mi">2</span>
+    <span class="n">c</span><span class="p">[</span><span class="n">order</span><span class="p">[(</span><span class="n">K</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="n">L</span><span class="p">:]]</span> <span class="o">=</span> <span class="n">K</span>
+    <span class="k">return</span> <span class="n">c</span>
+
+<span class="c1"># load in dataset</span>
+<span class="n">csvname</span> <span class="o">=</span> <span class="n">datapath</span> <span class="o">+</span> <span class="s1">'new_gene_data.csv'</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">loadtxt</span><span class="p">(</span><span class="n">csvname</span><span class="p">,</span><span class="n">delimiter</span> <span class="o">=</span> <span class="s1">','</span><span class="p">)</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">data</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">,:]</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">:,:]</span> 
+
+<span class="c1"># assign data to K folds</span>
+<span class="n">K</span> <span class="o">=</span> <span class="mi">10</span>
+<span class="n">num_pts</span> <span class="o">=</span> <span class="n">y</span><span class="o">.</span><span class="n">size</span>
+<span class="n">fold_nums</span> <span class="o">=</span> <span class="n">assign_to_folds</span><span class="p">(</span><span class="n">num_pts</span><span class="p">,</span><span class="n">K</span><span class="p">)</span>
+<span class="n">lams</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">20</span><span class="p">,</span><span class="mi">100</span><span class="p">)</span>
+
+<span class="c1"># loop over each fold and complete calculations</span>
+<span class="n">all_train_counts</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">all_valid_counts</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">K</span><span class="p">):</span>
+    <span class="nb">print</span> <span class="p">(</span><span class="s1">'running '</span>  <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">k</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span> <span class="o">+</span> <span class="s1">' of '</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">K</span><span class="p">)</span> <span class="o">+</span> <span class="s1">' rounds'</span><span class="p">)</span>
+    
+    <span class="c1"># import lib</span>
+    <span class="n">mylib</span> <span class="o">=</span> <span class="n">nonlib</span><span class="o">.</span><span class="n">kfolds_reg_lib</span><span class="o">.</span><span class="n">superlearn_setup</span><span class="o">.</span><span class="n">Setup</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">)</span>
+
+    <span class="c1"># choose normalizer</span>
+    <span class="n">mylib</span><span class="o">.</span><span class="n">choose_normalizer</span><span class="p">(</span><span class="n">name</span> <span class="o">=</span> <span class="s1">'standard'</span><span class="p">)</span>
+
+    <span class="c1"># make training testing split</span>
+    <span class="n">train_inds</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argwhere</span><span class="p">(</span><span class="n">fold_nums</span> <span class="o">!=</span> <span class="n">k</span><span class="p">)</span>
+    <span class="n">train_inds</span> <span class="o">=</span> <span class="p">[</span><span class="n">v</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">train_inds</span><span class="p">]</span>
+    <span class="n">valid_inds</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argwhere</span><span class="p">(</span><span class="n">fold_nums</span> <span class="o">==</span> <span class="n">k</span><span class="p">)</span>
+    <span class="n">valid_inds</span> <span class="o">=</span> <span class="p">[</span><span class="n">v</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">valid_inds</span><span class="p">]</span>
+
+    <span class="c1"># inject into input / output</span>
+    <span class="n">mylib</span><span class="o">.</span><span class="n">train_inds</span> <span class="o">=</span> <span class="n">train_inds</span>
+    <span class="n">mylib</span><span class="o">.</span><span class="n">x_train</span> <span class="o">=</span> <span class="n">mylib</span><span class="o">.</span><span class="n">x</span><span class="p">[:,</span><span class="n">train_inds</span><span class="p">]</span>
+    <span class="n">mylib</span><span class="o">.</span><span class="n">y_train</span> <span class="o">=</span> <span class="n">mylib</span><span class="o">.</span><span class="n">y</span><span class="p">[:,</span><span class="n">train_inds</span><span class="p">]</span>
+
+    <span class="n">mylib</span><span class="o">.</span><span class="n">valid_inds</span> <span class="o">=</span> <span class="n">valid_inds</span>
+    <span class="n">mylib</span><span class="o">.</span><span class="n">x_valid</span> <span class="o">=</span> <span class="n">mylib</span><span class="o">.</span><span class="n">x</span><span class="p">[:,</span><span class="n">valid_inds</span><span class="p">]</span>
+    <span class="n">mylib</span><span class="o">.</span><span class="n">y_valid</span> <span class="o">=</span> <span class="n">mylib</span><span class="o">.</span><span class="n">y</span><span class="p">[:,</span><span class="n">valid_inds</span><span class="p">]</span>
+
+    <span class="c1"># choose cost</span>
+    <span class="n">mylib</span><span class="o">.</span><span class="n">choose_cost</span><span class="p">(</span><span class="n">cost_name</span> <span class="o">=</span> <span class="s1">'softmax'</span><span class="p">,</span><span class="n">reg_name</span> <span class="o">=</span> <span class="s1">'L1'</span><span class="p">)</span>
+
+    <span class="c1"># choose optimizer</span>
+    <span class="n">mylib</span><span class="o">.</span><span class="n">choose_optimizer</span><span class="p">(</span><span class="s1">'gradient_descent'</span><span class="p">,</span><span class="n">max_its</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span><span class="n">alpha_choice</span><span class="o">=</span><span class="s1">'diminishing'</span><span class="p">)</span>
+
+    <span class="c1"># run regularization</span>
+    <span class="n">mylib</span><span class="o">.</span><span class="n">tryout_lams</span><span class="p">(</span><span class="n">lams</span><span class="p">)</span>
+    
+    <span class="c1"># record counts</span>
+    <span class="n">all_train_counts</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="n">mylib</span><span class="o">.</span><span class="n">train_count_vals</span><span class="p">))</span>
+    <span class="n">all_valid_counts</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="n">mylib</span><span class="o">.</span><span class="n">valid_count_vals</span><span class="p">))</span>
+
+<span class="nb">print</span> <span class="p">(</span><span class="s1">'runs complete!'</span><span class="p">)</span>
+<span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mf">1.5</span><span class="p">)</span>
+<span class="n">clear_output</span><span class="p">()</span>
+
+<span class="c1"># compute misclassifications totals</span>
+<span class="n">all_train_counts</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">all_train_counts</span><span class="p">)</span>
+<span class="n">train_totals</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">all_train_counts</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span>
+
+<span class="n">all_valid_counts</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">all_valid_counts</span><span class="p">)</span>
+<span class="n">valid_totals</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">all_valid_counts</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span>
+
+<span class="n">best_valid_ind</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">valid_totals</span> <span class="o">==</span> <span class="n">valid_totals</span><span class="o">.</span><span class="n">min</span><span class="p">())[</span><span class="mi">0</span><span class="p">][</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+<span class="n">best_lam</span> <span class="o">=</span> <span class="n">lams</span><span class="p">[</span><span class="n">best_valid_ind</span><span class="p">]</span>
+
+<span class="c1">### re-tune weights given optimal regularization parameter found via </span>
+<span class="c1">### k-folds cross-validation</span>
+<span class="c1"># import lib</span>
+<span class="n">mylib2</span> <span class="o">=</span> <span class="n">nonlib</span><span class="o">.</span><span class="n">kfolds_reg_lib</span><span class="o">.</span><span class="n">superlearn_setup</span><span class="o">.</span><span class="n">Setup</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">)</span>
+
+<span class="c1"># choose normalizer</span>
+<span class="n">mylib2</span><span class="o">.</span><span class="n">choose_normalizer</span><span class="p">(</span><span class="n">name</span> <span class="o">=</span> <span class="s1">'standard'</span><span class="p">)</span>
+
+<span class="c1"># make training testing split</span>
+<span class="n">train_inds</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argwhere</span><span class="p">(</span><span class="n">fold_nums</span> <span class="o">!=</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">train_inds</span> <span class="o">=</span> <span class="p">[</span><span class="n">v</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">train_inds</span><span class="p">]</span>
+<span class="n">valid_inds</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argwhere</span><span class="p">(</span><span class="n">fold_nums</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">valid_inds</span> <span class="o">=</span> <span class="p">[</span><span class="n">v</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">valid_inds</span><span class="p">]</span>
+
+<span class="c1"># inject into input / output</span>
+<span class="n">mylib2</span><span class="o">.</span><span class="n">train_inds</span> <span class="o">=</span> <span class="n">train_inds</span>
+<span class="n">mylib2</span><span class="o">.</span><span class="n">x_train</span> <span class="o">=</span> <span class="n">mylib2</span><span class="o">.</span><span class="n">x</span><span class="p">[:,</span><span class="n">train_inds</span><span class="p">]</span>
+<span class="n">mylib2</span><span class="o">.</span><span class="n">y_train</span> <span class="o">=</span> <span class="n">mylib2</span><span class="o">.</span><span class="n">y</span><span class="p">[:,</span><span class="n">train_inds</span><span class="p">]</span>
+
+<span class="n">mylib2</span><span class="o">.</span><span class="n">valid_inds</span> <span class="o">=</span> <span class="n">valid_inds</span>
+<span class="n">mylib2</span><span class="o">.</span><span class="n">x_valid</span> <span class="o">=</span> <span class="n">mylib2</span><span class="o">.</span><span class="n">x</span><span class="p">[:,</span><span class="n">valid_inds</span><span class="p">]</span>
+<span class="n">mylib2</span><span class="o">.</span><span class="n">y_valid</span> <span class="o">=</span> <span class="n">mylib2</span><span class="o">.</span><span class="n">y</span><span class="p">[:,</span><span class="n">valid_inds</span><span class="p">]</span>
+
+<span class="c1"># choose cost</span>
+<span class="n">mylib2</span><span class="o">.</span><span class="n">choose_cost</span><span class="p">(</span><span class="n">cost_name</span> <span class="o">=</span> <span class="s1">'softmax'</span><span class="p">,</span><span class="n">reg_name</span> <span class="o">=</span> <span class="s1">'L1'</span><span class="p">)</span>
+
+<span class="c1"># choose optimizer</span>
+<span class="n">mylib2</span><span class="o">.</span><span class="n">choose_optimizer</span><span class="p">(</span><span class="s1">'gradient_descent'</span><span class="p">,</span><span class="n">max_its</span><span class="o">=</span><span class="mi">200</span><span class="p">,</span><span class="n">alpha_choice</span><span class="o">=</span><span class="s1">'diminishing'</span><span class="p">)</span>
+
+<span class="c1"># run regularization</span>
+<span class="n">mylib2</span><span class="o">.</span><span class="n">tryout_lams</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">best_lam</span><span class="p">]))</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [5]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># plot best weights from cross-validated run</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">mylib2</span><span class="o">.</span><span class="n">best_weights</span><span class="p">[</span><span class="mi">1</span><span class="p">:]))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
 </div>
 </div>
 </div>

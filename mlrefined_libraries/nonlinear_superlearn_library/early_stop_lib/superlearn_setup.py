@@ -4,6 +4,7 @@ from . import cost_functions
 from . import normalizers
 from . import multilayer_perceptron
 from . import multilayer_perceptron_batch_normalized
+from . import polys
 from . import history_plotters
 
 class Setup:
@@ -34,6 +35,13 @@ class Setup:
             self.feature_transforms = self.transformer.feature_transforms
             self.initializer = self.transformer.initializer
             self.layer_sizes = self.transformer.layer_sizes
+            
+        # polynomials #
+        if name == 'polys':
+            self.transformer = polys.Setup(self.x,self.y,**kwargs)
+            self.feature_transforms = self.transformer.feature_transforms
+            self.initializer = self.transformer.initializer
+            self.degs = self.transformer.D            
             
         self.feature_name = name
 
@@ -132,7 +140,15 @@ class Setup:
         
         if optimizer == 'RMSprop':
             weight_history = optimizers.RMSprop(self.cost,self.alpha_choice,self.max_its,self.w_init,self.num_pts,self.batch_size)
+ 
+        # run gradient descent
+        if optimizer == 'newtons_method':
+            epsilon = 10**(-10)
+            if 'epsilon' in kwargs:
+                epsilon = kwargs['epsilon']
+            weight_history = optimizers.newtons_method(self.cost,epsilon,self.max_its,self.w_init,self.num_pts,self.batch_size)
         
+
         # compute training history
         train_cost_history = [self.cost(v,np.arange(np.size(self.y_train))) for v in weight_history]
         
