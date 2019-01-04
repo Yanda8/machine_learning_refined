@@ -16,8 +16,10 @@ Note: to pull a minimial sized clone of this repo (including only the most recen
 ### Zero order / derivative free optimization
 
 [2.1  Motivation](https://jermwatt.github.io/mlrefined/blog_posts/2_Zero_order_methods/2_0_Motivation.html)
+
 [2.2 Zero order optimiality conditions](https://jermwatt.github.io/mlrefined/blog_posts/2_Zero_order_methods/2_1_Zero.html)
-[2.3 Global optimization](https://jermwatt.github.io/mlrefined/blog_posts/2_Zero_order_methods/2_2_Global.html)
+
+[2.3 Global optimization](https://jermwatt.github.io/mlrefined/blog_posts/2_Zero_order_methods/2_2_Global.html)   
 [2.4 Local optimization techniques](https://jermwatt.github.io/mlrefined/blog_posts/2_Zero_order_methods/2_3_Local.html)
 [2.5 Random search methods](https://jermwatt.github.io/mlrefined/blog_posts/2_Zero_order_methods/2_4_Random.html)
 
