@@ -91,21 +91,21 @@ Note: to pull a minimial sized clone of this repo (including only the most recen
 
 ### Chapter 10: Introduction to nonlinear learning
 
-[10.1 Nonlinear regression](https://jermwatt.github.io/mlrefined/blog_posts/10_Nonlinear_intro/10_1_Regression.html)
-[10.2 Nonlinear multi-output regression](https://jermwatt.github.io/mlrefined/blog_posts/10_Nonlinear_intro/10_2_MultReg.html)
-[10.3 Nonlinear two-class classification](https://jermwatt.github.io/mlrefined/blog_posts/10_Nonlinear_intro/10_3_Twoclass.html)
-[10.4 Nonlinear multi-class classification](https://jermwatt.github.io/mlrefined/blog_posts/10_Nonlinear_intro/10_4_Multiclass.html)
-[10.5 Nonlinear unsupervised learning](https://jermwatt.github.io/mlrefined/blog_posts/10_Nonlinear_intro/10_5_Unsupervised.html)
+[10.1 Nonlinear regression](https://jermwatt.github.io/mlrefined/blog_posts/10_Nonlinear_intro/10_1_Regression.html)  
+[10.2 Nonlinear multi-output regression](https://jermwatt.github.io/mlrefined/blog_posts/10_Nonlinear_intro/10_2_MultReg.html)  
+[10.3 Nonlinear two-class classification](https://jermwatt.github.io/mlrefined/blog_posts/10_Nonlinear_intro/10_3_Twoclass.html)  
+[10.4 Nonlinear multi-class classification](https://jermwatt.github.io/mlrefined/blog_posts/10_Nonlinear_intro/10_4_Multiclass.html)  
+[10.5 Nonlinear unsupervised learning](https://jermwatt.github.io/mlrefined/blog_posts/10_Nonlinear_intro/10_5_Unsupervised.html)  
 
 ### Chapter 11: Principles of feature learning
 
-[11.1 Universal approximation](https://jermwatt.github.io/mlrefined/blog_posts/11_Feature_learning/11_1_Universal.html)
-[11.2 The bias-variance trade-off](https://jermwatt.github.io/mlrefined/blog_posts/11_Feature_learning/11_2_BiasVariance.html)
-[11.3 Cross-validation via boosting](https://jermwatt.github.io/mlrefined/blog_posts/11_Feature_learning/11_3_Boosting.html)
-[11.4 Cross-validation via regularization](https://jermwatt.github.io/mlrefined/blog_posts/11_Feature_learning/11_4_Regularization.html)
-[11.5 Ensembling techniques](https://jermwatt.github.io/mlrefined/blog_posts/11_Feature_learning/11_5_Ensembling.html)
-[11.6 K-folds cross-validation](https://jermwatt.github.io/mlrefined/blog_posts/11_Feature_learning/11_6_Kfolds.html)
-[11.7 Testing data](https://jermwatt.github.io/mlrefined/blog_posts/11_Feature_learning/11_7_Testing.html)
+[11.1 Universal approximation](https://jermwatt.github.io/mlrefined/blog_posts/11_Feature_learning/11_1_Universal.html)  
+[11.2 The bias-variance trade-off](https://jermwatt.github.io/mlrefined/blog_posts/11_Feature_learning/11_2_BiasVariance.html)  
+[11.3 Cross-validation via boosting](https://jermwatt.github.io/mlrefined/blog_posts/11_Feature_learning/11_3_Boosting.html)  
+[11.4 Cross-validation via regularization](https://jermwatt.github.io/mlrefined/blog_posts/11_Feature_learning/11_4_Regularization.html)  
+[11.5 Ensembling techniques](https://jermwatt.github.io/mlrefined/blog_posts/11_Feature_learning/11_5_Ensembling.html)  
+[11.6 K-folds cross-validation](https://jermwatt.github.io/mlrefined/blog_posts/11_Feature_learning/11_6_Kfolds.html)  
+[11.7 Testing data](https://jermwatt.github.io/mlrefined/blog_posts/11_Feature_learning/11_7_Testing.html)  
 
 
 ### Chapter 12: Kernels
