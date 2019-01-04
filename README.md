@@ -25,15 +25,15 @@ Note: to pull a minimial sized clone of this repo (including only the most recen
 
 [3.1 Introduction](https://jermwatt.github.io/mlrefined/blog_posts/3_First_order_methods/3_0_Introduction.html)   
 [3.2 The first order optimzliaty condition](https://jermwatt.github.io/mlrefined/blog_posts/3_First_order_methods/3_1_First.html)  
-[3.3 The anatomy of lines and hyperplanes](https://jermwatt.github.io/mlrefined/blog_posts/3_First_order_methods/3_2_Hyperplane.html) 
-[3.4 Automatic differentiation and autograd](https://jermwatt.github.io/mlrefined/blog_posts/3_First_order_methods/3_4_Automatic.html) 
-[3.5 Gradient descent](https://jermwatt.github.io/mlrefined/blog_posts/3_First_order_methods/3_5_Descent.html) 
-[3.6 Two problems with the negative gradient direction](https://jermwatt.github.io/mlrefined/blog_posts/3_First_order_methods/3_6_Problems.html) 
-[3.7 Momentum acceleration](https://jermwatt.github.io/mlrefined/blog_posts/3_First_order_methods/3_7_Momentum.html) 
-[3.8 Normalized gradient descent procedures](https://jermwatt.github.io/mlrefined/blog_posts/3_First_order_methods/3_8_Normalized.html) 
-[3.9 Advanced first order methods](https://jermwatt.github.io/mlrefined/blog_posts/3_First_order_methods/3_9_Advanced.html) 
-[3.10 Mini-batch methods](https://jermwatt.github.io/mlrefined/blog_posts/3_First_order_methods/3_10_Minibatch.html) 
-[3.11 Conservative steplength rules](https://jermwatt.github.io/mlrefined/blog_posts/3_First_order_methods/3_11_Conservative.html)
+[3.3 The anatomy of lines and hyperplanes](https://jermwatt.github.io/mlrefined/blog_posts/3_First_order_methods/3_2_Hyperplane.html)   
+[3.4 Automatic differentiation and autograd](https://jermwatt.github.io/mlrefined/blog_posts/3_First_order_methods/3_4_Automatic.html)   
+[3.5 Gradient descent](https://jermwatt.github.io/mlrefined/blog_posts/3_First_order_methods/3_5_Descent.html)   
+[3.6 Two problems with the negative gradient direction](https://jermwatt.github.io/mlrefined/blog_posts/3_First_order_methods/3_6_Problems.html)   
+[3.7 Momentum acceleration](https://jermwatt.github.io/mlrefined/blog_posts/3_First_order_methods/3_7_Momentum.html)   
+[3.8 Normalized gradient descent procedures](https://jermwatt.github.io/mlrefined/blog_posts/3_First_order_methods/3_8_Normalized.html)   
+[3.9 Advanced first order methods](https://jermwatt.github.io/mlrefined/blog_posts/3_First_order_methods/3_9_Advanced.html)   
+[3.10 Mini-batch methods](https://jermwatt.github.io/mlrefined/blog_posts/3_First_order_methods/3_10_Minibatch.html)   
+[3.11 Conservative steplength rules](https://jermwatt.github.io/mlrefined/blog_posts/3_First_order_methods/3_11_Conservative.html)  
 
 ### Second order optimization methods
 
