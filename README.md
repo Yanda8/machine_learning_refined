@@ -110,28 +110,28 @@ Note: to pull a minimial sized clone of this repo (including only the most recen
 
 ### Chapter 12: Kernels
 
-12.1 The variety of kernel-based learners  
-12.2 The kernel trick  
-12.3 Kernels as similarity measures  
-12.4 Scaling kernels  
+12.1 The variety of kernel-based learners    
+12.2 The kernel trick    
+12.3 Kernels as similarity measures    
+12.4 Scaling kernels    
   
 ### Chapter 13: Fully connected networks / multi-layer perceptrons
 
-[13.1 Fully connected networks](https://jermwatt.github.io/mlrefined/blog_posts/13_Multilayer_perceptrons/13_1_Multi_layer_perceptrons.html)
-[13.2 Optimization issues](https://jermwatt.github.io/mlrefined/blog_posts/13_Multilayer_perceptrons/13_2_Optimization.html)
-13.3 Activation functions
-13.4 Backpropogation
-[13.5 Batch normalization](https://jermwatt.github.io/mlrefined/blog_posts/13_Multilayer_perceptrons/13_5_Batch_normalization.html)
-[13.6 Early-stopping](https://jermwatt.github.io/mlrefined/blog_posts/13_Multilayer_perceptrons/13_6_early_stopping.html)
+[13.1 Fully connected networks](https://jermwatt.github.io/mlrefined/blog_posts/13_Multilayer_perceptrons/13_1_Multi_layer_perceptrons.html)  
+[13.2 Optimization issues](https://jermwatt.github.io/mlrefined/blog_posts/13_Multilayer_perceptrons/13_2_Optimization.html)  
+13.3 Activation functions  
+13.4 Backpropogation  
+[13.5 Batch normalization](https://jermwatt.github.io/mlrefined/blog_posts/13_Multilayer_perceptrons/13_5_Batch_normalization.html)  
+[13.6 Early-stopping](https://jermwatt.github.io/mlrefined/blog_posts/13_Multilayer_perceptrons/13_6_early_stopping.html)  
 
 ### Chapter 14: Tree-based learners
 
-14.1 Varieties of tree-based learners
-14.2 Regression trees
-14.3 Classification trees
-14.4 Gradient boosting
-14.5 Random forests
-14.6 Cross-validating individual trees
+14.1 Varieties of tree-based learners  
+14.2 Regression trees  
+14.3 Classification trees  
+14.4 Gradient boosting  
+14.5 Random forests  
+14.6 Cross-validating individual trees  
 
 
 --- 
