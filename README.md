@@ -23,8 +23,8 @@ Note: to pull a minimial sized clone of this repo (including only the most recen
  
 ### First order optimization methods
 
-[3.1 Introduction](https://jermwatt.github.io/mlrefined/blog_posts/3_First_order_methods/3_0_Introduction.html) 
-[3.2 The first order optimzliaty condition](https://jermwatt.github.io/mlrefined/blog_posts/3_First_order_methods/3_1_First.html) 
+[3.1 Introduction](https://jermwatt.github.io/mlrefined/blog_posts/3_First_order_methods/3_0_Introduction.html)   
+[3.2 The first order optimzliaty condition](https://jermwatt.github.io/mlrefined/blog_posts/3_First_order_methods/3_1_First.html)  
 [3.3 The anatomy of lines and hyperplanes](https://jermwatt.github.io/mlrefined/blog_posts/3_First_order_methods/3_2_Hyperplane.html) 
 [3.4 Automatic differentiation and autograd](https://jermwatt.github.io/mlrefined/blog_posts/3_First_order_methods/3_4_Automatic.html) 
 [3.5 Gradient descent](https://jermwatt.github.io/mlrefined/blog_posts/3_First_order_methods/3_5_Descent.html) 
