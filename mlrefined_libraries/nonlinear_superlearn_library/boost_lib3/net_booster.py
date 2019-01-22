@@ -113,10 +113,9 @@ class Setup:
         
     ### boost it ###
     def boost(self,num_rounds,**kwargs): 
-        activation = 'tanh'
-        if 'activation' in kwargs:
-            activation = kwargs['activation']
-        self.choose_activation(activation)
+        verbose = True
+        if 'verbose' in kwargs:
+            verbose = kwargs['verbose']
         
         # container for models and cost function histories
         self.best_steps = []
@@ -141,9 +140,11 @@ class Setup:
         model = lambda x,steps=self.best_steps: np.sum([v(x) for v in steps],axis=0)
         
         train_cost_val = c_hist[ind]
-        valid_cost_val = self.cost.cost(w_best,self.x_valid,self.y_valid,np.arange(len(self.y_valid)))
         self.train_cost_vals.append(copy.deepcopy(train_cost_val))
-        self.valid_cost_vals.append(copy.deepcopy(valid_cost_val))
+
+        if self.y_valid.size > 0:
+            valid_cost_val = self.cost.cost(w_best,self.x_valid,self.y_valid,np.arange(len(self.y_valid)))
+            self.valid_cost_vals.append(copy.deepcopy(valid_cost_val))
         
         # pluck counter
         if  self.cost_name == 'softmax' or self.cost_name == 'perceptron' or self.cost_name == 'multiclass_softmax' or self.cost_name == 'multiclass_perceptron':
@@ -155,14 +156,17 @@ class Setup:
             self.counter.set_model(model)
 
             train_count = self.counter.cost(self.x_train,self.y_train)
-            valid_count = self.counter.cost(self.x_valid,self.y_valid)
-
             self.train_count_vals.append(train_count)
-            self.valid_count_vals.append(valid_count)   
+            
+            if self.y_valid.size > 0:
+                valid_count = self.counter.cost(self.x_valid,self.y_valid)
+                self.valid_count_vals.append(valid_count)   
 
         # boost rounds
-        for i in range(num_rounds):          
-            print ('starting round ' + str(i+1) + ' of ' + str(num_rounds) + ' of boosting')
+        for i in range(num_rounds):     
+            if verbose: 
+                print ('starting round ' + str(i+1) + ' of ' + str(num_rounds) + ' of boosting')
+           
             # initialize weights
             scale = 0.1
             U = 1
@@ -180,21 +184,23 @@ class Setup:
             ind = np.argmin(c_hist)            
             w_best = w_hist[ind]
             best_train_cost = c_hist[ind]
-            best_valid_cost = self.cost.cost(w_best,self.x_valid,self.y_valid,np.arange(len(self.y_valid)))
-
-            # update the best weight value
             self.train_cost_vals.append(copy.deepcopy(best_train_cost))
-            self.valid_cost_vals.append(copy.deepcopy(best_valid_cost))
+
+
+            if self.y_valid.size > 0:
+               best_valid_cost = self.cost.cost(w_best,self.x_valid,self.y_valid,np.arange(len(self.y_valid)))
+               self.valid_cost_vals.append(copy.deepcopy(best_valid_cost))
 
             # pluck counter
             if  self.cost_name == 'softmax' or self.cost_name == 'perceptron' or self.cost_name == 'multiclass_softmax' or self.cost_name == 'multiclass_perceptron':
                 self.counter.set_model(model)
 
                 train_count = self.counter.cost(self.x_train,self.y_train)
-                valid_count = self.counter.cost(self.x_valid,self.y_valid)
-                
                 self.train_count_vals.append(train_count)
-                self.valid_count_vals.append(valid_count)   
+
+                self.valid_count_vals.append(valid_count)  
+                valid_count = self.counter.cost(self.x_valid,self.y_valid)
+ 
             
             # best_perceptron = lambda x,w=w_best: np.dot(self.perceptron(x,w[0]).T,w[1]).T 
             best_perceptron = lambda x,w=w_best: next_unit(x,w)
@@ -204,9 +210,10 @@ class Setup:
             model = lambda x,steps=self.best_steps: np.sum([v(x) for v in steps],axis=0)
             self.models.append(copy.deepcopy(model))
   
-        print ('boosting complete!')
-        time.sleep(1.5)
-        clear_output()
+        if verbose:
+            print ('boosting complete!')
+            time.sleep(1.5)
+            clear_output()
         
     #### plotting functionality ###
     def plot_history(self):
