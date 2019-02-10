@@ -1,17 +1,8 @@
 # Machine Learning Refined Jupyter notebooks 
 
-This repository contains supplementary Python files associated the texbook [Machine Learning Refined](http://www.mlrefined.com) published by Cambridge University Press, as well as a [blog made up of Jupyter notebooks](https://jermwatt.github.io/mlrefined/index.html) that was used to rough draft the second edition of the text.  To successfully run the Jupyter notebooks contained in this repo we highly recommend downloading the [Anaconda Python 3 distribution](https://www.anaconda.com/download/#macos).  Many of these notebooks also employ the Automatic Differentiator [autograd](https://github.com/HIPS/autograd) which can be installed by typing the following command at your terminal
+This repository contains supplementary Python files associated the texbook [Machine Learning Refined](http://www.mlrefined.com) published by Cambridge University Press, as well as a set of interactive notes (made from Jupyter notebooks) that served as an early draft for the second edition of the text.        
       
-      pip install autograd
-      
-With minor adjustment users can also run these notebooks using the GPU/TPU extended version of autograd  [JAX](https://github.com/google/jax).
-
-Note: to pull a minimial sized clone of this repo (including only the most recent commit) use a shallow pull as follows
-      
-      git clone --depth 1 https://github.com/jermwatt/mlrefined.git
-      
-      
-## [Blog contents](https://jermwatt.github.io/mlrefined/index.html)
+## Notes
 
 ### Chapter 2: Zero order / derivative free optimization
 
@@ -133,6 +124,17 @@ Note: to pull a minimial sized clone of this repo (including only the most recen
 14.5 Random forests  
 14.6 Cross-validating individual trees  
 
+
+## Install instructions
+To successfully run the Jupyter notebooks contained in this repo we highly recommend downloading the [Anaconda Python 3 distribution](https://www.anaconda.com/download/#macos).  Many of these notebooks also employ the Automatic Differentiator [autograd](https://github.com/HIPS/autograd) which can be installed by typing the following command at your terminal
+      
+      pip install autograd
+      
+With minor adjustment users can also run these notebooks using the GPU/TPU extended version of autograd  [JAX](https://github.com/google/jax).
+
+Note: to pull a minimial sized clone of this repo (including only the most recent commit) use a shallow pull as follows
+      
+      git clone --depth 1 https://github.com/jermwatt/mlrefined.git
 
 --- 
 This repository is in active development by [Jeremy Watt](mailto:jeremy@dgsix.com) and [Reza Borhani](mailto:reza@dgsix.com) - please do not hesitate to reach out with comments, questions, typos, etc.
