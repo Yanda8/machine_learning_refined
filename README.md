@@ -119,7 +119,7 @@ This repository contains supplementary Python files associated the texbook [Mach
 12.4 Kernels as similarity measures <br>  
 12.5 Scaling kernels <br>
   
-### Chapter 13: Fully connected networks / multi-layer perceptrons
+### Chapter 13: Fully connected networks
 
 13.1 Introduction <br>
 [13.2 Fully connected networks](https://jermwatt.github.io/mlrefined/notes/13_Multilayer_perceptrons/13_2_Multi_layer_perceptrons.html)  
