@@ -117,7 +117,7 @@ This repository contains supplementary Python files associated the texbook [Mach
 12.1 Introduction <br>
 12.2 The variety of kernel-based learners <br>
 12.3 The kernel trick  <br>
-12.4 Kernels as similarity measures <br>  
+12.4 Kernels as similarity measures 
 12.5 Scaling kernels <br>
   
 ### Chapter 13: Fully connected networks
