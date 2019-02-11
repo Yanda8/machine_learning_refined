@@ -28,7 +28,7 @@ This repository contains supplementary Python files associated the texbook [Mach
 
 ### Chapter 4: Second order optimization methods
 
-4.1  Introduction $\,$
+4.1  Introduction <br>
 4.2  [The anatomy of quadratic functions](https://jermwatt.github.io/mlrefined/notes/4_Second_order_methods/4_2_Quadratic.html)   
 [4.3 Curvature and the second order optimality condition](https://jermwatt.github.io/mlrefined/notes/4_Second_order_methods/4_3_Second.html)   
 [4.4 Newton's method](https://jermwatt.github.io/mlrefined/notes/4_Second_order_methods/4_4_Newtons.html)   
