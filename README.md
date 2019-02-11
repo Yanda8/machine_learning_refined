@@ -124,10 +124,10 @@ This repository contains supplementary Python files associated the texbook [Mach
 
 13.1 Introduction <br>
 [13.2 Fully connected networks](https://jermwatt.github.io/mlrefined/notes/13_Multilayer_perceptrons/13_2_Multi_layer_perceptrons.html)  
-[13.3 Optimization issues](https://jermwatt.github.io/mlrefined/notes/13_Multilayer_perceptrons/13_4_Optimization.html)  
+[13.3 Optimization issues](https://jermwatt.github.io/mlrefined/notes/13_Multilayer_perceptrons/13_3_Optimization.html)  
 13.4 Activation functions  
 13.5 Backpropogation  
-[13.6 Batch normalization](https://jermwatt.github.io/mlrefined/notes/13_Multilayer_perceptrons/13_7_Batch_normalization.html)  
+[13.6 Batch normalization](https://jermwatt.github.io/mlrefined/notes/13_Multilayer_perceptrons/13_6_Batch_normalization.html)  
 [13.7 Early-stopping](https://jermwatt.github.io/mlrefined/notes/13_Multilayer_perceptrons/13_7_early_stopping.html)  
 
 ### Chapter 14: Tree-based learners
