@@ -29,7 +29,7 @@ This repository contains supplementary Python files associated the texbook [Mach
 ### Chapter 4: Second order optimization methods
 
 4.1  Introduction <br>
-4.2  [The anatomy of quadratic functions](https://jermwatt.github.io/mlrefined/notes/4_Second_order_methods/4_2_Quadratic.html)   
+[4.2  The anatomy of quadratic functions](https://jermwatt.github.io/mlrefined/notes/4_Second_order_methods/4_2_Quadratic.html)   
 [4.3 Curvature and the second order optimality condition](https://jermwatt.github.io/mlrefined/notes/4_Second_order_methods/4_3_Second.html)   
 [4.4 Newton's method](https://jermwatt.github.io/mlrefined/notes/4_Second_order_methods/4_4_Newtons.html)   
 [4.5 Two fundamental problems with Newton's method](https://jermwatt.github.io/mlrefined/notes/4_Second_order_methods/4_5_Problems.html)   
@@ -37,7 +37,7 @@ This repository contains supplementary Python files associated the texbook [Mach
 
 ### Chapter 5: Linear regression
 
-5.1 Introduction
+5.1 Introduction <br>
 [5.2 Least squares regression](https://jermwatt.github.io/mlrefined/notes/5_Linear_regression/5_2_Least.html)   
 [5.3 Least absolute deviations](https://jermwatt.github.io/mlrefined/notes/5_Linear_regression/5_3_Absolute.html)   
 [5.4 Regression metrics](https://jermwatt.github.io/mlrefined/notes/5_Linear_regression/5_4_Metrics.html)   
@@ -46,7 +46,7 @@ This repository contains supplementary Python files associated the texbook [Mach
 
 ### Chapter 6: Linear two-class classification
 
-6.1 Introduction
+6.1 Introduction <br>
 [6.2 Logistic regression and the cross-entropy cost](https://jermwatt.github.io/mlrefined/notes/6_Linear_twoclass_classification/6_2_Cross_entropy.html)   
 [6.3 Logistic regression and the softmax cost](https://jermwatt.github.io/mlrefined/notes/6_Linear_twoclass_classification/6_3_Softmax.html)   
 [6.4 The perceptron](https://jermwatt.github.io/mlrefined/notes/6_Linear_twoclass_classification/6_4_Perceptron.html)   
@@ -58,7 +58,7 @@ This repository contains supplementary Python files associated the texbook [Mach
 
 ### Chapter 7: Linear multi-class classification
 
-7.1 Introduction
+7.1 Introduction <br>
 [7.2 One-versus-All classification](https://jermwatt.github.io/mlrefined/notes/7_Linear_multiclass_classification/7_2_OvA.html)   
 [7.3 The multi-class perceptron](https://jermwatt.github.io/mlrefined/notes/7_Linear_multiclass_classification/7_3_Perceptron.html)   
 [7.4 Comparing multi-class schemes](https://jermwatt.github.io/mlrefined/notes/7_Linear_multiclass_classification/7_4_Comparison.html)   
@@ -68,7 +68,7 @@ This repository contains supplementary Python files associated the texbook [Mach
 
 ### Chapter 8: Unsupervised learning
 
-8.1 Introduction
+8.1 Introduction <br>
 [8.2 Spanning sets and vector algebra](https://jermwatt.github.io/mlrefined/notes/8_Linear_unsupervised_learning/8_2_Spanning.html)   
 [8.3 Learning proper spanning sets](https://jermwatt.github.io/mlrefined/notes/8_Linear_unsupervised_learning/8_3_PCA.html)   
 [8.4 The linear Autoencoder](https://jermwatt.github.io/mlrefined/notes/8_Linear_unsupervised_learning/8_4_Autoencoder.html)   
@@ -79,7 +79,7 @@ This repository contains supplementary Python files associated the texbook [Mach
 
 ### Chapter 9: Principles of feature selection and engineering
 
-9.1 Introduction
+9.1 Introduction <br>
 [9.2 Histogram-based features](https://jermwatt.github.io/mlrefined/notes/9_Feature_engineer_select/9_2_Histogram.html)   
 [9.3 Standard normalization and feature scaling](https://jermwatt.github.io/mlrefined/notes/9_Feature_engineer_select/9_3_Scaling.html)   
 [9.4 Imputing missing values](https://jermwatt.github.io/mlrefined/notes/9_Feature_engineer_select/9_4_Cleaning.html)   
@@ -89,7 +89,7 @@ This repository contains supplementary Python files associated the texbook [Mach
 
 ### Chapter 10: Introduction to nonlinear learning
 
-10.1 Introduction
+10.1 Introduction <br>
 [10.2 Nonlinear regression](https://jermwatt.github.io/mlrefined/notes/10_Nonlinear_intro/10_2_Regression.html)  
 [10.3 Nonlinear multi-output regression](https://jermwatt.github.io/mlrefined/notes/10_Nonlinear_intro/10_3_MultReg.html)  
 [10.4 Nonlinear two-class classification](https://jermwatt.github.io/mlrefined/notes/10_Nonlinear_intro/10_4_Twoclass.html)  
@@ -98,30 +98,30 @@ This repository contains supplementary Python files associated the texbook [Mach
 
 ### Chapter 11: Principles of feature learning
 
-11.1 Introduction
-11.2 Universal approximators 
-11.3 Universal approximation of real data 
-11.4 Naive cross-validation 
-11.5 Efficient cross-validation via boosting 
-11.6 Efficient cross-validation via regularization 
-11.7 Testing data 
-11.8 Which universal approximator works best in practice? 
-11.9 Bagging cross-validated models 
-11.10 K-folds cross-validation 
-11.11 When feature learning fails 
-11.12 Conclusion 
+11.1 Introduction <br>
+11.2 Universal approximators <br>
+11.3 Universal approximation of real data  <br>
+11.4 Naive cross-validation  <br>
+11.5 Efficient cross-validation via boosting  <br>
+11.6 Efficient cross-validation via regularization  <br>
+11.7 Testing data <br>
+11.8 Which universal approximator works best in practice? <br>
+11.9 Bagging cross-validated models <br>
+11.10 K-folds cross-validation <br>
+11.11 When feature learning fails <br>
+11.12 Conclusion <br>
 
 ### Chapter 12: Kernels
 
-12.1 Introduction
-12.2 The variety of kernel-based learners    
-12.3 The kernel trick    
-12.4 Kernels as similarity measures    
-12.5 Scaling kernels    
+12.1 Introduction <br>
+12.2 The variety of kernel-based learners <br>
+12.3 The kernel trick  <br>
+12.4 Kernels as similarity measures <br>  
+12.5 Scaling kernels <br>
   
 ### Chapter 13: Fully connected networks / multi-layer perceptrons
 
-13.1 Introduction 
+13.1 Introduction <br>
 [13.2 Fully connected networks](https://jermwatt.github.io/mlrefined/notes/13_Multilayer_perceptrons/13_2_Multi_layer_perceptrons.html)  
 [13.3 Optimization issues](https://jermwatt.github.io/mlrefined/notes/13_Multilayer_perceptrons/13_4_Optimization.html)  
 13.4 Activation functions  
@@ -131,13 +131,13 @@ This repository contains supplementary Python files associated the texbook [Mach
 
 ### Chapter 14: Tree-based learners
 
-14.1 Introduction
-14.2 Varieties of tree-based learners  
-14.3 Regression trees  
-14.4 Classification trees  
-14.5 Gradient boosting  
-14.6 Random forests  
-14.7 Cross-validating individual trees  
+14.1 Introduction <br>
+14.2 Varieties of tree-based learners <br>
+14.3 Regression trees  <br>
+14.4 Classification trees  <br>
+14.5 Gradient boosting  <br>
+14.6 Random forests  <br>
+14.7 Cross-validating individual trees  <br>
 
 
 ## Install instructions
