@@ -17,7 +17,9 @@ This repository contains supplementary Python files associated the texbook [Mach
 [3.1 Introduction](https://jermwatt.github.io/mlrefined/notes/3_First_order_methods/3_1_Introduction.html)   
 [3.2 The first order optimzliaty condition](https://jermwatt.github.io/mlrefined/notes/3_First_order_methods/3_2_First.html)  
 [3.3 The anatomy of lines and hyperplanes](https://jermwatt.github.io/mlrefined/notes/3_First_order_methods/3_3_Hyperplane.html)
-[3.4 The anatomy of first order Taylor series approximations(https://jermwatt.github.io/mlrefined/notes/3_First_order_methods/3_4_Tangent.html)
+
+[3.4 The anatomy of first order Taylor series approximations](https://jermwatt.github.io/mlrefined/notes/3_First_order_methods/3_4_Tangent.html)
+
 [3.5 Automatic differentiation and autograd](https://jermwatt.github.io/mlrefined/notes/3_First_order_methods/3_5_Automatic.html)   
 [3.6 Gradient descent](https://jermwatt.github.io/mlrefined/notes/3_First_order_methods/3_6_Descent.html)   
 [3.7 Two problems with the negative gradient direction](https://jermwatt.github.io/mlrefined/notes/3_First_order_methods/3_7_Problems.html)   
