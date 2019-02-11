@@ -36,6 +36,7 @@ This repository contains supplementary Python files associated the texbook [Mach
 4.6 Quasi-newton's methods 
 
 ### Chapter 5: Linear regression
+
 5.1 Introduction
 [5.2 Least squares regression](https://jermwatt.github.io/mlrefined/notes/5_Linear_regression/5_2_Least.html)   
 [5.3 Least absolute deviations](https://jermwatt.github.io/mlrefined/notes/5_Linear_regression/5_3_Absolute.html)   
@@ -44,6 +45,7 @@ This repository contains supplementary Python files associated the texbook [Mach
 [5.6 Multi-output regression](https://jermwatt.github.io/mlrefined/notes/5_Linear_regression/5_6_Multi.html)  
 
 ### Chapter 6: Linear two-class classification
+
 6.1 Introduction
 [6.2 Logistic regression and the cross-entropy cost](https://jermwatt.github.io/mlrefined/notes/6_Linear_twoclass_classification/6_2_Cross_entropy.html)   
 [6.3 Logistic regression and the softmax cost](https://jermwatt.github.io/mlrefined/notes/6_Linear_twoclass_classification/6_3_Softmax.html)   
@@ -55,6 +57,7 @@ This repository contains supplementary Python files associated the texbook [Mach
 [6.9 Weighted two-class classification](https://jermwatt.github.io/mlrefined/notes/6_Linear_twoclass_classification/6_9_Weighted.html)  
 
 ### Chapter 7: Linear multi-class classification
+
 7.1 Introduction
 [7.2 One-versus-All classification](https://jermwatt.github.io/mlrefined/notes/7_Linear_multiclass_classification/7_2_OvA.html)   
 [7.3 The multi-class perceptron](https://jermwatt.github.io/mlrefined/notes/7_Linear_multiclass_classification/7_3_Perceptron.html)   
@@ -64,6 +67,7 @@ This repository contains supplementary Python files associated the texbook [Mach
 
 
 ### Chapter 8: Unsupervised learning
+
 8.1 Introduction
 [8.2 Spanning sets and vector algebra](https://jermwatt.github.io/mlrefined/notes/8_Linear_unsupervised_learning/8_2_Spanning.html)   
 [8.3 Learning proper spanning sets](https://jermwatt.github.io/mlrefined/notes/8_Linear_unsupervised_learning/8_3_PCA.html)   
@@ -74,6 +78,7 @@ This repository contains supplementary Python files associated the texbook [Mach
 [8.8 Matrix factorization techniques](https://jermwatt.github.io/mlrefined/notes/8_Linear_unsupervised_learning/8_8_Factorization.html)  
 
 ### Chapter 9: Principles of feature selection and engineering
+
 9.1 Introduction
 [9.2 Histogram-based features](https://jermwatt.github.io/mlrefined/notes/9_Feature_engineer_select/9_2_Histogram.html)   
 [9.3 Standard normalization and feature scaling](https://jermwatt.github.io/mlrefined/notes/9_Feature_engineer_select/9_3_Scaling.html)   
@@ -83,6 +88,7 @@ This repository contains supplementary Python files associated the texbook [Mach
 [9.7 Feature selection via regularization](https://jermwatt.github.io/mlrefined/notes/9_Feature_engineer_select/9_7_Regularization.html)  
 
 ### Chapter 10: Introduction to nonlinear learning
+
 10.1 Introduction
 [10.2 Nonlinear regression](https://jermwatt.github.io/mlrefined/notes/10_Nonlinear_intro/10_2_Regression.html)  
 [10.3 Nonlinear multi-output regression](https://jermwatt.github.io/mlrefined/notes/10_Nonlinear_intro/10_3_MultReg.html)  
@@ -91,6 +97,7 @@ This repository contains supplementary Python files associated the texbook [Mach
 [10.6 Nonlinear unsupervised learning](https://jermwatt.github.io/mlrefined/notes/10_Nonlinear_intro/10_6_Unsupervised.html)  
 
 ### Chapter 11: Principles of feature learning
+
 11.1 Introduction
 11.2 Universal approximators 
 11.3 Universal approximation of real data 
@@ -105,6 +112,7 @@ This repository contains supplementary Python files associated the texbook [Mach
 11.12 Conclusion 
 
 ### Chapter 12: Kernels
+
 12.1 Introduction
 12.2 The variety of kernel-based learners    
 12.3 The kernel trick    
@@ -112,6 +120,7 @@ This repository contains supplementary Python files associated the texbook [Mach
 12.5 Scaling kernels    
   
 ### Chapter 13: Fully connected networks / multi-layer perceptrons
+
 13.1 Introduction
 [13.2 Fully connected networks](https://jermwatt.github.io/mlrefined/notes/13_Multilayer_perceptrons/13_2_Multi_layer_perceptrons.html)  
 [13.3 Optimization issues](https://jermwatt.github.io/mlrefined/notes/13_Multilayer_perceptrons/13_4_Optimization.html)  
@@ -121,6 +130,7 @@ This repository contains supplementary Python files associated the texbook [Mach
 [13.7 Early-stopping](https://jermwatt.github.io/mlrefined/notes/13_Multilayer_perceptrons/13_7_early_stopping.html)  
 
 ### Chapter 14: Tree-based learners
+
 14.1 Introduction
 14.2 Varieties of tree-based learners  
 14.3 Regression trees  
