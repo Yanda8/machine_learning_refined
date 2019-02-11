@@ -6,7 +6,7 @@ This repository contains supplementary Python files associated the texbook [Mach
 
 ### Chapter 2: Zero order / derivative free optimization
 
-[2.1  Motivation](https://jermwatt.github.io/mlrefined/notes/2_Zero_order_methods/2_1_Introduction.html)  
+[2.1  Introduction](https://jermwatt.github.io/mlrefined/notes/2_Zero_order_methods/2_1_Introduction.html)  
 [2.2 Zero order optimiality conditions](https://jermwatt.github.io/mlrefined/notes/2_Zero_order_methods/2_2_Zero.html)  
 [2.3 Global optimization](https://jermwatt.github.io/mlrefined/notes/2_Zero_order_methods/2_3_Global.html)    
 [2.4 Local optimization techniques](https://jermwatt.github.io/mlrefined/notes/2_Zero_order_methods/2_4_Local.html)   
@@ -28,7 +28,8 @@ This repository contains supplementary Python files associated the texbook [Mach
 
 ### Chapter 4: Second order optimization methods
 
-4.1  Introduction
+4.1  Introduction 
+
 4.2  [The anatomy of quadratic functions](https://jermwatt.github.io/mlrefined/notes/4_Second_order_methods/4_2_Quadratic.html)   
 [4.3 Curvature and the second order optimality condition](https://jermwatt.github.io/mlrefined/notes/4_Second_order_methods/4_3_Second.html)   
 [4.4 Newton's method](https://jermwatt.github.io/mlrefined/notes/4_Second_order_methods/4_4_Newtons.html)   
