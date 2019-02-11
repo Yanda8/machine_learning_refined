@@ -251,6 +251,80 @@ class Visualizer:
         anim = animation.FuncAnimation(fig, animate ,frames=num_frames, interval=num_frames, blit=True)
         
         return(anim)
+
+    ### animate only the fit ###
+    def animate_it_2d_fit_only(self,w_hist,**kwargs):       
+        self.w_hist = w_hist
+        
+        ##### setup figure to plot #####
+        # initialize figure
+        fig = plt.figure(figsize = (4,4))
+        artist = fig
+        
+        # create subplot with 3 panels, plot input function in center plot
+        gs = gridspec.GridSpec(1, 1) 
+        ax1 = plt.subplot(gs[0]); 
+
+        # produce color scheme
+        s = np.linspace(0,1,len(self.w_hist[:round(len(self.w_hist)/2)]))
+        s.shape = (len(s),1)
+        t = np.ones(len(self.w_hist[round(len(self.w_hist)/2):]))
+        t.shape = (len(t),1)
+        s = np.vstack((s,t))
+        self.colorspec = []
+        self.colorspec = np.concatenate((s,np.flipud(s)),1)
+        self.colorspec = np.concatenate((self.colorspec,np.zeros((len(s),1))),1)
+        
+        # seed left panel plotting range
+        xmin = np.min(copy.deepcopy(self.x))
+        xmax = np.max(copy.deepcopy(self.x))
+        xgap = (xmax - xmin)*0.1
+        xmin-=xgap
+        xmax+=xgap
+        x_fit = np.linspace(xmin,xmax,300)
+        
+        # seed right panel contour plot
+        viewmax = 3
+        if 'viewmax' in kwargs:
+            viewmax = kwargs['viewmax']
+        view = [20,100]
+        if 'view' in kwargs:
+            view = kwargs['view']
+        
+        # start animation
+        num_frames = len(self.w_hist)
+        print ('starting animation rendering...')
+        def animate(k):
+            # clear panels
+            ax1.cla()
+            
+            # current color
+            color = self.colorspec[k]
+
+            # print rendering update
+            if np.mod(k+1,25) == 0:
+                print ('rendering animation frame ' + str(k+1) + ' of ' + str(num_frames))
+            if k == num_frames - 1:
+                print ('animation rendering complete!')
+                time.sleep(1.5)
+                clear_output()
+            
+            ###### make left panel - plot data and fit ######
+            # initialize fit
+            w = self.w_hist[k]
+            y_fit = w[0] + x_fit*w[1]
+            
+            # scatter data
+            self.scatter_pts(ax1)
+            
+            # plot fit to data
+            ax1.plot(x_fit,y_fit,color = color,linewidth = 3) 
+
+            return artist,
+
+        anim = animation.FuncAnimation(fig, animate ,frames=num_frames, interval=num_frames, blit=True)
+        
+        return(anim)
  
     ###### plot plotting functions ######
     def plot_data(self):
