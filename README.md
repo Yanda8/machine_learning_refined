@@ -1,4 +1,4 @@
-# Machine Learning Refined Jupyter notebooks 
+# Machine Learning Refined: notes, exercises, and Jupyter notebooks 
 
 This repository contains supplementary Python files associated the texbook [Machine Learning Refined](http://www.mlrefined.com) published by Cambridge University Press, as well as a set of interactive notes (made from Jupyter notebooks) that served as an early draft for the second edition of the text.        
       
