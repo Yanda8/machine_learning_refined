@@ -18,6 +18,8 @@ name = soup.html.head.title.string
 # change title to page_title
 soup.html.head.title.string = page_title
 
+
+
 # assign series URL
 if 'differentiation' in series.lower():
     series_url = '3_Automatic_differentiation'
@@ -70,7 +72,9 @@ if 'principle' in series.lower() and 'learning' in series.lower():
 if 'element' in series.lower() and 'algebra' in series.lower():
     series_url = '16_Computational_linear_algebra'           
     
-          
+   
+   
+series_url = "2_Zero_order_methods"          
          
 
 # This script adds navigation bar + sharing logos + title
@@ -144,7 +148,7 @@ script_1 = '''
 
 <div class="page-title" style="text-align: center !important;">
 	<span style="color: #333; font-size: 40%; letter-spacing: 3px;">
-		<span style="font-size: 80%;">&#x25BA; </span><a target="_blank" href="https://jermwatt.github.io/mlrefined/index.html" style="color: black; cursor: pointer; text-transform: uppercase; font-weight:bold;">'''+ series + '''</a>
+		<span style="font-size: 80%;">&#x25BA; </span><a target="_blank" href="https://github.com/jermwatt/mlrefined" style="color: black; cursor: pointer; text-transform: uppercase; font-weight:bold;">'''+ series + '''</a>
 	</span>
 	<br><br>
 	<mark style="padding: 0px; background-color: #f9f3c2;">'''+ page_title +'''</mark>
