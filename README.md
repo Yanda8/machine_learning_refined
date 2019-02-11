@@ -28,7 +28,7 @@ This repository contains supplementary Python files associated the texbook [Mach
 
 ### Chapter 4: Second order optimization methods
 
-4.1  Introduction 
+4.1  Introduction $\,$
 4.2  [The anatomy of quadratic functions](https://jermwatt.github.io/mlrefined/notes/4_Second_order_methods/4_2_Quadratic.html)   
 [4.3 Curvature and the second order optimality condition](https://jermwatt.github.io/mlrefined/notes/4_Second_order_methods/4_3_Second.html)   
 [4.4 Newton's method](https://jermwatt.github.io/mlrefined/notes/4_Second_order_methods/4_4_Newtons.html)   
@@ -121,7 +121,7 @@ This repository contains supplementary Python files associated the texbook [Mach
   
 ### Chapter 13: Fully connected networks / multi-layer perceptrons
 
-13.1 Introduction
+13.1 Introduction 
 [13.2 Fully connected networks](https://jermwatt.github.io/mlrefined/notes/13_Multilayer_perceptrons/13_2_Multi_layer_perceptrons.html)  
 [13.3 Optimization issues](https://jermwatt.github.io/mlrefined/notes/13_Multilayer_perceptrons/13_4_Optimization.html)  
 13.4 Activation functions  
