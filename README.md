@@ -4,7 +4,7 @@ This repository contains supplementary Python files associated the texbook [Mach
       
 ### Notes
 
-#### Chapter 2: Zero order / derivative free optimization
+### Chapter 2: Zero order / derivative free optimization
 
 [2.1  Introduction](https://jermwatt.github.io/mlrefined/notes/2_Zero_order_methods/2_1_Introduction.html)  
 [2.2 Zero order optimiality conditions](https://jermwatt.github.io/mlrefined/notes/2_Zero_order_methods/2_2_Zero.html)  
@@ -12,7 +12,7 @@ This repository contains supplementary Python files associated the texbook [Mach
 [2.4 Local optimization techniques](https://jermwatt.github.io/mlrefined/notes/2_Zero_order_methods/2_4_Local.html)   
 [2.5 Random search methods](https://jermwatt.github.io/mlrefined/notes/2_Zero_order_methods/2_5_Random.html)
  
-#### Chapter 3: First order optimization methods
+### Chapter 3: First order optimization methods
 
 [3.1 Introduction](https://jermwatt.github.io/mlrefined/notes/3_First_order_methods/3_1_Introduction.html)  
 [3.2 The first order optimzliaty condition](https://jermwatt.github.io/mlrefined/notes/3_First_order_methods/3_2_First.html)       
