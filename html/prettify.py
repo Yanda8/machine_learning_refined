@@ -60,7 +60,7 @@ script_1 = '''
 
 			<div class="logo-share">
 				<!-- github -->
-				<a target="_blank" href="https://github.com/jermwatt/mlrefined">
+				<a target="_blank" href="https://github.com/jermwatt/machine_learning_refined">
 					<img src="../../html/pics/github.png" width=28 height=28 onmouseover="this.src='../../html/pics/github_filled.png';" onmouseout="this.src='../../html/pics/github.png';">
 				</a>
 			</div>
@@ -76,7 +76,7 @@ script_1 = '''
 
 			<div class="logo-share">
 				<!-- linkedin -->
-				<a target="_blank" href="https://www.linkedin.com/cws/share?url=https%3A%2F%2Fjermwatt.github.io%2Fmlrefined%2Fnotes%2F'''+series_url+'''%2F'''+ name+'''.html">
+				<a target="_blank" href="https://www.linkedin.com/cws/share?url=https%3A%2F%2Fjermwatt.github.io%2Fmachine_learning_refined%2Fnotes%2F'''+series_url+'''%2F'''+ name+'''.html">
 					<img src="../../html/pics/linkedin.png" width=28 height=28 onmouseover="this.src='../../html/pics/linkedin_filled.png';" onmouseout="this.src='../../html/pics/linkedin.png';">
 				</a>
 			</div>
@@ -85,7 +85,7 @@ script_1 = '''
 
 			<div class="logo-share">
 				<!-- twitter -->
-				<a target="_blank" href="https://twitter.com/intent/tweet?ref_src=twsrc%5Etfw&tw_p=tweetbutton&url=https%3A%2F%2Fjermwatt.github.io%2Fmlrefined%2Fnotes%2F'''+series_url+'''%2F'''+ name+'''.html">
+				<a target="_blank" href="https://twitter.com/intent/tweet?ref_src=twsrc%5Etfw&tw_p=tweetbutton&url=https%3A%2F%2Fjermwatt.github.io%2Fmachine_learning_refined%2Fnotes%2F'''+series_url+'''%2F'''+ name+'''.html">
 					<img src="../../html/pics/twitter.png" width=28 height=28 onmouseover="this.src='../../html/pics/twitter_filled.png';" onmouseout="this.src='../../html/pics/twitter.png';">
 				</a>
 			</div>
@@ -94,7 +94,7 @@ script_1 = '''
 
 			<div class="logo-share">
 				<!-- facebook -->
-				<a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fjermwatt.github.io%2Fmlrefined%2Fnotes%2F'''+series_url+'''%2F'''+ name+'''.html">
+				<a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fjermwatt.github.io%2Fmachine_learning_refined%2Fnotes%2F'''+series_url+'''%2F'''+ name+'''.html">
 					<img src="../../html/pics/facebook.png" width=28 height=28 onmouseover="this.src='../../html/pics/facebook_filled.png';" onmouseout="this.src='../../html/pics/facebook.png';">
 				</a>
 			</div>
@@ -105,7 +105,7 @@ script_1 = '''
 
 <br><br>
 <div class="page-title" style="text-align: center !important;">
-<div><a href="https://github.com/jermwatt/mlrefined" style="text-decoration: none" target="_blank"><button class="btn-star">★ Our Project On GitHub</button></a></div>
+<div><a href="https://github.com/jermwatt/machine_learning_refined" style="text-decoration: none" target="_blank"><button class="btn-star">★ Our Project On GitHub</button></a></div>
 	<br><br>
 	<mark style="padding: 0px; background-color: #f9f3c2;">'''+ page_title +'''</mark>
 </div>
@@ -127,7 +127,7 @@ soup.body.insert(0, html_1)
 # <script>
 # (function() { // DON'T EDIT BELOW THIS LINE
 # var d = document, s = d.createElement('script');
-# s.src = 'https://mlrefined.disqus.com/embed.js';
+# s.src = 'https://machine_learning_refined.disqus.com/embed.js';
 # s.setAttribute('data-timestamp', +new Date());
 # (d.head || d.body).appendChild(s);
 # })();
