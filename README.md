@@ -8,7 +8,7 @@ This repository contains supplementary Python files associated the texbook [Mach
 
 [2.1  Introduction](https://jermwatt.github.io/machine_learning_refined/notes/2_Zero_order_methods/2_1_Introduction.html)  
 [2.2 Zero order optimiality conditions](https://jermwatt.github.io/machine_learning_refined/notes/2_Zero_order_methods/2_2_Zero.html)  
-[2.3 Global optimization](https://jermwatt.github.io/mlrefmachine_learning_refinedined/notes/2_Zero_order_methods/2_3_Global.html)    
+[2.3 Global optimization](https://jermwatt.github.io/machine_learning_refined/notes/2_Zero_order_methods/2_3_Global.html)    
 [2.4 Local optimization techniques](https://jermwatt.github.io/machine_learning_refined/notes/2_Zero_order_methods/2_4_Local.html)   
 [2.5 Random search methods](https://jermwatt.github.io/machine_learning_refined/notes/2_Zero_order_methods/2_5_Random.html)
  
