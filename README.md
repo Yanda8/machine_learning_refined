@@ -1,10 +1,10 @@
-# Machine Learning Refined: notes, exercises, and Jupyter notebooks  [![Tweet](https://img.shields.io/twitter/url/http/shields.io.svg?style=social)](https://twitter.com/intent/tweet?text=Machine%20Learning%20Refined:%20notes,%20exercises,%20and%20Jupyter%20notebooks%20&url=https://github.com/jermwatt/mlrefined)
+## Machine Learning Refined: notes, exercises, and Jupyter notebooks  [![Tweet](https://img.shields.io/twitter/url/http/shields.io.svg?style=social)](https://twitter.com/intent/tweet?text=Machine%20Learning%20Refined:%20notes,%20exercises,%20and%20Jupyter%20notebooks%20&url=https://github.com/jermwatt/mlrefined)
 
 This repository contains supplementary Python files associated the texbook [Machine Learning Refined](http://www.mlrefined.com) published by Cambridge University Press, as well as a set of interactive notes (made from Jupyter notebooks) that served as an early draft for the second edition of the text. 
       
-## Notes
+### Notes
 
-### Chapter 2: Zero order / derivative free optimization
+#### Chapter 2: Zero order / derivative free optimization
 
 [2.1  Introduction](https://jermwatt.github.io/mlrefined/notes/2_Zero_order_methods/2_1_Introduction.html)  
 [2.2 Zero order optimiality conditions](https://jermwatt.github.io/mlrefined/notes/2_Zero_order_methods/2_2_Zero.html)  
@@ -12,7 +12,7 @@ This repository contains supplementary Python files associated the texbook [Mach
 [2.4 Local optimization techniques](https://jermwatt.github.io/mlrefined/notes/2_Zero_order_methods/2_4_Local.html)   
 [2.5 Random search methods](https://jermwatt.github.io/mlrefined/notes/2_Zero_order_methods/2_5_Random.html)
  
-### Chapter 3: First order optimization methods
+#### Chapter 3: First order optimization methods
 
 [3.1 Introduction](https://jermwatt.github.io/mlrefined/notes/3_First_order_methods/3_1_Introduction.html)  
 [3.2 The first order optimzliaty condition](https://jermwatt.github.io/mlrefined/notes/3_First_order_methods/3_2_First.html)       
