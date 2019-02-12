@@ -1,4 +1,4 @@
-## Machine Learning Refined: Notes, exercises, and Jupyter notebooks &nbsp;&nbsp;&nbsp;&nbsp; [![Tweet](https://img.shields.io/twitter/url/http/shields.io.svg?style=social)](https://twitter.com/intent/tweet?text=Machine%20Learning%20Refined:%20notes,%20exercises,%20and%20Jupyter%20notebooks%20&url=https://github.com/jermwatt/mlrefined)
+## Machine Learning Refined: Notes, exercises, and Jupyter notebooks &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [![Tweet](https://img.shields.io/twitter/url/http/shields.io.svg?style=social)](https://twitter.com/intent/tweet?text=Machine%20Learning%20Refined:%20notes,%20exercises,%20and%20Jupyter%20notebooks%20&url=https://github.com/jermwatt/mlrefined)
 
 This repository contains supplementary Python files associated the texbook [Machine Learning Refined](http://www.mlrefined.com) published by Cambridge University Press, as well as a set of interactive notes (made from Jupyter notebooks) that served as an early draft for the second edition of the text. 
       
