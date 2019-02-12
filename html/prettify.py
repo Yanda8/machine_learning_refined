@@ -104,11 +104,8 @@ script_1 = '''
 </div>
 
 <br><br>
-
 <div class="page-title" style="text-align: center !important;">
-	<span style="color: #333; font-size: 40%; letter-spacing: 3px;">
-		<span style="font-size: 80%;">&#x25BA; </span><a target="_blank" href="https://github.com/jermwatt/mlrefined" style="color: black; cursor: pointer; text-transform: uppercase; font-weight:bold;">'''+ series + '''</a>
-	</span>
+<div><a href="https://github.com/jermwatt/mlrefined" style="text-decoration: none" target="_blank"><button class="btn-star">★ Our Project On GitHub</button></a></div>
 	<br><br>
 	<mark style="padding: 0px; background-color: #f9f3c2;">'''+ page_title +'''</mark>
 </div>
